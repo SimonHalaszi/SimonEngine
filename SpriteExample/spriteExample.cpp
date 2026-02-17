@@ -4,9 +4,11 @@
 #include <stdio.h>
 #include <math.h>
 #include <IrrKlang/irrKlang.h>
+#include <unordered_map>
 
 #include <vector>
 #include <iostream>
+#include <string>
 using namespace irrklang;
 
 #define WIN_X 100
@@ -17,23 +19,24 @@ using namespace irrklang;
 // Creates sound engine
 ISoundEngine* SoundEngine = createIrrKlangDevice();
 
-int numFrames = 6; // Number of frames in the animation sequence.
-GLuint texID[6]; // Texture ID's for the four textures.
+static std::unordered_map<std::string, GLuint> textureMap;
 
-std::vector<char*> textureFileNames = {	// File names for the files from which texture images are loaded
-	(char*)"sprite/BillsGuy1.png",
-	(char*)"sprite/BillsGuy2.png",
-	(char*)"sprite/BillsGuy3.png",
-	(char*)"sprite/BillsGuy4.png",
-	(char*)"sprite/BillsGuy5.png",
-	(char*)"sprite/BillsGuy6.png"
+std::vector<std::string> playerAnimationTextureFilePaths = {	// File names for the files from which texture images are loaded
+	"sprite/BillsGuy1.png",
+	"sprite/BillsGuy2.png",
+	"sprite/BillsGuy3.png",
+	"sprite/BillsGuy4.png",
+	"sprite/BillsGuy5.png",
+	"sprite/BillsGuy6.png"
 };
 
-std::vector<char*> audioTracks = {
-	(char*)"audio/CBS.mp3",
-	(char*)"audio/FOX.mp3",
-	(char*)"audio/NBC.mp3"
+std::vector<std::string> audioTracks = {
+	"audio/CBS.mp3",
+	"audio/FOX.mp3",
+	"audio/NBC.mp3"
 };
+
+std::vector<GLuint> playerAnimationTextures;
 
 struct ColorRGB {
 	float red;
@@ -46,11 +49,23 @@ struct PositionXY {
 	float y;
 };
 
-// Global Program Variables
-	int frame = 0;
+struct SubTexture {
+	float u0;
+	float u1;
+	float v0;
+	float v1;
+};
 
-	ColorRGB squareColor = { 1, 0, 0 };
-	ColorRGB triangleColor = { 0, 1, 0 };
+std::vector<SubTexture> runningTiles;
+std::string runningTileMap = "sprite/BillsGuy-sheet.png";
+
+// Global Program Variables
+	GLuint frame = 0;
+
+	ColorRGB squareColor1 = { 1, 0, 0 };
+	ColorRGB squareColor2 = { 1, 0.8, 0.2 };
+	ColorRGB triangleColor1 = { 0.0, 1, 0.0 };
+	ColorRGB triangleColor2 = { 0.2, 1, 0.8 };
 
 	// Player Variables
 	PositionXY playerPos = { 0, 0 };
@@ -75,7 +90,7 @@ struct PositionXY {
 
 	// Update Variables
 	int animationUpdatesPerSecond = 15;
-	int physicsUpdatesPerSecond = 60;
+	int physicsUpdatesPerSecond = 120;
 
 
 void init(void) {
@@ -85,7 +100,7 @@ void init(void) {
 	glLoadIdentity();
 	glOrtho(-1.0, 1.0, -1.0, 1.0, -1.0, 1.0);
 
-	SoundEngine->play2D(audioTracks[currentAudioTrack], true);
+	SoundEngine->play2D(audioTracks[currentAudioTrack].data(), true);
 }
 
 // Function for drawing squares given a PositionXY, a size (float), and 4 ColorRGB for the vertices
@@ -136,7 +151,7 @@ void drawTriangle(PositionXY pos, float size, float angle = 0, ColorRGB c1 = {1,
 }
 
 // Function for drawing a sprite to a square given a PositionXY, a size (float), and a GLuint TextureID
-void drawSprite(PositionXY pos, float size, float angle, bool mirror, GLuint textureID) {
+void drawSprite(PositionXY pos, float size, float angle, bool mirror, GLuint textureID, SubTexture subTexture) {
 	glPushMatrix();
 
 	glTranslatef(pos.x, pos.y, 0.0f);   // Move to triangle position
@@ -156,13 +171,13 @@ void drawSprite(PositionXY pos, float size, float angle, bool mirror, GLuint tex
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
 		glBegin(GL_POLYGON);
-		glTexCoord2f(0.0, 0.0);
+		glTexCoord2f(subTexture.u0, subTexture.v0);
 		glVertex3f(-size, -size, 0);
-		glTexCoord2f(1.0, 0.0);
+		glTexCoord2f(subTexture.u1, subTexture.v0);
 		glVertex3f(size, -size, 0);
-		glTexCoord2f(1.0, 1.0);
+		glTexCoord2f(subTexture.u1, subTexture.v1);
 		glVertex3f(size, size, 0);
-		glTexCoord2f(0.0, 1.0);
+		glTexCoord2f(subTexture.u0, subTexture.v1);
 		glVertex3f(-size, size, 0);
 
 	glEnd();
@@ -292,54 +307,93 @@ void procMouse(int button, int state, int x, int y) {
 	}
 
 	if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN) {
-		std::swap(squareColor, triangleColor);
+		std::swap(squareColor1, triangleColor1);
+		std::swap(squareColor2, triangleColor2);
 	}
 
 	if (button == GLUT_RIGHT_BUTTON && state == GLUT_DOWN) {
 		SoundEngine->removeAllSoundSources();
 		currentAudioTrack += 1;
 		currentAudioTrack = currentAudioTrack % audioTracks.size();
-		SoundEngine->play2D(audioTracks[currentAudioTrack], true);
+		SoundEngine->play2D(audioTracks[currentAudioTrack].data(), true);
 	}
 
 }
 
-void loadTextures() {
-	int i;
-	glGenTextures(numFrames, texID); // Get the texture object IDs.
-	for (i = 0; i < numFrames; i++) {
-		void* imgData; // Pointer to image color data read from the file.
-		int imgWidth; // The width of the image that was read.
-		int imgHeight; // The height.
-		FREE_IMAGE_FORMAT format = FreeImage_GetFIFFromFilename(textureFileNames[i]);
-		if (format == FIF_UNKNOWN) {
-			printf("Unknown file type for texture image file %s\n", textureFileNames[i]);
-			continue;
+// Changed to load one texture at a time given a filepath, adds to global registry, also returns id
+GLuint loadTexture(std::string filepath) {
+	auto it = textureMap.find(filepath);
+	if (it != textureMap.end()) {
+		std::cout << "Texture already loaded from file  " << filepath << std::endl;
+		return it->second;
+	}
+	
+	GLuint texID;
+	glGenTextures(1, &texID);
+
+	void* imgData; // Pointer to image color data read from the file.
+	int imgWidth; // The width of the image that was read.
+	int imgHeight; // The height.
+	FREE_IMAGE_FORMAT format = FreeImage_GetFIFFromFilename(filepath.c_str());
+	if (format == FIF_UNKNOWN) {
+		std::cout << "Unknown file type for texture image file " << filepath << std::endl;
+		return 0;
+	}
+	FIBITMAP* bitmap = FreeImage_Load(format, filepath.c_str(), 0); // Read image from file.
+	if (!bitmap) {
+		std::cout << "Failed to load image " << filepath << std::endl;
+		return 0;
+	}
+	FIBITMAP* bitmap2 = FreeImage_ConvertTo32Bits(bitmap); // Convert to RGB or BGR format
+	FreeImage_Unload(bitmap);
+	imgData = FreeImage_GetBits(bitmap2); // Grab the data we need from the bitmap.
+	imgWidth = FreeImage_GetWidth(bitmap2);
+	imgHeight = FreeImage_GetHeight(bitmap2);
+	if (imgData) {
+		#ifndef GL_BGRA
+		#define GL_BGRA 0x80E1
+		#endif
+
+		std::cout << "Texture image loaded from file " << filepath << " " << imgWidth << " X " << imgHeight << std::endl;
+		glBindTexture(GL_TEXTURE_2D, texID); // Will load image data into texture object #i
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, imgWidth, imgHeight, 0, GL_BGRA,
+			GL_UNSIGNED_BYTE, imgData);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR); // Required since there are no mipmaps.
+		glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
+	}
+	else {
+		std::cout << "Failed to get texture data from " << filepath << std::endl;
+	} 
+
+	// Get added to textureMap registry
+	textureMap[filepath] = texID;
+	// Also returned
+	return texID;
+}
+
+// Makes a vector of subTexture coordinates
+// That is takes the texture from texID, ta
+std::vector<SubTexture> tileTexture(GLuint texID, int tilesWide, int tilesTall, PositionXY start, PositionXY end) {
+	std::vector<SubTexture> tiles;
+
+	for (int y = start.y; y < end.y; ++y) {
+		for (int x = start.x; x < end.x; ++x) {
+			SubTexture temp;
+
+			// Compute normalized UVs directly
+			temp.u0 = x / (float)tilesWide;
+			temp.u1 = (x + 1) / (float)tilesWide;
+
+			// flip Y so top-left = (0,0)
+			temp.v1 = 1.0f - y / (float)tilesTall;        // top
+			temp.v0 = 1.0f - (y + 1) / (float)tilesTall;  // bottom
+
+			tiles.push_back(temp);
 		}
-		FIBITMAP* bitmap = FreeImage_Load(format, textureFileNames[i], 0); // Read image from file.
-		if (!bitmap) {
-			printf("Failed to load image %s\n", textureFileNames[i]);
-			continue;
-		}
-		FIBITMAP* bitmap2 = FreeImage_ConvertTo24Bits(bitmap); // Convert to RGB or BGR format
-		FreeImage_Unload(bitmap);
-		imgData = FreeImage_GetBits(bitmap2); // Grab the data we need from the bitmap.
-		imgWidth = FreeImage_GetWidth(bitmap2);
-		imgHeight = FreeImage_GetHeight(bitmap2);
-		if (imgData) {
-			printf("Texture image loaded from file %s, size %dx%d\n",
-				textureFileNames[i], imgWidth, imgHeight);
-			glBindTexture(GL_TEXTURE_2D, texID[i]); // Will load image data into texture object #i
-			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, imgWidth, imgHeight, 0, GL_BGR_EXT,
-				GL_UNSIGNED_BYTE, imgData);
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR); // Required since there are no mipmaps.
-			glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
-		}
-		else {
-			printf("Failed to get texture data from %s\n", textureFileNames[i]);
-		} // end of else
-	} // end of for loop
-} // end of LoadTextures()
+	}
+
+	return tiles;
+}
 
 void setupInputs() {
 	glutSpecialFunc(procSpecialKeys);
@@ -385,7 +439,7 @@ void timer(int v)
 {
 	frame++;
 
-	if (frame >= numFrames) {
+	if (frame >= 6) {
 		frame = 0;
 	}
 
@@ -400,10 +454,14 @@ void draw() {
 
 		glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
 
-		drawSprite(playerPos, 0.25, 0, mirrorPlayer, texID[frame]);
+		// Traditional running loop
+		drawSprite(playerPos, 0.25, 0, mirrorPlayer, playerAnimationTextures[frame], {0.0f, 1.0f, .0f, 1.0f});
 
-		drawSquare({ 0.5, 0 }, 0.1, -15, squareColor, squareColor, squareColor, squareColor);
-		drawTriangle({ -0.5, 0 }, 0.1, 45, triangleColor, triangleColor, triangleColor);
+		// Using tile sheet
+		drawSprite({0.5, 0.5}, 0.1, 0, false, textureMap[runningTileMap], runningTiles[frame]);
+
+		drawSquare({ 0.5, 0 }, 0.1, -15, squareColor1, squareColor2, squareColor1, squareColor2);
+		drawTriangle({ -0.5, 0 }, 0.1, 45, triangleColor1, triangleColor1, triangleColor2);
 
 		// Draw X and Y axes at orgin of square if wanted
 		if (drawAxes) {
@@ -419,14 +477,26 @@ void draw() {
 
 int main(int argc, char** argv) {
 	glutInit(&argc, argv);
-	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB); // RGB mode, DOUBLE needed to actually clear the screen
+	glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE); // RGB mode
 	glutInitWindowSize(WIN_W, WIN_H); // window size
 	glutInitWindowPosition(WIN_X, WIN_Y);
 	glutCreateWindow("Simon Halaszi 811196947");
 
 	init();
 
-	loadTextures();
+	// Loading in all playerAnimationTextures into the vector
+	for (auto str : playerAnimationTextureFilePaths) {
+		GLuint id = loadTexture(str);
+		if(id){
+			playerAnimationTextures.push_back(id);
+		}
+	}
+
+	loadTexture("sprite/BillsGuy-sheet.png");
+
+	runningTiles = tileTexture(textureMap[runningTileMap], 6, 1, {0, 0}, {6, 1});
+
+	loadTexture(playerAnimationTextureFilePaths[0]); // Just to throw the already loaded error I added
 
 	setupInputs();
 
@@ -436,5 +506,6 @@ int main(int argc, char** argv) {
 	glutTimerFunc(0, update, 0); // Updates
 
 	glutMainLoop();
+
 	return 0;
 }

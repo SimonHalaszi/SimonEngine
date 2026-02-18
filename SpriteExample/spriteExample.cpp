@@ -16,26 +16,6 @@ using namespace irrklang;
 #define WIN_H 600 // in pixels
 #define WIN_W 600
 
-// Creates sound engine
-ISoundEngine* SoundEngine = createIrrKlangDevice();
-
-static std::unordered_map<std::string, GLuint> textureMap;
-
-std::vector<std::string> playerAnimationTextureFilePaths = {	// File names for the files from which texture images are loaded
-	"sprite/BillsGuy1.png",
-	"sprite/BillsGuy2.png",
-	"sprite/BillsGuy3.png",
-	"sprite/BillsGuy4.png",
-	"sprite/BillsGuy5.png",
-	"sprite/BillsGuy6.png"
-};
-
-std::vector<std::string> audioTracks = {
-	"audio/CBS.mp3",
-	"audio/FOX.mp3",
-	"audio/NBC.mp3"
-};
-
 std::vector<GLuint> playerAnimationTextures;
 
 struct ColorRGB {
@@ -49,6 +29,7 @@ struct PositionXY {
 	float y;
 };
 
+// Used for tiling textures
 struct SubTexture {
 	float u0;
 	float u1;
@@ -56,16 +37,16 @@ struct SubTexture {
 	float v1;
 };
 
-std::vector<SubTexture> runningTiles;
-std::string runningTileMap = "sprite/BillsGuy-sheet.png";
-
 // Global Program Variables
-	GLuint frame = 0;
+	unsigned int frame = 0;
 
 	ColorRGB squareColor1 = { 1, 0, 0 };
 	ColorRGB squareColor2 = { 1, 0.8, 0.2 };
 	ColorRGB triangleColor1 = { 0.0, 1, 0.0 };
 	ColorRGB triangleColor2 = { 0.2, 1, 0.8 };
+
+	float squareRotation = 0;
+	float triangleRotation = 0;
 
 	// Player Variables
 	PositionXY playerPos = { 0, 0 };
@@ -90,13 +71,44 @@ std::string runningTileMap = "sprite/BillsGuy-sheet.png";
 
 	// Update Variables
 	int animationUpdatesPerSecond = 15;
-	int physicsUpdatesPerSecond = 120;
+	int physicsUpdatesPerSecond = 244;
 
+	// Vectors and Filepaths used for demonstrating tiling and subtexture system
+	std::vector<SubTexture> runningTilesBills;
+	std::string runningTilesBillsFilepath = "sprite/BillsGuy-sheet.png";
+
+	std::vector<SubTexture> runningTilesBrowns;
+	std::string runningTilesBrownsFilepath = "sprite/TwoGuys-sheet.png";
+
+	SubTexture billsTile;
+	SubTexture brownsTile;
+
+	// Creates sound engine
+	ISoundEngine* SoundEngine = createIrrKlangDevice();
+
+	static std::unordered_map<std::string, GLuint> textureMap;
+
+	std::vector<std::string> playerAnimationTextureFilePaths = {	// File names for the files from which texture images are loaded
+		"sprite/BillsGuy1.png",
+		"sprite/BillsGuy2.png",
+		"sprite/BillsGuy3.png",
+		"sprite/BillsGuy4.png",
+		"sprite/BillsGuy5.png",
+		"sprite/BillsGuy6.png"
+	};
+
+	std::vector<std::string> audioTracks = {
+		"audio/CBS.mp3",
+		"audio/FOX.mp3",
+		"audio/NBC.mp3"
+	};
 
 void init(void) {
 
 	glClearColor(0.0, 0.0, 0.0, 1.0); // clear the window screen
 	glMatrixMode(GL_PROJECTION);
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glLoadIdentity();
 	glOrtho(-1.0, 1.0, -1.0, 1.0, -1.0, 1.0);
 
@@ -150,8 +162,8 @@ void drawTriangle(PositionXY pos, float size, float angle = 0, ColorRGB c1 = {1,
 	glPopMatrix();
 }
 
-// Function for drawing a sprite to a square given a PositionXY, a size (float), and a GLuint TextureID
-void drawSprite(PositionXY pos, float size, float angle, bool mirror, GLuint textureID, SubTexture subTexture) {
+// Function for drawing a sprite given a PositionXY, a size (float), and a GLuint TextureID, and an optional SubTexture for tiling
+void drawSprite(PositionXY pos, float size, float angle, bool mirror, bool flip, GLuint textureID, SubTexture subTexture = { 0.0f, 1.0f, 0.0f, 1.0f }) {
 	glPushMatrix();
 
 	glTranslatef(pos.x, pos.y, 0.0f);   // Move to triangle position
@@ -159,6 +171,10 @@ void drawSprite(PositionXY pos, float size, float angle, bool mirror, GLuint tex
 
 	if (mirror) {
 		glScalef(-1.0f, 1.0f, 1.0f);
+	}
+
+	if (flip) {
+		glScalef(1.0f, -1.0f, 1.0f);
 	}
 
 	glEnable(GL_TEXTURE_2D); // Enable texturing
@@ -320,16 +336,14 @@ void procMouse(int button, int state, int x, int y) {
 
 }
 
-// Changed to load one texture at a time given a filepath, adds to global registry, also returns id
+// Changed to load one texture at a time given a string filepath, adds to global registry, also returns id
+// Also fixed to support the alpha channel, and handle the RGBA to BGRA conversion that FreeImage doesnt do by default
 GLuint loadTexture(std::string filepath) {
 	auto it = textureMap.find(filepath);
 	if (it != textureMap.end()) {
 		std::cout << "Texture already loaded from file  " << filepath << std::endl;
 		return it->second;
 	}
-	
-	GLuint texID;
-	glGenTextures(1, &texID);
 
 	void* imgData; // Pointer to image color data read from the file.
 	int imgWidth; // The width of the image that was read.
@@ -339,31 +353,46 @@ GLuint loadTexture(std::string filepath) {
 		std::cout << "Unknown file type for texture image file " << filepath << std::endl;
 		return 0;
 	}
-	FIBITMAP* bitmap = FreeImage_Load(format, filepath.c_str(), 0); // Read image from file.
-	if (!bitmap) {
+	FIBITMAP* imageFile = FreeImage_Load(format, filepath.c_str(), 0); // Read image from file.
+	if (!imageFile) {
 		std::cout << "Failed to load image " << filepath << std::endl;
 		return 0;
 	}
-	FIBITMAP* bitmap2 = FreeImage_ConvertTo32Bits(bitmap); // Convert to RGB or BGR format
-	FreeImage_Unload(bitmap);
-	imgData = FreeImage_GetBits(bitmap2); // Grab the data we need from the bitmap.
-	imgWidth = FreeImage_GetWidth(bitmap2);
-	imgHeight = FreeImage_GetHeight(bitmap2);
-	if (imgData) {
-		#ifndef GL_BGRA
-		#define GL_BGRA 0x80E1
-		#endif
+	
+	FIBITMAP* image32bit = FreeImage_ConvertTo32Bits(imageFile);
+	FreeImage_Unload(imageFile);
 
-		std::cout << "Texture image loaded from file " << filepath << " " << imgWidth << " X " << imgHeight << std::endl;
-		glBindTexture(GL_TEXTURE_2D, texID); // Will load image data into texture object #i
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, imgWidth, imgHeight, 0, GL_BGRA,
-			GL_UNSIGNED_BYTE, imgData);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR); // Required since there are no mipmaps.
+	int width = FreeImage_GetWidth(image32bit);
+	int height = FreeImage_GetHeight(image32bit);
+
+	BYTE* pixels = FreeImage_GetBits(image32bit); // Internal pixel data of image32bit
+
+	// Annoyingly FreeImage does not user the same RGBA like our version of OpenGL, so the channels need swapped
+	for (int i = 0; i < width * height; ++i) {
+		BYTE* p = pixels + i * 4;
+		std::swap(p[0], p[2]);
+	}
+
+	GLuint texID;
+	glGenTextures(1, &texID);
+
+	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+	glBindTexture(GL_TEXTURE_2D, texID);
+
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, pixels);
+
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	
+	if (pixels) {
+		std::cout << "Texture image loaded from file " << filepath << " " << width << " X " << height << std::endl;
+		
 		glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
 	}
 	else {
 		std::cout << "Failed to get texture data from " << filepath << std::endl;
 	} 
+
+	FreeImage_Unload(image32bit); // Also cleans up pixels
 
 	// Get added to textureMap registry
 	textureMap[filepath] = texID;
@@ -372,27 +401,46 @@ GLuint loadTexture(std::string filepath) {
 }
 
 // Makes a vector of subTexture coordinates
-// That is takes the texture from texID, ta
-std::vector<SubTexture> tileTexture(GLuint texID, int tilesWide, int tilesTall, PositionXY start, PositionXY end) {
+// That is takes the texture from texID, how much tiles it is wide and tall, and the tile you want to start at and end at
+// You will get all tiles including startTile to including endTile. Not a half open range.
+std::vector<SubTexture> tileTexture(GLuint texID, int tilesWide, int tilesTall, PositionXY startTile, PositionXY endTile) {
 	std::vector<SubTexture> tiles;
 
-	for (int y = start.y; y < end.y; ++y) {
-		for (int x = start.x; x < end.x; ++x) {
+	// Go through texture a tile at a time from starTile to and including endTile
+	for (int y = startTile.y; y <= endTile.y; ++y) {
+		for (int x = startTile.x; x <= endTile.x; ++x) {
 			SubTexture temp;
 
-			// Compute normalized UVs directly
-			temp.u0 = x / (float)tilesWide;
-			temp.u1 = (x + 1) / (float)tilesWide;
+			// Calculating the left and right U texture coordinates
+			temp.u0 =	x				/ (float)tilesWide;
+			temp.u1 =	(x + 1)			/ (float)tilesWide;
 
-			// flip Y so top-left = (0,0)
-			temp.v1 = 1.0f - y / (float)tilesTall;        // top
-			temp.v0 = 1.0f - (y + 1) / (float)tilesTall;  // bottom
+			// Calculating the top and bottom V texture coordinates
+			temp.v1 =	1.0f - y		/ (float)tilesTall;
+			temp.v0 =	1.0f - (y + 1)	/ (float)tilesTall;
 
+			// Add these tile coordinates
 			tiles.push_back(temp);
 		}
 	}
 
 	return tiles;
+}
+
+// Same thing but a singular tile
+SubTexture tileTexture(GLuint texID, int tilesWide, int tilesTall, PositionXY tile) {
+	// Go through texture a tile at a time from starTile to and including endTile
+	SubTexture temp;
+
+	// Calculating the left and right U texture coordinates
+	temp.u0 = tile.x / (float)tilesWide;
+	temp.u1 = (tile.x + 1) / (float)tilesWide;
+
+	// Calculating the top and bottom V texture coordinates
+	temp.v1 = 1.0f - tile.y / (float)tilesTall;
+	temp.v0 = 1.0f - (tile.y + 1) / (float)tilesTall;
+
+	return temp;
 }
 
 void setupInputs() {
@@ -430,6 +478,16 @@ void update(int v) {
 	playerPos.x += moveX;
 	playerPos.y += moveY;
 
+	squareRotation += 100 * deltaTime;
+	if(squareRotation >= 360){
+		squareRotation = 0;
+	}
+
+	triangleRotation += -100 * deltaTime;
+	if (triangleRotation <= -360) {
+		triangleRotation = 0;
+	}
+
 	glutTimerFunc(int(1000 * deltaTime), update, v); // Updates
 
 	updateCamera();
@@ -437,11 +495,7 @@ void update(int v) {
 
 void timer(int v)
 {
-	frame++;
-
-	if (frame >= 6) {
-		frame = 0;
-	}
+	frame++; // Changed to an unsigned int, animation vectors will handle their own looping
 
 	glutPostRedisplay();
 	glutTimerFunc(int(1000 / animationUpdatesPerSecond), timer, v); // Creates a frame delay that is counted in miliseconds
@@ -454,14 +508,20 @@ void draw() {
 
 		glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
 
-		// Traditional running loop
-		drawSprite(playerPos, 0.25, 0, mirrorPlayer, playerAnimationTextures[frame], {0.0f, 1.0f, .0f, 1.0f});
+		// Drawing a normal sprite
+		drawSprite(playerPos, 0.25, 0, mirrorPlayer, false, playerAnimationTextures[frame % runningTilesBills.size()]);
 
-		// Using tile sheet
-		drawSprite({0.5, 0.5}, 0.1, 0, false, textureMap[runningTileMap], runningTiles[frame]);
+		// Drawing a SubTexture'd sprite 
+		drawSprite({ 0.5, -0.5 }, 0.1, 0, false, true, textureMap[runningTilesBillsFilepath], billsTile);
+		drawSprite({ -0.5, 0.5 }, 0.1, 0, true, false, textureMap[runningTilesBrownsFilepath], brownsTile);
 
-		drawSquare({ 0.5, 0 }, 0.1, -15, squareColor1, squareColor2, squareColor1, squareColor2);
-		drawTriangle({ -0.5, 0 }, 0.1, 45, triangleColor1, triangleColor1, triangleColor2);
+		// Drawing a vector of SubTexture'd sprites
+		drawSprite({0.5, 0.5}, 0.1, 0, false, false, textureMap[runningTilesBillsFilepath], runningTilesBills[frame % runningTilesBills.size()]);
+		drawSprite({ -0.5, -0.5 }, 0.1, 0, true, true, textureMap[runningTilesBrownsFilepath], runningTilesBrowns[frame % runningTilesBrowns.size()]);
+
+
+		drawSquare({ 0.5, 0 }, 0.1, squareRotation, squareColor1, squareColor2, squareColor1, squareColor2);
+		drawTriangle({ -0.5, 0 }, 0.1, triangleRotation, triangleColor1, triangleColor1, triangleColor2);
 
 		// Draw X and Y axes at orgin of square if wanted
 		if (drawAxes) {
@@ -477,14 +537,14 @@ void draw() {
 
 int main(int argc, char** argv) {
 	glutInit(&argc, argv);
-	glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE); // RGB mode
+	glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE); // RGB mode, added GLUT Double for double buffering, so that screen clearing works
 	glutInitWindowSize(WIN_W, WIN_H); // window size
 	glutInitWindowPosition(WIN_X, WIN_Y);
 	glutCreateWindow("Simon Halaszi 811196947");
 
 	init();
 
-	// Loading in all playerAnimationTextures into the vector
+	// Loading in all playerAnimationTextures into a vector
 	for (auto str : playerAnimationTextureFilePaths) {
 		GLuint id = loadTexture(str);
 		if(id){
@@ -492,9 +552,22 @@ int main(int argc, char** argv) {
 		}
 	}
 
-	loadTexture("sprite/BillsGuy-sheet.png");
+	// Loading sprite sheets
+	loadTexture(runningTilesBillsFilepath);
+	loadTexture(runningTilesBrownsFilepath);
 
-	runningTiles = tileTexture(textureMap[runningTileMap], 6, 1, {0, 0}, {6, 1});
+	// First example of my texture tiling for sprite sheets
+	runningTilesBills = tileTexture(textureMap[runningTilesBillsFilepath], 6, 1, {0, 0}, {5, 0});
+	std::cout << runningTilesBills.size() << std::endl;
+	
+	// See how this sprite sheet is layed out.
+	// It goes from left to right and gets cells (0,2) to (2,2) despite them being on differing rows and past some others
+	runningTilesBrowns = tileTexture(textureMap[runningTilesBrownsFilepath], 3, 4, { 0, 2 }, { 2, 3 });
+	std::cout << runningTilesBrowns.size() << std::endl;
+
+	// Getting a singular tile
+	billsTile = tileTexture(textureMap[runningTilesBillsFilepath], 6, 1, { 0, 0 });
+	brownsTile = tileTexture(textureMap[runningTilesBrownsFilepath], 3, 4, { 0, 2 });
 
 	loadTexture(playerAnimationTextureFilePaths[0]); // Just to throw the already loaded error I added
 

@@ -70,7 +70,7 @@ struct SubTexture {
 	int currentAudioTrack = 0;
 
 	// Update Variables
-	int animationUpdatesPerSecond = 15;
+	int animationUpdatesPerSecond = 10;
 	int physicsUpdatesPerSecond = 244;
 
 	// Vectors and Filepaths used for demonstrating tiling and subtexture system
@@ -367,7 +367,7 @@ GLuint loadTexture(std::string filepath) {
 
 	BYTE* pixels = FreeImage_GetBits(image32bit); // Internal pixel data of image32bit
 
-	// Annoyingly FreeImage does not user the same RGBA like our version of OpenGL, so the channels need swapped
+	// Annoyingly... FreeImage does not use the same RGBA like our version of OpenGL, so the channels need swapped
 	for (int i = 0; i < width * height; ++i) {
 		BYTE* p = pixels + i * 4;
 		std::swap(p[0], p[2]);
@@ -424,6 +424,8 @@ std::vector<SubTexture> tileTexture(GLuint texID, int tilesWide, int tilesTall, 
 		}
 	}
 
+	std::cout << "Created " << tiles.size() << " SubTexture tiles." << std::endl;
+
 	return tiles;
 }
 
@@ -478,26 +480,26 @@ void update(int v) {
 	playerPos.x += moveX;
 	playerPos.y += moveY;
 
-	squareRotation += 100 * deltaTime;
+	squareRotation += 10 * deltaTime;
 	if(squareRotation >= 360){
 		squareRotation = 0;
 	}
 
-	triangleRotation += -100 * deltaTime;
+	triangleRotation += -10 * deltaTime;
 	if (triangleRotation <= -360) {
 		triangleRotation = 0;
 	}
 
-	glutTimerFunc(int(1000 * deltaTime), update, v); // Updates
-
 	updateCamera();
+	
+	glutPostRedisplay(); // Redisplay every physics update
+	glutTimerFunc(int(1000 * deltaTime), update, v); // Updatess
 }
 
 void timer(int v)
 {
 	frame++; // Changed to an unsigned int, animation vectors will handle their own looping
 
-	glutPostRedisplay();
 	glutTimerFunc(int(1000 / animationUpdatesPerSecond), timer, v); // Creates a frame delay that is counted in miliseconds
 }
 
@@ -540,7 +542,7 @@ int main(int argc, char** argv) {
 	glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE); // RGB mode, added GLUT Double for double buffering, so that screen clearing works
 	glutInitWindowSize(WIN_W, WIN_H); // window size
 	glutInitWindowPosition(WIN_X, WIN_Y);
-	glutCreateWindow("Simon Halaszi 811196947");
+	glutCreateWindow("(Simon Halaszi) (811196947)");
 
 	init();
 
@@ -558,12 +560,10 @@ int main(int argc, char** argv) {
 
 	// First example of my texture tiling for sprite sheets
 	runningTilesBills = tileTexture(textureMap[runningTilesBillsFilepath], 6, 1, {0, 0}, {5, 0});
-	std::cout << runningTilesBills.size() << std::endl;
 	
 	// See how this sprite sheet is layed out.
 	// It goes from left to right and gets cells (0,2) to (2,2) despite them being on differing rows and past some others
 	runningTilesBrowns = tileTexture(textureMap[runningTilesBrownsFilepath], 3, 4, { 0, 2 }, { 2, 3 });
-	std::cout << runningTilesBrowns.size() << std::endl;
 
 	// Getting a singular tile
 	billsTile = tileTexture(textureMap[runningTilesBillsFilepath], 6, 1, { 0, 0 });

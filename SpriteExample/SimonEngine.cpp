@@ -575,8 +575,8 @@ int main(int argc, char** argv) {
 
 	glutDisplayFunc(draw); // call the drawing function
 
-	glutTimerFunc(0, timer, 0);
-	glutTimerFunc(0, update, 0); // Updates
+	glutTimerFunc(0, timer, 0);  // Animation Updates
+	glutTimerFunc(0, update, 0); // Physics Updates
 
 	glutMainLoop();
 

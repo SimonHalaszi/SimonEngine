@@ -8,19 +8,19 @@ struct ColorRGB {
 	float blue;
 };
 
-// Used for inputting textures positions in draw functions
+// Used for inputting positions in draw functions
 struct PositionXY {
 	float x;
 	float y;
 };
 
-// Used for inputting TileIndex info (Could use PositionXY but I think its cleaner to do this)
+// Used for sprite creation
 struct TileIndex {
 	int x;
 	int y;
 };
 
-// Used for tile textures
+// Used for partitioning a texture for sprites
 struct SubTexture {
 	float u0;
 	float u1;

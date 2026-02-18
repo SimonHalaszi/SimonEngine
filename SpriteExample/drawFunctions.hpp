@@ -1,14 +1,15 @@
-#ifndef DRAWFUNCTIONS_HPP
-#define DRAWFUNTION_HPP
+#ifndef DRAW_FUNCTIONS_HPP
+#define DRAW_FUNCTIONS_HPP
 
 #include <GL/glut.h>
 #include <GL/freeglut.h>
 
 #include <iostream>
 
-#include "utilities.hpp"
+#include "Utilities.hpp"
+#include "Sprite.hpp"
 
-// Function for drawing squares given a PositionXY, a size (float), and 4 ColorRGB for the vertices
+// Drawing a square
 void drawSquare(
 	PositionXY pos, 
 	float size, 
@@ -21,7 +22,7 @@ void drawSquare(
 	ColorRGB c4 = { 1.0f, 1.0f, 1.0f }
 );
 
-// Function for drawing triangles given a PositionXY, a size (float), and 3 ColorRGB for the vertices
+// Drawing a triangle
 void drawTriangle(
 	PositionXY pos, 
 	float size, 
@@ -33,17 +34,27 @@ void drawTriangle(
 	ColorRGB c3 = { 1.0f, 1.0f, 1.0f }
 );
 
-// Function for drawing a sprite given a PositionXY, a size (float), and a GLuint TextureID, and an optional SubTexture for tiling
-void drawSprite(
+// Drawing an image
+void drawImage(
 	PositionXY pos, 
 	float size, 
 	float angle, 
 	bool mirror, 
 	bool flip, 
-	GLuint textureID, 
-	SubTexture subTexture = { 0.0f, 1.0f, 0.0f, 1.0f }
+	GLuint textureID
 );
 
+// Drawing a sprite
+void drawSprite(
+	PositionXY pos,
+	float size,
+	float angle,
+	bool mirror,
+	bool flip,
+	Sprite sprite
+);
+
+// Drawing a line
 void drawLine(
 	PositionXY pos1, 
 	PositionXY pos2, 
@@ -51,6 +62,7 @@ void drawLine(
 	ColorRGB c2
 );
 
+// Drawing an axis
 void drawAxis(
 	PositionXY pos1, 
 	PositionXY pos2, 

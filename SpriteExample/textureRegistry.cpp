@@ -1,13 +1,13 @@
-#include "textureRegistry.hpp"
+#include "TextureRegistry.hpp"
 
-std::unordered_map<std::string, GLuint> TextureRegistry::textureMap = {};
+std::unordered_map<std::string, GLuint> TextureRegistry::textureMap_ = {};
 
 // Changed to load one texture at a time given a string filepath, adds to global registry, also returns id
 // Also fixed to support the alpha channel, and handle the RGBA to BGRA conversion that FreeImage doesnt do by default
 GLuint TextureRegistry::loadTexture(std::string filepath) {
-	auto it = textureMap.find(filepath);
-	if (it != textureMap.end()) {
-		std::cout << "TextureRegistry::loadTexture : Texture already loaded from file  " << filepath << std::endl;
+	auto it = textureMap_.find(filepath);
+	if (it != textureMap_.end()) {
+		std::cout << "TextureRegistry::loadTexture : Will not create two textures with the same name try a different name instead of " << filepath << std::endl;
 		return it->second;
 	}
 
@@ -62,33 +62,33 @@ GLuint TextureRegistry::loadTexture(std::string filepath) {
 	FreeImage_Unload(image32bit); // Also cleans up pixels
 
 	// Get added to textureMap registry
-	textureMap[filepath] = texID;
+	textureMap_[filepath] = texID;
 	// Also returned
 	return texID;
 }
 
 void TextureRegistry::unloadTexture(std::string filepath) {
-	auto it = textureMap.find(filepath);
-	if (it == textureMap.end()) {
+	auto it = textureMap_.find(filepath);
+	if (it == textureMap_.end()) {
 		std::cout << "TextureRegistry::unloadTexture : No texture from " << filepath << " to unload." << std::endl;
 		return;
 	}
 
 	GLuint texID = it->second;
 
-	textureMap.erase(filepath);
+	textureMap_.erase(filepath);
 
 	glBindTexture(GL_TEXTURE_2D, 0);
 	glDeleteTextures(1, &texID);
 }
 
 GLuint TextureRegistry::getTextureID(std::string filepath) const {
-	auto it = textureMap.find(filepath);
-	if (it == textureMap.end()) {
-		std::cout << "TextureRegistry::getTextureID : No texture from " << filepath << " to get." << std::endl;
+	auto it = textureMap_.find(filepath);
+	if (it == textureMap_.end()) {
+		std::cout << "TextureRegistry::getTextureID : Couldnt get texture that came from " << filepath << std::endl;
 		return 0;
 	}
 	else {
-		return textureMap[filepath];
+		return textureMap_.at(filepath);
 	}
 }

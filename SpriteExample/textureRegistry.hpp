@@ -1,5 +1,5 @@
-#ifndef TEXTUREREGISTRY_HPP
-#define TEXTUREREGISTRY_HPP
+#ifndef TEXTURE_REGISTRY_HPP
+#define TEXTURE_REGISTRY_HPP
 
 #include <GL/glut.h>
 #include <GL/freeglut.h>
@@ -35,13 +35,13 @@ class TextureRegistry {
 		TextureRegistry() {}
 
 		~TextureRegistry() {
-			for (auto& pair : textureMap) {
+			for (auto& pair : textureMap_) {
 				glDeleteTextures(1, &pair.second);
 			}
 		}
 
 		// Registry
-		static std::unordered_map<std::string, GLuint> textureMap;
+		static std::unordered_map<std::string, GLuint> textureMap_;
 };
 
 #endif

@@ -1,4 +1,4 @@
-#include "drawFunctions.hpp"
+#include "DrawFunctions.hpp"
 
 // Function for drawing squares given a PositionXY, a size (float), and 4 ColorRGB for the vertices
 void drawSquare(PositionXY pos, float size, float angle, bool mirror, bool flip, ColorRGB c1, ColorRGB c2, ColorRGB c3, ColorRGB c4) {
@@ -64,7 +64,7 @@ void drawTriangle(PositionXY pos, float size, float angle, bool mirror, bool fli
 }
 
 // Function for drawing a sprite given a PositionXY, a size (float), and a GLuint TextureID, and an optional SubTexture for tiling
-void drawSprite(PositionXY pos, float size, float angle, bool mirror, bool flip, GLuint textureID, SubTexture subTexture) {
+void drawImage(PositionXY pos, float size, float angle, bool mirror, bool flip, GLuint textureID) {
 	glPushMatrix();
 
 	glTranslatef(pos.x, pos.y, 0.0f);   // Move to triangle position
@@ -80,17 +80,52 @@ void drawSprite(PositionXY pos, float size, float angle, bool mirror, bool flip,
 
 	glEnable(GL_TEXTURE_2D); // Enable texturing
 
-	GLint width, height;
 	glBindTexture(GL_TEXTURE_2D, textureID); // Which texture
 
 	glBegin(GL_POLYGON);
-	glTexCoord2f(subTexture.u0, subTexture.v0);
+	glTexCoord2f(0.0f, 0.0f);
 	glVertex3f(-size, -size, 0);
-	glTexCoord2f(subTexture.u1, subTexture.v0);
+	glTexCoord2f(1.0f, 0.0f);
 	glVertex3f(size, -size, 0);
-	glTexCoord2f(subTexture.u1, subTexture.v1);
+	glTexCoord2f(1.0f, 1.0f);
 	glVertex3f(size, size, 0);
-	glTexCoord2f(subTexture.u0, subTexture.v1);
+	glTexCoord2f(0.0f, 1.0f);
+	glVertex3f(-size, size, 0);
+
+	glEnd();
+
+	glDisable(GL_TEXTURE_2D); // Turn texturing off
+
+	glPopMatrix();
+}
+
+// Function for drawing a sprite given a PositionXY, a size (float), and a GLuint TextureID, and an optional SubTexture for tiling
+void drawSprite(PositionXY pos, float size, float angle, bool mirror, bool flip, Sprite sprite) {
+	glPushMatrix();
+
+	glTranslatef(pos.x, pos.y, 0.0f);   // Move to triangle position
+	glRotatef(angle, 0.0f, 0.0f, 1.0f); // Rotate around Z axis
+
+	if (mirror) {
+		glScalef(-1.0f, 1.0f, 1.0f);
+	}
+
+	if (flip) {
+		glScalef(1.0f, -1.0f, 1.0f);
+	}
+
+	glEnable(GL_TEXTURE_2D); // Enable texturing
+
+	glBindTexture(GL_TEXTURE_2D, sprite.getTextureID()); // Which texture
+
+	glBegin(GL_POLYGON);
+	glTexCoord2f(sprite.getUV().u0, sprite.getUV().v0);
+	glVertex3f(-size, -size, 0);
+	glTexCoord2f(sprite.getUV().u1, sprite.getUV().v0);
+	glVertex3f(size, -size, 0);
+	glTexCoord2f(sprite.getUV().u1, sprite.getUV().v1);
+	glVertex3f(size, size, 0);
+	glTexCoord2f(sprite.getUV().u0, sprite.getUV().v1);
 	glVertex3f(-size, size, 0);
 
 	glEnd();

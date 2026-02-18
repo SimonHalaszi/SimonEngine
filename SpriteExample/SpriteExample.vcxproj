@@ -131,10 +131,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="drawFunctions.cpp" />
     <ClCompile Include="SimonEngine.cpp" />
+    <ClCompile Include="textureRegistry.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="drawFunctions.hpp" />
+    <ClInclude Include="Game.hpp" />
     <ClInclude Include="shader.h" />
+    <ClInclude Include="textureRegistry.hpp" />
+    <ClInclude Include="utilities.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

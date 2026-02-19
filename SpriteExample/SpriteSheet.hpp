@@ -19,8 +19,8 @@ public:
 	int spriteCount() const { return sheet_.size();  }
 
 	// Same thing different story
-	Sprite operator[](int i) { return sheet_[i]; }
-	Sprite getSpriteAt(int i) { return sheet_[i]; }
+	Sprite operator[](int i) const { return sheet_[i]; }
+	Sprite getSpriteAt(int i) const { return sheet_[i]; }
 private:
 	std::vector<Sprite> sheet_; // Internal data structure
 };

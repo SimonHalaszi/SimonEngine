@@ -16,12 +16,12 @@
 #include "SpriteRegistry.hpp"
 #include "SpriteSheetRegistry.hpp"
 
+#include "Scene.hpp"
+#include "MainScene.hpp"
+
 // Game Class
 
 // The Game class, with a Singleton the SEXIEST design pattern
-
-// In the future:
-// Eventually I want game to handle Scene objects that each have their own registries, Scene class will be an abstract interface allowing for scene specialized implementation
 class Game {
 	public:
 		static Game& getInstance() {
@@ -31,20 +31,17 @@ class Game {
 
 		void init();
 		
+		Scene* getCurrentScene() { return currentScene_; }
+
 		// Public only so buffer functions can call them
-		void draw();
 		
 		void frameTimer(int v);
 
 		void updateTimer(int v);
-		void update();
 
 		void animationTimer(int v);
 
-		void procSpecialKeys(int key, int x, int y);
-		void procSpecialKeysUp(int key, int x, int y);
-		void procKeys(unsigned char key, int x, int y);
-		void procMouse(int button, int state, int x, int y);
+		void changeScene(Scene* newScene) { delete currentScene_; currentScene_ = newScene; currentScene_->init(); }
 
 		Game(const Game&) = delete;
 		Game& operator=(const Game&) = delete;
@@ -52,70 +49,16 @@ class Game {
 		Game& operator=(const Game&&) = delete;
 
 	private:
-		Game();
+		Game() {
+			currentScene_ = new MainScene();
+		}
 
 		~Game() {}
 
-		void updateCamera();
+		Scene* currentScene_;
+
 		void setupInputs();
 
-		// Registries
-		TextureRegistry textures;
-		SpriteRegistry sprites;
-		SpriteSheetRegistry spriteSheets;
-		
-		// Sound Engine
-		irrklang::ISoundEngine* soundEngine;
-		int currentAudioTrack = 0;
-		const std::vector<std::string> audioTracks;
-
-		// Update Tick Speeds
-		int animationUpdatesPerSecond = 10;
-		int updatesPerSecond = 244;
-		int framesPerSeconds = 244;
-
-		// Inputs
-		bool keyLeftPressed = false;
-		bool keyRightPressed = false;
-		bool keyUpPressed = false;
-		bool keyDownPressed = false;
-
-		// Toggles
-		bool drawAxes = true;
-		bool screenOn = true;
-		bool musicOn = true;
-
-		// Camera Settings
-		float zoomFactor = 1.0;
-		float camX = 0, camY = 0, speed = 1;
-
-		// Animation Frame Counter
-		unsigned int frame = 0;
-
-		// Player Variables
-		PositionXY playerPos = { 0, 0 };
-		float moveX = 0, moveY = 0;
-		bool movePressed = false;
-		bool mirrorPlayer = false;
-
-		// Variables for demo purposes
-		ColorRGB squareColor1 = { 1, 0, 0 };
-		ColorRGB squareColor2 = { 1, 0.8, 0.2 };
-		ColorRGB triangleColor1 = { 0.0, 1, 0.0 };
-		ColorRGB triangleColor2 = { 0.2, 1, 0.8 };
-		float squareRotation = 0;
-		float triangleRotation = 0;
-
-		// Keys for registries
-		std::string billsRunningSheetName;
-		std::string brownsRunningSheetName;
-
-		std::string billsSpriteName;
-		std::string brownsSpriteName;
-		
-		// File Paths
-		const std::string runningTilesBrownsFilepath;;
-		const std::string runningTilesBillsFilepath;
 };
 
 #endif // !GAME_HPP

@@ -42,6 +42,12 @@
     <ClCompile Include="SpriteSheetRegistry.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Scene.hpp">
+      <Filter>Header Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MainScene.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Utilities.hpp">
@@ -60,6 +66,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Sprite.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MainScene.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -9,6 +9,8 @@
 #include "Utilities.hpp"
 #include "Sprite.hpp"
 
+// Functions for drawing shapes, sprites, images, etc
+
 // Drawing a square
 void drawSquare(
 	PositionXY pos, 

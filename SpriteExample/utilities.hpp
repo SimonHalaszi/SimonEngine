@@ -1,6 +1,8 @@
 #ifndef UTILITIES_HPP_
 #define UTILITIES_HPP_
 
+// Simple helper structs
+
 // Used for inputting color information in draw functions
 struct ColorRGB {
 	float red;
@@ -14,13 +16,13 @@ struct PositionXY {
 	float y;
 };
 
-// Used for sprite creation
+// Used for sprite creation (Could just use PositionXY but I think this is more clear)
 struct TileIndex {
 	int x;
 	int y;
 };
 
-// Used for partitioning a texture for sprites
+// Used for partitioning a texture for sprites (SHould probably have a better name but whatever)
 struct SubTexture {
 	float u0;
 	float u1;

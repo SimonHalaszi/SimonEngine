@@ -16,6 +16,8 @@
 #include "SpriteRegistry.hpp"
 #include "SpriteSheetRegistry.hpp"
 
+// Game Class
+
 // The Game class, with a Singleton the SEXIEST design pattern
 class Game {
 	public:
@@ -28,7 +30,12 @@ class Game {
 		
 		// Public only so buffer functions can call them
 		void draw();
-		void update(int v);
+		
+		void frameTimer(int v);
+
+		void updateTimer(int v);
+		void update();
+
 		void animationTimer(int v);
 
 		void procSpecialKeys(int key, int x, int y);
@@ -61,7 +68,8 @@ class Game {
 
 		// Update Tick Speeds
 		int animationUpdatesPerSecond = 10;
-		int physicsUpdatesPerSecond = 244;
+		int updatesPerSecond = 244;
+		int framesPerSeconds = 244;
 
 		// Inputs
 		bool keyLeftPressed = false;

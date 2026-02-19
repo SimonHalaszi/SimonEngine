@@ -9,7 +9,7 @@
 #include "Utilities.hpp"
 #include "Sprite.hpp"
 
-// Simple sprite sheet class
+// Simple sprite sheet class, ong adapter design pattern Nesty should be proud
 class SpriteSheet {
 public:
 	SpriteSheet() : sheet_() {}
@@ -18,9 +18,11 @@ public:
 	const std::vector<Sprite>& getSheet() const { return sheet_; }
 	int spriteCount() const { return sheet_.size();  }
 
+	// Same thing different story
 	Sprite operator[](int i) { return sheet_[i]; }
+	Sprite getSpriteAt(int i) { return sheet_[i]; }
 private:
-	std::vector<Sprite> sheet_;
+	std::vector<Sprite> sheet_; // Internal data structure
 };
 
 #endif

@@ -20,7 +20,7 @@ int main(int argc, char** argv) {
 	// LET THE GAMES BEGIN
 	Game::getInstance().init();
 
-	std::cout << "Main() : Music belongs to the NFL, CBS, FOX and NBC" << std::endl;
+	std::cout << "SimonEngine.cpp Main : Music belongs to the NFL, CBS, FOX and NBC" << std::endl;
 
 	glutMainLoop();
 

@@ -11,6 +11,8 @@
 #include "Sprite.hpp"
 #include "Utilities.hpp"
 
+// Registry for sprites. 
+
 // Using very epic and awesome design patterns to make Nesty proud
 class SpriteRegistry {
 public:
@@ -40,7 +42,7 @@ private:
 	// Registry
 	static std::unordered_map<std::string, Sprite> spriteMap_;
 
-	Sprite errorSprite_;
+	Sprite errorSprite_;  // Will signify an error in the process, should work nicely even if you dont check because TexID is 0
 };
 
 #endif

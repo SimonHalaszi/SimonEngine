@@ -9,6 +9,8 @@
 #include <string>
 #include <iostream>
 
+// Registry for textures
+
 // Using very epic and awesome design patterns to make Nesty proud
 class TextureRegistry {
 	public:

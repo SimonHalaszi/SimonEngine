@@ -17,8 +17,8 @@ class Sprite {
 		const GLuint& getTextureID() const { return texID_;  }
 		const SubTexture& getUV() const { return uv_; }
 	private:
-		const GLuint texID_;
-		const SubTexture uv_;
+		const GLuint texID_; // ID of texture this sprite pulls from
+		const SubTexture uv_; // UV coordinates of the sprite
 };
 
 #endif

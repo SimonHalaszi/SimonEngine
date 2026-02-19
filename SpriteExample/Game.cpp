@@ -1,14 +1,14 @@
 #include "Game.hpp"
 
-// Function Wrappers
+// Function wrappers needed because OpenGL expects a certain function signature for these
 void GAMEdisplay() {
 	Game::getInstance().draw();
 }
 void GAMEanimationTimer(int v) {
 	Game::getInstance().animationTimer(v);
 }
-void GAMEupdate(int v) {
-	Game::getInstance().update(v);
+void GAMEupdateTimer(int v) {
+	Game::getInstance().updateTimer(v);
 }
 
 void GAMEprocSpecialKeys(int key, int x, int y) {
@@ -25,6 +25,10 @@ void GAMEprocKeys(unsigned char key, int x, int y) {
 
 void GAMEprocMouse(int button, int state, int x, int y) {
 	Game::getInstance().procMouse(button, state, x, y);
+}
+
+void GAMEframeTimer(int v) {
+	Game::getInstance().frameTimer(v);
 }
 
 Game::Game() :
@@ -57,12 +61,13 @@ void Game::init() {
 	glOrtho(-1.0, 1.0, -1.0, 1.0, -1.0, 1.0);
 
 	soundEngine->play2D(audioTracks[currentAudioTrack].data(), true);
+	std::cout << "Game::init : Started at track from " << audioTracks[currentAudioTrack] << std::endl;
 
-	// Loading sprite sheets
+	// Loading sprite textures from file path
 	textures->loadTexture(runningTilesBillsFilepath);
 	textures->loadTexture(runningTilesBrownsFilepath);
 
-	// First example of my texture tiling for sprite sheets
+	// Making a sprite sheet
 	spriteSheets->makeSpriteSheet(
 		billsRunningSheetName,
 		textures->getTextureID(runningTilesBillsFilepath),
@@ -70,8 +75,7 @@ void Game::init() {
 		{ 0, 0 }, { 5, 0 }
 	);
 
-	// See how this sprite sheet is layed out.
-	// It goes from left to right and gets cells (0,2) to (2,2) despite them being on differing rows and past some others
+	// Making a sprite sheet
 	spriteSheets->makeSpriteSheet(
 		brownsRunningSheetName,
 		textures->getTextureID(runningTilesBrownsFilepath),
@@ -79,7 +83,7 @@ void Game::init() {
 		{ 0, 2 }, { 2, 3 }
 	);
 
-	// Getting a singular tile
+	// Making a sprite
 	sprites->makeSprite(
 		billsSpriteName,
 		textures->getTextureID(runningTilesBillsFilepath),
@@ -87,6 +91,7 @@ void Game::init() {
 		{ 0, 0 }
 	);
 
+	// Making a sprite
 	sprites->makeSprite(
 		brownsSpriteName,
 		textures->getTextureID(runningTilesBrownsFilepath),
@@ -94,15 +99,34 @@ void Game::init() {
 		{ 0, 2 }
 	);
 
-	// Just to throw the already loaded error I added
+	// Just showing errors
 	textures->loadTexture(runningTilesBrownsFilepath);
+	spriteSheets->makeSpriteSheet(
+		billsRunningSheetName,
+		textures->getTextureID(runningTilesBillsFilepath),
+		6, 1,
+		{ 0, 0 }, { 5, 0 }
+	);
+	sprites->makeSprite(
+		brownsSpriteName,
+		textures->getTextureID(runningTilesBrownsFilepath),
+		3, 4,
+		{ 0, 2 }
+	);
+	spriteSheets->getSpriteSheet("bob");
+
+	// Printing update information
+	std::cout << "Game::init : Animation updates " << animationUpdatesPerSecond << " times per second " << std::endl;
+	std::cout << "Game::init : Game updates " << updatesPerSecond << " times per second " << std::endl;
+	std::cout << "Game::init : Frame updates " << framesPerSeconds << " times per second " << std::endl;
 
 	setupInputs();
 
 	glutDisplayFunc(GAMEdisplay); // call the drawing function
 
 	glutTimerFunc(0, GAMEanimationTimer, 0);  // Animation Updates
-	glutTimerFunc(0, GAMEupdate, 0); // Physics Updates
+	glutTimerFunc(0, GAMEupdateTimer, 0); // Game Updates
+	glutTimerFunc(0, GAMEframeTimer, 0); // Frame Updates
 }
 
 void Game::draw() {
@@ -198,8 +222,18 @@ void Game::draw() {
 	glutSwapBuffers();
 }
 
-void Game::update(int v) {
-	float deltaTime = (1.0f / physicsUpdatesPerSecond);
+void Game::updateTimer(int v) {
+	update();
+	glutTimerFunc(int(1000 / updatesPerSecond), GAMEupdateTimer, v); // Updatess
+}
+
+void Game::frameTimer(int v) {
+	glutPostRedisplay();
+	glutTimerFunc(int(1000 / framesPerSeconds), GAMEframeTimer, v); // Updatess
+}
+
+void Game::update() {
+	float deltaTime = (1.0f / updatesPerSecond);
 
 	moveX = 0.0f;
 	moveY = 0.0f;
@@ -237,9 +271,6 @@ void Game::update(int v) {
 	}
 
 	updateCamera();
-
-	glutPostRedisplay(); // Redisplay every physics update
-	glutTimerFunc(int(1000 * deltaTime), GAMEupdate, v); // Updatess
 }
 
 void Game::animationTimer(int v) {
@@ -341,6 +372,7 @@ void Game::procMouse(int button, int state, int x, int y) {
 		currentAudioTrack += 1;
 		currentAudioTrack = currentAudioTrack % audioTracks.size();
 		soundEngine->play2D(audioTracks[currentAudioTrack].data(), true);
+		std::cout << "Game::procMouse : Now playing track from " << audioTracks[currentAudioTrack] << std::endl;
 	}
 }
 

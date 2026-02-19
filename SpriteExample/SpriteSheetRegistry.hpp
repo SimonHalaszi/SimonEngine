@@ -12,6 +12,8 @@
 #include "SpriteSheet.hpp"
 #include "Utilities.hpp"
 
+// Registry for sprite sheets.
+
 // Using very epic and awesome design patterns to make Nesty proud
 class SpriteSheetRegistry {
 public:
@@ -41,7 +43,7 @@ private:
 	// Registry
 	static std::unordered_map<std::string, SpriteSheet> spriteSheetMap_;
 
-	SpriteSheet errorSpriteSheet_;
+	SpriteSheet errorSpriteSheet_; // Will signify an error in the process, should work nicely even if you dont check because TexID is 0
 };
 
 #endif

@@ -9,6 +9,7 @@
 #include <IrrKlang/irrKlang.h>
 
 #include <string>
+#include <memory>
 
 #include "Utilities.hpp"
 #include "DrawFunctions.hpp"
@@ -31,7 +32,7 @@ class Game {
 
 		void init();
 		
-		Scene* getCurrentScene() { return currentScene_; }
+		Scene* getCurrentScene() { return currentScene_.get(); }
 
 		// Public only so buffer functions can call them
 		
@@ -41,7 +42,7 @@ class Game {
 
 		void animationTimer(int v);
 
-		void changeScene(Scene* newScene) { delete currentScene_; currentScene_ = newScene; currentScene_->init(); }
+		void changeScene(std::unique_ptr<Scene> newScene) { currentScene_ = std::move(newScene); currentScene_->init(); }
 
 		Game(const Game&) = delete;
 		Game& operator=(const Game&) = delete;
@@ -49,13 +50,11 @@ class Game {
 		Game& operator=(const Game&&) = delete;
 
 	private:
-		Game() {
-			currentScene_ = new MainScene();
-		}
+		Game() : currentScene_(std::make_unique<MainScene>()) {}
 
 		~Game() {}
 
-		Scene* currentScene_;
+		std::unique_ptr<Scene> currentScene_;
 
 		void setupInputs();
 

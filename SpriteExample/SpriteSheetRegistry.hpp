@@ -15,8 +15,6 @@
 // Registry for sprite sheets.
 
 // Using very epic and awesome design patterns to make Nesty proud
-
-// Not singletons because in the future I plan on every scene managing its own registries. But right now scenes arent added
 class SpriteSheetRegistry {
 public:
 	SpriteSheetRegistry()

@@ -3,9 +3,6 @@
 
 #include <GL/glut.h>
 #include <GL/freeglut.h>
-#include <FreeImage/FreeImage.h>
-#include <stdio.h>
-#include <math.h>
 #include <IrrKlang/irrKlang.h>
 
 #include <string>
@@ -24,17 +21,16 @@ class MainScene : public Scene {
 
 		~MainScene();
 
-		virtual void init() override;
+		virtual void init() override final;
 
-		// Public only so buffer functions can call them
-		virtual void draw() override;
+		virtual void draw() override final;
 
-		virtual void update() override;
+		virtual void update() override final;
 
-		virtual void procSpecialKeys(int key, int x, int y) override;
-		virtual void procSpecialKeysUp(int key, int x, int y) override;
-		virtual void procKeys(unsigned char key, int x, int y) override;
-		virtual void procMouse(int button, int state, int x, int y) override;
+		virtual void procSpecialKeys(int key, int x, int y) override final;
+		virtual void procSpecialKeysUp(int key, int x, int y) override final;
+		virtual void procKeys(unsigned char key, int x, int y) override final;
+		virtual void procMouse(int button, int state, int x, int y) override final;
 
 	private:
 		
@@ -57,22 +53,22 @@ class MainScene : public Scene {
 		bool musicOn_ = true;
 
 		// Camera Settings
-		float zoomFactor_ = 1.0;
-		float camX_ = 0, camY_ = 0, speed_ = 1;
+		float zoomFactor_ = 1.0f;
+		float camX_ = 0.0f, camY_ = 0.0f, speed_ = 1.0f;
 
 		// Player Variables
-		PositionXY playerPos_ = { 0, 0 };
-		float moveX_ = 0, moveY_ = 0;
+		PositionXY playerPos_ = { 0.0f, 0.0f };
+		float moveX_ = 0.0f, moveY_ = 0.0f;
 		bool movePressed_ = false;
 		bool mirrorPlayer_ = false;
 
 		// Variables for demo purposes
-		ColorRGB squareColor1_ = { 1, 0, 0 };
-		ColorRGB squareColor2_ = { 1, 0.8, 0.2 };
-		ColorRGB triangleColor1_ = { 0.0, 1, 0.0 };
-		ColorRGB triangleColor2_ = { 0.2, 1, 0.8 };
-		float squareRotation_ = 0;
-		float triangleRotation_ = 0;
+		ColorRGB squareColor1_ = { 1.0f, 0.0f, 0.0f };
+		ColorRGB squareColor2_ = { 1.0f, 0.8f, 0.2f };
+		ColorRGB triangleColor1_ = { 0.0f, 1.0f, 0.0f };
+		ColorRGB triangleColor2_ = { 0.2f, 1.0f, 0.8f };
+		float squareRotation_ = 0.0f;
+		float triangleRotation_ = 0.0f;
 
 		// Keys for registries
 		std::string billsRunningSheetName_;

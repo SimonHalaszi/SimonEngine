@@ -14,8 +14,6 @@
 // Registry for sprites. 
 
 // Using very epic and awesome design patterns to make Nesty proud
-
-// Not singletons because in the future I plan on every scene managing its own registries. But right now scenes arent added
 class SpriteRegistry {
 public:
 	SpriteRegistry()
@@ -38,7 +36,6 @@ public:
 private:
 	// Registry
 	std::unordered_map<std::string, Sprite> spriteMap_;
-
 	Sprite errorSprite_;  // Will signify an error in the process, should work nicely even if you dont check because TexID is 0
 };
 

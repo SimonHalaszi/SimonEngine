@@ -86,13 +86,13 @@ void drawImage(PositionXY pos, float size, float angle, bool mirror, bool flip, 
 
 	glBegin(GL_POLYGON);
 	glTexCoord2f(0.0f, 0.0f);
-	glVertex3f(-size, -size, 0);
+	glVertex3f(-size, -size, 0.0f);
 	glTexCoord2f(1.0f, 0.0f);
-	glVertex3f(size, -size, 0);
+	glVertex3f(size, -size, 0.0f);
 	glTexCoord2f(1.0f, 1.0f);
-	glVertex3f(size, size, 0);
+	glVertex3f(size, size, 0.0f);
 	glTexCoord2f(0.0f, 1.0f);
-	glVertex3f(-size, size, 0);
+	glVertex3f(-size, size, 0.0f);
 
 	glEnd();
 
@@ -124,13 +124,13 @@ void drawSprite(PositionXY pos, float size, float angle, bool mirror, bool flip,
 
 	glBegin(GL_POLYGON);
 	glTexCoord2f(spriteUV.u0, spriteUV.v0);
-	glVertex3f(-size, -size, 0);
+	glVertex3f(-size, -size, 0.0f);
 	glTexCoord2f(spriteUV.u1, spriteUV.v0);
-	glVertex3f(size, -size, 0);
+	glVertex3f(size, -size, 0.0f);
 	glTexCoord2f(spriteUV.u1, spriteUV.v1);
-	glVertex3f(size, size, 0);
+	glVertex3f(size, size, 0.0f);
 	glTexCoord2f(spriteUV.u0, spriteUV.v1);
-	glVertex3f(-size, size, 0);
+	glVertex3f(-size, size, 0.0f);
 
 	glEnd();
 

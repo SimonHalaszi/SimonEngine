@@ -1,6 +1,7 @@
 #include "MainScene.hpp"
 
 MainScene::MainScene() :
+	Scene(244, 244, 10),
 	audioTracks_({
 		   "audio/CBS.mp3",
 		   "audio/FOX.mp3",
@@ -15,20 +16,14 @@ MainScene::MainScene() :
 	billsSpriteName_ = "billsSprite";
 }
 
-MainScene::~MainScene() {
-
-}
+MainScene::~MainScene() {}
 
 void MainScene::init() {
-	glClearColor(0.0, 0.0, 0.0, 1.0); // clear the window screen
-	glMatrixMode(GL_PROJECTION);
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	glLoadIdentity();
-	glOrtho(-1.0, 1.0, -1.0, 1.0, -1.0, 1.0);
+	std::cout << "MainScene::init : Currently Loaded Scene is MainScene" << std::endl;
+	std::cout << "MainScene::init : Scene Music belongs to the NFL, CBS, FOX and NBC" << std::endl;
 
 	soundEngine_->play2D(audioTracks_[currentAudioTrack_].data(), true);
-	std::cout << "MainScene::init : Started at track from " << audioTracks_[currentAudioTrack_] << std::endl;
+	std::cout << "MainScene::init : Started at track from file path " << audioTracks_[currentAudioTrack_] << std::endl;
 
 	// Loading sprite textures from file path
 	textures_.loadTexture(runningTilesBillsFilepath_);
@@ -89,10 +84,7 @@ void MainScene::init() {
 }
 
 void MainScene::draw() {
-	glClear(GL_COLOR_BUFFER_BIT);
-
 	if (screenOn_) {
-		glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
 
 		const SpriteSheet& billsRunningSpriteSheet = spriteSheets_.getSpriteSheet(billsRunningSheetName_);
 		const SpriteSheet& brownsRunningSpriteSheet = spriteSheets_.getSpriteSheet(brownsRunningSheetName_);
@@ -176,9 +168,6 @@ void MainScene::draw() {
 		}
 
 	}
-
-	glFlush();
-	glutSwapBuffers();
 }
 
 void MainScene::update() {
@@ -208,12 +197,12 @@ void MainScene::update() {
 	playerPos_.x += moveX_;
 	playerPos_.y += moveY_;
 
-	squareRotation_ += 10 * deltaTime;
+	squareRotation_ += 20 * deltaTime;
 	if (squareRotation_ >= 360) {
 		squareRotation_ = 0;
 	}
 
-	triangleRotation_ += -10 * deltaTime;
+	triangleRotation_ += -20 * deltaTime;
 	if (triangleRotation_ <= -360) {
 		triangleRotation_ = 0;
 	}
@@ -292,13 +281,13 @@ void MainScene::procMouse(int button, int state, int x, int y) {
 	//Middle scroll wheel : zoom in or out with next two functions
 	if (button == 3) {
 		if (state == GLUT_UP) {
-			zoomFactor_ -= 0.1;
+			zoomFactor_ -= 0.1f;
 		}
 	}
 
 	if (button == 4) {
 		if (state == GLUT_UP) {
-			zoomFactor_ += 0.1;
+			zoomFactor_ += 0.1f;
 		}
 	}
 

@@ -14,10 +14,13 @@ void GAMEframeTimer(int v) {
 void GAMEdraw() {
 	Scene* currentScene = Game::getInstance().getCurrentScene();
 	if (currentScene) {
+		glClear(GL_COLOR_BUFFER_BIT);
+		glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
 		currentScene->draw();
+		glFlush();
+		glutSwapBuffers();
 	}
 }
-
 void GAMEprocSpecialKeys(int key, int x, int y) {
 	Scene* currentScene = Game::getInstance().getCurrentScene();
 	if (currentScene) {
@@ -44,6 +47,13 @@ void GAMEprocMouse(int button, int state, int x, int y) {
 }
 
 void Game::init() {
+	glClearColor(0.0, 0.0, 0.0, 1.0); // clear the window screen
+	glMatrixMode(GL_PROJECTION);
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glLoadIdentity();
+	glOrtho(-1.0, 1.0, -1.0, 1.0, -1.0, 1.0);
+
 	currentScene_->init();
 
 	setupInputs();

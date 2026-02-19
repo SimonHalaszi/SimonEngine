@@ -21,6 +21,7 @@ public:
 	// Same thing different story
 	Sprite operator[](int i) const { return sheet_[i]; }
 	Sprite getSpriteAt(int i) const { return sheet_[i]; }
+
 private:
 	std::vector<Sprite> sheet_; // Internal data structure
 };

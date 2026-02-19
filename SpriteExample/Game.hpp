@@ -3,19 +3,9 @@
 
 #include <GL/glut.h>
 #include <GL/freeglut.h>
-#include <FreeImage/FreeImage.h>
-#include <stdio.h>
-#include <math.h>
-#include <IrrKlang/irrKlang.h>
 
 #include <string>
 #include <memory>
-
-#include "Utilities.hpp"
-#include "DrawFunctions.hpp"
-#include "TextureRegistry.hpp"
-#include "SpriteRegistry.hpp"
-#include "SpriteSheetRegistry.hpp"
 
 #include "Scene.hpp"
 #include "MainScene.hpp"
@@ -33,16 +23,12 @@ class Game {
 		void init();
 		
 		Scene* getCurrentScene() { return currentScene_.get(); }
+		void changeScene(std::unique_ptr<Scene> newScene) { currentScene_ = std::move(newScene); currentScene_->init(); }
 
 		// Public only so buffer functions can call them
-		
 		void frameTimer(int v);
-
 		void updateTimer(int v);
-
 		void animationTimer(int v);
-
-		void changeScene(std::unique_ptr<Scene> newScene) { currentScene_ = std::move(newScene); currentScene_->init(); }
 
 		Game(const Game&) = delete;
 		Game& operator=(const Game&) = delete;
@@ -54,10 +40,9 @@ class Game {
 
 		~Game() {}
 
-		std::unique_ptr<Scene> currentScene_;
-
 		void setupInputs();
 
+		std::unique_ptr<Scene> currentScene_;
 };
 
-#endif // !GAME_HPP
+#endif

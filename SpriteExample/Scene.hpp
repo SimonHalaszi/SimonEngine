@@ -13,8 +13,10 @@
 
 class Scene {
 	public:
-		Scene(int u = 244, int f = 244, int a = 10) 
-			: updatesPerSecond_(u), framesPerSeconds_(f), animationUpdatesPerSecond_(a) {
+		Scene(int updatesPerSecond = 244, int framesPerSeconds = 244, int animationUpdatesPerSecond = 10)
+			: updatesPerSecond_(updatesPerSecond), 
+			framesPerSeconds_(framesPerSeconds), 
+			animationUpdatesPerSecond_(animationUpdatesPerSecond) {
 			soundEngine_ = irrklang::createIrrKlangDevice();
 			animationFrame_ = 0;
 		}
@@ -27,7 +29,6 @@ class Scene {
 
 		virtual void init() = 0;
 
-		// Public only so buffer functions can call them
 		virtual void draw() = 0;
 
 		virtual void update() = 0;
@@ -44,7 +45,6 @@ class Scene {
 		void incrementAnimationFrame() { ++animationFrame_; }
 
 	protected:
-
 		// Registries
 		TextureRegistry textures_;
 		SpriteRegistry sprites_;

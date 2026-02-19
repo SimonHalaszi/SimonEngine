@@ -8,8 +8,6 @@
 #include <math.h>
 #include <IrrKlang/irrKlang.h>
 
-#include <vector>
-#include <iostream>
 #include <string>
 
 #include "Utilities.hpp"
@@ -51,7 +49,7 @@ class Game {
 		void updateCamera();
 		void setupInputs();
 
-		// Engine Registries
+		// Engine Registries Pointers
 		TextureRegistry* textures;
 		SpriteRegistry* sprites;
 		SpriteSheetRegistry* spriteSheets;

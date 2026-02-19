@@ -1,22 +1,10 @@
-#include <GL/glut.h>
-#include <GL/freeglut.h>
-#include <FreeImage/FreeImage.h>
-#include <stdio.h>
-#include <math.h>
-#include <IrrKlang/irrKlang.h>
-
-#include <vector>
-#include <iostream>
-#include <string>
-
-#include "Utilities.hpp"
-#include "DrawFunctions.hpp"
-#include "TextureRegistry.hpp"
 #include "Game.hpp"
+#include <iostream>
 
+// in pixels
 #define WIN_X 100
 #define WIN_Y 100
-#define WIN_H 600 // in pixels
+#define WIN_H 600
 #define WIN_W 600
 
 // P.S. if some of these comments are just straight up wrong its because I did a lot of refactoring
@@ -31,6 +19,8 @@ int main(int argc, char** argv) {
 
 	// LET THE GAMES BEGIN
 	Game::getInstance().init();
+
+	std::cout << "Main() : Music belongs to the NFL, CBS, FOX and NBC" << std::endl;
 
 	glutMainLoop();
 

@@ -7,7 +7,7 @@ std::unordered_map<std::string, GLuint> TextureRegistry::textureMap_ = {};
 GLuint TextureRegistry::loadTexture(std::string filepath) {
 	auto it = textureMap_.find(filepath);
 	if (it != textureMap_.end()) {
-		std::cout << "TextureRegistry::loadTexture : Will not create two textures with the same name try a different name instead of " << filepath << std::endl;
+		std::cout << "TextureRegistry::loadTexture : Will not create two textures with the same file path try a different file path instead of " << filepath << std::endl;
 		return it->second;
 	}
 
@@ -16,7 +16,7 @@ GLuint TextureRegistry::loadTexture(std::string filepath) {
 	int imgHeight; // The height.
 	FREE_IMAGE_FORMAT format = FreeImage_GetFIFFromFilename(filepath.c_str());
 	if (format == FIF_UNKNOWN) {
-		std::cout << "TextureRegistry::loadTexture : Unknown file type for texture image file " << filepath << std::endl;
+		std::cout << "TextureRegistry::loadTexture : Unknown file path type for texture image file " << filepath << std::endl;
 		return 0;
 	}
 	FIBITMAP* imageFile = FreeImage_Load(format, filepath.c_str(), 0); // Read image from file.
@@ -51,12 +51,12 @@ GLuint TextureRegistry::loadTexture(std::string filepath) {
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
 	if (pixels) {
-		std::cout << "TextureRegistry::loadTexture : Texture image loaded from file " << filepath << " " << width << " X " << height << std::endl;
+		std::cout << "TextureRegistry::loadTexture : Texture image loaded from file path " << filepath << " " << width << " X " << height << std::endl;
 
 		glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
 	}
 	else {
-		std::cout << "TextureRegistry::loadTexture : Failed to get texture data from " << filepath << std::endl;
+		std::cout << "TextureRegistry::loadTexture : Failed to get texture data from file path " << filepath << std::endl;
 	}
 
 	FreeImage_Unload(image32bit); // Also cleans up pixels
@@ -70,7 +70,7 @@ GLuint TextureRegistry::loadTexture(std::string filepath) {
 void TextureRegistry::unloadTexture(std::string filepath) {
 	auto it = textureMap_.find(filepath);
 	if (it == textureMap_.end()) {
-		std::cout << "TextureRegistry::unloadTexture : No texture from " << filepath << " to unload." << std::endl;
+		std::cout << "TextureRegistry::unloadTexture : No texture from file path " << filepath << " to unload." << std::endl;
 		return;
 	}
 
@@ -85,7 +85,7 @@ void TextureRegistry::unloadTexture(std::string filepath) {
 GLuint TextureRegistry::getTextureID(std::string filepath) const {
 	auto it = textureMap_.find(filepath);
 	if (it == textureMap_.end()) {
-		std::cout << "TextureRegistry::getTextureID : Couldnt get texture that came from " << filepath << std::endl;
+		std::cout << "TextureRegistry::getTextureID : Couldnt get texture that came from file path " << filepath << std::endl;
 		return 0;
 	}
 	else {

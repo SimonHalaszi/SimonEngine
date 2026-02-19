@@ -4,9 +4,6 @@
 #include <GL/glut.h>
 #include <GL/freeglut.h>
 #include <FreeImage/FreeImage.h>
-#include <stdio.h>
-#include <math.h>
-#include <IrrKlang/irrKlang.h>
 
 #include <unordered_map>
 #include <string>

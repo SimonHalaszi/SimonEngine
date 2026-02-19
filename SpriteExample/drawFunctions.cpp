@@ -118,14 +118,16 @@ void drawSprite(PositionXY pos, float size, float angle, bool mirror, bool flip,
 
 	glBindTexture(GL_TEXTURE_2D, sprite.getTextureID()); // Which texture
 
+	SubTexture spriteUV = sprite.getUV();
+
 	glBegin(GL_POLYGON);
-	glTexCoord2f(sprite.getUV().u0, sprite.getUV().v0);
+	glTexCoord2f(spriteUV.u0, spriteUV.v0);
 	glVertex3f(-size, -size, 0);
-	glTexCoord2f(sprite.getUV().u1, sprite.getUV().v0);
+	glTexCoord2f(spriteUV.u1, spriteUV.v0);
 	glVertex3f(size, -size, 0);
-	glTexCoord2f(sprite.getUV().u1, sprite.getUV().v1);
+	glTexCoord2f(spriteUV.u1, spriteUV.v1);
 	glVertex3f(size, size, 0);
-	glTexCoord2f(sprite.getUV().u0, sprite.getUV().v1);
+	glTexCoord2f(spriteUV.u0, spriteUV.v1);
 	glVertex3f(-size, size, 0);
 
 	glEnd();

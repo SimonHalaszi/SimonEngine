@@ -19,6 +19,9 @@
 // Game Class
 
 // The Game class, with a Singleton the SEXIEST design pattern
+
+// In the future:
+// Eventually I want game to handle Scene objects that each have their own registries, Scene class will be an abstract interface allowing for scene specialized implementation
 class Game {
 	public:
 		static Game& getInstance() {
@@ -56,10 +59,10 @@ class Game {
 		void updateCamera();
 		void setupInputs();
 
-		// Engine Registries Pointers
-		TextureRegistry* textures;
-		SpriteRegistry* sprites;
-		SpriteSheetRegistry* spriteSheets;
+		// Registries
+		TextureRegistry textures;
+		SpriteRegistry sprites;
+		SpriteSheetRegistry spriteSheets;
 		
 		// Sound Engine
 		irrklang::ISoundEngine* soundEngine;
@@ -83,8 +86,8 @@ class Game {
 		bool musicOn = true;
 
 		// Camera Settings
-		float zoomFactor = 1.0; // Global, if you want. Modified by user input. Initially 1.0
-		float camX = 0, camY = 0, speed = 1; // Global for camera movement.
+		float zoomFactor = 1.0;
+		float camX = 0, camY = 0, speed = 1;
 
 		// Animation Frame Counter
 		unsigned int frame = 0;

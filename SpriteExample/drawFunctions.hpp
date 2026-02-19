@@ -73,4 +73,4 @@ void drawAxis(
 	char axis
 );
 
-#endif // !DRAWFUNCTIONS_HPP
+#endif

@@ -15,33 +15,25 @@
 // Registry for sprite sheets.
 
 // Using very epic and awesome design patterns to make Nesty proud
+
+// Not singletons because in the future I plan on every scene managing its own registries. But right now scenes arent added
 class SpriteSheetRegistry {
 public:
-
-	static SpriteSheetRegistry& getInstance() {
-		static SpriteSheetRegistry instance;
-		return instance;
-	}
-
-	const SpriteSheet& makeSpriteSheet(std::string nameOfSpriteSheet, GLuint texID, int tilesWide, int tilesTall, TileIndex startTile, TileIndex endTile);
-	void removeSpriteSheet(std::string nameOfSpriteSheet);
-
-	const SpriteSheet& getSpriteSheet(std::string nameOfSpriteSheet) const;
-
-	SpriteSheetRegistry(const SpriteSheetRegistry&) = delete;
-	SpriteSheetRegistry& operator=(const SpriteSheetRegistry&) = delete;
-	SpriteSheetRegistry(const SpriteSheetRegistry&&) = delete;
-	SpriteSheetRegistry& operator=(const SpriteSheetRegistry&&) = delete;
-
-private:
 	SpriteSheetRegistry()
 		: errorSpriteSheet_({ Sprite(GLuint(0), { 0.0f, 0.0f, 0.0f, 0.0f }) })
 	{}
 
 	~SpriteSheetRegistry() {}
 
+	const SpriteSheet& makeSpriteSheet(std::string nameOfSpriteSheet, GLuint texID, int tilesWide, int tilesTall, TileIndex startTile, TileIndex endTile);
+	void removeSpriteSheet(std::string nameOfSpriteSheet);
+
+	const SpriteSheet& getSpriteSheet(std::string nameOfSpriteSheet) const;
+
+private:
+
 	// Registry
-	static std::unordered_map<std::string, SpriteSheet> spriteSheetMap_;
+	std::unordered_map<std::string, SpriteSheet> spriteSheetMap_;
 
 	SpriteSheet errorSpriteSheet_; // Will signify an error in the process, should work nicely even if you dont check because TexID is 0
 };

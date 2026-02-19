@@ -1,11 +1,13 @@
 #include "DrawFunctions.hpp"
 
-// Function for drawing squares given a PositionXY, a size (float), and 4 ColorRGB for the vertices
+// Functions for drawing shapes, sprites, images, etc
+
+// Drawing a square
 void drawSquare(PositionXY pos, float size, float angle, bool mirror, bool flip, ColorRGB c1, ColorRGB c2, ColorRGB c3, ColorRGB c4) {
 	glPushMatrix();
 
-	glTranslatef(pos.x, pos.y, 0.0f);   // Move to triangle position
-	glRotatef(angle, 0.0f, 0.0f, 1.0f); // Rotate around Z axis	
+	glTranslatef(pos.x, pos.y, 0.0f);
+	glRotatef(angle, 0.0f, 0.0f, 1.0f);
 
 	if (mirror) {
 		glScalef(-1.0f, 1.0f, 1.0f);
@@ -15,29 +17,29 @@ void drawSquare(PositionXY pos, float size, float angle, bool mirror, bool flip,
 		glScalef(1.0f, -1.0f, 1.0f);
 	}
 
-	glBegin(GL_QUADS);              // Start drawing a quad
+	glBegin(GL_QUADS);
 	glColor3f(c1.red, c1.green, c1.blue);
-	glVertex3f(-size, -size, 0.0f); // Bottom-left
+	glVertex3f(-size, -size, 0.0f);
 
 	glColor3f(c2.red, c2.green, c2.blue);
-	glVertex3f(size, -size, 0.0f); // Bottom-right
+	glVertex3f(size, -size, 0.0f);
 
 	glColor3f(c3.red, c3.green, c3.blue);
-	glVertex3f(size, size, 0.0f); // Top-right
+	glVertex3f(size, size, 0.0f);
 
 	glColor3f(c4.red, c4.green, c4.blue);
-	glVertex3f(-size, size, 0.0f); // Top-left
-	glEnd();                        // End drawing
+	glVertex3f(-size, size, 0.0f);
+	glEnd();
 
 	glPopMatrix();
 }
 
-// Function for drawing triangles given a PositionXY, a size (float), and 3 ColorRGB for the vertices
+// Drawing a triangle
 void drawTriangle(PositionXY pos, float size, float angle, bool mirror, bool flip, ColorRGB c1, ColorRGB c2, ColorRGB c3) {
 	glPushMatrix();
 
-	glTranslatef(pos.x, pos.y, 0.0f);   // Move to triangle position
-	glRotatef(angle, 0.0f, 0.0f, 1.0f); // Rotate around Z axis
+	glTranslatef(pos.x, pos.y, 0.0f);
+	glRotatef(angle, 0.0f, 0.0f, 1.0f);
 
 	if (mirror) {
 		glScalef(-1.0f, 1.0f, 1.0f);
@@ -47,28 +49,28 @@ void drawTriangle(PositionXY pos, float size, float angle, bool mirror, bool fli
 		glScalef(1.0f, -1.0f, 1.0f);
 	}
 
-	glBegin(GL_TRIANGLES);              // Start drawing a triangle
+	glBegin(GL_TRIANGLES);              
 
 	glColor3f(c1.red, c1.green, c1.blue);
-	glVertex3f(-size, -size, 0.0f); // Bottom-left
+	glVertex3f(-size, -size, 0.0f); 
 
 	glColor3f(c2.red, c2.green, c2.blue);
-	glVertex3f(size, -size, 0.0f); // Bottom-right
+	glVertex3f(size, -size, 0.0f); 
 
 	glColor3f(c3.red, c3.green, c3.blue);
-	glVertex3f(0.0f, size, 0.0f); // Top
+	glVertex3f(0.0f, size, 0.0f); 
 
-	glEnd();                        // End drawing
+	glEnd();                        
 
 	glPopMatrix();
 }
 
-// Function for drawing a sprite given a PositionXY, a size (float), and a GLuint TextureID, and an optional SubTexture for tiling
+// Drawing an image
 void drawImage(PositionXY pos, float size, float angle, bool mirror, bool flip, GLuint textureID) {
 	glPushMatrix();
 
-	glTranslatef(pos.x, pos.y, 0.0f);   // Move to triangle position
-	glRotatef(angle, 0.0f, 0.0f, 1.0f); // Rotate around Z axis
+	glTranslatef(pos.x, pos.y, 0.0f);
+	glRotatef(angle, 0.0f, 0.0f, 1.0f);
 
 	if (mirror) {
 		glScalef(-1.0f, 1.0f, 1.0f);
@@ -78,9 +80,9 @@ void drawImage(PositionXY pos, float size, float angle, bool mirror, bool flip, 
 		glScalef(1.0f, -1.0f, 1.0f);
 	}
 
-	glEnable(GL_TEXTURE_2D); // Enable texturing
+	glEnable(GL_TEXTURE_2D);
 
-	glBindTexture(GL_TEXTURE_2D, textureID); // Which texture
+	glBindTexture(GL_TEXTURE_2D, textureID);
 
 	glBegin(GL_POLYGON);
 	glTexCoord2f(0.0f, 0.0f);
@@ -94,17 +96,17 @@ void drawImage(PositionXY pos, float size, float angle, bool mirror, bool flip, 
 
 	glEnd();
 
-	glDisable(GL_TEXTURE_2D); // Turn texturing off
+	glDisable(GL_TEXTURE_2D);
 
 	glPopMatrix();
 }
 
-// Function for drawing a sprite given a PositionXY, a size (float), and a GLuint TextureID, and an optional SubTexture for tiling
+// Drawing a sprite
 void drawSprite(PositionXY pos, float size, float angle, bool mirror, bool flip, Sprite sprite) {
 	glPushMatrix();
 
-	glTranslatef(pos.x, pos.y, 0.0f);   // Move to triangle position
-	glRotatef(angle, 0.0f, 0.0f, 1.0f); // Rotate around Z axis
+	glTranslatef(pos.x, pos.y, 0.0f);
+	glRotatef(angle, 0.0f, 0.0f, 1.0f);
 
 	if (mirror) {
 		glScalef(-1.0f, 1.0f, 1.0f);
@@ -114,9 +116,9 @@ void drawSprite(PositionXY pos, float size, float angle, bool mirror, bool flip,
 		glScalef(1.0f, -1.0f, 1.0f);
 	}
 
-	glEnable(GL_TEXTURE_2D); // Enable texturing
+	glEnable(GL_TEXTURE_2D);
 
-	glBindTexture(GL_TEXTURE_2D, sprite.getTextureID()); // Which texture
+	glBindTexture(GL_TEXTURE_2D, sprite.getTextureID());
 
 	SubTexture spriteUV = sprite.getUV();
 
@@ -132,11 +134,12 @@ void drawSprite(PositionXY pos, float size, float angle, bool mirror, bool flip,
 
 	glEnd();
 
-	glDisable(GL_TEXTURE_2D); // Turn texturing off
+	glDisable(GL_TEXTURE_2D);
 
 	glPopMatrix();
 }
 
+// Drawing a line
 void drawLine(PositionXY pos1, PositionXY pos2, ColorRGB c1, ColorRGB c2) {
 	glBegin(GL_LINES);              // Start drawing a line
 	glColor3f(c1.red, c1.green, c1.blue);
@@ -147,6 +150,7 @@ void drawLine(PositionXY pos1, PositionXY pos2, ColorRGB c1, ColorRGB c2) {
 	glEnd();                        // End drawing
 }
 
+// Drawing an axis
 void drawAxis(PositionXY pos1, PositionXY pos2, ColorRGB c1, ColorRGB c2, char axis) {
 	if (axis == 'x') {
 		drawLine(

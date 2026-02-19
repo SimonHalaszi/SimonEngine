@@ -12,26 +12,16 @@
 // Registry for textures
 
 // Using very epic and awesome design patterns to make Nesty proud
+
+// Not singletons because in the future I plan on every scene managing its own registries. But right now scenes arent added
 class TextureRegistry {
 	public:
-
-		static TextureRegistry& getInstance() {
-			static TextureRegistry instance;
-			return instance;
-		}
+		TextureRegistry() {}
 
 		GLuint loadTexture(std::string filepath);
 		void unloadTexture(std::string filepath);
 
 		GLuint getTextureID(std::string filepath) const;
-
-		TextureRegistry(const TextureRegistry&) = delete;
-		TextureRegistry& operator=(const TextureRegistry&) = delete;
-		TextureRegistry(const TextureRegistry&&) = delete;
-		TextureRegistry& operator=(const TextureRegistry&&) = delete;
-
-	private:
-		TextureRegistry() {}
 
 		~TextureRegistry() {
 			for (auto& pair : textureMap_) {
@@ -39,8 +29,9 @@ class TextureRegistry {
 			}
 		}
 
+	private:
 		// Registry
-		static std::unordered_map<std::string, GLuint> textureMap_;
+		std::unordered_map<std::string, GLuint> textureMap_;
 };
 
 #endif

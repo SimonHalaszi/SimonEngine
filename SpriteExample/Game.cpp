@@ -10,23 +10,18 @@ void GAMEanimationTimer(int v) {
 void GAMEupdateTimer(int v) {
 	Game::getInstance().updateTimer(v);
 }
-
 void GAMEprocSpecialKeys(int key, int x, int y) {
 	Game::getInstance().procSpecialKeys(key, x, y);
 }
-
 void GAMEprocSpecialKeysUp(int key, int x, int y) {
 	Game::getInstance().procSpecialKeysUp(key, x, y);
 }
-
 void GAMEprocKeys(unsigned char key, int x, int y) {
 	Game::getInstance().procKeys(key, x, y);
 }
-
 void GAMEprocMouse(int button, int state, int x, int y) {
 	Game::getInstance().procMouse(button, state, x, y);
 }
-
 void GAMEframeTimer(int v) {
 	Game::getInstance().frameTimer(v);
 }
@@ -40,10 +35,6 @@ Game::Game() :
 	runningTilesBrownsFilepath("sprite/TwoGuys-sheet.png"),
 	runningTilesBillsFilepath("sprite/BillsGuy-sheet.png")
 {
-	textures = &TextureRegistry::getInstance();
-	sprites = &SpriteRegistry::getInstance();
-	spriteSheets = &SpriteSheetRegistry::getInstance();
-
 	billsRunningSheetName = "billsRunning";
 	brownsRunningSheetName = "brownsRunning";
 	brownsSpriteName = "brownsSprite";
@@ -64,56 +55,56 @@ void Game::init() {
 	std::cout << "Game::init : Started at track from " << audioTracks[currentAudioTrack] << std::endl;
 
 	// Loading sprite textures from file path
-	textures->loadTexture(runningTilesBillsFilepath);
-	textures->loadTexture(runningTilesBrownsFilepath);
+	textures.loadTexture(runningTilesBillsFilepath);
+	textures.loadTexture(runningTilesBrownsFilepath);
 
 	// Making a sprite sheet
-	spriteSheets->makeSpriteSheet(
+	spriteSheets.makeSpriteSheet(
 		billsRunningSheetName,
-		textures->getTextureID(runningTilesBillsFilepath),
+		textures.getTextureID(runningTilesBillsFilepath),
 		6, 1,
 		{ 0, 0 }, { 5, 0 }
 	);
 
 	// Making a sprite sheet
-	spriteSheets->makeSpriteSheet(
+	spriteSheets.makeSpriteSheet(
 		brownsRunningSheetName,
-		textures->getTextureID(runningTilesBrownsFilepath),
+		textures.getTextureID(runningTilesBrownsFilepath),
 		3, 4,
 		{ 0, 2 }, { 2, 3 }
 	);
 
 	// Making a sprite
-	sprites->makeSprite(
+	sprites.makeSprite(
 		billsSpriteName,
-		textures->getTextureID(runningTilesBillsFilepath),
+		textures.getTextureID(runningTilesBillsFilepath),
 		6, 1,
 		{ 0, 0 }
 	);
 
 	// Making a sprite
-	sprites->makeSprite(
+	sprites.makeSprite(
 		brownsSpriteName,
-		textures->getTextureID(runningTilesBrownsFilepath),
+		textures.getTextureID(runningTilesBrownsFilepath),
 		3, 4,
 		{ 0, 2 }
 	);
 
 	// Just showing errors
-	textures->loadTexture(runningTilesBrownsFilepath);
-	spriteSheets->makeSpriteSheet(
+	textures.loadTexture(runningTilesBrownsFilepath);
+	spriteSheets.makeSpriteSheet(
 		billsRunningSheetName,
-		textures->getTextureID(runningTilesBillsFilepath),
+		textures.getTextureID(runningTilesBillsFilepath),
 		6, 1,
 		{ 0, 0 }, { 5, 0 }
 	);
-	sprites->makeSprite(
+	sprites.makeSprite(
 		brownsSpriteName,
-		textures->getTextureID(runningTilesBrownsFilepath),
+		textures.getTextureID(runningTilesBrownsFilepath),
 		3, 4,
 		{ 0, 2 }
 	);
-	spriteSheets->getSpriteSheet("bob");
+	spriteSheets.getSpriteSheet("bob");
 
 	// Printing update information
 	std::cout << "Game::init : Animation updates " << animationUpdatesPerSecond << " times per second " << std::endl;
@@ -135,11 +126,11 @@ void Game::draw() {
 	if (screenOn) {
 		glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
 
-		SpriteSheet billsRunningSpriteSheet = SpriteSheetRegistry::getInstance().getSpriteSheet(billsRunningSheetName);
-		SpriteSheet brownsRunningSpriteSheet = SpriteSheetRegistry::getInstance().getSpriteSheet(brownsRunningSheetName);
+		SpriteSheet billsRunningSpriteSheet = spriteSheets.getSpriteSheet(billsRunningSheetName);
+		SpriteSheet brownsRunningSpriteSheet = spriteSheets.getSpriteSheet(brownsRunningSheetName);
 
-		Sprite billsSprite = SpriteRegistry::getInstance().getSprite(billsSpriteName);
-		Sprite brownsSprite = SpriteRegistry::getInstance().getSprite(brownsSpriteName);
+		Sprite billsSprite = sprites.getSprite(billsSpriteName);
+		Sprite brownsSprite = sprites.getSprite(brownsSpriteName);
 
 		// If moving do the sprite sheet animation if not just draw the sprite
 		if (moveX || moveY) {
@@ -252,7 +243,6 @@ void Game::update() {
 		moveY += 1.0f * deltaTime;
 	}
 
-
 	if (keyDownPressed) {
 		moveY -= 1.0f * deltaTime;
 	}
@@ -275,6 +265,7 @@ void Game::update() {
 
 void Game::animationTimer(int v) {
 	frame++; // Changed to an unsigned int, animation vectors will handle their own looping
+	// This will eventually cause a like singular hiccup when this overflows but at the current speed I think that takes YEARS so good enough
 	glutTimerFunc(int(1000 / animationUpdatesPerSecond), GAMEanimationTimer, v); // Creates a frame delay that is counted in miliseconds
 }
 
@@ -297,6 +288,7 @@ void Game::procSpecialKeys(int key, int x, int y)
 	}
 }
 
+// Needed because I want to be able to do two inputs at once
 void Game::procSpecialKeysUp(int key, int x, int y)
 {
 	if (key == GLUT_KEY_LEFT) {
@@ -343,7 +335,7 @@ void Game::procKeys(unsigned char key, int x, int y)
 			musicOn = true;
 		}
 		break;
-	case 27: // escape
+	case 27:
 		exit(0);
 	}
 }

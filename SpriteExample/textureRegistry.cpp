@@ -1,8 +1,6 @@
 #include "TextureRegistry.hpp"
 
-std::unordered_map<std::string, GLuint> TextureRegistry::textureMap_ = {};
-
-// Changed to load one texture at a time given a string filepath, adds to global registry, also returns id
+// Changed to load one texture at a time given a string filepath, adds to registry, also returns id
 // Also fixed to support the alpha channel, and handle the RGBA to BGRA conversion that FreeImage doesnt do by default
 GLuint TextureRegistry::loadTexture(std::string filepath) {
 	auto it = textureMap_.find(filepath);

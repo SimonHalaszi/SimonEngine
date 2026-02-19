@@ -1,7 +1,5 @@
 #include "SpriteRegistry.hpp"
 
-std::unordered_map<std::string, Sprite> SpriteRegistry::spriteMap_ = {};
-
 const Sprite& SpriteRegistry::makeSprite(std::string nameOfSprite, GLuint texID, int tilesWide, int tilesTall, TileIndex tile) {
 	if (spriteMap_.find(nameOfSprite) != spriteMap_.end()) {
 		std::cout << "SpriteRegistry::makeSprite : Will not create two sprites with the same name try a different name instead of " << nameOfSprite << std::endl;

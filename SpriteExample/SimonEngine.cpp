@@ -12,7 +12,7 @@
 // Look how clean my main is :). Makes me want to cry
 int main(int argc, char** argv) {
 	glutInit(&argc, argv);
-	glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE); // RGB mode, added GLUT Double for double buffering, so that screen clearing works
+	glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE); // Changed to RGBA also added Double buffering
 	glutInitWindowSize(WIN_W, WIN_H); // window size
 	glutInitWindowPosition(WIN_X, WIN_Y);
 	glutCreateWindow("(Simon Halaszi) (811196947)");

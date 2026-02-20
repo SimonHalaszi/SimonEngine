@@ -146,6 +146,7 @@
   <ItemGroup>
     <ClInclude Include="DrawFunctions.hpp" />
     <ClInclude Include="Game.hpp" />
+    <ClInclude Include="GameObject.hpp" />
     <ClInclude Include="MainScene.hpp" />
     <ClInclude Include="shader.h" />
     <ClInclude Include="Sprite.hpp" />

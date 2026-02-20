@@ -8,6 +8,7 @@
 #include "TextureRegistry.hpp"
 #include "SpriteRegistry.hpp"
 #include "SpriteSheetRegistry.hpp"
+#include "GameObject.hpp"
 
 // Scene Class
 
@@ -18,7 +19,13 @@ class Scene {
 			framesPerSeconds_(framesPerSeconds), 
 			animationUpdatesPerSecond_(animationUpdatesPerSecond) {
 			soundEngine_ = irrklang::createIrrKlangDevice();
+
+			if (!soundEngine_) {
+				std::cout << "ERROR: Failed to create irrKlang device!\n";
+			}
+
 			animationFrame_ = 0;
+			deltaTime_ = (1.0f / updatesPerSecond_);
 		}
 
 		virtual ~Scene() {
@@ -27,11 +34,34 @@ class Scene {
 			}
 		}
 
-		virtual void init() = 0;
+		virtual void init() {
+			for (const auto& gameObject : gameObjects_) {
+				gameObject->init();
+			}
+		};
 
-		virtual void draw() = 0;
+		virtual void draw() {
+			for (const auto& gameObject : gameObjects_) {
+				gameObject->draw();
+			}
+		}
 
-		virtual void update() = 0;
+		virtual void update() {
+			for (auto* gameObject : gameObjects_) {
+				gameObject->update();
+			}
+
+			for (auto it = gameObjects_.begin(); it != gameObjects_.end(); ) {
+				if (!(*it)->isAlive()) {
+					(*it)->onDestruction();
+					delete* it;
+					it = gameObjects_.erase(it);
+				}
+				else {
+					++it;
+				}
+			}
+		}
 
 		virtual void procSpecialKeys(int key, int x, int y) = 0;
 		virtual void procSpecialKeysUp(int key, int x, int y) = 0;
@@ -45,10 +75,13 @@ class Scene {
 		void incrementAnimationFrame() { ++animationFrame_; }
 
 	protected:
-		// Registries
+		// Asset Registries
 		TextureRegistry textures_;
 		SpriteRegistry sprites_;
 		SpriteSheetRegistry spriteSheets_;
+
+		// Scene Game Objects
+		std::vector<GameObject*> gameObjects_;
 
 		// Sound Engine
 		irrklang::ISoundEngine* soundEngine_;
@@ -59,6 +92,7 @@ class Scene {
 		int animationUpdatesPerSecond_;
 
 		unsigned int animationFrame_;
+		float deltaTime_;
 };
 
 #endif // !GAME_HPP

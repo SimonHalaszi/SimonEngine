@@ -171,38 +171,36 @@ void MainScene::draw() {
 }
 
 void MainScene::update() {
-	float deltaTime = (1.0f / updatesPerSecond_);
-
 	moveX_ = 0.0f;
 	moveY_ = 0.0f;
 
 	if (keyLeftPressed_) {
-		moveX_ -= 1.0f * deltaTime;
+		moveX_ -= 1.0f * deltaTime_;
 		mirrorPlayer_ = true;
 	}
 
 	if (keyRightPressed_) {
-		moveX_ += 1.0f * deltaTime;
+		moveX_ += 1.0f * deltaTime_;
 		mirrorPlayer_ = false;
 	}
 
 	if (keyUpPressed_) {
-		moveY_ += 1.0f * deltaTime;
+		moveY_ += 1.0f * deltaTime_;
 	}
 
 	if (keyDownPressed_) {
-		moveY_ -= 1.0f * deltaTime;
+		moveY_ -= 1.0f * deltaTime_;
 	}
 
 	playerPos_.x += moveX_;
 	playerPos_.y += moveY_;
 
-	squareRotation_ += 20 * deltaTime;
+	squareRotation_ += 20 * deltaTime_;
 	if (squareRotation_ >= 360) {
 		squareRotation_ = 0;
 	}
 
-	triangleRotation_ += -20 * deltaTime;
+	triangleRotation_ += -20 * deltaTime_;
 	if (triangleRotation_ <= -360) {
 		triangleRotation_ = 0;
 	}

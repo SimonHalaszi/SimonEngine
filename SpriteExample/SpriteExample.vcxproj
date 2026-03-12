@@ -105,13 +105,13 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>./include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>K:\Users\Simon\Downloads\SimonEngine\SimonEngine\SpriteExample\include\</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>./lib</AdditionalLibraryDirectories>
-      <AdditionalDependencies>FreeImage.lib;irrKlang.lib;freeglut.lib;opengl32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>K:\Users\Simon\Downloads\SimonEngine\SimonEngine\SpriteExample\lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>freeglut.lib;FreeImage.lib;irrKlang.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -122,35 +122,56 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>K:\Users\Simon\Downloads\SimonEngine\SimonEngine\SpriteExample\include\</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>K:\Users\Simon\Downloads\SimonEngine\SimonEngine\SpriteExample\lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>freeglut.lib;FreeImage.lib;irrKlang.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AnimatedSprite.cpp" />
+    <ClCompile Include="Axis.cpp" />
     <ClCompile Include="DrawFunctions.cpp" />
     <ClCompile Include="Game.cpp" />
-    <ClCompile Include="MainScene.cpp" />
+    <ClCompile Include="GameObject2D.cpp" />
+    <ClCompile Include="InputManager.cpp" />
+    <ClCompile Include="ArchiveScene.cpp" />
+    <ClCompile Include="ArchivePlayer.cpp" />
     <ClCompile Include="Scene.hpp" />
     <ClCompile Include="SimonEngine.cpp" />
+    <ClCompile Include="StaticSprite.cpp" />
     <ClCompile Include="SpriteRegistry.cpp" />
     <ClCompile Include="SpriteRegistry.hpp" />
     <ClCompile Include="SpriteSheet.hpp" />
     <ClCompile Include="SpriteSheetRegistry.cpp" />
     <ClCompile Include="SpriteSheetRegistry.hpp" />
+    <ClCompile Include="RotatingColorChangingSquare.cpp" />
+    <ClCompile Include="TemplateScene.cpp" />
     <ClCompile Include="TextureRegistry.cpp" />
+    <ClCompile Include="RotatingColorChangingTriangle.cpp" />
+    <ClCompile Include="Utilities.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AnimatedSprite.hpp" />
+    <ClInclude Include="Axis.hpp" />
     <ClInclude Include="DrawFunctions.hpp" />
     <ClInclude Include="Game.hpp" />
-    <ClInclude Include="GameObject.hpp" />
-    <ClInclude Include="MainScene.hpp" />
+    <ClInclude Include="GameObject2D.hpp" />
+    <ClInclude Include="InputManager.hpp" />
+    <ClInclude Include="ArchiveScene.hpp" />
+    <ClInclude Include="ArchivePlayer.hpp" />
     <ClInclude Include="shader.h" />
     <ClInclude Include="Sprite.hpp" />
+    <ClInclude Include="RotatingColorChangingSquare.hpp" />
+    <ClInclude Include="StaticSprite.hpp" />
+    <ClInclude Include="TemplateScene.hpp" />
     <ClInclude Include="TextureRegistry.hpp" />
+    <ClInclude Include="RotatingColorChangingTriangle.hpp" />
     <ClInclude Include="Utilities.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

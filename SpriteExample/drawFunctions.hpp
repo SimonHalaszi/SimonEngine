@@ -13,7 +13,7 @@
 
 // Drawing a square
 void drawSquare(
-	PositionXY pos, 
+	Vector2D pos,
 	float size, 
 	float angle, 
 	bool mirror,
@@ -26,7 +26,7 @@ void drawSquare(
 
 // Drawing a triangle
 void drawTriangle(
-	PositionXY pos, 
+	Vector2D pos,
 	float size, 
 	float angle, 
 	bool mirror,
@@ -38,8 +38,8 @@ void drawTriangle(
 
 // Drawing an image
 void drawImage(
-	PositionXY pos, 
-	float size, 
+	Vector2D pos,
+	Vector2D size,
 	float angle, 
 	bool mirror, 
 	bool flip, 
@@ -48,8 +48,8 @@ void drawImage(
 
 // Drawing a sprite
 void drawSprite(
-	PositionXY pos,
-	float size,
+	Vector2D pos,
+	Vector2D size,
 	float angle,
 	bool mirror,
 	bool flip,
@@ -58,19 +58,10 @@ void drawSprite(
 
 // Drawing a line
 void drawLine(
-	PositionXY pos1, 
-	PositionXY pos2, 
+	Vector2D pos1,
+	Vector2D pos2,
 	ColorRGB c1, 
 	ColorRGB c2
-);
-
-// Drawing an axis
-void drawAxis(
-	PositionXY pos1, 
-	PositionXY pos2, 
-	ColorRGB c1, 
-	ColorRGB c2, 
-	char axis
 );
 
 #endif

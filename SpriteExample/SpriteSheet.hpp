@@ -11,19 +11,19 @@
 
 // Simple sprite sheet class, ong adapter design pattern Nesty should be proud
 class SpriteSheet {
-public:
-	SpriteSheet() : sheet_() {}
-	SpriteSheet(const std::vector<Sprite> sheet) : sheet_(sheet) {}
+	public:
+		SpriteSheet() : sheet_() {}
+		SpriteSheet(const std::vector<Sprite> sheet) : sheet_(sheet) {}
 
-	const std::vector<Sprite>& getSheet() const { return sheet_; }
-	int spriteCount() const { return sheet_.size();  }
+		const std::vector<Sprite>& getSheet() const { return sheet_; }
+		int spriteCount() const { return sheet_.size();  }
 
-	// Same thing different story
-	Sprite operator[](int i) const { return sheet_[i]; }
-	Sprite getSpriteAt(int i) const { return sheet_[i]; }
+		// Same thing different story
+		Sprite operator[](int i) const { return sheet_[i]; }
+		Sprite getSpriteAt(int i) const { return sheet_[i]; }
 
-private:
-	std::vector<Sprite> sheet_; // Internal data structure
+	private:
+		std::vector<Sprite> sheet_; // Internal data structure
 };
 
 #endif

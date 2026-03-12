@@ -1,7 +1,9 @@
 #ifndef UTILITIES_HPP_
 #define UTILITIES_HPP_
 
-// Simple helper structs
+#include <cmath>
+
+// Simple helper structs and functions
 
 // Used for inputting color information in draw functions
 struct ColorRGB {
@@ -11,7 +13,7 @@ struct ColorRGB {
 };
 
 // Used for inputting positions in draw functions
-struct PositionXY {
+struct Vector2D {
 	float x;
 	float y;
 };
@@ -29,5 +31,19 @@ struct SubTexture {
 	float v0;
 	float v1;
 };
+
+struct Transform2D {
+	Vector2D position = { 0.0f, 0.0f };
+	Vector2D scale = { 0.0f, 0.0f };
+	float rotation = 0.0f;
+	bool mirror = false;
+	bool flip = false;
+};
+
+constexpr float PI = 3.14159265358979323846f;
+
+float degreesToRadians(float degrees);
+
+Transform2D composeTransforms(const Transform2D& left, const Transform2D& right);
 
 #endif

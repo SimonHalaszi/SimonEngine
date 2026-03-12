@@ -8,7 +8,9 @@
 #include <memory>
 
 #include "Scene.hpp"
-#include "MainScene.hpp"
+
+#include "ArchiveScene.hpp"
+#include "TemplateScene.hpp"
 
 // Game Class
 
@@ -22,8 +24,8 @@ class Game {
 
 		void init();
 		
-		Scene* getCurrentScene() { return currentScene_.get(); }
-		void changeScene(std::unique_ptr<Scene> newScene) { currentScene_ = std::move(newScene); currentScene_->init(); }
+		const Scene* getCurrentScene() { return currentScene_.get(); }
+		void changeScene(std::unique_ptr<Scene> newScene);
 
 		// Public only so buffer functions can call them
 		void frameTimer(int v);
@@ -36,13 +38,14 @@ class Game {
 		Game& operator=(const Game&&) = delete;
 
 	private:
-		Game() : currentScene_(std::make_unique<MainScene>()) {}
+		Game() : currentScene_(nullptr) {}
+
+		Scene* getCurrentSceneNonConst() { return currentScene_.get(); }
 
 		~Game() {}
 
-		void setupInputs();
-
 		std::unique_ptr<Scene> currentScene_;
+		std::unique_ptr<Scene> pendingScene_;
 };
 
 #endif

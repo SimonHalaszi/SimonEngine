@@ -13,66 +13,144 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Source Files\Scenes">
+      <UniqueIdentifier>{1138a605-133c-4032-ac32-d6f7b76a81da}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Game">
+      <UniqueIdentifier>{6d0a3838-7759-41ec-85a0-bd8e27ed00c7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Source">
+      <UniqueIdentifier>{537a76d2-8c78-411f-9f6b-acd406eef817}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GameObjects">
+      <UniqueIdentifier>{35b82232-10ee-4c05-877e-b5fff298847a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Game">
+      <UniqueIdentifier>{97ff508b-1536-4d89-b581-ded818efd5ef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Source">
+      <UniqueIdentifier>{774fdd15-7955-4de3-b57e-67e5940f93b8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Scenes">
+      <UniqueIdentifier>{e706c459-03b2-42bd-a01c-e38b3635dbdd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\GameObjects">
+      <UniqueIdentifier>{69ef1713-c797-492f-922b-b7e693833ad0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="SimonEngine.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="DrawFunctions.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="TextureRegistry.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="ArchiveScene.cpp">
+      <Filter>Source Files\Scenes</Filter>
     </ClCompile>
     <ClCompile Include="Game.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Game</Filter>
     </ClCompile>
-    <ClCompile Include="SpriteSheet.hpp">
-      <Filter>Header Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SpriteRegistry.hpp">
-      <Filter>Header Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SpriteRegistry.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SpriteSheetRegistry.hpp">
-      <Filter>Header Files</Filter>
+    <ClCompile Include="TextureRegistry.cpp">
+      <Filter>Source Files\Source</Filter>
     </ClCompile>
     <ClCompile Include="SpriteSheetRegistry.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteRegistry.cpp">
+      <Filter>Source Files\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SimonEngine.cpp">
+      <Filter>Source Files\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Utilities.cpp">
+      <Filter>Source Files\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="InputManager.cpp">
+      <Filter>Source Files\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject2D.cpp">
+      <Filter>Source Files\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="DrawFunctions.cpp">
+      <Filter>Source Files\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="ArchivePlayer.cpp">
+      <Filter>Source Files\GameObjects</Filter>
     </ClCompile>
     <ClCompile Include="Scene.hpp">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Source</Filter>
     </ClCompile>
-    <ClCompile Include="MainScene.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="SpriteRegistry.hpp">
+      <Filter>Header Files\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteSheet.hpp">
+      <Filter>Header Files\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteSheetRegistry.hpp">
+      <Filter>Header Files\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="RotatingColorChangingSquare.cpp">
+      <Filter>Source Files\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="RotatingColorChangingTriangle.cpp">
+      <Filter>Source Files\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="StaticSprite.cpp">
+      <Filter>Source Files\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimatedSprite.cpp">
+      <Filter>Source Files\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Axis.cpp">
+      <Filter>Source Files\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="TemplateScene.cpp">
+      <Filter>Source Files\Scenes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Utilities.hpp">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Game.hpp">
+      <Filter>Header Files\Game</Filter>
     </ClInclude>
     <ClInclude Include="DrawFunctions.hpp">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Source</Filter>
     </ClInclude>
-    <ClInclude Include="TextureRegistry.hpp">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="GameObject2D.hpp">
+      <Filter>Header Files\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="InputManager.hpp">
+      <Filter>Header Files\Source</Filter>
     </ClInclude>
     <ClInclude Include="shader.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Game.hpp">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Source</Filter>
     </ClInclude>
     <ClInclude Include="Sprite.hpp">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Source</Filter>
     </ClInclude>
-    <ClInclude Include="MainScene.hpp">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="TextureRegistry.hpp">
+      <Filter>Header Files\Source</Filter>
     </ClInclude>
-    <ClInclude Include="GameObject.hpp">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Utilities.hpp">
+      <Filter>Header Files\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="ArchiveScene.hpp">
+      <Filter>Header Files\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="ArchivePlayer.hpp">
+      <Filter>Header Files\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="RotatingColorChangingSquare.hpp">
+      <Filter>Header Files\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="RotatingColorChangingTriangle.hpp">
+      <Filter>Header Files\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="StaticSprite.hpp">
+      <Filter>Header Files\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimatedSprite.hpp">
+      <Filter>Header Files\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Axis.hpp">
+      <Filter>Header Files\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="TemplateScene.hpp">
+      <Filter>Header Files\Scenes</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

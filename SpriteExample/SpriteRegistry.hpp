@@ -15,28 +15,33 @@
 
 // Using very epic and awesome design patterns to make Nesty proud
 class SpriteRegistry {
-public:
-	SpriteRegistry()
-		: errorSprite_(GLuint(0), { 0.0f, 0.0f, 0.0f, 0.0f })
-	{
-	}
+	public:
+		static SpriteRegistry& getInstance() {
+			static SpriteRegistry instance;
+			return instance;
+		}
 
-	~SpriteRegistry() {}
+		const Sprite& makeSprite(std::string nameOfSprite, GLuint texID, int tilesWide, int tilesTall, TileIndex tile);
+		void removeSprite(std::string nameOfSprite);
 
-	const Sprite& makeSprite(std::string nameOfSprite, GLuint texID, int tilesWide, int tilesTall, TileIndex tile);
-	void removeSprite(std::string nameOfSprite);
+		const Sprite& getSprite(std::string nameOfSprite) const;
 
-	const Sprite& getSprite(std::string nameOfSprite) const;
+		SpriteRegistry(const SpriteRegistry&) = delete;
+		SpriteRegistry& operator=(const SpriteRegistry&) = delete;
+		SpriteRegistry(const SpriteRegistry&&) = delete;
+		SpriteRegistry& operator=(const SpriteRegistry&&) = delete;
 
-	SpriteRegistry(const SpriteRegistry&) = delete;
-	SpriteRegistry& operator=(const SpriteRegistry&) = delete;
-	SpriteRegistry(const SpriteRegistry&&) = delete;
-	SpriteRegistry& operator=(const SpriteRegistry&&) = delete;
+	private:
+		SpriteRegistry()
+			: errorSprite_(GLuint(0), { 0.0f, 0.0f, 0.0f, 0.0f })
+		{
+		}
 
-private:
-	// Registry
-	std::unordered_map<std::string, Sprite> spriteMap_;
-	Sprite errorSprite_;  // Will signify an error in the process, should work nicely even if you dont check because TexID is 0
+		~SpriteRegistry() {}
+
+		// Registry
+		std::unordered_map<std::string, Sprite> spriteMap_;
+		Sprite errorSprite_;  // Will signify an error in the process, should work nicely even if you dont check because TexID is 0
 };
 
 #endif

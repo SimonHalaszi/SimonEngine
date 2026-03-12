@@ -9,9 +9,9 @@ GLuint TextureRegistry::loadTexture(std::string filepath) {
 		return it->second;
 	}
 
-	void* imgData; // Pointer to image color data read from the file.
-	int imgWidth; // The width of the image that was read.
-	int imgHeight; // The height.
+	void* imgData = nullptr; // Pointer to image color data read from the file.
+	int imgWidth = 0; // The width of the image that was read.
+	int imgHeight = 0; // The height.
 	FREE_IMAGE_FORMAT format = FreeImage_GetFIFFromFilename(filepath.c_str());
 	if (format == FIF_UNKNOWN) {
 		std::cout << "TextureRegistry::loadTexture : Unknown file path type for texture image file " << filepath << std::endl;

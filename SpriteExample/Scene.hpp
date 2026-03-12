@@ -4,11 +4,12 @@
 #include <IrrKlang/irrKlang.h>
 
 #include <string>
+#include <memory>
 
 #include "TextureRegistry.hpp"
 #include "SpriteRegistry.hpp"
 #include "SpriteSheetRegistry.hpp"
-#include "GameObject.hpp"
+#include "GameObject2D.hpp"
 
 // Scene Class
 
@@ -19,13 +20,6 @@ class Scene {
 			framesPerSeconds_(framesPerSeconds), 
 			animationUpdatesPerSecond_(animationUpdatesPerSecond) {
 			soundEngine_ = irrklang::createIrrKlangDevice();
-
-			if (!soundEngine_) {
-				std::cout << "ERROR: Failed to create irrKlang device!\n";
-			}
-
-			animationFrame_ = 0;
-			deltaTime_ = (1.0f / updatesPerSecond_);
 		}
 
 		virtual ~Scene() {
@@ -34,65 +28,83 @@ class Scene {
 			}
 		}
 
-		virtual void init() {
-			for (const auto& gameObject : gameObjects_) {
-				gameObject->init();
+		void addRootGameObject2D(std::unique_ptr<GameObject2D> gameObject) {
+			if (!gameObject) {
+				return;
 			}
-		};
 
-		virtual void draw() {
-			for (const auto& gameObject : gameObjects_) {
-				gameObject->draw();
-			}
+			rootObjects_.push_back(std::move(gameObject));
+
+			rootObjects_.back()->rootOnStart();
 		}
 
-		virtual void update() {
-			for (auto* gameObject : gameObjects_) {
-				gameObject->update();
-			}
+		void sceneInit() {
+			init();
+		}
 
-			for (auto it = gameObjects_.begin(); it != gameObjects_.end(); ) {
-				if (!(*it)->isAlive()) {
-					(*it)->onDestruction();
-					delete* it;
-					it = gameObjects_.erase(it);
-				}
-				else {
+		void sceneDeInit() {
+			deInit();
+		}
+
+		void sceneDraw() const {
+			draw();
+			for (auto& rootObject : rootObjects_) {
+				rootObject->rootDraw();
+			}
+		}
+		
+		void sceneUpdate() {
+			update();
+			for (auto it = rootObjects_.begin(); it != rootObjects_.end();) {
+				GameObject2D* rO = it->get();
+				
+				rO->rootUpdate();
+
+				if (rO->isAlive()) {
 					++it;
 				}
+				else {
+					rO->rootOnDestruction();
+					it = rootObjects_.erase(it);
+				}
 			}
 		}
-
-		virtual void procSpecialKeys(int key, int x, int y) = 0;
-		virtual void procSpecialKeysUp(int key, int x, int y) = 0;
-		virtual void procKeys(unsigned char key, int x, int y) = 0;
-		virtual void procMouse(int button, int state, int x, int y) = 0;
 
 		int getUpdateSpeed() const { return updatesPerSecond_; }
 		int getFrameSpeed() const { return framesPerSeconds_; }
 		int getAnimationUpdateSpeed() const { return animationUpdatesPerSecond_; }
 
+		void isDrawing(bool willDraw) { isDrawing_ = willDraw; }
+		void isUpdating(bool willUpdate) { isUpdating_ = willUpdate; }
+		void isUpdatingAnimations(bool willUpdateAnimations) { isUpdatingAnimations_ = willUpdateAnimations; }
+
+		bool isDrawing() const { return isDrawing_; }
+		bool isUpdating() const { return isUpdating_; }
+		bool isUpdatingAnimations() const { return isUpdatingAnimations_; }
+
 		void incrementAnimationFrame() { ++animationFrame_; }
+		int getAnimationFrame() const { return animationFrame_; }
 
 	protected:
-		// Asset Registries
-		TextureRegistry textures_;
-		SpriteRegistry sprites_;
-		SpriteSheetRegistry spriteSheets_;
+		// Scene specific functionalities handled here. GameObjects are updated AUTOMATICALLY based on per GameObject logic
+		virtual void init() {}
+		virtual void deInit() {}
+		virtual void draw() const {} // Scene specific drawing (Stuff not attached to GameObjects)
+		virtual void update() {} // Scene specific updating (Stuff not attached to GameObjects)
 
-		// Scene Game Objects
-		std::vector<GameObject*> gameObjects_;
+		// Scene root GameObjects
+		std::vector<std::unique_ptr<GameObject2D>> rootObjects_;
 
 		// Sound Engine
 		irrklang::ISoundEngine* soundEngine_;
+
+		bool isDrawing_ = true, isUpdating_ = true, isUpdatingAnimations_ = true;
 
 		// Update Tick Speeds
 		int updatesPerSecond_;
 		int framesPerSeconds_;
 		int animationUpdatesPerSecond_;
-
-		unsigned int animationFrame_;
-		float deltaTime_;
+		int animationFrame_ = 0;
 };
 
 #endif // !GAME_HPP

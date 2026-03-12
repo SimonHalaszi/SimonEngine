@@ -11,39 +11,65 @@ void GAMEframeTimer(int v) {
 	Game::getInstance().frameTimer(v);
 }
 
+void Game::changeScene(std::unique_ptr<Scene> newScene) {
+	pendingScene_ = std::move(newScene);
+}
+
+void Game::updateTimer(int v) {
+	int updatesPerSecond = 1;
+	if (currentScene_) {
+		updatesPerSecond = currentScene_->getUpdateSpeed();
+		if (currentScene_->isUpdating()) {
+			currentScene_->sceneUpdate();
+		}
+	}
+
+	if (pendingScene_) {
+		if (currentScene_) {
+			currentScene_->sceneDeInit();
+		}
+		currentScene_ = std::move(pendingScene_);
+		if (currentScene_) {
+			currentScene_->sceneInit();
+		}
+	}
+
+	InputManager::getInstance().update();
+
+	glutTimerFunc(int(1000 / updatesPerSecond), GAMEupdateTimer, v); // Updates
+}
+
+void Game::frameTimer(int v) {
+	glutPostRedisplay();
+	int frameUpdatesPerSecond = 1;
+	if (currentScene_) {
+		frameUpdatesPerSecond = currentScene_->getFrameSpeed();
+	}
+	glutTimerFunc(int(1000 / frameUpdatesPerSecond), GAMEframeTimer, v); // Updates
+}
+
 void GAMEdraw() {
-	Scene* currentScene = Game::getInstance().getCurrentScene();
+	const Scene* currentScene = Game::getInstance().getCurrentScene();
 	if (currentScene) {
 		glClear(GL_COLOR_BUFFER_BIT);
 		glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
-		currentScene->draw();
+		if (currentScene->isDrawing()) {
+			currentScene->sceneDraw();
+		}
 		glFlush();
 		glutSwapBuffers();
 	}
 }
-void GAMEprocSpecialKeys(int key, int x, int y) {
-	Scene* currentScene = Game::getInstance().getCurrentScene();
-	if (currentScene) {
-		currentScene->procSpecialKeys(key, x, y);
+
+void Game::animationTimer(int v) {
+	int animationUpdatesPerSecond = 1;
+	if (currentScene_) {
+		animationUpdatesPerSecond = currentScene_->getAnimationUpdateSpeed();
+		if (currentScene_->isUpdatingAnimations()) {
+			currentScene_->incrementAnimationFrame();
+		}
 	}
-}
-void GAMEprocSpecialKeysUp(int key, int x, int y) {
-	Scene* currentScene = Game::getInstance().getCurrentScene();
-	if (currentScene) {
-		currentScene->procSpecialKeysUp(key, x, y);
-	}
-}
-void GAMEprocKeys(unsigned char key, int x, int y) {
-	Scene* currentScene = Game::getInstance().getCurrentScene();
-	if (currentScene) {
-		currentScene->procKeys(key, x, y);
-	}
-}
-void GAMEprocMouse(int button, int state, int x, int y) {
-	Scene* currentScene = Game::getInstance().getCurrentScene();
-	if (currentScene) {
-		currentScene->procMouse(button, state, x, y);
-	}
+	glutTimerFunc(int(1000 / animationUpdatesPerSecond), GAMEanimationTimer, v); // Creates a frame delay that is counted in miliseconds
 }
 
 void Game::init() {
@@ -54,50 +80,26 @@ void Game::init() {
 	glLoadIdentity();
 	glOrtho(-1.0, 1.0, -1.0, 1.0, -1.0, 1.0);
 
-	currentScene_->init();
+	glutSpecialFunc(INPUTMANAGERprocSpecialKeys);
+	glutSpecialUpFunc(INPUTMANAGERprocSpecialKeysUp);
+	glutKeyboardFunc(INPUTMANAGERprocKeys);
+	glutKeyboardUpFunc(INPUTMANAGERprocKeysUp);
+	glutMouseFunc(INPUTMANAGERprocMouse);
+	glutMotionFunc(INPUTMANAGERmouseMove);
+	glutPassiveMotionFunc(INPUTMANAGERpassiveMouseMove);
 
-	setupInputs();
+	if (!currentScene_) {
+		currentScene_ = std::make_unique<TemplateScene>();
+	}
 
-	glutDisplayFunc(GAMEdraw); // call the drawing function
+	if (currentScene_) {
+		currentScene_->sceneInit();
+	}
 
+	glutDisplayFunc(GAMEdraw);
+
+	// Start timers
 	glutTimerFunc(0, GAMEanimationTimer, 0);  // Animation Updates
 	glutTimerFunc(0, GAMEupdateTimer, 0); // Game Updates
 	glutTimerFunc(0, GAMEframeTimer, 0); // Frame Updates
-}
-
-void Game::updateTimer(int v) {
-	Scene* currentScene = Game::getInstance().getCurrentScene();
-	int updatesPerSecond = 1;
-	if (currentScene) {
-		updatesPerSecond = currentScene->getUpdateSpeed();
-		currentScene->update();
-	}
-	glutTimerFunc(int(1000 / updatesPerSecond), GAMEupdateTimer, v); // Updatess
-}
-
-void Game::frameTimer(int v) {
-	glutPostRedisplay();
-	Scene* currentScene = Game::getInstance().getCurrentScene();
-	int frameUpdatesPerSecond = 1;
-	if (currentScene) {
-		frameUpdatesPerSecond = currentScene->getFrameSpeed();
-	}
-	glutTimerFunc(int(1000 / frameUpdatesPerSecond), GAMEframeTimer, v); // Updatess
-}
-
-void Game::animationTimer(int v) {
-	Scene* currentScene = Game::getInstance().getCurrentScene();
-	int animationUpdatesPerSecond = 1;
-	if (currentScene) {
-		animationUpdatesPerSecond = currentScene->getAnimationUpdateSpeed();
-		currentScene->incrementAnimationFrame();
-	}
-	glutTimerFunc(int(1000 / animationUpdatesPerSecond), GAMEanimationTimer, v); // Creates a frame delay that is counted in miliseconds
-}
-
-void Game::setupInputs() {
-	glutSpecialFunc(GAMEprocSpecialKeys);
-	glutSpecialUpFunc(GAMEprocSpecialKeysUp);
-	glutKeyboardFunc(GAMEprocKeys);
-	glutMouseFunc(GAMEprocMouse);
 }

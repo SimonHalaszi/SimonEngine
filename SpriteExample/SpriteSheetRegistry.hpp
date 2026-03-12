@@ -16,24 +16,33 @@
 
 // Using very epic and awesome design patterns to make Nesty proud
 class SpriteSheetRegistry {
-public:
-	SpriteSheetRegistry()
-		: errorSpriteSheet_({ Sprite(GLuint(0), { 0.0f, 0.0f, 0.0f, 0.0f }) })
-	{}
+	public:
+		static SpriteSheetRegistry& getInstance() {
+			static SpriteSheetRegistry instance;
+			return instance;
+		}
 
-	~SpriteSheetRegistry() {}
+		const SpriteSheet& makeSpriteSheet(std::string nameOfSpriteSheet, GLuint texID, int tilesWide, int tilesTall, TileIndex startTile, TileIndex endTile);
+		void removeSpriteSheet(std::string nameOfSpriteSheet);
 
-	const SpriteSheet& makeSpriteSheet(std::string nameOfSpriteSheet, GLuint texID, int tilesWide, int tilesTall, TileIndex startTile, TileIndex endTile);
-	void removeSpriteSheet(std::string nameOfSpriteSheet);
+		const SpriteSheet& getSpriteSheet(std::string nameOfSpriteSheet) const;
 
-	const SpriteSheet& getSpriteSheet(std::string nameOfSpriteSheet) const;
+		SpriteSheetRegistry(const SpriteSheetRegistry&) = delete;
+		SpriteSheetRegistry& operator=(const SpriteSheetRegistry&) = delete;
+		SpriteSheetRegistry(const SpriteSheetRegistry&&) = delete;
+		SpriteSheetRegistry& operator=(const SpriteSheetRegistry&&) = delete;
 
-private:
+	private:
+		SpriteSheetRegistry()
+			: errorSpriteSheet_({ Sprite(GLuint(0), { 0.0f, 0.0f, 0.0f, 0.0f }) })
+		{}
 
-	// Registry
-	std::unordered_map<std::string, SpriteSheet> spriteSheetMap_;
+		~SpriteSheetRegistry() {}
 
-	SpriteSheet errorSpriteSheet_; // Will signify an error in the process, should work nicely even if you dont check because TexID is 0
+		// Registry
+		std::unordered_map<std::string, SpriteSheet> spriteSheetMap_;
+
+		SpriteSheet errorSpriteSheet_; // Will signify an error in the process, should work nicely even if you dont check because TexID is 0
 };
 
 #endif

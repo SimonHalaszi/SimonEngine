@@ -14,20 +14,30 @@
 // Using very epic and awesome design patterns to make Nesty proud
 class TextureRegistry {
 	public:
-		TextureRegistry() {}
+		static TextureRegistry& getInstance() {
+			static TextureRegistry instance;
+			return instance;
+		}
 
 		GLuint loadTexture(std::string filepath);
 		void unloadTexture(std::string filepath);
 
 		GLuint getTextureID(std::string filepath) const;
 
+		TextureRegistry(const TextureRegistry&) = delete;
+		TextureRegistry& operator=(const TextureRegistry&) = delete;
+		TextureRegistry(const TextureRegistry&&) = delete;
+		TextureRegistry& operator=(const TextureRegistry&&) = delete;
+
+	private:
+		TextureRegistry() {}
+		
 		~TextureRegistry() {
 			for (auto& pair : textureMap_) {
 				glDeleteTextures(1, &pair.second);
 			}
 		}
 
-	private:
 		// Registry
 		std::unordered_map<std::string, GLuint> textureMap_;
 };

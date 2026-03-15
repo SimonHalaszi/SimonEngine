@@ -13,17 +13,11 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Source Files\Scenes">
-      <UniqueIdentifier>{1138a605-133c-4032-ac32-d6f7b76a81da}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\Game">
       <UniqueIdentifier>{6d0a3838-7759-41ec-85a0-bd8e27ed00c7}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\Source">
       <UniqueIdentifier>{537a76d2-8c78-411f-9f6b-acd406eef817}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\GameObjects">
-      <UniqueIdentifier>{35b82232-10ee-4c05-877e-b5fff298847a}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\Game">
       <UniqueIdentifier>{97ff508b-1536-4d89-b581-ded818efd5ef}</UniqueIdentifier>
@@ -31,16 +25,40 @@
     <Filter Include="Header Files\Source">
       <UniqueIdentifier>{774fdd15-7955-4de3-b57e-67e5940f93b8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Scenes">
+    <Filter Include="Source Files\GameObjectTypes">
+      <UniqueIdentifier>{7becc90a-cb34-4f37-aba9-5647d968d44c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\GameObjectTypes">
+      <UniqueIdentifier>{7b431edd-3b22-4a65-8805-ceb793027901}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\ArchiveGameObjects">
+      <UniqueIdentifier>{69ef1713-c797-492f-922b-b7e693833ad0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ArchiveGameObjects">
+      <UniqueIdentifier>{35b82232-10ee-4c05-877e-b5fff298847a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\PlatformerGameObjects">
+      <UniqueIdentifier>{40603e1b-0651-4b54-9634-48cfd88133fa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\PlatformerGameObjects">
+      <UniqueIdentifier>{34e1750b-2c59-421a-ad02-f60c1e37230c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\PlatformerScenes">
+      <UniqueIdentifier>{7238ce14-f5e6-461c-b396-493ec3295b11}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ArchiveScenes">
+      <UniqueIdentifier>{1138a605-133c-4032-ac32-d6f7b76a81da}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\ArchiveScenes">
       <UniqueIdentifier>{e706c459-03b2-42bd-a01c-e38b3635dbdd}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\GameObjects">
-      <UniqueIdentifier>{69ef1713-c797-492f-922b-b7e693833ad0}</UniqueIdentifier>
+    <Filter Include="Header Files\PlatformerScenes">
+      <UniqueIdentifier>{95114456-301c-463a-9ed3-42baacb48a5e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ArchiveScene.cpp">
-      <Filter>Source Files\Scenes</Filter>
+      <Filter>Source Files\ArchiveScenes</Filter>
     </ClCompile>
     <ClCompile Include="Game.cpp">
       <Filter>Source Files\Game</Filter>
@@ -63,14 +81,11 @@
     <ClCompile Include="InputManager.cpp">
       <Filter>Source Files\Source</Filter>
     </ClCompile>
-    <ClCompile Include="GameObject2D.cpp">
-      <Filter>Source Files\Source</Filter>
-    </ClCompile>
     <ClCompile Include="DrawFunctions.cpp">
       <Filter>Source Files\Source</Filter>
     </ClCompile>
     <ClCompile Include="ArchivePlayer.cpp">
-      <Filter>Source Files\GameObjects</Filter>
+      <Filter>Source Files\ArchiveGameObjects</Filter>
     </ClCompile>
     <ClCompile Include="Scene.hpp">
       <Filter>Header Files\Source</Filter>
@@ -85,22 +100,46 @@
       <Filter>Header Files\Source</Filter>
     </ClCompile>
     <ClCompile Include="RotatingColorChangingSquare.cpp">
-      <Filter>Source Files\GameObjects</Filter>
+      <Filter>Source Files\ArchiveGameObjects</Filter>
     </ClCompile>
     <ClCompile Include="RotatingColorChangingTriangle.cpp">
-      <Filter>Source Files\GameObjects</Filter>
-    </ClCompile>
-    <ClCompile Include="StaticSprite.cpp">
-      <Filter>Source Files\GameObjects</Filter>
+      <Filter>Source Files\ArchiveGameObjects</Filter>
     </ClCompile>
     <ClCompile Include="AnimatedSprite.cpp">
-      <Filter>Source Files\GameObjects</Filter>
-    </ClCompile>
-    <ClCompile Include="Axis.cpp">
-      <Filter>Source Files\GameObjects</Filter>
+      <Filter>Source Files\ArchiveGameObjects</Filter>
     </ClCompile>
     <ClCompile Include="TemplateScene.cpp">
-      <Filter>Source Files\Scenes</Filter>
+      <Filter>Source Files\ArchiveScenes</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject2D.cpp">
+      <Filter>Source Files\GameObjectTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="CollisionObject2D.cpp">
+      <Filter>Source Files\GameObjectTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="CollisionManager.cpp">
+      <Filter>Source Files\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="PlatformerPlayer.cpp">
+      <Filter>Source Files\PlatformerGameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="PlatformerScene.cpp">
+      <Filter>Source Files\PlatformerScenes</Filter>
+    </ClCompile>
+    <ClCompile Include="StaticSprite.cpp">
+      <Filter>Source Files\PlatformerGameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteGameObject.cpp">
+      <Filter>Source Files\PlatformerGameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Axis.cpp">
+      <Filter>Source Files\PlatformerGameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteObstacle.cpp">
+      <Filter>Source Files\PlatformerGameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerGroundChecker.cpp">
+      <Filter>Source Files\PlatformerGameObjects</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -108,9 +147,6 @@
       <Filter>Header Files\Game</Filter>
     </ClInclude>
     <ClInclude Include="DrawFunctions.hpp">
-      <Filter>Header Files\Source</Filter>
-    </ClInclude>
-    <ClInclude Include="GameObject2D.hpp">
       <Filter>Header Files\Source</Filter>
     </ClInclude>
     <ClInclude Include="InputManager.hpp">
@@ -129,28 +165,55 @@
       <Filter>Header Files\Source</Filter>
     </ClInclude>
     <ClInclude Include="ArchiveScene.hpp">
-      <Filter>Header Files\Scenes</Filter>
+      <Filter>Header Files\ArchiveScenes</Filter>
     </ClInclude>
     <ClInclude Include="ArchivePlayer.hpp">
-      <Filter>Header Files\GameObjects</Filter>
+      <Filter>Header Files\ArchiveGameObjects</Filter>
     </ClInclude>
     <ClInclude Include="RotatingColorChangingSquare.hpp">
-      <Filter>Header Files\GameObjects</Filter>
+      <Filter>Header Files\ArchiveGameObjects</Filter>
     </ClInclude>
     <ClInclude Include="RotatingColorChangingTriangle.hpp">
-      <Filter>Header Files\GameObjects</Filter>
-    </ClInclude>
-    <ClInclude Include="StaticSprite.hpp">
-      <Filter>Header Files\GameObjects</Filter>
+      <Filter>Header Files\ArchiveGameObjects</Filter>
     </ClInclude>
     <ClInclude Include="AnimatedSprite.hpp">
-      <Filter>Header Files\GameObjects</Filter>
-    </ClInclude>
-    <ClInclude Include="Axis.hpp">
-      <Filter>Header Files\GameObjects</Filter>
+      <Filter>Header Files\ArchiveGameObjects</Filter>
     </ClInclude>
     <ClInclude Include="TemplateScene.hpp">
-      <Filter>Header Files\Scenes</Filter>
+      <Filter>Header Files\ArchiveScenes</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject2D.hpp">
+      <Filter>Header Files\GameObjectTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionObject2D.hpp">
+      <Filter>Header Files\GameObjectTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionManager.hpp">
+      <Filter>Header Files\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="PlatformerPlayer.hpp">
+      <Filter>Header Files\PlatformerGameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="PlatformerScene.hpp">
+      <Filter>Header Files\PlatformerScenes</Filter>
+    </ClInclude>
+    <ClInclude Include="StaticSprite.hpp">
+      <Filter>Header Files\PlatformerGameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteGameObject.hpp">
+      <Filter>Header Files\PlatformerGameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Axis.hpp">
+      <Filter>Header Files\PlatformerGameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteObstacle.hpp">
+      <Filter>Header Files\PlatformerGameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="ColliderRectangle.hpp">
+      <Filter>Header Files\PlatformerGameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerGroundChecker.hpp">
+      <Filter>Header Files\PlatformerGameObjects</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -3,7 +3,7 @@
 
 #include <string>
 
-#include "GameObject2D.hpp"
+#include "CollisionObject2D.hpp"
 
 #include "Game.hpp"
 #include "SpriteSheet.hpp"
@@ -13,7 +13,7 @@
 
 #include "Axis.hpp"
 
-class ArchivePlayer : public GameObject2D {
+class ArchivePlayer : public CollisionObject2D {
 	public:
 		ArchivePlayer(std::string playerSpritesSheetFilepath = "");
 
@@ -21,10 +21,13 @@ class ArchivePlayer : public GameObject2D {
 		void draw() override;
 		void update() override;
 		void onDestruction() override {}
+		void onCollision(CollisionObject2D& other) override;
 
 	private:
 		const SpriteSheet* playerSpriteSheet_;
 		std::string playerSpritesSheetName_;
+
+		bool drawHitbox_ = false;
 		
 		float speed_ = 1.0f;
 		float moveX_ = 0.0f, moveY_ = 0.0f;

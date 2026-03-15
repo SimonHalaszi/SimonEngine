@@ -1,0 +1,51 @@
+#ifndef PLATFORMER_PLAYER_HPP
+#define PLATFORMER_PLAYER_HPP
+
+#include <string>
+
+#include "CollisionObject2D.hpp"
+
+#include "Game.hpp"
+#include "SpriteSheet.hpp"
+#include "SpriteSheetRegistry.hpp"
+#include "DrawFunctions.hpp"
+#include "InputManager.hpp"
+
+#include "PlayerGroundChecker.hpp"
+
+class PlatformerPlayer : public CollisionObject2D {
+public:
+	PlatformerPlayer(std::string playerSpritesSheetKey = "");
+
+	void onStart() override;
+	void draw() override;
+	void update() override;
+	void onDestruction() override {}
+	void onCollision(CollisionObject2D& other) override;
+
+private:
+	void centerCameraOnPlayer();
+
+	const SpriteSheet* playerSpriteSheet_;
+	std::string playerSpritesSheetKey_;
+
+	bool drawHitbox_ = false;
+	bool handleContact = true;
+	bool onGround_ = false;
+	
+	float collisionTolerance_ = 0.001f;
+	float speed_ = 1.0f;
+	float moveX_ = 0.0f, moveY_ = 0.0f;
+	float gravitySpeed_ = 0.5f;
+
+	float jumpTime_ = 0.5f;
+	int jumpTimeInUpdateFrames_;
+	int jumpFrame_ = 0;
+	bool jumping_;
+	float jumpSpeed_ = 2.0f;
+
+	float collisionCorrectionX_ = 0.0f;
+	float collisionCorrectionY_ = 0.0f;
+};
+
+#endif

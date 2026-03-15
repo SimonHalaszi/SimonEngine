@@ -136,20 +136,33 @@
   <ItemGroup>
     <ClCompile Include="AnimatedSprite.cpp" />
     <ClCompile Include="Axis.cpp" />
+    <ClCompile Include="CollisionManager.cpp" />
+    <ClCompile Include="CollisionObject2D.cpp" />
     <ClCompile Include="DrawFunctions.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject2D.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="ArchiveScene.cpp" />
     <ClCompile Include="ArchivePlayer.cpp" />
+    <ClCompile Include="PlatformerScene.cpp" />
+    <ClCompile Include="PlatformerPlayer.cpp" />
+    <ClCompile Include="PlayerGroundChecker.cpp" />
+    <ClCompile Include="SpriteObstacle.cpp" />
     <ClCompile Include="Scene.hpp" />
     <ClCompile Include="SimonEngine.cpp" />
+    <ClCompile Include="SpriteGameObject.cpp" />
     <ClCompile Include="StaticSprite.cpp" />
     <ClCompile Include="SpriteRegistry.cpp" />
     <ClCompile Include="SpriteRegistry.hpp" />
-    <ClCompile Include="SpriteSheet.hpp" />
+    <ClCompile Include="SpriteSheet.hpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="SpriteSheetRegistry.cpp" />
-    <ClCompile Include="SpriteSheetRegistry.hpp" />
+    <ClCompile Include="SpriteSheetRegistry.hpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="RotatingColorChangingSquare.cpp" />
     <ClCompile Include="TemplateScene.cpp" />
     <ClCompile Include="TextureRegistry.cpp" />
@@ -159,15 +172,26 @@
   <ItemGroup>
     <ClInclude Include="AnimatedSprite.hpp" />
     <ClInclude Include="Axis.hpp" />
+    <ClInclude Include="ColliderRectangle.hpp" />
+    <ClInclude Include="CollisionManager.hpp" />
+    <ClInclude Include="CollisionObject2D.hpp" />
     <ClInclude Include="DrawFunctions.hpp" />
     <ClInclude Include="Game.hpp" />
     <ClInclude Include="GameObject2D.hpp" />
     <ClInclude Include="InputManager.hpp" />
     <ClInclude Include="ArchiveScene.hpp" />
     <ClInclude Include="ArchivePlayer.hpp" />
+    <ClInclude Include="PlayerGroundChecker.hpp" />
+    <ClInclude Include="SpriteObstacle.hpp" />
+    <ClInclude Include="PlatformerScene.hpp" />
+    <ClInclude Include="PlatformerPlayer.hpp" />
     <ClInclude Include="shader.h" />
     <ClInclude Include="Sprite.hpp" />
     <ClInclude Include="RotatingColorChangingSquare.hpp" />
+    <ClInclude Include="SpriteGameObject.hpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="StaticSprite.hpp" />
     <ClInclude Include="TemplateScene.hpp" />
     <ClInclude Include="TextureRegistry.hpp" />

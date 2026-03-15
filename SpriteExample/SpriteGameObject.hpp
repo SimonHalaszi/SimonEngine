@@ -1,9 +1,9 @@
-#ifndef STATIC_SPRITE_HPP
-#define STATIC_SPRITE_HPP
+#ifndef SPRITE_GAME_OBJECT_HPP
+#define SPRITE_GAME_OBJECT_HPP
 
 #include <string>
 
-#include "CollisionObject2D.hpp"
+#include "GameObject2D.hpp"
 
 #include "Game.hpp"
 #include "Sprite.hpp"
@@ -11,15 +11,14 @@
 #include "DrawFunctions.hpp"
 #include "InputManager.hpp"
 
-class StaticSprite : public CollisionObject2D {
+class SpriteGameObject : public GameObject2D {
 public:
-	StaticSprite(Transform2D transform2D, std::string spriteKey = "", std::string tag = "");
+	SpriteGameObject(Transform2D transform2D, std::string spriteKey = "", std::string tag = "");
 
 	void onStart() override;
 	void draw() override;
 	void update() override {}
 	void onDestruction() override {}
-	void onCollision(CollisionObject2D& other) override {}
 
 private:
 	const Sprite* sprite_;

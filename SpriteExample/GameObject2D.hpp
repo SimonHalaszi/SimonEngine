@@ -10,12 +10,13 @@
 class GameObject2D {
 	public:
 		GameObject2D() {}
-		virtual ~GameObject2D() {};
+		virtual ~GameObject2D() {}
 
-		void rootOnStart(); // Runs when attached to scene
+		// Users really shouldnt override rootOnStart/Destruction unless they know what they are doing
+		virtual void rootOnStart(); // Runs when attached to scene
 		void rootUpdate(); // Runs once per update of the Scene
 		void rootDraw(); // Runs once per frame update of the Scene
-		void rootOnDestruction(); // Runs after right before being unattached from scene
+		virtual void rootOnDestruction(); // Runs after right before being unattached from scene
 
 		bool isAlive() const { return isAlive_; }
 		void destroy() { isAlive_ = false; } // Call this function or just change isAlive to delete GameObject

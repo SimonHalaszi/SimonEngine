@@ -10,6 +10,7 @@
 #include "SpriteRegistry.hpp"
 #include "SpriteSheetRegistry.hpp"
 #include "GameObject2D.hpp"
+#include "CollisionManager.hpp"
 
 // Scene Class
 
@@ -43,6 +44,10 @@ class Scene {
 		}
 
 		void sceneDeInit() {
+			rootObjects_.clear();
+
+			CollisionManager::getInstance().clear();
+
 			deInit();
 		}
 
@@ -55,19 +60,24 @@ class Scene {
 		
 		void sceneUpdate() {
 			update();
+
+			for (auto& rootObject : rootObjects_) {
+				rootObject->rootUpdate();
+			}
+
 			for (auto it = rootObjects_.begin(); it != rootObjects_.end();) {
 				GameObject2D* rO = it->get();
-				
-				rO->rootUpdate();
 
-				if (rO->isAlive()) {
-					++it;
-				}
-				else {
+				if (!rO->isAlive()) {
 					rO->rootOnDestruction();
 					it = rootObjects_.erase(it);
 				}
+				else {
+					++it;
+				}
 			}
+
+			CollisionManager::getInstance().checkAllCollisions();
 		}
 
 		int getUpdateSpeed() const { return updatesPerSecond_; }
@@ -84,6 +94,9 @@ class Scene {
 
 		void incrementAnimationFrame() { ++animationFrame_; }
 		int getAnimationFrame() const { return animationFrame_; }
+
+		void incrementUpdateFrame() { ++updateFrame_; }
+		int getUpdateFrame() const { return updateFrame_; }
 
 	protected:
 		// Scene specific functionalities handled here. GameObjects are updated AUTOMATICALLY based on per GameObject logic
@@ -105,6 +118,7 @@ class Scene {
 		int framesPerSeconds_;
 		int animationUpdatesPerSecond_;
 		int animationFrame_ = 0;
+		int updateFrame_ = 0;
 };
 
 #endif // !GAME_HPP

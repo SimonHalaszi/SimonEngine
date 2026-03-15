@@ -19,7 +19,13 @@ void Game::updateTimer(int v) {
 	int updatesPerSecond = 1;
 	if (currentScene_) {
 		updatesPerSecond = currentScene_->getUpdateSpeed();
+
+		if (pendingScene_) {
+			CollisionManager::getInstance().clear();
+		}
+
 		if (currentScene_->isUpdating()) {
+			currentScene_->incrementUpdateFrame();
 			currentScene_->sceneUpdate();
 		}
 	}
@@ -36,7 +42,7 @@ void Game::updateTimer(int v) {
 
 	InputManager::getInstance().update();
 
-	glutTimerFunc(int(1000 / updatesPerSecond), GAMEupdateTimer, v); // Updates
+	glutTimerFunc(int(1000 / updatesPerSecond), GAMEupdateTimer, v);
 }
 
 void Game::frameTimer(int v) {
@@ -89,7 +95,7 @@ void Game::init() {
 	glutPassiveMotionFunc(INPUTMANAGERpassiveMouseMove);
 
 	if (!currentScene_) {
-		currentScene_ = std::make_unique<TemplateScene>();
+		currentScene_ = std::make_unique<PlatformerScene>();
 	}
 
 	if (currentScene_) {

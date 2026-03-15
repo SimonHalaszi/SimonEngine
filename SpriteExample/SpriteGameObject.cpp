@@ -1,17 +1,17 @@
-#include "StaticSprite.hpp"
+#include "SpriteGameObject.hpp"
 
-StaticSprite::StaticSprite(Transform2D transform2D, std::string spriteName, std::string tag) {
+SpriteGameObject::SpriteGameObject(Transform2D transform2D, std::string spriteName, std::string tag) {
 	localTransform_ = transform2D;
 	spriteName_ = spriteName;
 	sprite_ = nullptr;
 	tag_ = tag;
 }
 
-void StaticSprite::onStart() {
+void SpriteGameObject::onStart() {
 	sprite_ = &(SpriteRegistry::getInstance().getSprite(spriteName_));
 }
 
-void StaticSprite::draw() {
+void SpriteGameObject::draw() {
 	Transform2D transform = getWorldTransform();
 
 	drawSprite(

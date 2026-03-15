@@ -11,6 +11,7 @@
 
 #include "ArchiveScene.hpp"
 #include "TemplateScene.hpp"
+#include "PlatformerScene.hpp"
 
 // Game Class
 

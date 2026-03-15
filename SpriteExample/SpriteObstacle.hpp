@@ -1,19 +1,18 @@
-#ifndef STATIC_SPRITE_HPP
-#define STATIC_SPRITE_HPP
+#ifndef SPRITE_OBSTACLE_HPP
+#define SPRITE_OBSTACLE_HPP
 
 #include <string>
 
 #include "CollisionObject2D.hpp"
 
-#include "Game.hpp"
 #include "Sprite.hpp"
 #include "SpriteRegistry.hpp"
 #include "DrawFunctions.hpp"
-#include "InputManager.hpp"
+#include "ColliderRectangle.hpp"
 
-class StaticSprite : public CollisionObject2D {
+class SpriteObstacle : public CollisionObject2D {
 public:
-	StaticSprite(Transform2D transform2D, std::string spriteKey = "", std::string tag = "");
+	SpriteObstacle(Transform2D transform2D, std::string spriteKey = "");
 
 	void onStart() override;
 	void draw() override;

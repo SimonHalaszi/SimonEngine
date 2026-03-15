@@ -119,7 +119,8 @@ void ArchiveScene::init() {
 		0.0f,
 		true,
 		false, }),
-		brownsSpriteName_
+		brownsSpriteName_,
+		"BrownsOne"
 		)
 	);
 	addRootGameObject2D(std::make_unique<StaticSprite>(
@@ -128,7 +129,8 @@ void ArchiveScene::init() {
 		0.0f,
 		false,
 		true, }),
-		billsSpriteName_
+		billsSpriteName_,
+		"BillsOne"
 		)
 	);
 	addRootGameObject2D(std::make_unique<AnimatedSprite>(

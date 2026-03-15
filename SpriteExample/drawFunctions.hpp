@@ -24,6 +24,19 @@ void drawSquare(
 	ColorRGB c4 = { 1.0f, 1.0f, 1.0f }
 );
 
+// Drawing a rectangle
+void drawRectangle(
+	Vector2D pos,
+	Vector2D scale,
+	float angle,
+	bool mirror,
+	bool flip,
+	ColorRGB c1 = { 1.0f, 1.0f, 1.0f },
+	ColorRGB c2 = { 1.0f, 1.0f, 1.0f },
+	ColorRGB c3 = { 1.0f, 1.0f, 1.0f },
+	ColorRGB c4 = { 1.0f, 1.0f, 1.0f }
+);
+
 // Drawing a triangle
 void drawTriangle(
 	Vector2D pos,

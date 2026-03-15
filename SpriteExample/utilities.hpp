@@ -40,10 +40,17 @@ struct Transform2D {
 	bool flip = false;
 };
 
+struct AABB {
+	Vector2D min = { 0.0f, 0.0f };
+	Vector2D max = { 0.0f, 0.0f };
+};
+
 constexpr float PI = 3.14159265358979323846f;
 
 float degreesToRadians(float degrees);
 
 Transform2D composeTransforms(const Transform2D& left, const Transform2D& right);
+
+bool checkAABBCollision(const AABB& a, const AABB& b);
 
 #endif

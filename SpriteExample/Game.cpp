@@ -28,10 +28,6 @@ void Game::updateTimer(int v) {
 	if (currentScene_) {
 		updatesPerSecond = currentScene_->getUpdateSpeed();
 
-		if (pendingScene_) {
-			CollisionManager::getInstance().clear();
-		}
-
 		if (currentScene_->isUpdating()) {
 			currentScene_->incrementUpdateFrame();
 			currentScene_->sceneUpdate();
@@ -117,4 +113,13 @@ void Game::init() {
 	glutTimerFunc(0, GAMEanimationTimer, 0);  // Animation Updates
 	glutTimerFunc(0, GAMEupdateTimer, 0); // Game Updates
 	glutTimerFunc(0, GAMEframeTimer, 0); // Frame Updates
+}
+
+void Game::safeGameExit() {
+	// sceneDeInit safely frees all resources allocated and all managers
+	// If we dont deInit scene before exit we can get some weird errors
+	if (currentScene_) {
+		currentScene_->sceneDeInit();
+	}
+	exit(0);
 }

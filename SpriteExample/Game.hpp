@@ -24,6 +24,8 @@ class Game {
 		const Scene* getCurrentScene() { return currentScene_.get(); }
 		void changeScene(std::unique_ptr<Scene> newScene);
 
+		void safeGameExit();
+
 		// Public only so buffer functions can call them
 		void frameTimer(int v);
 		void updateTimer(int v);

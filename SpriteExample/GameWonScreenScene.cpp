@@ -118,6 +118,6 @@ void GameWonScreenScene::update() {
 		Game::getInstance().changeScene(std::make_unique<PlatformerScene>());
 	}
 	if (InputManager::getInstance().isPressed(27)) {
-		exit(0);
+		Game::getInstance().safeGameExit();
 	}
 }

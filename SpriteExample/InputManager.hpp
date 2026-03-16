@@ -77,6 +77,11 @@ class InputManager {
             mouseDeltaX_ = mouseDeltaY_ = 0;
         }
 
+        InputManager(const InputManager&) = delete;
+        InputManager& operator=(const InputManager&) = delete;
+        InputManager(const InputManager&&) = delete;
+        InputManager& operator=(const InputManager&&) = delete;
+
     private:
         InputManager() : mouseX_(0), mouseY_(0), mouseDeltaX_(0), mouseDeltaY_(0) {}
         ~InputManager() {}
@@ -106,4 +111,4 @@ void INPUTMANAGERmouseMove(int x, int y);
 void INPUTMANAGERpassiveMouseMove(int x, int y);
 int mapSpecialKey(int key);
 
-#endif // INPUT_MANAGER_HPP
+#endif

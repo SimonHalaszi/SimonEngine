@@ -4,12 +4,16 @@
 
 void INPUTMANAGERprocSpecialKeys(int key, int x, int y) {
     int k = mapSpecialKey(key);
-    if (k != -1) InputManager::getInstance().specialKeyDown(k);
+    if (k != -1) {
+        InputManager::getInstance().specialKeyDown(k);
+    }
 }
 
 void INPUTMANAGERprocSpecialKeysUp(int key, int x, int y) {
     int k = mapSpecialKey(key);
-    if (k != -1) InputManager::getInstance().specialKeyUp(k);
+    if (k != -1) {
+        InputManager::getInstance().specialKeyUp(k);
+    }
 }
 
 void INPUTMANAGERprocKeys(unsigned char key, int x, int y) {

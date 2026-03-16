@@ -5,6 +5,7 @@
 #include <GL/freeglut.h>
 
 #include <iostream>
+#include <string>
 
 #include "Utilities.hpp"
 #include "Sprite.hpp"
@@ -75,6 +76,13 @@ void drawLine(
 	Vector2D pos2,
 	ColorRGB c1, 
 	ColorRGB c2
+);
+
+void drawText(
+	Vector2D pos,
+	std::string text,
+	float lineSpace,
+	ColorRGB color
 );
 
 #endif

@@ -1,5 +1,13 @@
 #include "Game.hpp"
 
+#include "ArchiveScene.hpp"
+#include "TemplateScene.hpp"
+#include "TitleScreenScene.hpp"
+
+#include "textureRegistry.hpp"
+#include "SpriteRegistry.hpp"
+#include "SpriteSheetRegistry.hpp"
+
 // Function wrappers needed because OpenGL expects a certain function signature for these
 void GAMEanimationTimer(int v) {
 	Game::getInstance().animationTimer(v);
@@ -95,7 +103,8 @@ void Game::init() {
 	glutPassiveMotionFunc(INPUTMANAGERpassiveMouseMove);
 
 	if (!currentScene_) {
-		currentScene_ = std::make_unique<PlatformerScene>();
+		// THIS IS THE INITIAL SCENE
+		currentScene_ = std::make_unique<TitleScreenScene>();
 	}
 
 	if (currentScene_) {

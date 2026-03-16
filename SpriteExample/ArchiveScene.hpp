@@ -3,7 +3,6 @@
 
 #include <GL/glut.h>
 #include <GL/freeglut.h>
-#include <IrrKlang/irrKlang.h>
 
 #include <string>
 #include <algorithm>
@@ -17,6 +16,7 @@
 #include "SpriteRegistry.hpp"
 #include "SpriteSheetRegistry.hpp"
 #include "InputManager.hpp"
+#include "SoundManager.hpp"
 
 // Game Objects Used
 #include "ArchivePlayer.hpp"

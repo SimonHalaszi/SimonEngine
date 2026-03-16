@@ -87,18 +87,6 @@
     <ClCompile Include="ArchivePlayer.cpp">
       <Filter>Source Files\ArchiveGameObjects</Filter>
     </ClCompile>
-    <ClCompile Include="Scene.hpp">
-      <Filter>Header Files\Source</Filter>
-    </ClCompile>
-    <ClCompile Include="SpriteRegistry.hpp">
-      <Filter>Header Files\Source</Filter>
-    </ClCompile>
-    <ClCompile Include="SpriteSheet.hpp">
-      <Filter>Header Files\Source</Filter>
-    </ClCompile>
-    <ClCompile Include="SpriteSheetRegistry.hpp">
-      <Filter>Header Files\Source</Filter>
-    </ClCompile>
     <ClCompile Include="RotatingColorChangingSquare.cpp">
       <Filter>Source Files\ArchiveGameObjects</Filter>
     </ClCompile>
@@ -141,6 +129,9 @@
     <ClCompile Include="PlayerGroundChecker.cpp">
       <Filter>Source Files\PlatformerGameObjects</Filter>
     </ClCompile>
+    <ClCompile Include="Collectible.cpp">
+      <Filter>Source Files\PlatformerGameObjects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.hpp">
@@ -162,6 +153,18 @@
       <Filter>Header Files\Source</Filter>
     </ClInclude>
     <ClInclude Include="Utilities.hpp">
+      <Filter>Header Files\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.hpp">
+      <Filter>Header Files\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteRegistry.hpp">
+      <Filter>Header Files\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteSheet.hpp">
+      <Filter>Header Files\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteSheetRegistry.hpp">
       <Filter>Header Files\Source</Filter>
     </ClInclude>
     <ClInclude Include="ArchiveScene.hpp">
@@ -213,6 +216,9 @@
       <Filter>Header Files\PlatformerGameObjects</Filter>
     </ClInclude>
     <ClInclude Include="PlayerGroundChecker.hpp">
+      <Filter>Header Files\PlatformerGameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Collectible.hpp">
       <Filter>Header Files\PlatformerGameObjects</Filter>
     </ClInclude>
   </ItemGroup>

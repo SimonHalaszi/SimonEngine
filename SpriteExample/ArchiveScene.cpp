@@ -23,7 +23,8 @@ void ArchiveScene::init() {
 	std::cout << "ArchiveScene::init : Currently Loaded Scene is ArchiveScene" << std::endl;
 	std::cout << "ArchiveScene::init : Scene Music belongs to the NFL, CBS, FOX and NBC" << std::endl;
 
-	soundEngine_->play2D(audioTracks_[currentAudioTrack_].data(), true);
+	SoundManager::getInstance().setMusicTrack(audioTracks_[currentAudioTrack_]);
+
 	std::cout << "ArchiveScene::init : Started at track from file path " << audioTracks_[currentAudioTrack_] << std::endl;
 
 	// Loading sprite textures from file path
@@ -197,11 +198,11 @@ void ArchiveScene::update() {
 	}
 	if (InputManager::getInstance().isPressed('p')) {
 		if (musicOn_) {
-			soundEngine_->setAllSoundsPaused(true);
+			SoundManager::getInstance().pauseMusic();
 			musicOn_ = false;
 		}
 		else {
-			soundEngine_->setAllSoundsPaused(false);
+			SoundManager::getInstance().unpauseMusic();
 			musicOn_ = true;
 		}
 	}
@@ -215,11 +216,10 @@ void ArchiveScene::update() {
 		zoomFactor_ += 0.1f;
 	}
 	if (InputManager::getInstance().isMouseButtonPressed(MOUSEBUTTON_RIGHT)) {
-		soundEngine_->removeAllSoundSources();
 		currentAudioTrack_ += 1;
 		currentAudioTrack_ = currentAudioTrack_ % audioTracks_.size();
-		soundEngine_->play2D(audioTracks_[currentAudioTrack_].data(), true);
-		std::cout << "MainScene::procMouse : Now playing track from " << audioTracks_[currentAudioTrack_] << std::endl;
+		SoundManager::getInstance().setMusicTrack(audioTracks_[currentAudioTrack_]);
+		std::cout << "ArchiveScene::update : Now playing track from " << audioTracks_[currentAudioTrack_] << std::endl;
 	}
 	if (InputManager::getInstance().isPressed('n')) {
 		Game::getInstance().changeScene(std::make_unique<TemplateScene>());

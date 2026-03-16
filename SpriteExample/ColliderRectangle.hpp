@@ -14,19 +14,7 @@ public:
 	}
 
 	void onStart() override {}
-	void draw() override {
-		Transform2D transform = getWorldTransform();
-
-		drawRectangle(
-			transform.position,
-			transform.scale, transform.rotation,
-			transform.mirror, transform.flip,
-			ColorRGB{ 0.0f, 1.0f, 0.0f },
-			ColorRGB{ 0.0f, 1.0f, 0.0f },
-			ColorRGB{ 0.0f, 1.0f, 0.0f },
-			ColorRGB{ 0.0f, 1.0f, 0.0f }
-		);
-	}
+	void draw() override {}
 	void update() override {}
 	void onDestruction() override {}
 	void onCollision(CollisionObject2D& other) override {}

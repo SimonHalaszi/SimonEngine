@@ -87,6 +87,4 @@ void ArchivePlayer::update() {
 	outDateWorldTransform();
 }
 
-void ArchivePlayer::onCollision(CollisionObject2D& other) {
-	std::cout << "Player collided with object with tag " << other.getTag() << std::endl;
-}
+void ArchivePlayer::onCollision(CollisionObject2D& other) {}

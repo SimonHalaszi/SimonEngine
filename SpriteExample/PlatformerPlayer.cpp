@@ -1,7 +1,10 @@
 #include "PlatformerPlayer.hpp"
 
-// Will be a child
-#include "Axis.hpp"
+// Will be children
+#include "PlayerGroundChecker.hpp"
+#include "CameraAndUI.hpp"
+
+int PlatformerPlayer::coinCount_ = 0;
 
 PlatformerPlayer::PlatformerPlayer(std::string playerSpritesSheetKey) {
 	localTransform_ = {
@@ -14,35 +17,12 @@ PlatformerPlayer::PlatformerPlayer(std::string playerSpritesSheetKey) {
 	playerSpritesSheetKey_ = playerSpritesSheetKey;
 	playerSpriteSheet_ = nullptr;
 	tag_ = "Player";
+	jumpingSoundFilepath_ = "audio/PlatformerPlayerJump.mp3";
 }
 
 void PlatformerPlayer::onStart() {
 	playerSpriteSheet_ = &(SpriteSheetRegistry::getInstance().getSpriteSheet(playerSpritesSheetKey_));
 
-	attachChild(std::make_unique<Axis>(
-			Transform2D({ Vector2D({ 0.0f, 0.0f }),
-			Vector2D({ 0.0f, 0.0f }),
-			0.0f,
-			false,
-			false, }),
-			ColorRGB({ 1.0f, 0.0f, 0.0f }),
-			ColorRGB({ 1.0f, 0.0f, 0.0f }),
-			true,
-			'x'
-		)
-	);
-	attachChild(std::make_unique<Axis>(
-			Transform2D({ Vector2D({ 0.0f, 0.0f }),
-			Vector2D({ 0.0f, 0.0f }),
-			0.0f,
-			false,
-			false, }),
-			ColorRGB({ 0.0f, 1.0f, 0.0f }),
-			ColorRGB({ 0.0f, 1.0f, 0.0f }),
-			true,
-			'y'
-		)
-	);
 	attachChild(std::make_unique<PlayerGroundChecker>(
 			Transform2D({ Vector2D({ 0.0f, -1.0f }),
 			Vector2D({ 1.0f, 0.10 }),
@@ -51,8 +31,18 @@ void PlatformerPlayer::onStart() {
 			false, })
 		)
 	);
+	attachChild(std::make_unique<CameraAndUI>(
+			Transform2D({ Vector2D({ 0.0f, 0.0f }),
+			Vector2D({ 1.0f, 1.0 }),
+			0.0f,
+			false,
+			false, })
+		)
+	);
 
-	jumpTimeInUpdateFrames_ = jumpTime_ * Game::getInstance().getCurrentScene()->getUpdateSpeed();
+	jumpTimeInUpdateFrames_ = jumpTime_ * float(Game::getInstance().getCurrentScene()->getUpdateSpeed());
+
+	coinCount_ = 0;
 }
 
 void PlatformerPlayer::draw() {
@@ -93,6 +83,9 @@ void PlatformerPlayer::draw() {
 }
 
 void PlatformerPlayer::update() {
+	if (Game::getInstance().getCurrentScene()->isPauseFlagged()) {
+		return;
+	}
 
 	float physicsTime = 1.0f / Game::getInstance().getCurrentScene()->getUpdateSpeed();
 
@@ -114,6 +107,7 @@ void PlatformerPlayer::update() {
 	if (InputManager::getInstance().isDown(32)) {
 		if (!jumping_ && PlayerGroundChecker::getGroundStatus()) {
 			jumping_ = true;
+			SoundManager::getInstance().playSound2D(jumpingSoundFilepath_);
 		}
 	}
 	if (InputManager::getInstance().isPressed('s')) {
@@ -137,8 +131,6 @@ void PlatformerPlayer::update() {
 	localTransform_.position.x += moveX_;
 	localTransform_.position.y += moveY_;
 
-	centerCameraOnPlayer();
-
 	outDateWorldTransform();
 
 	collisionCorrectionX_ = 0.0f;
@@ -146,6 +138,10 @@ void PlatformerPlayer::update() {
 }
 
 void PlatformerPlayer::onCollision(CollisionObject2D& other) {
+	if (Game::getInstance().getCurrentScene()->isPauseFlagged()) {
+		return;
+	}
+
 	AABB playerHitbox = getAABB();
 	AABB otherHitbox = other.getAABB();
 
@@ -203,13 +199,4 @@ void PlatformerPlayer::onCollision(CollisionObject2D& other) {
 			}
 		}
 	}
-
-	centerCameraOnPlayer();
-}
-
-void PlatformerPlayer::centerCameraOnPlayer() {
-	Transform2D transform = getWorldTransform();
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
-	glTranslatef(-transform.position.x, -transform.position.y, 0);
 }

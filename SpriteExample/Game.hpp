@@ -9,10 +9,6 @@
 
 #include "Scene.hpp"
 
-#include "ArchiveScene.hpp"
-#include "TemplateScene.hpp"
-#include "PlatformerScene.hpp"
-
 // Game Class
 
 // The Game class, with a Singleton the SEXIEST design pattern

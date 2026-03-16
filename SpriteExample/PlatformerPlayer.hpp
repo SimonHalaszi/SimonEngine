@@ -10,8 +10,7 @@
 #include "SpriteSheetRegistry.hpp"
 #include "DrawFunctions.hpp"
 #include "InputManager.hpp"
-
-#include "PlayerGroundChecker.hpp"
+#include "SoundManager.hpp"
 
 class PlatformerPlayer : public CollisionObject2D {
 public:
@@ -23,11 +22,15 @@ public:
 	void onDestruction() override {}
 	void onCollision(CollisionObject2D& other) override;
 
+	static void addToCoinCount(int i) { coinCount_ += i; }
+	static int getCoinCount() { return coinCount_; }
+
 private:
-	void centerCameraOnPlayer();
 
 	const SpriteSheet* playerSpriteSheet_;
 	std::string playerSpritesSheetKey_;
+
+	std::string jumpingSoundFilepath_;
 
 	bool drawHitbox_ = false;
 	bool handleContact = true;
@@ -36,16 +39,18 @@ private:
 	float collisionTolerance_ = 0.001f;
 	float speed_ = 1.0f;
 	float moveX_ = 0.0f, moveY_ = 0.0f;
-	float gravitySpeed_ = 0.5f;
+	float gravitySpeed_ = 1.0f;
 
 	float jumpTime_ = 0.5f;
-	int jumpTimeInUpdateFrames_;
+	int jumpTimeInUpdateFrames_ = 0;
 	int jumpFrame_ = 0;
-	bool jumping_;
+	bool jumping_ = false;
 	float jumpSpeed_ = 2.0f;
 
 	float collisionCorrectionX_ = 0.0f;
 	float collisionCorrectionY_ = 0.0f;
+
+	static int coinCount_;
 };
 
 #endif

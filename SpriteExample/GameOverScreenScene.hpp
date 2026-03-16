@@ -1,0 +1,52 @@
+#ifndef GAMEOVER_SCREEN_SCENE_HPP
+#define GAMEOVER_SCREEN_SCENE_HPP
+
+// Needed Other Includes
+#include <GL/glut.h>
+#include <GL/freeglut.h>
+#include <IrrKlang/irrKlang.h>
+
+// Needed C++ Includes
+#include <string>
+#include <memory>
+
+// Scene Interface
+#include "Scene.hpp"
+
+// Likely Needed SimonEngine Includes
+#include "Utilities.hpp"
+#include "DrawFunctions.hpp"
+#include "TextureRegistry.hpp"
+#include "SpriteRegistry.hpp"
+#include "SpriteSheetRegistry.hpp"
+#include "InputManager.hpp"
+#include "SoundManager.hpp"
+
+class GameOverScreenScene : public Scene {
+public:
+	GameOverScreenScene();
+
+	~GameOverScreenScene();
+
+	virtual void init() override final;
+
+	virtual void draw() const override final;
+
+	virtual void update() override final;
+
+private:
+
+	// Scene Specific Stuff Goes Here (Stuff not related to a GameObject)
+
+	// File paths for audio
+	std::string gameOverMusicFilePath_;
+	std::string gameOverSoundFilePath_;
+
+	// Keys for registries
+	std::string backgroundSprite_;
+
+	// File paths for loading textures
+	std::string backgroundSpriteFilePath_;
+};
+
+#endif

@@ -5,7 +5,6 @@
 
 #include "CollisionObject2D.hpp"
 
-#include "ColliderRectangle.hpp"
 #include "drawFunctions.hpp"
 
 class PlayerGroundChecker : public CollisionObject2D {

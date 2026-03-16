@@ -22,6 +22,13 @@ class TextureRegistry {
 		GLuint loadTexture(std::string filepath);
 		void unloadTexture(std::string filepath);
 
+		void clearRegistry() {
+			for (auto& pair : textureMap_) {
+				glDeleteTextures(1, &pair.second);
+			}
+			textureMap_.clear(); 
+		}
+
 		GLuint getTextureID(std::string filepath) const;
 
 		TextureRegistry(const TextureRegistry&) = delete;

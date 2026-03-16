@@ -9,6 +9,7 @@
 #include "Game.hpp"
 #include "DrawFunctions.hpp"
 #include "Utilities.hpp"
+#include "InputManager.hpp"
 
 class RotatingColorChangingTriangle : public GameObject2D {
 	public:

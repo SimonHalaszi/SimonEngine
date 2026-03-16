@@ -40,6 +40,10 @@ void Axis::draw() {
 }
 
 void Axis::update() {
+	if (Game::getInstance().getCurrentScene()->isPauseFlagged()) {
+		return;
+	}
+
 	if (InputManager::getInstance().isPressed('a')) {
 		if (willDrawAxis_) {
 			willDrawAxis_ = false;

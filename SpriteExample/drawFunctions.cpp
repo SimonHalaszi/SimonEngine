@@ -181,3 +181,30 @@ void drawLine(Vector2D pos1, Vector2D pos2, ColorRGB c1, ColorRGB c2) {
 	glVertex3f(pos2.x, pos2.y, 0.0f); // End
 	glEnd();                        // End drawing
 }
+
+// Function to draw text
+void drawText(Vector2D pos, std::string text, float lineSpace, ColorRGB color) {
+
+	glColor3f(color.red, color.green, color.blue);
+	glRasterPos3f(pos.x, pos.y, 0.0f);
+
+	for (int i = 0; text[i] != '\0'; i++) {
+		if (text[i] == '\n') {
+			pos.y -= lineSpace; //line spacing
+			glRasterPos3f(pos.x, pos.y, 0.0f);
+		}
+		else {
+			glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, text[i]);
+			/*
+			These are all the font options you have:
+			GLUT_BITMAP_8_BY_13
+			GLUT_BITMAP_9_BY_15
+			GLUT_BITMAP_TIMES_ROMAN_10
+			GLUT_BITMAP_TIMES_ROMAN_24
+			GLUT_BITMAP_HELVETICA_10
+			GLUT_BITMAP_HELVETICA_12
+			GLUT_BITMAP_HELVETICA_18
+			*/
+		}
+	}
+}

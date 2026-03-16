@@ -1,8 +1,6 @@
 #ifndef SCENE_HPP
 #define SCENE_HPP
 
-#include <IrrKlang/irrKlang.h>
-
 #include <string>
 #include <memory>
 
@@ -11,6 +9,7 @@
 #include "SpriteSheetRegistry.hpp"
 #include "GameObject2D.hpp"
 #include "CollisionManager.hpp"
+#include "SoundManager.hpp"
 
 // Scene Class
 
@@ -20,14 +19,9 @@ class Scene {
 			: updatesPerSecond_(updatesPerSecond), 
 			framesPerSeconds_(framesPerSeconds), 
 			animationUpdatesPerSecond_(animationUpdatesPerSecond) {
-			soundEngine_ = irrklang::createIrrKlangDevice();
 		}
 
-		virtual ~Scene() {
-			if (soundEngine_) {
-				soundEngine_->drop();
-			}
-		}
+		virtual ~Scene() {}
 
 		void addRootGameObject2D(std::unique_ptr<GameObject2D> gameObject) {
 			if (!gameObject) {
@@ -40,6 +34,12 @@ class Scene {
 		}
 
 		void sceneInit() {
+			glMatrixMode(GL_PROJECTION);
+			glLoadIdentity();
+			glOrtho(-1.0, 1.0, -1.0, 1.0, -1.0, 1.0);
+			glMatrixMode(GL_MODELVIEW);
+			glLoadIdentity();
+			
 			init();
 		}
 
@@ -47,6 +47,11 @@ class Scene {
 			rootObjects_.clear();
 
 			CollisionManager::getInstance().clear();
+			TextureRegistry::getInstance().clearRegistry();
+			SpriteRegistry::getInstance().clearRegistry();
+			SpriteSheetRegistry::getInstance().clearRegistry();
+
+			SoundManager::getInstance().clearSoundManager();
 
 			deInit();
 		}
@@ -84,13 +89,15 @@ class Scene {
 		int getFrameSpeed() const { return framesPerSeconds_; }
 		int getAnimationUpdateSpeed() const { return animationUpdatesPerSecond_; }
 
-		void isDrawing(bool willDraw) { isDrawing_ = willDraw; }
-		void isUpdating(bool willUpdate) { isUpdating_ = willUpdate; }
-		void isUpdatingAnimations(bool willUpdateAnimations) { isUpdatingAnimations_ = willUpdateAnimations; }
+		void willDraw(bool willDraw) { isDrawing_ = willDraw; }
+		void willUpdate(bool willUpdate) { isUpdating_ = willUpdate; }
+		void willUpdateAnimations(bool willUpdateAnimations) { isUpdatingAnimations_ = willUpdateAnimations; }
+		void setPauseFlag(bool pauseFlag) { pauseFlag_ = pauseFlag; }
 
 		bool isDrawing() const { return isDrawing_; }
 		bool isUpdating() const { return isUpdating_; }
 		bool isUpdatingAnimations() const { return isUpdatingAnimations_; }
+		bool isPauseFlagged() const { return pauseFlag_; }
 
 		void incrementAnimationFrame() { ++animationFrame_; }
 		int getAnimationFrame() const { return animationFrame_; }
@@ -100,18 +107,15 @@ class Scene {
 
 	protected:
 		// Scene specific functionalities handled here. GameObjects are updated AUTOMATICALLY based on per GameObject logic
-		virtual void init() {}
-		virtual void deInit() {}
+		virtual void init() {} // Scene specific init (Stuff not attached to GameObjects)
+		virtual void deInit() {} // Scene specific deInit (Stuff not attached to GameObjects)
 		virtual void draw() const {} // Scene specific drawing (Stuff not attached to GameObjects)
 		virtual void update() {} // Scene specific updating (Stuff not attached to GameObjects)
 
 		// Scene root GameObjects
 		std::vector<std::unique_ptr<GameObject2D>> rootObjects_;
 
-		// Sound Engine
-		irrklang::ISoundEngine* soundEngine_;
-
-		bool isDrawing_ = true, isUpdating_ = true, isUpdatingAnimations_ = true;
+		bool isDrawing_ = true, isUpdating_ = true, isUpdatingAnimations_ = true, pauseFlag_ = false;
 
 		// Update Tick Speeds
 		int updatesPerSecond_;

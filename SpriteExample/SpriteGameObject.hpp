@@ -9,7 +9,6 @@
 #include "Sprite.hpp"
 #include "SpriteRegistry.hpp"
 #include "DrawFunctions.hpp"
-#include "InputManager.hpp"
 
 class SpriteGameObject : public GameObject2D {
 public:

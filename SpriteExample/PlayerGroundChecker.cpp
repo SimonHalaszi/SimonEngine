@@ -1,5 +1,7 @@
 #include "PlayerGroundChecker.hpp"
 
+#include "Game.hpp"
+
 bool PlayerGroundChecker::onGround_ = false;
 
 PlayerGroundChecker::PlayerGroundChecker(Transform2D transform2D) {
@@ -24,10 +26,18 @@ void PlayerGroundChecker::draw() {
 }
 
 void PlayerGroundChecker::update() {
+	if (Game::getInstance().getCurrentScene()->isPauseFlagged()) {
+		return;
+	}
+
 	onGround_ = false;
 }
 
 void PlayerGroundChecker::onCollision(CollisionObject2D& other) {
+	if (Game::getInstance().getCurrentScene()->isPauseFlagged()) {
+		return;
+	}
+
 	if (other.getTag() == "Floor") {
 		onGround_ = true;
 	}

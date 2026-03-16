@@ -20,14 +20,7 @@
 #include "SpriteRegistry.hpp"
 #include "SpriteSheetRegistry.hpp"
 #include "InputManager.hpp"
-
-// Game Objects Used
-// #include "GameObject.hpp"
-#include "StaticSprite.hpp"
-#include "PlatformerPlayer.hpp"
-#include "SpriteGameObject.hpp"
-#include "SpriteObstacle.hpp"
-//
+#include "SoundManager.hpp"
 
 class PlatformerScene : public Scene {
 	public:
@@ -45,17 +38,24 @@ class PlatformerScene : public Scene {
 
 		// Scene Specific Stuff Goes Here (Stuff not related to a GameObject)
 
+		// File paths for audio
+		std::string backgroundMusicFilePath_;
+
 		// Keys for registries
 		std::string playerSpriteSheet_;
 		std::string turfSprite_;
 		std::string concreteSprite_;
 		std::string skyboxSprite_;
+		std::string coinSprite_;
+		std::string goalSprite_;
 
 		// File paths for loading textures
 		std::string playerSpriteSheetFilePath_;
 		std::string turfTextureFilePath_;
 		std::string concreteTextureFilePath_;
 		std::string skyboxTextureFilepath_;
+		std::string coinTextureFilepath_;
+		std::string goalTextureFilepath_;
 };
 
 #endif

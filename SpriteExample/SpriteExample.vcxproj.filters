@@ -129,7 +129,37 @@
     <ClCompile Include="PlayerGroundChecker.cpp">
       <Filter>Source Files\PlatformerGameObjects</Filter>
     </ClCompile>
-    <ClCompile Include="Collectible.cpp">
+    <ClCompile Include="TitleScreenScene.cpp">
+      <Filter>Source Files\PlatformerScenes</Filter>
+    </ClCompile>
+    <ClCompile Include="GameWonScreenScene.cpp">
+      <Filter>Source Files\PlatformerScenes</Filter>
+    </ClCompile>
+    <ClCompile Include="GameOverScreenScene.cpp">
+      <Filter>Source Files\PlatformerScenes</Filter>
+    </ClCompile>
+    <ClCompile Include="UITextElement.cpp">
+      <Filter>Source Files\PlatformerGameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="CameraAndUI.cpp">
+      <Filter>Source Files\PlatformerGameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Coin.cpp">
+      <Filter>Source Files\PlatformerGameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="CoinDisplay.cpp">
+      <Filter>Source Files\PlatformerGameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="FinishLine.cpp">
+      <Filter>Source Files\PlatformerGameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="FinishLinePopUpDisplay.cpp">
+      <Filter>Source Files\PlatformerGameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="GameOverTimer.cpp">
+      <Filter>Source Files\PlatformerGameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="PauseDisplay.cpp">
       <Filter>Source Files\PlatformerGameObjects</Filter>
     </ClCompile>
   </ItemGroup>
@@ -218,7 +248,40 @@
     <ClInclude Include="PlayerGroundChecker.hpp">
       <Filter>Header Files\PlatformerGameObjects</Filter>
     </ClInclude>
-    <ClInclude Include="Collectible.hpp">
+    <ClInclude Include="UITextElement.hpp">
+      <Filter>Header Files\GameObjectTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="TitleScreenScene.hpp">
+      <Filter>Header Files\PlatformerScenes</Filter>
+    </ClInclude>
+    <ClInclude Include="GameWonScreenScene.hpp">
+      <Filter>Header Files\PlatformerScenes</Filter>
+    </ClInclude>
+    <ClInclude Include="GameOverScreenScene.hpp">
+      <Filter>Header Files\PlatformerScenes</Filter>
+    </ClInclude>
+    <ClInclude Include="SoundManager.hpp">
+      <Filter>Header Files\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="PauseDisplay.hpp">
+      <Filter>Header Files\PlatformerGameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraAndUI.hpp">
+      <Filter>Header Files\PlatformerGameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Coin.hpp">
+      <Filter>Header Files\PlatformerGameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="CoinDisplay.hpp">
+      <Filter>Header Files\PlatformerGameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="FinishLine.hpp">
+      <Filter>Header Files\PlatformerGameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="FinishLinePopUpDisplay.hpp">
+      <Filter>Header Files\PlatformerGameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="GameOverTimer.hpp">
       <Filter>Header Files\PlatformerGameObjects</Filter>
     </ClInclude>
   </ItemGroup>

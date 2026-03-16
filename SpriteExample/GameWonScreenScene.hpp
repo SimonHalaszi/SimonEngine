@@ -1,11 +1,6 @@
 #ifndef GAMEOVER_SCREEN_SCENE_HPP
 #define GAMEOVER_SCREEN_SCENE_HPP
 
-// Needed Other Includes
-#include <GL/glut.h>
-#include <GL/freeglut.h>
-#include <IrrKlang/irrKlang.h>
-
 // Needed C++ Includes
 #include <string>
 #include <memory>

@@ -22,30 +22,77 @@ class InputManager {
         bool isPressed(unsigned char key)   const { return keyCurrent_[key] && !keyPrevious_[key]; }
         bool isReleased(unsigned char key)  const { return !keyCurrent_[key] && keyPrevious_[key]; }
 
-        void specialKeyDown(int key)    { if (key >= 0 && key < int(specialKeyCurrent_.size())) specialKeyCurrent_[key] = true; }
-        void specialKeyUp(int key)      { if (key >= 0 && key < int(specialKeyCurrent_.size())) specialKeyCurrent_[key] = false; }
+        void specialKeyDown(int key) { 
+            if (key >= 0 && key < int(specialKeyCurrent_.size())) {
+                specialKeyCurrent_[key] = true;
+            }
+        }
+        void specialKeyUp(int key) { 
+            if (key >= 0 && key < int(specialKeyCurrent_.size())) {
+                specialKeyCurrent_[key] = false;
+            }
+        }
 
-        bool isSpecialKeyDown(int key)      const { return (key >= 0 && key < int(specialKeyCurrent_.size())) ? specialKeyCurrent_[key] : false; }
-        bool isSpecialKeyPressed(int key)   const { return (key >= 0 && key < int(specialKeyCurrent_.size())) ? (specialKeyCurrent_[key] && !specialKeyPrevious_[key]) : false; }
-        bool isSpecialKeyReleased(int key)  const { return (key >= 0 && key < int(specialKeyCurrent_.size())) ? (!specialKeyCurrent_[key] && specialKeyPrevious_[key]) : false; }
+        bool isSpecialKeyDown(int key) const { 
+            if (key >= 0 && key < int(specialKeyCurrent_.size())) {
+                return specialKeyCurrent_[key];
+            }
+            else {
+                return false;
+            }
+        }
+        bool isSpecialKeyPressed(int key) const { 
+            if (key >= 0 && key < int(specialKeyCurrent_.size())) {
+                return (specialKeyCurrent_[key] && !specialKeyPrevious_[key]);
+            }
+            else {
+                return false;
+            }
+        }
+        bool isSpecialKeyReleased(int key)  const { 
+            if (key >= 0 && key < int(specialKeyCurrent_.size())) {
+                return (!specialKeyCurrent_[key] && specialKeyPrevious_[key]);
+            }
+            else {
+                return false;
+            }
+        }
 
-        void mouseButtonDown(int button, int x, int y)  { if (button >= 0 && button < int(mouseCurrent_.size())) mouseCurrent_[button] = true; }
-        void mouseButtonUp(int button, int x, int y)    { if (button >= 0 && button < int(mouseCurrent_.size())) mouseCurrent_[button] = false; }
+        void mouseButtonDown(int button, int x, int y) { 
+            if (button >= 0 && button < int(mouseCurrent_.size())) {
+                mouseCurrent_[button] = true;
+            }
+        }
+        void mouseButtonUp(int button, int x, int y) { 
+            if (button >= 0 && button < int(mouseCurrent_.size())) {
+                mouseCurrent_[button] = false;
+            }
+        }
 
         bool isMouseButtonDown(MouseButton button) const {
-            if (button == MOUSEBUTTON_SCROLLUP) return scrollUpThisFrame_;
-            if (button == MOUSEBUTTON_SCROLLDOWN) return scrollDownThisFrame_;
+            if (button == MOUSEBUTTON_SCROLLUP) { 
+                return scrollUpThisFrame_; 
+            }
+            if (button == MOUSEBUTTON_SCROLLDOWN) {
+                return scrollDownThisFrame_;
+            }
             return mouseCurrent_[button];
         }
         
         bool isMouseButtonPressed(MouseButton button) const {
-            if (button == MOUSEBUTTON_SCROLLUP) return scrollUpThisFrame_;
-            if (button == MOUSEBUTTON_SCROLLDOWN) return scrollDownThisFrame_;
+            if (button == MOUSEBUTTON_SCROLLUP) { 
+                return scrollUpThisFrame_; 
+            }
+            if (button == MOUSEBUTTON_SCROLLDOWN) { 
+                return scrollDownThisFrame_; 
+            }
             return mouseCurrent_[button] && !mousePrevious_[button];
         }
         
         bool isMouseButtonReleased(MouseButton button) const {
-            if (button == MOUSEBUTTON_SCROLLUP || button == MOUSEBUTTON_SCROLLDOWN) return false;
+            if (button == MOUSEBUTTON_SCROLLUP || button == MOUSEBUTTON_SCROLLDOWN) { 
+                return false; 
+            }
             return !mouseCurrent_[button] && mousePrevious_[button];
         }
 
@@ -62,8 +109,12 @@ class InputManager {
         int mouseDeltaY()   const { return mouseDeltaY_; }
 
         void registerScroll(int button) {
-            if (button == 3) scrollUpThisFrame_ = true;
-            if (button == 4) scrollDownThisFrame_ = true;
+            if (button == 3) { 
+                scrollUpThisFrame_ = true; 
+            }
+            if (button == 4) { 
+                scrollDownThisFrame_ = true; 
+            }
         }
 
         void update() {

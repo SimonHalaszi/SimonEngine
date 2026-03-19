@@ -25,7 +25,7 @@ class SpriteSheetRegistry {
 		const SpriteSheet& makeSpriteSheet(std::string nameOfSpriteSheet, GLuint texID, int tilesWide, int tilesTall, TileIndex startTile, TileIndex endTile);
 		void removeSpriteSheet(std::string nameOfSpriteSheet);
 
-		void clearRegistry() { spriteSheetMap_.clear(); }
+		void clearRegistry() { std::cout << "SpriteSheetRegistry::clearRegistry : Cleared SpriteSheetRegistry" << std::endl; spriteSheetMap_.clear(); }
 
 		const SpriteSheet& getSpriteSheet(std::string nameOfSpriteSheet) const;
 

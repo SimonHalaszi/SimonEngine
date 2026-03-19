@@ -138,9 +138,6 @@
     <ClCompile Include="GameOverScreenScene.cpp">
       <Filter>Source Files\PlatformerScenes</Filter>
     </ClCompile>
-    <ClCompile Include="UITextElement.cpp">
-      <Filter>Source Files\PlatformerGameObjects</Filter>
-    </ClCompile>
     <ClCompile Include="CameraAndUI.cpp">
       <Filter>Source Files\PlatformerGameObjects</Filter>
     </ClCompile>
@@ -161,6 +158,9 @@
     </ClCompile>
     <ClCompile Include="PauseDisplay.cpp">
       <Filter>Source Files\PlatformerGameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="UITextElement.cpp">
+      <Filter>Source Files\GameObjectTypes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

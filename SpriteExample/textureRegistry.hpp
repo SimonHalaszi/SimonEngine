@@ -26,6 +26,7 @@ class TextureRegistry {
 			for (auto& pair : textureMap_) {
 				glDeleteTextures(1, &pair.second);
 			}
+			std::cout << "TextureRegistry::clearRegistry : Deleted all OpenGL textures. Cleared TextureRegistry" << std::endl;
 			textureMap_.clear(); 
 		}
 

@@ -121,5 +121,6 @@ void Game::safeGameExit() {
 	if (currentScene_) {
 		currentScene_->sceneDeInit();
 	}
+	std::cout << "GAME::safeGameExit : Exited game" << std::endl;
 	exit(0);
 }

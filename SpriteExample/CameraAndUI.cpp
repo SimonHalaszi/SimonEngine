@@ -42,9 +42,9 @@ void CameraAndUI::onStart() {
 			0.0f,
 			false,
 			false, }),
-			"0",
-			ColorRGB{ 1.0f, 1.0f, 1.0f },
-			ColorRGB{ 0.0f, 0.0f, 0.0f }
+		"0",
+		ColorRGB{ 1.0f, 1.0f, 1.0f },
+		ColorRGB{ 0.0f, 0.0f, 0.0f }
 	)
 	);
 	attachChild(std::make_unique<GameOverTimer>(

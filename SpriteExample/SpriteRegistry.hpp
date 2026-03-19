@@ -24,14 +24,7 @@ class SpriteRegistry {
 		const Sprite& makeSprite(std::string nameOfSprite, GLuint texID, int tilesWide, int tilesTall, TileIndex tile);
 		void removeSprite(std::string nameOfSprite);
 
-		void clearRegistry() {
-			std::cout << "SpriteRegistry::clearRegistry : Clearing " << spriteMap_.size() << " sprites" << std::endl;
-			for (auto& pair : spriteMap_) {
-				std::cout << "SpriteRegistry::clearRegistry : Removing sprite '" << pair.first << "' with texture ID " << pair.second.getTextureID() << std::endl;
-			}
-			spriteMap_.clear();
-			std::cout << "SpriteRegistry::clearRegistry : Cleared" << std::endl;
-		}
+		void clearRegistry() { std::cout << "SpriteRegistry::clearRegistry : Cleared SpriteRegistry" << std::endl; spriteMap_.clear(); }
 
 		const Sprite& getSprite(std::string nameOfSprite) const;
 

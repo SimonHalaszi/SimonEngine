@@ -31,5 +31,6 @@ void CollisionManager::checkAllCollisions() {
 }
 
 void CollisionManager::clear() {
+	std::cout << "CollisionManager::clear : All collisionObject2Ds unregistered" << std::endl;
 	objects_.clear();
 }

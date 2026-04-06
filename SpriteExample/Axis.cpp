@@ -6,6 +6,7 @@ Axis::Axis(Transform2D transform2D, ColorRGB color1, ColorRGB color2, bool willD
 	color2_ = color2;
 	willDrawAxis_ = willDrawAxis;
 	axis_ = axis;
+	name_ = "Axis";
 }
 
 void Axis::draw() {

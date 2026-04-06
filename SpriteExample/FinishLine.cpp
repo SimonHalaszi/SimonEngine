@@ -10,6 +10,7 @@ FinishLine::FinishLine(Transform2D transform2D, std::string spriteKey) {
 	finishLineSprite_ = nullptr;
 	finishLineSpriteKey_ = spriteKey;
 	gameWonSoundFilepath_ = "audio/GameWon.mp3";
+	name_ = "FinishLine";
 }
 
 void FinishLine::onStart() {

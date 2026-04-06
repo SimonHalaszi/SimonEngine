@@ -5,6 +5,7 @@ SpriteObstacle::SpriteObstacle(Transform2D transform2D, std::string spriteName) 
 	spriteName_ = spriteName;
 	sprite_ = nullptr;
 	tag_ = "Obstacle";
+	name_ = "SpriteObstacle";
 }
 
 void SpriteObstacle::onStart() {

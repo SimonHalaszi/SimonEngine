@@ -9,6 +9,7 @@ void PauseDisplay::onStart() {
 	else {
 		drawElement_ = false;
 	}
+	name_ = "PauseDisplay";
 }
 
 void PauseDisplay::update() {

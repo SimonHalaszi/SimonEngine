@@ -4,6 +4,7 @@
 
 void FinishLinePopUpDisplay::onStart() {
 	drawElement_ = FinishLine::isPopupShowing();
+	name_ = "FinishLinePopUpDisplay";
 }
 
 void FinishLinePopUpDisplay::update() {

@@ -92,6 +92,16 @@ public:
 		}
 	}
 
+	void pauseAll() {
+		pauseSounds();
+		pauseMusic();
+	}
+
+	void unpauseAll() {
+		unpauseSounds();
+		unpauseMusic();
+	}
+
 	SoundManager(const SoundManager&) = delete;
 	SoundManager& operator=(const SoundManager&) = delete;
 	SoundManager(const SoundManager&&) = delete;

@@ -45,6 +45,16 @@ struct AABB {
 	Vector2D max = { 0.0f, 0.0f };
 };
 
+// Used for Editor UI Elements
+struct WindowArea {
+	Vector2D pos = { 0.0f, 0.0f };
+	Vector2D scale = { 0.0f, 0.0f };
+};
+struct ViewportArea {
+	Vector2D pos = { 0.0f, 0.0f };
+	Vector2D scale = { 0.0f, 0.0f };
+};
+
 constexpr float PI = 3.14159265358979323846f;
 
 float degreesToRadians(float degrees);

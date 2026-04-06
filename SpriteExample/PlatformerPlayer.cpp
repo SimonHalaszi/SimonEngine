@@ -18,6 +18,7 @@ PlatformerPlayer::PlatformerPlayer(std::string playerSpritesSheetKey) {
 	playerSpriteSheet_ = nullptr;
 	tag_ = "Player";
 	jumpingSoundFilepath_ = "audio/PlatformerPlayerJump.mp3";
+	name_ = "Player";
 }
 
 void PlatformerPlayer::onStart() {

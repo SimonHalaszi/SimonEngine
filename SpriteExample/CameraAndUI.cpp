@@ -9,6 +9,7 @@
 CameraAndUI::CameraAndUI(Transform2D transform2D) {
 	localTransform_ = transform2D;
 	tag_ = "Camera";
+	name_ = "CameraAndUI";
 }
 
 void CameraAndUI::onStart() {

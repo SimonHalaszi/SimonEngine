@@ -7,6 +7,7 @@ bool PlayerGroundChecker::onGround_ = false;
 PlayerGroundChecker::PlayerGroundChecker(Transform2D transform2D) {
 	localTransform_ = transform2D;
 	tag_ = "PlayerGroundChecker";
+	name_ = "PlayerGroundChecker";
 }
 
 void PlayerGroundChecker::draw() {

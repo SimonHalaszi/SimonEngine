@@ -33,10 +33,12 @@ class GameObject2D {
 		void setRotation(float rotation) { localTransform_.rotation = rotation; outDateWorldTransform(); }
 
 		void outDateWorldTransform();
+		void updateWorldTransform();
 
 		void attachChild(std::unique_ptr<GameObject2D> child); // Attaches a child to a GameObject
 
 		std::string getTag() const { return tag_; }
+		std::string getName() const { return name_; }
 	
 	protected:
 		virtual void onStart() {} // Runs when attached to scene
@@ -47,6 +49,7 @@ class GameObject2D {
 		GameObject2D* parent_ = nullptr;
 		
 		std::string tag_;
+		std::string name_;
 		Transform2D localTransform_;
 
 		bool isAttachedToScene_ = false;
@@ -54,8 +57,6 @@ class GameObject2D {
 	private:
 		void init(); // Runs to attach to scene
 		void deInit(); // Runs to unattch from scene
-		
-		void updateWorldTransform();
 		
 		bool isWorldTransformOutDated_ = true;
 		Transform2D worldTransform_;

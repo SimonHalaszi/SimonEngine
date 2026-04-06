@@ -105,6 +105,8 @@ class Scene {
 		void incrementUpdateFrame() { ++updateFrame_; }
 		int getUpdateFrame() const { return updateFrame_; }
 
+		std::vector<std::unique_ptr<GameObject2D>>& getRootObjects() { return rootObjects_; }
+
 	protected:
 		// Scene specific functionalities handled here. GameObjects are updated AUTOMATICALLY based on per GameObject logic
 		virtual void init() {} // Scene specific init (Stuff not attached to GameObjects)

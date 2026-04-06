@@ -8,6 +8,8 @@
 #include <memory>
 
 #include "Scene.hpp"
+#include "Editor.hpp"
+#include "InputManager.hpp"
 
 // Game Class
 
@@ -22,6 +24,7 @@ class Game {
 		void init();
 		
 		const Scene* getCurrentScene() { return currentScene_.get(); }
+		const Editor* getEditor() { return editor_.get(); }
 		void changeScene(std::unique_ptr<Scene> newScene);
 
 		void safeGameExit();
@@ -37,14 +40,13 @@ class Game {
 		Game& operator=(const Game&&) = delete;
 
 	private:
-		Game() : currentScene_(nullptr) {}
-
-		Scene* getCurrentSceneNonConst() { return currentScene_.get(); }
+		Game() : currentScene_(nullptr), pendingScene_(nullptr) {}
 
 		~Game() {}
 
 		std::unique_ptr<Scene> currentScene_;
 		std::unique_ptr<Scene> pendingScene_;
+		std::unique_ptr<Editor> editor_;
 };
 
 #endif

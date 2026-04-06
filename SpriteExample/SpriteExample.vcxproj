@@ -136,19 +136,24 @@
   <ItemGroup>
     <ClCompile Include="AnimatedSprite.cpp" />
     <ClCompile Include="Axis.cpp" />
+    <ClCompile Include="VoidButton.cpp" />
     <ClCompile Include="CameraAndUI.cpp" />
     <ClCompile Include="CollisionManager.cpp" />
     <ClCompile Include="CollisionObject2D.cpp" />
     <ClCompile Include="DrawFunctions.cpp" />
+    <ClCompile Include="Editor.cpp" />
     <ClCompile Include="FinishLine.cpp" />
     <ClCompile Include="FinishLinePopUpDisplay.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject2D.cpp" />
     <ClCompile Include="GameOverScreenScene.cpp" />
     <ClCompile Include="GameWonScreenScene.cpp" />
+    <ClCompile Include="Hierarchy.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="ArchiveScene.cpp" />
     <ClCompile Include="ArchivePlayer.cpp" />
+    <ClCompile Include="Inspector.cpp" />
+    <ClCompile Include="ObjectsPanel.cpp" />
     <ClCompile Include="PauseDisplay.cpp" />
     <ClCompile Include="PlatformerScene.cpp" />
     <ClCompile Include="PlatformerPlayer.cpp" />
@@ -167,18 +172,21 @@
     <ClCompile Include="RotatingColorChangingTriangle.cpp" />
     <ClCompile Include="GameOverTimer.cpp" />
     <ClCompile Include="TitleScreenScene.cpp" />
+    <ClCompile Include="TopPanel.cpp" />
     <ClCompile Include="UITextElement.cpp" />
     <ClCompile Include="Utilities.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AnimatedSprite.hpp" />
     <ClInclude Include="Axis.hpp" />
+    <ClInclude Include="VoidButton.hpp" />
     <ClInclude Include="CoinDisplay.hpp" />
     <ClInclude Include="Coin.hpp" />
     <ClInclude Include="ColliderRectangle.hpp" />
     <ClInclude Include="CollisionManager.hpp" />
     <ClInclude Include="CollisionObject2D.hpp" />
     <ClInclude Include="DrawFunctions.hpp" />
+    <ClInclude Include="Editor.hpp" />
     <ClInclude Include="FinishLine.hpp" />
     <ClInclude Include="FinishLinePopUpDisplay.hpp" />
     <ClInclude Include="Game.hpp" />
@@ -186,9 +194,12 @@
     <ClInclude Include="CameraAndUI.hpp" />
     <ClInclude Include="GameOverScreenScene.hpp" />
     <ClInclude Include="GameWonScreenScene.hpp" />
+    <ClInclude Include="Hierarchy.hpp" />
     <ClInclude Include="InputManager.hpp" />
     <ClInclude Include="ArchiveScene.hpp" />
     <ClInclude Include="ArchivePlayer.hpp" />
+    <ClInclude Include="Inspector.hpp" />
+    <ClInclude Include="ObjectsPanel.hpp" />
     <ClInclude Include="PauseDisplay.hpp" />
     <ClInclude Include="PlayerGroundChecker.hpp" />
     <ClInclude Include="SoundManager.hpp" />
@@ -209,8 +220,10 @@
     <ClInclude Include="RotatingColorChangingTriangle.hpp" />
     <ClInclude Include="GameOverTimer.hpp" />
     <ClInclude Include="TitleScreenScene.hpp" />
+    <ClInclude Include="TopPanel.hpp" />
     <ClInclude Include="UITextElement.hpp" />
     <ClInclude Include="Utilities.hpp" />
+    <ClInclude Include="WindowConstants.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

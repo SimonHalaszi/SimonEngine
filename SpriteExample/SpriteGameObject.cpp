@@ -5,6 +5,7 @@ SpriteGameObject::SpriteGameObject(Transform2D transform2D, std::string spriteNa
 	spriteName_ = spriteName;
 	sprite_ = nullptr;
 	tag_ = tag;
+	name_ = "SpriteGameObject";
 }
 
 void SpriteGameObject::onStart() {

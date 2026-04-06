@@ -6,6 +6,7 @@ Coin::Coin(Transform2D transform2D, std::string spriteName, std::string tag) {
 	spriteName_ = spriteName;
 	sprite_ = nullptr;
 	tag_ = tag;
+	name_ = "Coin";
 }
 
 void Coin::onStart() {

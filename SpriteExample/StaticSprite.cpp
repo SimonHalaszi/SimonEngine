@@ -5,6 +5,7 @@ StaticSprite::StaticSprite(Transform2D transform2D, std::string spriteName, std:
 	spriteName_ = spriteName;
 	sprite_ = nullptr;
 	tag_ = tag;
+	name_ = "StaticSprite";
 }
 
 void StaticSprite::onStart() {

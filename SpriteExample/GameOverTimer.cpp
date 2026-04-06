@@ -12,6 +12,7 @@ void GameOverTimer::onStart() {
 	text_ = timeLeft_;
 
 	isGameOver_ = false;
+	name_ = "GameOverTimer";
 }
 
 #include "GameOverScreenScene.hpp"

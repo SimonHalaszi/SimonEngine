@@ -6,6 +6,7 @@
 
 void CoinDisplay::onStart() {
 	text_ = std::to_string(PlatformerPlayer::getCoinCount());
+	name_ = "CoinDisplay";
 }
 
 void CoinDisplay::update() {

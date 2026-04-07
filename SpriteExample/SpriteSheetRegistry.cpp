@@ -8,18 +8,28 @@ const SpriteSheet& SpriteSheetRegistry::makeSpriteSheet(std::string nameOfSprite
 	
 	std::vector<Sprite> tiles;
 
+	GLint texWidth = 0, texHeight = 0;
+	glBindTexture(GL_TEXTURE_2D, texID);
+	glGetTexLevelParameteriv(GL_TEXTURE_2D, 0, GL_TEXTURE_WIDTH, &texWidth);
+	glGetTexLevelParameteriv(GL_TEXTURE_2D, 0, GL_TEXTURE_HEIGHT, &texHeight);
+
+	float tilePixelW = texWidth / (float)tilesWide;
+	float tilePixelH = texHeight / (float)tilesTall;
+
 	// Go through texture a tile at a time from starTile to and including endTile
 	for (int y = startTile.y; y <= endTile.y; ++y) {
 		for (int x = startTile.x; x <= endTile.x; ++x) {
+			float u0 = (x * tilePixelW + 0.01f) / texWidth;
+			float u1 = ((x + 1) * tilePixelW - 0.01f) / texWidth;
+
+			float v0 = ((y + 1) * tilePixelH - 0.01f) / texHeight;
+			float v1 = (y * tilePixelH + 0.01f) / texHeight;
+
 			SubTexture temp;
-
-			// Calculating the left and right U texture coordinates
-			temp.u0 = x / (float)tilesWide;
-			temp.u1 = (x + 1) / (float)tilesWide;
-
-			// Calculating the top and bottom V texture coordinates
-			temp.v1 = 1.0f - y / (float)tilesTall;
-			temp.v0 = 1.0f - (y + 1) / (float)tilesTall;
+			temp.u0 = u0;
+			temp.u1 = u1;
+			temp.v0 = 1.0f - v0;
+			temp.v1 = 1.0f - v1;
 
 			Sprite sprite(texID, temp);
 

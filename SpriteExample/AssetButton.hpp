@@ -17,8 +17,7 @@ public:
 		const ViewportArea& viewportArea,
 		const ColorRGB& color,
 		const std::string& text,
-		const Sprite* previewSprite,
-		const std::string& option
+		const Sprite* previewSprite
 	);
 
 	bool isInside(int mouseX, int mouseY, const ViewportContext& context) const;
@@ -31,7 +30,6 @@ private:
 	std::string text_;
 	
 	const Sprite* previewSprite_;
-	std::string option_;
 };
 
 #endif

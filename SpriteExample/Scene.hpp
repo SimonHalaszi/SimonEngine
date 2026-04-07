@@ -27,10 +27,10 @@ class Scene {
 			if (!gameObject) {
 				return;
 			}
-
 			rootObjects_.push_back(std::move(gameObject));
 
 			rootObjects_.back()->rootOnStart();
+			rootObjects_.back()->updateWorldTransform();
 		}
 
 		void sceneInit() {

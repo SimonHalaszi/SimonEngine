@@ -5,9 +5,6 @@ Editor::Editor(Scene* scene)
 {
 	std::cout << "Editor::Editor() : Editor created " << std::endl;
 	std::vector<std::unique_ptr<GameObject2D>>& rootObjects = scene->getRootObjects();
-	for (auto& rootObject : rootObjects) {
-		rootObject->updateWorldTransform();
-	}
 
 	middlePanelContext_.viewportX = HIERARCHY_PANEL_W;
 	middlePanelContext_.viewportY = OBJECTS_PANEL_H;

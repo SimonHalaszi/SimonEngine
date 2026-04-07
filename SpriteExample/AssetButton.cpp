@@ -4,22 +4,19 @@ AssetButton::AssetButton() :
 	viewportArea_(),
 	color_(),
 	text_(""),
-	previewSprite_(nullptr),
-	option_("")
+	previewSprite_(nullptr)
 {}
 
 AssetButton::AssetButton(
 	const ViewportArea& viewportArea,
 	const ColorRGB& color,
 	const std::string& text,
-	const Sprite* previewSprite,
-	const std::string& option
+	const Sprite* previewSprite
 ) :
 	viewportArea_(viewportArea),
 	color_(color),
 	text_(text),
-	previewSprite_(previewSprite),
-	option_(option)
+	previewSprite_(previewSprite)
 {}
 
 bool AssetButton::isInside(int mouseX, int mouseY, const ViewportContext& context) const {
@@ -39,7 +36,7 @@ bool AssetButton::isInside(int mouseX, int mouseY, const ViewportContext& contex
 std::unique_ptr<GameObject2D> AssetButton::handleClick(const ViewportContext& context) const {
 	if (InputManager::getInstance().isMouseButtonPressed(MOUSEBUTTON_LEFT)) {
 		if (isInside(InputManager::getInstance().mouseX(), InputManager::getInstance().mouseY(), context)) {
-			return AssetFactory::getInstance().createGameObject(option_);
+			return AssetFactory::getInstance().createGameObject(text_);
 		}
 	}
 	return nullptr;

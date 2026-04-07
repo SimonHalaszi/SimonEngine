@@ -17,6 +17,9 @@ AssetPanel::AssetPanel(Scene* scene) : scene_(scene) {
 
 	const std::vector<std::string>& factoryOptions = AssetFactory::getInstance().getFactoryOptions();
 
+	float areaOffset = ((1.0f / 4.0f) * 2);
+	ViewportArea startArea = assetPanelTitle_;
+	startArea.pos.y -= areaOffset;
 	int i = 0;
 
 	ColorRGB color1 = { 1.0f, 1.0f, 1.0f };
@@ -24,22 +27,22 @@ AssetPanel::AssetPanel(Scene* scene) : scene_(scene) {
 
 	for (auto itr = factoryOptions.begin(); itr != factoryOptions.end(); ++itr) {
 		if (i % 2) {
-			AssetButton.push_back(
-				HierarchyButton(
+			assetButtons_.push_back(
+				AssetButton(
 					startArea,
 					color1,
-					AssetFactory::getInstance().,
-					i
+					factoryOptions[i],
+					AssetFactory::getInstance().getOptionPreviewSprite(factoryOptions[i])
 				)
 			);
 		}
 		else {
-			hierarchyButtons_.push_back(
-				HierarchyButton(
+			assetButtons_.push_back(
+				AssetButton(
 					startArea,
 					color2,
-					itr->get()->getName(),
-					i
+					factoryOptions[i],
+					AssetFactory::getInstance().getOptionPreviewSprite(factoryOptions[i])
 				)
 			);
 		}
@@ -52,12 +55,24 @@ void AssetPanel::draw() const {
 	glMatrixMode(GL_PROJECTION);
 	glPushMatrix();
 	glLoadIdentity();
-	glOrtho(-1.0, 1.0, -1.0, 1.0, -1.0, 1.0);
+	glOrtho(
+		assetPanelContext_.orthoLeft,
+		assetPanelContext_.orthoRight,
+		assetPanelContext_.orthoBottom,
+		assetPanelContext_.orthoTop,
+		-1.0,
+		1.0
+	);
 
 	glMatrixMode(GL_MODELVIEW);
 	glPushMatrix();
 	glLoadIdentity();
-	glViewport(0, 0, OBJECTS_PANEL_W, OBJECTS_PANEL_H);
+	glViewport(
+		assetPanelContext_.viewportX,
+		assetPanelContext_.viewportY,
+		assetPanelContext_.viewportWidth,
+		assetPanelContext_.viewportHeight
+	);
 
 	// Draw Background
 	drawRectangle(
@@ -72,7 +87,15 @@ void AssetPanel::draw() const {
 		{ 0.2f, 0.2f, 0.2f }
 	);
 
+	glPushMatrix();
+	glTranslatef(0, -assetPanelContext_.scrollOffsetY, 0);
+
 	// Draw Asset Panel Buttons
+	for (const auto& button : assetButtons_) {
+		button.draw();
+	}
+
+	glPopMatrix();
 	
 	// Draw Title
 	drawRectangle(
@@ -100,5 +123,32 @@ void AssetPanel::draw() const {
 }
 
 void AssetPanel::update() {
+	// Dont bother doing input if we arent in hierarchy panel
+	if (isInsideViewportContext(InputManager::getInstance().mouseX(), InputManager::getInstance().mouseY(), assetPanelContext_)) {
+		float scrollSpeed = 0.1f;
 
+		if (InputManager::getInstance().isMouseButtonPressed(MOUSEBUTTON_SCROLLDOWN)) {
+			assetPanelContext_.scrollOffsetY -= scrollSpeed;
+		}
+		if (InputManager::getInstance().isMouseButtonPressed(MOUSEBUTTON_SCROLLUP)) {
+			assetPanelContext_.scrollOffsetY += scrollSpeed;
+		}
+
+		if (assetPanelContext_.scrollOffsetY > 0.0f) {
+			assetPanelContext_.scrollOffsetY = 0.0f;
+		}
+
+		// Handle Clicking
+		if (InputManager::getInstance().isMouseButtonPressed(MOUSEBUTTON_LEFT)) {
+			for (auto& button : assetButtons_) {
+				std::unique_ptr<GameObject2D> temp = std::move(button.handleClick(assetPanelContext_));
+				if (temp) {
+					scene_->addRootGameObject2D(std::move(temp));
+				}
+				else {
+					continue;
+				}
+			}
+		}
+	}
 }

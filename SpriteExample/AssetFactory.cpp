@@ -4,13 +4,6 @@
 #include "SpriteObstacle.hpp"
 
 // Expand this with more options as you go on
-enum class FactoryOption {
-	Coin,
-	ConcreteSpriteObstacle,
-	TurfSpriteObstacle
-};
-
-// Expand this with more options as you go on
 AssetFactory::AssetFactory() {
 	factoryOptions_.push_back("Coin");
 	factoryOptions_.push_back("ConcreteSpriteObstacle");
@@ -23,7 +16,7 @@ std::unique_ptr<GameObject2D> AssetFactory::createGameObject(std::string option)
 		return std::make_unique<Coin>(
 			Transform2D({
 				Vector2D({ 0.0f, 0.0f }),
-				Vector2D({ 0.0f, 0.0f }),
+				Vector2D({ 0.05f, 0.05f }),
 				0.0f,
 				false,
 				false,
@@ -33,10 +26,10 @@ std::unique_ptr<GameObject2D> AssetFactory::createGameObject(std::string option)
 		);
 	}
 	if (option == "ConcreteSpriteObstacle") {
-		return std::make_unique<Coin>(
+		return std::make_unique<SpriteObstacle>(
 			Transform2D({
 				Vector2D({ 0.0f, 0.0f }),
-				Vector2D({ 0.0f, 0.0f }),
+				Vector2D({ 0.1f, 0.1f }),
 				0.0f,
 				false,
 				false,
@@ -46,10 +39,10 @@ std::unique_ptr<GameObject2D> AssetFactory::createGameObject(std::string option)
 		);
 	}
 	if (option == "TurfSpriteObstacle") {
-		return std::make_unique<Coin>(
+		return std::make_unique<SpriteObstacle>(
 			Transform2D({
 				Vector2D({ 0.0f, 0.0f }),
-				Vector2D({ 0.0f, 0.0f }),
+				Vector2D({ 0.1f, 0.1f }),
 				0.0f,
 				false,
 				false,

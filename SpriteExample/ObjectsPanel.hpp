@@ -6,6 +6,7 @@
 
 #include "WindowConstants.hpp"
 #include "drawFunctions.hpp"
+#include "GameObjectFactory.hpp"
 
 class ObjectsPanel {
 public:

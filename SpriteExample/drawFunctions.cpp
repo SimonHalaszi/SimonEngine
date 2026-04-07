@@ -173,13 +173,13 @@ void drawSprite(Vector2D pos, Vector2D size, float angle, bool mirror, bool flip
 
 // Drawing a line
 void drawLine(Vector2D pos1, Vector2D pos2, ColorRGB c1, ColorRGB c2) {
-	glBegin(GL_LINES);              // Start drawing a line
+	glBegin(GL_LINES);
 	glColor3f(c1.red, c1.green, c1.blue);
-	glVertex3f(pos1.x, pos1.y, 0.0f); // Start
+	glVertex3f(pos1.x, pos1.y, 0.0f);
 
 	glColor3f(c2.red, c2.green, c2.blue);
-	glVertex3f(pos2.x, pos2.y, 0.0f); // End
-	glEnd();                        // End drawing
+	glVertex3f(pos2.x, pos2.y, 0.0f);
+	glEnd();
 }
 
 // Function to draw text
@@ -190,7 +190,7 @@ void drawText(Vector2D pos, std::string text, float lineSpace, ColorRGB color) {
 
 	for (int i = 0; text[i] != '\0'; i++) {
 		if (text[i] == '\n') {
-			pos.y -= lineSpace; //line spacing
+			pos.y -= lineSpace;
 			glRasterPos3f(pos.x, pos.y, 0.0f);
 		}
 		else {
@@ -205,6 +205,40 @@ void drawText(Vector2D pos, std::string text, float lineSpace, ColorRGB color) {
 			GLUT_BITMAP_HELVETICA_12
 			GLUT_BITMAP_HELVETICA_18
 			*/
+		}
+	}
+}
+
+void drawTextCentered(Vector2D centerPos, const std::string& text, float lineSpace, ColorRGB color) {
+	glColor3f(color.red, color.green, color.blue);
+
+	void* font = GLUT_BITMAP_HELVETICA_18;
+
+	int textWidth = 0;
+	for (char c : text) {
+		if (c != '\n') {
+			textWidth += glutBitmapWidth(font, c);
+		}
+	}
+
+	int textHeight = 18;
+
+	float startX = centerPos.x - textWidth / 2.0f;
+	float startY = centerPos.y - textHeight / 2.0f;
+
+	glRasterPos2f(startX, startY);
+
+	float x = startX;
+	float y = startY;
+	for (char c : text) {
+		if (c == '\n') {
+			y -= lineSpace;
+			x = startX;
+			glRasterPos2f(x, y);
+		}
+		else {
+			glutBitmapCharacter(font, c);
+			x += glutBitmapWidth(font, c);
 		}
 	}
 }

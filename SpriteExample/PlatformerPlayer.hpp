@@ -14,7 +14,10 @@
 
 class PlatformerPlayer : public CollisionObject2D {
 public:
-	PlatformerPlayer(std::string playerSpritesSheetKey = "");
+	PlatformerPlayer(
+		std::string playerSpriteSheetFilePath,
+		std::string playerSpritesSheetKey
+	);
 
 	void onStart() override;
 	void draw() override;
@@ -28,7 +31,6 @@ public:
 private:
 
 	const SpriteSheet* playerSpriteSheet_;
-	std::string playerSpritesSheetKey_;
 
 	std::string jumpingSoundFilepath_;
 

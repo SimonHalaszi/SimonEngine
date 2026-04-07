@@ -13,7 +13,7 @@
 
 class FinishLine : public CollisionObject2D {
 public:
-	FinishLine(Transform2D transform2D, std::string spriteKey = "");
+	FinishLine(Transform2D transform2D, std::string spriteFilePath, std::string spriteKey);
 
 	void onStart() override;
 	void draw() override;
@@ -26,7 +26,6 @@ public:
 
 private:
 	const Sprite* finishLineSprite_;
-	std::string finishLineSpriteKey_;
 
 	std::string gameWonSoundFilepath_;
 

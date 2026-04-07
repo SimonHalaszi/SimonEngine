@@ -6,11 +6,14 @@ Inspector::Inspector()
 }
 
 void Inspector::draw() const {
+	glMatrixMode(GL_PROJECTION);
 	glPushMatrix();
-	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 	glOrtho(-1.0, 1.0, -1.0, 1.0, -1.0, 1.0);
 
+	glMatrixMode(GL_MODELVIEW);
+	glPushMatrix();
+	glLoadIdentity();
 	glViewport(HIERARCHY_PANEL_W + SCENE_WIN_W, OBJECTS_PANEL_H, INSPECTOR_PANEL_W, INSPECTOR_PANEL_H);
 
 	drawRectangle(
@@ -26,6 +29,9 @@ void Inspector::draw() const {
 	);
 
 	glPopMatrix();
+	glMatrixMode(GL_PROJECTION);
+	glPopMatrix();
+	glMatrixMode(GL_MODELVIEW);
 }
 
 void Inspector::update() {

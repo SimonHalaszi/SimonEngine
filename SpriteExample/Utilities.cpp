@@ -48,3 +48,35 @@ bool checkAABBCollision(const AABB& a, const AABB& b) {
     return (a.min.x <= b.max.x && a.max.x >= b.min.x) &&
         (a.min.y <= b.max.y && a.max.y >= b.min.y);
 }
+
+WindowArea viewportAreaToWindowArea(const ViewportArea& viewport, const ViewportContext& context) {
+    float adjustedX = viewport.pos.x - context.scrollOffsetX;
+    float adjustedY = viewport.pos.y - context.scrollOffsetY;
+
+    float normX = (adjustedX - context.orthoLeft) / (context.orthoRight - context.orthoLeft);
+    float normY = (adjustedY - context.orthoBottom) / (context.orthoTop - context.orthoBottom);
+
+    float normW = viewport.scale.x / (context.orthoRight - context.orthoLeft);
+    float normH = viewport.scale.y / (context.orthoTop - context.orthoBottom);
+
+    WindowArea window;
+    window.pos.x = context.viewportX + normX * context.viewportWidth;
+    window.pos.y = context.viewportY + normY * context.viewportHeight;
+
+    window.scale.x = normW * context.viewportWidth;
+    window.scale.y = normH * context.viewportHeight;
+
+    return window;
+}
+
+bool isInsideViewportContext(int mouseX, int mouseY, const ViewportContext& context) {
+    int flippedMouseY = ENGINE_WIN_H - mouseY;
+
+    float left = context.viewportX;
+    float right = context.viewportX + context.viewportWidth;
+    float bottom = context.viewportY;
+    float top = context.viewportY + context.viewportHeight;
+
+    return (mouseX >= left && mouseX <= right &&
+        flippedMouseY >= bottom && flippedMouseY <= top);
+}

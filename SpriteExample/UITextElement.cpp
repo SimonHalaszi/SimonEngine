@@ -6,47 +6,50 @@ UITextElement::UITextElement(Transform2D transform2D, std::string text, ColorRGB
 	text_ = text;
 	textColor_ = textColor;
 	rectangleColor_ = rectangleColor;
+	name_ = "UITextElement";
 }
 
 void UITextElement::draw() {
-	if (!drawElement_) {
-		return;
-	}
+    if (!drawElement_) {
+        return;
+    }
 
-	// These are NOT relative to WorldSpace but ScreenSpace
-	glPushMatrix();
-	glLoadIdentity();
+    GLint viewport[4];
+    glGetIntegerv(GL_VIEWPORT, viewport);
+    int vw = viewport[2];
+    int vh = viewport[3];
 
-	drawRectangle(
-		localTransform_.position,
-		localTransform_.scale,
-		localTransform_.rotation,
-		localTransform_.mirror,
-		localTransform_.flip,
-		rectangleColor_,
-		rectangleColor_,
-		rectangleColor_,
-		rectangleColor_
-	);
+    glMatrixMode(GL_PROJECTION);
+    glPushMatrix();
+    glLoadIdentity();
+    glOrtho(0, vw, 0, vh, -1.0, 1.0);
 
-	int textWidthPixels = glutBitmapLength(GLUT_BITMAP_HELVETICA_18, (const unsigned char*)text_.c_str());
-	int textHeightPixels = 18;
-	GLint viewport[4];
-	glGetIntegerv(GL_VIEWPORT, viewport);
-	int viewportWidth = viewport[2];
-	int viewportHeight = viewport[3];
-	float textWidthNormalized = (float)textWidthPixels / (float)viewportWidth;
-	float textHeightNormalized = (float)textHeightPixels / (float)viewportHeight;
-	Vector2D centeredTextPos = localTransform_.position;
-	centeredTextPos.x -= textWidthNormalized;
-	centeredTextPos.y -= textHeightNormalized * 0.5f;
+    glMatrixMode(GL_MODELVIEW);
+    glPushMatrix();
+    glLoadIdentity();
 
-	drawText(
-		centeredTextPos,
-		text_,
-		0.1f,
-		textColor_
-	);
+    float px = (localTransform_.position.x + 1.0f) * 0.5f * vw;
+    float py = (localTransform_.position.y + 1.0f) * 0.5f * vh;
 
-	glPopMatrix();
+    float sx = localTransform_.scale.x * 0.5f * vw;
+    float sy = localTransform_.scale.y * 0.5f * vh;
+
+    drawRectangle(
+        { px, py },
+        { sx, sy }, 
+        localTransform_.rotation,
+        localTransform_.mirror,
+        localTransform_.flip,
+        rectangleColor_,
+        rectangleColor_,
+        rectangleColor_,
+        rectangleColor_
+    );
+
+    drawTextCentered({ px, py }, text_, 20.0f, textColor_);
+
+    glPopMatrix();
+    glMatrixMode(GL_PROJECTION);
+    glPopMatrix();
+    glMatrixMode(GL_MODELVIEW);
 }

@@ -21,17 +21,6 @@ void GameWonScreenScene::init() {
 
 	SoundManager::getInstance().setMusicTrack(gameWonMusicFilePath_);
 
-	// Loading sprite textures from file path
-	TextureRegistry::getInstance().loadTexture(backgroundSpriteFilePath_);
-
-	// Making a sprite
-	SpriteRegistry::getInstance().makeSprite(
-		backgroundSprite_,
-		TextureRegistry::getInstance().getTextureID(backgroundSpriteFilePath_),
-		1, 1,
-		{ 0, 0 }
-	);
-
 	// Printing update information
 	std::cout << "GameWonScreenScene::init : Animation updates " << animationUpdatesPerSecond_ << " times per second " << std::endl;
 	std::cout << "GameWonScreenScene::init : Game updates " << updatesPerSecond_ << " times per second " << std::endl;
@@ -45,7 +34,8 @@ void GameWonScreenScene::init() {
 			0.0f,
 			false,
 			false,
-			}),
+		}),
+		backgroundSpriteFilePath_,
 		backgroundSprite_,
 		"Background"
 		)
@@ -56,7 +46,7 @@ void GameWonScreenScene::init() {
 			0.0f,
 			false,
 			false,
-			}),
+		}),
 		"Thats Time! You WON!!!",
 		ColorRGB{ 1.0f, 1.0f, 1.0f },
 		ColorRGB{ 0.0f, 0.0f, 0.0f }
@@ -68,7 +58,7 @@ void GameWonScreenScene::init() {
 			0.0f,
 			false,
 			false,
-			}),
+		}),
 		"Press 'G' To Go Back To Title",
 		ColorRGB{ 1.0f, 1.0f, 1.0f },
 		ColorRGB{ 0.0f, 0.0f, 0.0f }
@@ -80,7 +70,7 @@ void GameWonScreenScene::init() {
 			0.0f,
 			false,
 			false,
-			}),
+		}),
 		"Press 'R' To Go Again!",
 		ColorRGB{ 1.0f, 1.0f, 1.0f },
 		ColorRGB{ 0.0f, 0.0f, 0.0f }

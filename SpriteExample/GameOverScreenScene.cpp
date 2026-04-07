@@ -20,17 +20,6 @@ void GameOverScreenScene::init() {
 
 	SoundManager::getInstance().setMusicTrack(gameOverMusicFilePath_);
 
-	// Loading sprite textures from file path
-	TextureRegistry::getInstance().loadTexture(backgroundSpriteFilePath_);
-
-	// Making a sprite
-	SpriteRegistry::getInstance().makeSprite(
-		backgroundSprite_,
-		TextureRegistry::getInstance().getTextureID(backgroundSpriteFilePath_),
-		1, 1,
-		{ 0, 0 }
-	);
-
 	// Printing update information
 	std::cout << "GameOverScreenScene::init : Animation updates " << animationUpdatesPerSecond_ << " times per second " << std::endl;
 	std::cout << "GameOverScreenScene::init : Game updates " << updatesPerSecond_ << " times per second " << std::endl;
@@ -44,10 +33,11 @@ void GameOverScreenScene::init() {
 			0.0f,
 			false,
 			false,
-			}),
-			backgroundSprite_,
-			"Background"
-			)
+		}),
+		backgroundSpriteFilePath_,
+		backgroundSprite_,
+		"Background"
+		)
 	);
 	addRootGameObject2D(std::make_unique<UITextElement>(
 		Transform2D({ Vector2D({ 0.0f, 0.9f }),
@@ -55,11 +45,11 @@ void GameOverScreenScene::init() {
 			0.0f,
 			false,
 			false,
-			}),
+		}),
 		"Game Over! You LOST",
 		ColorRGB{ 1.0f, 1.0f, 1.0f },
 		ColorRGB{ 0.0f, 0.0f, 0.0f }
-	)
+		)
 	);
 	addRootGameObject2D(std::make_unique<UITextElement>(
 		Transform2D({ Vector2D({ 0.0f, -0.9f }),
@@ -71,7 +61,7 @@ void GameOverScreenScene::init() {
 		"Press 'G' To Go Back To Title",
 		ColorRGB{ 1.0f, 1.0f, 1.0f },
 		ColorRGB{ 0.0f, 0.0f, 0.0f }
-	)
+		)
 	);
 	addRootGameObject2D(std::make_unique<UITextElement>(
 		Transform2D({ Vector2D({ 0.0f, -0.8f }),
@@ -83,7 +73,7 @@ void GameOverScreenScene::init() {
 		"Press 'R' To Retry",
 		ColorRGB{ 1.0f, 1.0f, 1.0f },
 		ColorRGB{ 0.0f, 0.0f, 0.0f }
-	)
+		)
 	);
 
 	SoundManager::getInstance().playSound2D(gameOverSoundFilePath_);

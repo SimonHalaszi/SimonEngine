@@ -19,17 +19,6 @@ void TitleScreenScene::init() {
 
 	SoundManager::getInstance().setMusicTrack(titleScreenMusicFilePath_);
 
-	// Loading sprite textures from file path
-	TextureRegistry::getInstance().loadTexture(backgroundSpriteFilePath_);
-
-	// Making a sprite
-	SpriteRegistry::getInstance().makeSprite(
-		backgroundSprite_,
-		TextureRegistry::getInstance().getTextureID(backgroundSpriteFilePath_),
-		1, 1,
-		{ 0, 0 }
-	);
-
 	// Printing update information
 	std::cout << "TitleScreenScene::init : Animation updates " << animationUpdatesPerSecond_ << " times per second " << std::endl;
 	std::cout << "TitleScreenScene::init : Game updates " << updatesPerSecond_ << " times per second " << std::endl;
@@ -44,6 +33,7 @@ void TitleScreenScene::init() {
 			false,
 			false,
 		}),
+		backgroundSpriteFilePath_,
 		backgroundSprite_,
 		"Background"
 		)

@@ -1,16 +1,21 @@
 #include "SpriteObstacle.hpp"
 
-SpriteObstacle::SpriteObstacle(Transform2D transform2D, std::string spriteName) {
+SpriteObstacle::SpriteObstacle(Transform2D transform2D, std::string spriteFilePath, std::string spriteName) {
 	localTransform_ = transform2D;
-	spriteName_ = spriteName;
 	sprite_ = nullptr;
 	tag_ = "Obstacle";
 	name_ = "SpriteObstacle";
+	TextureRegistry::getInstance().loadTexture(spriteFilePath);
+	SpriteRegistry::getInstance().makeSprite(
+		spriteName,
+		TextureRegistry::getInstance().getTextureID(spriteFilePath),
+		1, 1,
+		{ 0, 0 }
+	);
+	sprite_ = &(SpriteRegistry::getInstance().getSprite(spriteName));
 }
 
 void SpriteObstacle::onStart() {
-	sprite_ = &(SpriteRegistry::getInstance().getSprite(spriteName_));
-
 	// Fixed thickness in world space
 	float halfThickness = 0.005f;
 

@@ -6,32 +6,31 @@
 
 #include "utilities.hpp"
 #include "drawFunctions.hpp"
-#include "GameObject2D.hpp"
 #include "InputManager.hpp"
+#include "WindowConstants.hpp"
 
 class HierarchyButton {
 public:
 	HierarchyButton();
 	HierarchyButton(
-		WindowArea windowArea,
 		ViewportArea viewportArea,
 		ColorRGB color,
 		std::string text,
-		std::function<void()> buttonAction
+		int index
 	);
 
-	bool isInside(int mouseX, int mouseY) const;
-	GameObject2D* handleClick() const;
-	bool isClicked() const { return clicked_; }
+	bool isInside(int mouseX, int mouseY, const ViewportContext& context) const;
+	int handleClick(const ViewportContext& context) const;
 	void draw() const;
 
+	int returnAssocaitedIndex() const { return associatedObjectIndex_; }
+
 private:
-	WindowArea windowArea_;
 	ViewportArea viewportArea_;
 	ColorRGB color_;
 	std::string text_;
-	bool clicked_;
-	GameObject2D* associatedObject_;
+
+	int associatedObjectIndex_;
 };
 
 #endif

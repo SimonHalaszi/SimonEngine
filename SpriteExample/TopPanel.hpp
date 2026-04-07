@@ -21,6 +21,9 @@ public:
 
 	bool markedForQuiting() const { return markedForQuiting_; }
 
+	bool menuDropActive() const { return menuDropActive_; }
+	bool helpDropActive() const { return helpDropActive_; }
+
 	void menuButtonAction();
 	void helpButtonAction();
 	void quitButtonAction();
@@ -37,6 +40,9 @@ private:
 	std::vector<VoidButton> menuDropButtons_;
 	bool helpDropActive_ = false;
 	std::vector<VoidButton> helpDropButtons_;
+
+	ViewportContext topPanelContext_;
+	ViewportContext globalContext_;
 };
 
 #endif

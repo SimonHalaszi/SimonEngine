@@ -48,6 +48,11 @@ class Editor {
 		Inspector inspector_;
 		ObjectsPanel objectsPanel_;
 		TopPanel topPanel_;
+
+		ViewportContext middlePanelContext_;
+
+		// GameObject currently selected (Pulled from Hierarchy, then pushed to Inspector)
+		GameObject2D* focusedGameObject_;
 };
 
 #endif

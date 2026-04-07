@@ -85,4 +85,6 @@ void drawText(
 	ColorRGB color
 );
 
+void drawTextCentered(Vector2D centerPos, const std::string& text, float lineSpace, ColorRGB color);
+
 #endif

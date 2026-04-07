@@ -31,12 +31,6 @@
     <Filter Include="Header Files\GameObjectTypes">
       <UniqueIdentifier>{7b431edd-3b22-4a65-8805-ceb793027901}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\ArchiveGameObjects">
-      <UniqueIdentifier>{69ef1713-c797-492f-922b-b7e693833ad0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\ArchiveGameObjects">
-      <UniqueIdentifier>{35b82232-10ee-4c05-877e-b5fff298847a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\PlatformerGameObjects">
       <UniqueIdentifier>{40603e1b-0651-4b54-9634-48cfd88133fa}</UniqueIdentifier>
     </Filter>
@@ -45,12 +39,6 @@
     </Filter>
     <Filter Include="Source Files\PlatformerScenes">
       <UniqueIdentifier>{7238ce14-f5e6-461c-b396-493ec3295b11}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\ArchiveScenes">
-      <UniqueIdentifier>{1138a605-133c-4032-ac32-d6f7b76a81da}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\ArchiveScenes">
-      <UniqueIdentifier>{e706c459-03b2-42bd-a01c-e38b3635dbdd}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\PlatformerScenes">
       <UniqueIdentifier>{95114456-301c-463a-9ed3-42baacb48a5e}</UniqueIdentifier>
@@ -63,9 +51,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ArchiveScene.cpp">
-      <Filter>Source Files\ArchiveScenes</Filter>
-    </ClCompile>
     <ClCompile Include="TextureRegistry.cpp">
       <Filter>Source Files\Source</Filter>
     </ClCompile>
@@ -86,21 +71,6 @@
     </ClCompile>
     <ClCompile Include="DrawFunctions.cpp">
       <Filter>Source Files\Source</Filter>
-    </ClCompile>
-    <ClCompile Include="ArchivePlayer.cpp">
-      <Filter>Source Files\ArchiveGameObjects</Filter>
-    </ClCompile>
-    <ClCompile Include="RotatingColorChangingSquare.cpp">
-      <Filter>Source Files\ArchiveGameObjects</Filter>
-    </ClCompile>
-    <ClCompile Include="RotatingColorChangingTriangle.cpp">
-      <Filter>Source Files\ArchiveGameObjects</Filter>
-    </ClCompile>
-    <ClCompile Include="AnimatedSprite.cpp">
-      <Filter>Source Files\ArchiveGameObjects</Filter>
-    </ClCompile>
-    <ClCompile Include="TemplateScene.cpp">
-      <Filter>Source Files\ArchiveScenes</Filter>
     </ClCompile>
     <ClCompile Include="GameObject2D.cpp">
       <Filter>Source Files\GameObjectTypes</Filter>
@@ -186,6 +156,12 @@
     <ClCompile Include="VoidButton.cpp">
       <Filter>Source Files\Editor</Filter>
     </ClCompile>
+    <ClCompile Include="HierarchyButton.cpp">
+      <Filter>Source Files\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjectFactory.cpp">
+      <Filter>Source Files\Editor</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.hpp">
@@ -220,24 +196,6 @@
     </ClInclude>
     <ClInclude Include="SpriteSheetRegistry.hpp">
       <Filter>Header Files\Source</Filter>
-    </ClInclude>
-    <ClInclude Include="ArchiveScene.hpp">
-      <Filter>Header Files\ArchiveScenes</Filter>
-    </ClInclude>
-    <ClInclude Include="ArchivePlayer.hpp">
-      <Filter>Header Files\ArchiveGameObjects</Filter>
-    </ClInclude>
-    <ClInclude Include="RotatingColorChangingSquare.hpp">
-      <Filter>Header Files\ArchiveGameObjects</Filter>
-    </ClInclude>
-    <ClInclude Include="RotatingColorChangingTriangle.hpp">
-      <Filter>Header Files\ArchiveGameObjects</Filter>
-    </ClInclude>
-    <ClInclude Include="AnimatedSprite.hpp">
-      <Filter>Header Files\ArchiveGameObjects</Filter>
-    </ClInclude>
-    <ClInclude Include="TemplateScene.hpp">
-      <Filter>Header Files\ArchiveScenes</Filter>
     </ClInclude>
     <ClInclude Include="GameObject2D.hpp">
       <Filter>Header Files\GameObjectTypes</Filter>
@@ -327,6 +285,12 @@
       <Filter>Header Files\Editor</Filter>
     </ClInclude>
     <ClInclude Include="VoidButton.hpp">
+      <Filter>Header Files\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="HierarchyButton.hpp">
+      <Filter>Header Files\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjectFactory.hpp">
       <Filter>Header Files\Editor</Filter>
     </ClInclude>
   </ItemGroup>

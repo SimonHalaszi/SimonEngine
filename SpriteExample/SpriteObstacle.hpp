@@ -7,12 +7,13 @@
 
 #include "Sprite.hpp"
 #include "SpriteRegistry.hpp"
+#include "textureRegistry.hpp"
 #include "DrawFunctions.hpp"
 #include "ColliderRectangle.hpp"
 
 class SpriteObstacle : public CollisionObject2D {
 public:
-	SpriteObstacle(Transform2D transform2D, std::string spriteKey = "");
+	SpriteObstacle(Transform2D transform2D, std::string spriteFilePath, std::string spriteName);
 
 	void onStart() override;
 	void draw() override;
@@ -22,7 +23,6 @@ public:
 
 private:
 	const Sprite* sprite_;
-	std::string spriteName_;
 };
 
 #endif

@@ -1,17 +1,22 @@
 #include "Coin.hpp"
 #include "PlatformerPlayer.hpp"
 
-Coin::Coin(Transform2D transform2D, std::string spriteName, std::string tag) {
+Coin::Coin(Transform2D transform2D, std::string spriteFilePath, std::string spriteName) {
 	localTransform_ = transform2D;
-	spriteName_ = spriteName;
 	sprite_ = nullptr;
-	tag_ = tag;
+	tag_ = "Coin";
 	name_ = "Coin";
+	TextureRegistry::getInstance().loadTexture(spriteFilePath);
+	SpriteRegistry::getInstance().makeSprite(
+		spriteName,
+		TextureRegistry::getInstance().getTextureID(spriteFilePath),
+		1, 1,
+		{ 0, 0 }
+	);
+	sprite_ = &(SpriteRegistry::getInstance().getSprite(spriteName));
 }
 
-void Coin::onStart() {
-	sprite_ = &(SpriteRegistry::getInstance().getSprite(spriteName_));
-}
+void Coin::onStart() {}
 
 void Coin::draw() {
 	Transform2D transform = getWorldTransform();

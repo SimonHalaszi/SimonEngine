@@ -38,53 +38,6 @@ void PlatformerScene::init() {
 
 	SoundManager::getInstance().setMusicTrack(backgroundMusicFilePath_);
 
-	// Loading textures from file path
-	TextureRegistry::getInstance().loadTexture(playerSpriteSheetFilePath_);
-	TextureRegistry::getInstance().loadTexture(turfTextureFilePath_);
-	TextureRegistry::getInstance().loadTexture(skyboxTextureFilepath_);
-	TextureRegistry::getInstance().loadTexture(concreteTextureFilePath_);
-	TextureRegistry::getInstance().loadTexture(coinTextureFilepath_);
-	TextureRegistry::getInstance().loadTexture(goalTextureFilepath_);
-
-	// Making player sprite sheet
-	SpriteSheetRegistry::getInstance().makeSpriteSheet(
-		playerSpriteSheet_,
-		TextureRegistry::getInstance().getTextureID(playerSpriteSheetFilePath_),
-		6, 1,
-		{ 0, 0 }, { 5, 0 }
-	);
-	// Making sprites
-	SpriteRegistry::getInstance().makeSprite(
-		turfSprite_,
-		TextureRegistry::getInstance().getTextureID(turfTextureFilePath_),
-		1, 1,
-		{ 0, 0 }
-	);
-	SpriteRegistry::getInstance().makeSprite(
-		skyboxSprite_,
-		TextureRegistry::getInstance().getTextureID(skyboxTextureFilepath_),
-		1, 1,
-		{ 0, 0 }
-	);
-	SpriteRegistry::getInstance().makeSprite(
-		concreteSprite_,
-		TextureRegistry::getInstance().getTextureID(concreteTextureFilePath_),
-		1, 1,
-		{ 0, 0 }
-	);
-	SpriteRegistry::getInstance().makeSprite(
-		coinSprite_,
-		TextureRegistry::getInstance().getTextureID(coinTextureFilepath_),
-		1, 1,
-		{ 0, 0 }
-	);
-	SpriteRegistry::getInstance().makeSprite(
-		goalSprite_,
-		TextureRegistry::getInstance().getTextureID(goalTextureFilepath_),
-		1, 1,
-		{ 0, 0 }
-	);
-
 	// Printing update information
 	std::cout << "PlatformerScene::init : Animation updates " << animationUpdatesPerSecond_ << " times per second " << std::endl;
 	std::cout << "PlatformerScene::init : Game updates " << updatesPerSecond_ << " times per second " << std::endl;
@@ -99,6 +52,7 @@ void PlatformerScene::init() {
 			false,
 			false,
 		}),
+		skyboxTextureFilepath_,
 		skyboxSprite_,
 		"Skybox"
 		)
@@ -112,6 +66,7 @@ void PlatformerScene::init() {
 			false,
 			false,
 		}),
+		concreteTextureFilePath_,
 		concreteSprite_
 	)
 	);
@@ -123,6 +78,7 @@ void PlatformerScene::init() {
 			false,
 			false,
 		}),
+		concreteTextureFilePath_,
 		concreteSprite_
 	)
 	);
@@ -134,6 +90,7 @@ void PlatformerScene::init() {
 			false,
 			false,
 		}),
+		concreteTextureFilePath_,
 		concreteSprite_
 		)
 	);
@@ -146,6 +103,7 @@ void PlatformerScene::init() {
 			false,
 			false,
 		}),
+		concreteTextureFilePath_,
 		concreteSprite_
 	)
 	);
@@ -157,6 +115,7 @@ void PlatformerScene::init() {
 			false,
 			false,
 		}),
+		concreteTextureFilePath_,
 		concreteSprite_
 	)
 	);
@@ -168,6 +127,7 @@ void PlatformerScene::init() {
 			false,
 			false,
 			}),
+		concreteTextureFilePath_,
 		concreteSprite_
 		)
 	);
@@ -179,6 +139,7 @@ void PlatformerScene::init() {
 			false,
 			false,
 		}),
+		concreteTextureFilePath_,
 		concreteSprite_
 	)
 	);
@@ -190,6 +151,7 @@ void PlatformerScene::init() {
 			false,
 			false,
 		}),
+		concreteTextureFilePath_,
 		concreteSprite_
 	)
 	);
@@ -201,6 +163,7 @@ void PlatformerScene::init() {
 			false,
 			false,
 		}),
+		concreteTextureFilePath_,
 		concreteSprite_
 	)
 	);
@@ -212,6 +175,7 @@ void PlatformerScene::init() {
 			false,
 			false,
 		}),
+		concreteTextureFilePath_,
 		concreteSprite_
 	)
 	);
@@ -223,6 +187,7 @@ void PlatformerScene::init() {
 			false,
 			false,
 		}),
+		concreteTextureFilePath_,
 		concreteSprite_
 	)
 	);
@@ -234,6 +199,7 @@ void PlatformerScene::init() {
 			false,
 			false,
 		}),
+		concreteTextureFilePath_,
 		concreteSprite_
 	)
 	);
@@ -245,6 +211,7 @@ void PlatformerScene::init() {
 			false,
 			false,
 		}),
+		concreteTextureFilePath_,
 		concreteSprite_
 	)
 	);
@@ -256,6 +223,7 @@ void PlatformerScene::init() {
 			false,
 			false,
 		}),
+		concreteTextureFilePath_,
 		concreteSprite_
 	)
 	);
@@ -267,6 +235,7 @@ void PlatformerScene::init() {
 			false,
 			false,
 			}),
+		concreteTextureFilePath_,
 		concreteSprite_
 	)
 	);
@@ -278,20 +247,8 @@ void PlatformerScene::init() {
 			false,
 			false,
 		}),
+		concreteTextureFilePath_,
 		concreteSprite_
-	)
-	);
-
-	// Finish Line
-	addRootGameObject2D(std::make_unique<FinishLine>(
-		Transform2D({
-			Vector2D({ -5.0f, 0.0f }),
-			Vector2D({ 0.2f, 0.6f }),
-			0.0f,
-			false,
-			false,
-		}),
-		goalSprite_
 	)
 	);
 
@@ -304,6 +261,7 @@ void PlatformerScene::init() {
 			false,
 			false,
 		}),
+		turfTextureFilePath_,
 		turfSprite_
 	)
 	);
@@ -316,9 +274,9 @@ void PlatformerScene::init() {
 			false,
 			false,
 		}),
-		coinSprite_,
-		"Coin"
-	)
+		coinTextureFilepath_,
+		coinSprite_
+		)
 	);
 	addRootGameObject2D(std::make_unique<Coin>(
 		Transform2D({
@@ -328,9 +286,9 @@ void PlatformerScene::init() {
 			false,
 			false,
 		}),
-		coinSprite_,
-		"Coin"
-	)
+		coinTextureFilepath_,
+		coinSprite_
+		)
 	);
 	addRootGameObject2D(std::make_unique<Coin>(
 		Transform2D({
@@ -340,9 +298,9 @@ void PlatformerScene::init() {
 			false,
 			false,
 		}),
-		coinSprite_,
-		"Coin"
-	)
+		coinTextureFilepath_,
+		coinSprite_
+		)
 	);
 	addRootGameObject2D(std::make_unique<Coin>(
 		Transform2D({
@@ -351,10 +309,10 @@ void PlatformerScene::init() {
 			0.0f,
 			false,
 			false,
-			}),
-		coinSprite_,
-		"Coin"
-	)
+		}),
+		coinTextureFilepath_,
+		coinSprite_
+		)
 	);
 	addRootGameObject2D(std::make_unique<Coin>(
 		Transform2D({
@@ -363,13 +321,28 @@ void PlatformerScene::init() {
 			0.0f,
 			false,
 			false,
-			}),
-		coinSprite_,
-		"Coin"
-	)
+		}),
+		coinTextureFilepath_,
+		coinSprite_
+		)
 	);
+
+	// Finish Line
+	addRootGameObject2D(std::make_unique<FinishLine>(
+		Transform2D({
+			Vector2D({ -5.0f, 0.0f }),
+			Vector2D({ 0.2f, 0.6f }),
+			0.0f,
+			false,
+			false,
+		}),
+		goalTextureFilepath_,
+		goalSprite_
+		)
+	);
+
 	// Player
-	addRootGameObject2D(std::make_unique<PlatformerPlayer>(playerSpriteSheet_));
+	addRootGameObject2D(std::make_unique<PlatformerPlayer>(playerSpriteSheetFilePath_, playerSpriteSheet_));
 }
 
 // For scene/game specific drawing (Drawing that is not related to a GameObject)

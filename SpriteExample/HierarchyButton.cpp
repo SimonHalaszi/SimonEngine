@@ -1,25 +1,25 @@
-#include "VoidButton.hpp"
+#include "HierarchyButton.hpp"
 
-VoidButton::VoidButton() :
+HierarchyButton::HierarchyButton() :
 	viewportArea_(),
 	color_(),
 	text_(""),
-	buttonAction_()
+	associatedObjectIndex_(0)
 {}
 
-VoidButton::VoidButton(
+HierarchyButton::HierarchyButton(
 	ViewportArea viewportArea,
 	ColorRGB color,
 	std::string text,
-	std::function<void()> buttonAction
+	int associatedObjectIndex
 ) :
 	viewportArea_(viewportArea),
 	color_(color),
 	text_(text),
-	buttonAction_(buttonAction)
+	associatedObjectIndex_(associatedObjectIndex)
 {}
 
-bool VoidButton::isInside(int mouseX, int mouseY, const ViewportContext& context) const {
+bool HierarchyButton::isInside(int mouseX, int mouseY, const ViewportContext& context) const {
 	WindowArea windowArea = viewportAreaToWindowArea(viewportArea_, context);
 
 	float left = windowArea.pos.x - windowArea.scale.x;
@@ -33,17 +33,16 @@ bool VoidButton::isInside(int mouseX, int mouseY, const ViewportContext& context
 		flippedMouseY >= bottom && flippedMouseY <= top);
 }
 
-void VoidButton::handleClick(const ViewportContext& context) const {
+int HierarchyButton::handleClick(const ViewportContext& context) const {
 	if (InputManager::getInstance().isMouseButtonPressed(MOUSEBUTTON_LEFT)) {
 		if (isInside(InputManager::getInstance().mouseX(), InputManager::getInstance().mouseY(), context)) {
-			if (buttonAction_) {
-				buttonAction_();
-			}
+			return returnAssocaitedIndex();
 		}
 	}
+	return -1;
 }
 
-void VoidButton::draw() const {
+void HierarchyButton::draw() const {
 	drawRectangle(
 		viewportArea_.pos,
 		viewportArea_.scale,

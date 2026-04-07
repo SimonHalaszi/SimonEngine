@@ -5,16 +5,22 @@
 bool FinishLine::isPopupShowing_ = false;
 bool FinishLine::isGameCompleted_ = false;
 
-FinishLine::FinishLine(Transform2D transform2D, std::string spriteKey) {
+FinishLine::FinishLine(Transform2D transform2D, std::string spriteFilePath, std::string spriteName) {
 	localTransform_ = transform2D;
 	finishLineSprite_ = nullptr;
-	finishLineSpriteKey_ = spriteKey;
 	gameWonSoundFilepath_ = "audio/GameWon.mp3";
 	name_ = "FinishLine";
+	TextureRegistry::getInstance().loadTexture(spriteFilePath);
+	SpriteRegistry::getInstance().makeSprite(
+		spriteName,
+		TextureRegistry::getInstance().getTextureID(spriteFilePath),
+		1, 1,
+		{ 0, 0 }
+	);
+	finishLineSprite_ = &(SpriteRegistry::getInstance().getSprite(spriteName));
 }
 
 void FinishLine::onStart() {
-	finishLineSprite_ = &(SpriteRegistry::getInstance().getSprite(finishLineSpriteKey_));
 	popupTimeInUpdateFrames_ = popupTime_ * float(Game::getInstance().getCurrentScene()->getUpdateSpeed());
 	sceneChangeDelayTimeInUpdateFrames_ = sceneChangeDelayTime_ * float(Game::getInstance().getCurrentScene()->getUpdateSpeed());
 

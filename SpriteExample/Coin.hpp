@@ -13,7 +13,7 @@
 
 class Coin : public CollisionObject2D {
 public:
-	Coin(Transform2D transform2D, std::string spriteKey = "", std::string tag = "");
+	Coin(Transform2D transform2D, std::string spriteFilePath, std::string spriteName);
 
 	void onStart() override;
 	void draw() override;
@@ -23,7 +23,6 @@ public:
 
 private:
 	const Sprite* sprite_;
-	std::string spriteName_;
 };
 
 #endif

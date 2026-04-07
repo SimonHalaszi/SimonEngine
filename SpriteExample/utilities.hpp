@@ -2,6 +2,7 @@
 #define UTILITIES_HPP_
 
 #include <cmath>
+#include "WindowConstants.hpp"
 
 // Simple helper structs and functions
 
@@ -54,6 +55,18 @@ struct ViewportArea {
 	Vector2D pos = { 0.0f, 0.0f };
 	Vector2D scale = { 0.0f, 0.0f };
 };
+struct ViewportContext {
+	int viewportX = 0;
+	int viewportY = 0;
+	int viewportWidth = 0;
+	int viewportHeight = 0;
+	float scrollOffsetX = 0.0f;
+	float scrollOffsetY = 0.0f;
+	float orthoLeft = -1.0f;
+	float orthoRight = 1.0f;
+	float orthoBottom = -1.0f;
+	float orthoTop = 1.0f;
+};
 
 constexpr float PI = 3.14159265358979323846f;
 
@@ -62,5 +75,9 @@ float degreesToRadians(float degrees);
 Transform2D composeTransforms(const Transform2D& left, const Transform2D& right);
 
 bool checkAABBCollision(const AABB& a, const AABB& b);
+
+WindowArea viewportAreaToWindowArea(const ViewportArea& viewport, const ViewportContext& context);
+
+bool isInsideViewportContext(int mouseX, int mouseY, const ViewportContext& context);
 
 #endif

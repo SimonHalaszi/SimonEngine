@@ -3,11 +3,14 @@
 ObjectsPanel::ObjectsPanel() {}
 
 void ObjectsPanel::draw() const {
+	glMatrixMode(GL_PROJECTION);
 	glPushMatrix();
-	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 	glOrtho(-1.0, 1.0, -1.0, 1.0, -1.0, 1.0);
 
+	glMatrixMode(GL_MODELVIEW);
+	glPushMatrix();
+	glLoadIdentity();
 	glViewport(0, 0, OBJECTS_PANEL_W, OBJECTS_PANEL_H);
 
 	drawRectangle(
@@ -23,6 +26,9 @@ void ObjectsPanel::draw() const {
 	);
 
 	glPopMatrix();
+	glMatrixMode(GL_PROJECTION);
+	glPopMatrix();
+	glMatrixMode(GL_MODELVIEW);
 }
 
 void ObjectsPanel::update() {

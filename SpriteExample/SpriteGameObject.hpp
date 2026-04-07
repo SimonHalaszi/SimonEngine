@@ -12,7 +12,7 @@
 
 class SpriteGameObject : public GameObject2D {
 public:
-	SpriteGameObject(Transform2D transform2D, std::string spriteKey = "", std::string tag = "");
+	SpriteGameObject(Transform2D transform2D, std::string spriteFilePath, std::string spriteName, std::string tag);
 
 	void onStart() override;
 	void draw() override;
@@ -21,7 +21,6 @@ public:
 
 private:
 	const Sprite* sprite_;
-	std::string spriteName_;
 };
 
 #endif

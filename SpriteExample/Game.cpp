@@ -123,19 +123,15 @@ void GAMEdraw() {
 	if (currentScene) {
 		glClear(GL_COLOR_BUFFER_BIT);
 		glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
-		if (currentScene->isDrawing()) {
+		if (currentScene->isDrawing() && !editor->inEditor()) {
 			glPushMatrix();
-			if (editor->inEditor()) {
-				glViewport(HIERARCHY_PANEL_W, OBJECTS_PANEL_H, SCENE_WIN_W, SCENE_WIN_H);
-			}
-			else {
-				glViewport(0, 0, ENGINE_WIN_W, ENGINE_WIN_H);
-			}
+			glViewport(0, 0, ENGINE_WIN_W, ENGINE_WIN_H);
 			currentScene->sceneDraw();
 			glPopMatrix();
 		}
 		if (editor->inEditor()) {
 			editor->editorDraw();
+			// Editor will draw the scene
 		}
 		glFlush();
 		glutSwapBuffers();

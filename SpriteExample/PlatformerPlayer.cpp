@@ -6,7 +6,7 @@
 
 int PlatformerPlayer::coinCount_ = 0;
 
-PlatformerPlayer::PlatformerPlayer(std::string playerSpritesSheetKey) {
+PlatformerPlayer::PlatformerPlayer(std::string playerSpriteSheetFilePath, std::string playerSpritesSheetKey) {
 	localTransform_ = {
 		{0.0f, 0.0f},
 		{0.1f, 0.1f},
@@ -14,16 +14,21 @@ PlatformerPlayer::PlatformerPlayer(std::string playerSpritesSheetKey) {
 		false,
 		false
 	};
-	playerSpritesSheetKey_ = playerSpritesSheetKey;
-	playerSpriteSheet_ = nullptr;
+	TextureRegistry::getInstance().loadTexture(playerSpriteSheetFilePath);
+	SpriteSheetRegistry::getInstance().makeSpriteSheet(
+		playerSpritesSheetKey,
+		TextureRegistry::getInstance().getTextureID(playerSpriteSheetFilePath),
+		6, 1,
+		{ 0, 0 }, { 5, 0 }
+	);
+	playerSpriteSheet_ = &(SpriteSheetRegistry::getInstance().getSpriteSheet(playerSpritesSheetKey));
+
 	tag_ = "Player";
-	jumpingSoundFilepath_ = "audio/PlatformerPlayerJump.mp3";
 	name_ = "Player";
+	jumpingSoundFilepath_ = "audio/PlatformerPlayerJump.mp3";
 }
 
 void PlatformerPlayer::onStart() {
-	playerSpriteSheet_ = &(SpriteSheetRegistry::getInstance().getSpriteSheet(playerSpritesSheetKey_));
-
 	attachChild(std::make_unique<PlayerGroundChecker>(
 			Transform2D({ Vector2D({ 0.0f, -1.0f }),
 			Vector2D({ 1.0f, 0.10 }),

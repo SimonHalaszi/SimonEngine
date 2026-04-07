@@ -55,7 +55,7 @@ void PlatformerScene::init() {
 		skyboxTextureFilepath_,
 		skyboxSprite_,
 		"Skybox"
-		)
+	)
 	);
 	// Borders
 	addRootGameObject2D(std::make_unique<SpriteObstacle>(
@@ -129,7 +129,7 @@ void PlatformerScene::init() {
 			}),
 		concreteTextureFilePath_,
 		concreteSprite_
-		)
+	)
 	);
 	addRootGameObject2D(std::make_unique<SpriteObstacle>(
 		Transform2D({
@@ -252,19 +252,6 @@ void PlatformerScene::init() {
 	)
 	);
 
-	// Stage Floor
-	addRootGameObject2D(std::make_unique<SpriteObstacle>(
-		Transform2D({
-			Vector2D({ 0.0f, -1.0f }),
-			Vector2D({ 5.5f, 0.5f }),
-			0.0f,
-			false,
-			false,
-		}),
-		turfTextureFilePath_,
-		turfSprite_
-	)
-	);
 	// Coins
 	addRootGameObject2D(std::make_unique<Coin>(
 		Transform2D({
@@ -276,7 +263,7 @@ void PlatformerScene::init() {
 		}),
 		coinTextureFilepath_,
 		coinSprite_
-		)
+	)
 	);
 	addRootGameObject2D(std::make_unique<Coin>(
 		Transform2D({
@@ -288,7 +275,7 @@ void PlatformerScene::init() {
 		}),
 		coinTextureFilepath_,
 		coinSprite_
-		)
+	)
 	);
 	addRootGameObject2D(std::make_unique<Coin>(
 		Transform2D({
@@ -312,7 +299,7 @@ void PlatformerScene::init() {
 		}),
 		coinTextureFilepath_,
 		coinSprite_
-		)
+	)
 	);
 	addRootGameObject2D(std::make_unique<Coin>(
 		Transform2D({
@@ -324,7 +311,7 @@ void PlatformerScene::init() {
 		}),
 		coinTextureFilepath_,
 		coinSprite_
-		)
+	)
 	);
 
 	// Finish Line
@@ -338,7 +325,21 @@ void PlatformerScene::init() {
 		}),
 		goalTextureFilepath_,
 		goalSprite_
-		)
+	)
+	);
+
+	// Stage Floor
+	addRootGameObject2D(std::make_unique<SpriteObstacle>(
+		Transform2D({
+			Vector2D({ 0.0f, -1.0f }),
+			Vector2D({ 5.5f, 0.5f }),
+			0.0f,
+			false,
+			false,
+		}),
+		turfTextureFilePath_,
+		turfSprite_
+	)
 	);
 
 	// Player

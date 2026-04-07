@@ -2,7 +2,7 @@
 #define COLLISION_OBJECT2D_HPP
 
 #include "GameObject2D.hpp"
-#include "utilities.hpp"
+#include "Utilities.hpp"
 
 // CollisionObject2D is a GameObject that will automatically register itsself to the CollisionManager.
 // Everytime its AABB based on its Transform2D comes into contact with another its OnCollision method

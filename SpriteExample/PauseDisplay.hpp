@@ -4,7 +4,7 @@
 #include <string>
 
 #include "UITextElement.hpp"
-#include "utilities.hpp"
+#include "Utilities.hpp"
 
 class PauseDisplay : public UITextElement {
 	public:

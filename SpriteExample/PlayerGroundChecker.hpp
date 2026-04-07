@@ -5,7 +5,7 @@
 
 #include "CollisionObject2D.hpp"
 
-#include "drawFunctions.hpp"
+#include "DrawFunctions.hpp"
 
 class PlayerGroundChecker : public CollisionObject2D {
 public:

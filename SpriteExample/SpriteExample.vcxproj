@@ -134,8 +134,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AssetButton.cpp" />
     <ClCompile Include="Axis.cpp" />
-    <ClCompile Include="GameObjectFactory.cpp" />
+    <ClCompile Include="AssetFactory.cpp" />
     <ClCompile Include="HierarchyButton.cpp" />
     <ClCompile Include="VoidButton.cpp" />
     <ClCompile Include="CameraAndUI.cpp" />
@@ -152,7 +153,7 @@
     <ClCompile Include="Hierarchy.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="Inspector.cpp" />
-    <ClCompile Include="ObjectsPanel.cpp" />
+    <ClCompile Include="AssetPanel.cpp" />
     <ClCompile Include="PauseDisplay.cpp" />
     <ClCompile Include="PlatformerScene.cpp" />
     <ClCompile Include="PlatformerPlayer.cpp" />
@@ -173,8 +174,9 @@
     <ClCompile Include="Utilities.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AssetButton.hpp" />
     <ClInclude Include="Axis.hpp" />
-    <ClInclude Include="GameObjectFactory.hpp" />
+    <ClInclude Include="AssetFactory.hpp" />
     <ClInclude Include="HierarchyButton.hpp" />
     <ClInclude Include="VoidButton.hpp" />
     <ClInclude Include="CoinDisplay.hpp" />
@@ -194,7 +196,7 @@
     <ClInclude Include="Hierarchy.hpp" />
     <ClInclude Include="InputManager.hpp" />
     <ClInclude Include="Inspector.hpp" />
-    <ClInclude Include="ObjectsPanel.hpp" />
+    <ClInclude Include="AssetPanel.hpp" />
     <ClInclude Include="PauseDisplay.hpp" />
     <ClInclude Include="PlayerGroundChecker.hpp" />
     <ClInclude Include="SoundManager.hpp" />

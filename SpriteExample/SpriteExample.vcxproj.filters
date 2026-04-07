@@ -147,7 +147,7 @@
     <ClCompile Include="Editor.cpp">
       <Filter>Source Files\Editor</Filter>
     </ClCompile>
-    <ClCompile Include="ObjectsPanel.cpp">
+    <ClCompile Include="AssetPanel.cpp">
       <Filter>Source Files\Editor</Filter>
     </ClCompile>
     <ClCompile Include="Game.cpp">
@@ -159,7 +159,10 @@
     <ClCompile Include="HierarchyButton.cpp">
       <Filter>Source Files\Editor</Filter>
     </ClCompile>
-    <ClCompile Include="GameObjectFactory.cpp">
+    <ClCompile Include="AssetFactory.cpp">
+      <Filter>Source Files\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="AssetButton.cpp">
       <Filter>Source Files\Editor</Filter>
     </ClCompile>
   </ItemGroup>
@@ -272,7 +275,7 @@
     <ClInclude Include="TopPanel.hpp">
       <Filter>Header Files\Editor</Filter>
     </ClInclude>
-    <ClInclude Include="ObjectsPanel.hpp">
+    <ClInclude Include="AssetPanel.hpp">
       <Filter>Header Files\Editor</Filter>
     </ClInclude>
     <ClInclude Include="Inspector.hpp">
@@ -290,7 +293,10 @@
     <ClInclude Include="HierarchyButton.hpp">
       <Filter>Header Files\Editor</Filter>
     </ClInclude>
-    <ClInclude Include="GameObjectFactory.hpp">
+    <ClInclude Include="AssetFactory.hpp">
+      <Filter>Header Files\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="AssetButton.hpp">
       <Filter>Header Files\Editor</Filter>
     </ClInclude>
   </ItemGroup>

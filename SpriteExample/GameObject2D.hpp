@@ -1,7 +1,7 @@
 #ifndef GAME_OBJECT2D_HPP
 #define GAME_OBJECT2D_HPP
 
-#include "utilities.hpp"
+#include "Utilities.hpp"
 #include <vector>
 #include <memory>
 #include <stdexcept>

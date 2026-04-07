@@ -68,7 +68,7 @@ void Hierarchy::draw() const {
 
 	glPopMatrix();
 
-	// Draw Background
+	// Draw Title
 	drawRectangle(
 		hierarchyTitle_.pos,
 		hierarchyTitle_.scale,

@@ -8,7 +8,7 @@
 #include <iostream>
 
 #include "WindowConstants.hpp"
-#include "drawFunctions.hpp"
+#include "DrawFunctions.hpp"
 #include "VoidButton.hpp"
 #include "InputManager.hpp"
 

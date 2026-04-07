@@ -4,7 +4,7 @@
 #include <string>
 
 #include "CollisionObject2D.hpp"
-#include "drawFunctions.hpp"
+#include "DrawFunctions.hpp"
 
 class ColliderRectangle : public CollisionObject2D {
 public:

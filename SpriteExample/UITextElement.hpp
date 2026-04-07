@@ -6,7 +6,7 @@
 #include "GameObject2D.hpp"
 
 #include "DrawFunctions.hpp"
-#include "utilities.hpp"
+#include "Utilities.hpp"
 
 // UI GameObjects will be drawn relative to camera space. So be smart when initializing their transform2D
 class UITextElement : public GameObject2D {

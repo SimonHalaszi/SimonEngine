@@ -10,7 +10,7 @@
 
 #include "GameObject2D.hpp"
 #include "WindowConstants.hpp"
-#include "drawFunctions.hpp"
+#include "DrawFunctions.hpp"
 #include "InputManager.hpp"
 #include "HierarchyButton.hpp"
 

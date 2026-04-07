@@ -7,7 +7,7 @@
 
 #include "Sprite.hpp"
 #include "SpriteRegistry.hpp"
-#include "textureRegistry.hpp"
+#include "TextureRegistry.hpp"
 #include "DrawFunctions.hpp"
 #include "ColliderRectangle.hpp"
 

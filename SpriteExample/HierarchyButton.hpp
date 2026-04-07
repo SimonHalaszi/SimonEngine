@@ -4,8 +4,8 @@
 #include <string>
 #include <functional>
 
-#include "utilities.hpp"
-#include "drawFunctions.hpp"
+#include "Utilities.hpp"
+#include "DrawFunctions.hpp"
 #include "InputManager.hpp"
 #include "WindowConstants.hpp"
 

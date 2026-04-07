@@ -16,7 +16,7 @@
 
 #include "Hierarchy.hpp"
 #include "Inspector.hpp"
-#include "ObjectsPanel.hpp"
+#include "AssetPanel.hpp"
 #include "TopPanel.hpp"
 
 // Sits on top of game to give editor logic
@@ -46,7 +46,7 @@ class Editor {
 
 		Hierarchy hierarchy_;
 		Inspector inspector_;
-		ObjectsPanel objectsPanel_;
+		AssetPanel assetPanel_;
 		TopPanel topPanel_;
 
 		ViewportContext middlePanelContext_;

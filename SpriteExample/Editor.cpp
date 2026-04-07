@@ -1,7 +1,7 @@
 #include "Editor.hpp"
 
 Editor::Editor(Scene* scene)
-: scene_(scene), hierarchy_(scene->getRootObjects()) 
+: scene_(scene), hierarchy_(scene->getRootObjects()), assetPanel_(scene)
 {
 	std::cout << "Editor::Editor() : Editor created " << std::endl;
 	std::vector<std::unique_ptr<GameObject2D>>& rootObjects = scene->getRootObjects();
@@ -97,7 +97,7 @@ void Editor::editorDraw() const {
 	hierarchy_.draw();
 	inspector_.draw();
 	topPanel_.draw();
-	objectsPanel_.draw();
+	assetPanel_.draw();
 }
 
 void Editor::editorUpdate() {
@@ -148,7 +148,7 @@ void Editor::editorUpdate() {
 	} 
 	else {
 		// Run this before hierarchy_ because it adds to rootObjects.
-		objectsPanel_.update();
+		assetPanel_.update();
 		
 		topPanel_.update();
 

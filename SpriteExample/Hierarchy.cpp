@@ -120,6 +120,24 @@ void Hierarchy::update() {
 		if (InputManager::getInstance().isMouseButtonPressed(MOUSEBUTTON_SCROLLUP)) {
 			hierarchyContext_.scrollOffsetY += scrollSpeed;
 		}
+		if (InputManager::getInstance().isSpecialKeyPressed(mapSpecialKey(GLUT_KEY_UP))) {
+			if (focusedGameObjectIndex_ > 0) {
+				std::swap(rootObjects_[focusedGameObjectIndex_], rootObjects_[focusedGameObjectIndex_ - 1]);
+				focusedGameObjectIndex_ -= 1;
+				
+				hierarchyButtons_.clear();
+				establishHierarchyButtons();
+			}
+		}
+		if (InputManager::getInstance().isSpecialKeyPressed(mapSpecialKey(GLUT_KEY_DOWN))) {
+			if (focusedGameObjectIndex_ >= 0 && focusedGameObjectIndex_ < rootObjects_.size() - 1) {
+				std::swap(rootObjects_[focusedGameObjectIndex_], rootObjects_[focusedGameObjectIndex_ + 1]);
+				focusedGameObjectIndex_ += 1;
+				
+				hierarchyButtons_.clear();
+				establishHierarchyButtons();
+			}
+		}
 
 		if (hierarchyContext_.scrollOffsetY > 0.0f) {
 			hierarchyContext_.scrollOffsetY = 0.0f;
@@ -137,16 +155,30 @@ void Hierarchy::update() {
 					break;
 				}
 			}
+
+			ColorRGB color1 = { 1.0f, 1.0f, 1.0f };
+			ColorRGB color2 = { 0.8f, 0.8f, 0.8f };
+			ColorRGB colors[2] = { color1, color2 };
+
 			if (focusIndex != -1) {
+				if (focusedGameObjectIndex_ >= 0 && focusedGameObjectIndex_ < hierarchyButtons_.size()) {
+					hierarchyButtons_[focusedGameObjectIndex_].setColor(colors[focusedGameObjectIndex_ % 2]);
+				}
 				focusedGameObject_ = rootObjects_[focusIndex].get();
 				focusedGameObjectIndex_ = focusIndex;
 				std::cout << "Hierarchy::update() : Focused onto GameObject at " << focusedGameObject_ << std::endl;
 			}
 			else {
+				if (focusedGameObjectIndex_ >= 0 && focusedGameObjectIndex_ < hierarchyButtons_.size()) {
+					hierarchyButtons_[focusedGameObjectIndex_].setColor(colors[focusedGameObjectIndex_ % 2]);
+				}
 				focusedGameObject_ = nullptr;
 				focusedGameObjectIndex_ = focusIndex;
 				std::cout << "Hierarchy::update() : Focused onto " << focusedGameObject_ << std::endl;
 			}
+		}
+		if (focusedGameObjectIndex_ >= 0 && focusedGameObjectIndex_ < hierarchyButtons_.size()) {
+			hierarchyButtons_[focusedGameObjectIndex_].setColor({ 0.1f, 0.9f, 0.1f });
 		}
 	}
 }

@@ -23,7 +23,8 @@ public:
 	int handleClick(const ViewportContext& context) const;
 	void draw() const;
 	std::string getText() const { return text_; }
-	void setText(std::string text) { text_ = text; }
+	void setText(const std::string& text) { text_ = text; }
+	void setColor(const ColorRGB color) { color_ = color; }
 
 	int returnAssocaitedIndex() const { return associatedObjectIndex_; }
 

@@ -121,7 +121,7 @@ void ScenePanel::draw() const {
 		{ 0.0f, 0.0f, 0.0f }
 	);
 	drawText(
-		{ scenePanelTitle_.pos.x, scenePanelTitle_.pos.y },
+		{ scenePanelTitle_.pos.x - scenePanelTitle_.scale.x, scenePanelTitle_.pos.y },
 		"Scenes",
 		0.0f,
 		{ 1.0f, 1.0f, 1.0f }

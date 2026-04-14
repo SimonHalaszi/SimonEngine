@@ -25,7 +25,7 @@ class CollisionObject2D : public GameObject2D {
 	protected:
 		virtual void onCollision(CollisionObject2D& other) = 0;
 
-		bool collisionEnabled_;
+		bool collisionEnabled_ = true;
 
 	private:
 		void registerToCollisionManager();

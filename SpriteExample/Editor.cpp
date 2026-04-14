@@ -191,7 +191,7 @@ void Editor::editorUpdate() {
 			editorY_ -= moveSpeed_ * physicsTime;
 		}
 		if (InputManager::getInstance().isMouseButtonPressed(MOUSEBUTTON_SCROLLDOWN)) {
-			if (editorZoomFactor_ > 0.1f) {
+			if (editorZoomFactor_ > 0.10f) {
 				editorZoomFactor_ -= 0.1f;
 			}
 		}
@@ -248,6 +248,7 @@ void Editor::editorUpdate() {
 					inspector_.setFocusedGameObject(nullptr);
 					focusedGameObject_ = nullptr;
 					it = rootObjects_.erase(it);
+					break;
 				}
 				else {
 					++it;

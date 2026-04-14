@@ -99,8 +99,8 @@ void AssetPanel::draw() const {
 		{ 0.0f, 0.0f, 0.0f }
 	);
 	drawText(
-		{ assetPanelTitle_.pos.x, assetPanelTitle_.pos.y },
-		"Asset Panel",
+		{ assetPanelTitle_.pos.x - assetPanelTitle_.scale.x, assetPanelTitle_.pos.y },
+		"Assets",
 		0.0f,
 		{ 1.0f, 1.0f, 1.0f }
 	);

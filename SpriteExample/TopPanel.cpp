@@ -29,7 +29,7 @@ TopPanel::TopPanel() {
 		VoidButton(
 			{ { -1.0f + globalPanelButtonWidth, 1.0f - (globalPanelButtonHeight * 3) },
 			{ globalPanelButtonWidth, globalPanelButtonHeight } },
-			{ 0.8f, 0.1f, 0.1f },
+			{ 0.9f, 0.1f, 0.1f },
 			"Quit",
 			[this]() { quitButtonAction(); }
 		)
@@ -200,21 +200,40 @@ void TopPanel::quitButtonAction() {
 void TopPanel::controlsButtonAction() {
 	std::cout << "---------------------- Controls! ----------------------" << std::endl;
 	std::cout << "----- From Anywhere -----" << std::endl;
-	std::cout << "F1: Enter Game Mode from Editor" << std::endl;
-	std::cout << "F2: Enter Editor Mode from Game, With current Game State" << std::endl;
-	std::cout << "F3: Reset Game in Editor Mode" << std::endl;
-	std::cout << "F4: Reset Game in Game Mode" << std::endl;
-	std::cout << "M: Move to focused GameObject" << std::endl;
-	std::cout << "Z: Reset zoom" << std::endl;
-	std::cout << "R: Reset position" << std::endl;
+	std::cout << "F1: Enter Game mode from Editor" << std::endl;
+	std::cout << "F2: Enter Editor mode from Game, with current Game state" << std::endl;
+	std::cout << "F3: Reset Game in Editor mode" << std::endl;
+	std::cout << "F4: Reset Game in Game mode" << std::endl;
+	std::cout << "F5: To delete focused GameObject" << std::endl;
 	std::cout << "-------------------------" << std::endl;
 	std::cout << "----- While Hovering Over Scene View -----" << std::endl;
 	std::cout << "Scroll to zoom" << std::endl;
 	std::cout << "Arrow keys to move" << std::endl;
+	std::cout << "M: Move to focused GameObject" << std::endl;
+	std::cout << "Z: Reset zoom" << std::endl;
+	std::cout << "R: Reset position" << std::endl;
 	std::cout << "------------------------------------------" << std::endl;
 	std::cout << "----- While Hovering Over Hierarchy -----" << std::endl;
 	std::cout << "Scroll to, well, scroll" << std::endl;
-	std::cout << "Click to focus GameObject" << std::endl;
+	std::cout << "Click on GameObject name to focus" << std::endl;
+	std::cout << "Click on GameObject name again to focus its Hierarchy" << std::endl;
+	std::cout << "Click off into space to unfocus" << std::endl;
+	std::cout << "Arrow keys move focused GameObject up and down Hierarchy" << std::endl;
+	std::cout << "-----------------------------------------" << std::endl;
+	std::cout << "----- While Hovering Over Assets -----" << std::endl;
+	std::cout << "Scroll to, well, scroll" << std::endl;
+	std::cout << "Click to make asset" << std::endl;
+	std::cout << "--------------------------------------" << std::endl;
+	std::cout << "----- While Hovering Over Scenes -----" << std::endl;
+	std::cout << "Scroll to, well, scroll" << std::endl;
+	std::cout << "Click to focus change scene" << std::endl;
+	std::cout << "--------------------------------------" << std::endl;
+	std::cout << "----- While Hovering Over Inspector -----" << std::endl;
+	std::cout << "Scroll to, well, scroll" << std::endl;
+	std::cout << "Click on text entry to start typing in it" << std::endl;
+	std::cout << "Click off text entry to stop typing in it" << std::endl;
+	std::cout << "Click on set to set field" << std::endl;
+	std::cout << "Click on toggle to toggle bool fields" << std::endl;
 	std::cout << "-----------------------------------------" << std::endl;
 	std::cout << "-------------------------------------------------------" << std::endl;
 }

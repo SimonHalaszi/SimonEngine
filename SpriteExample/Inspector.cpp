@@ -155,7 +155,7 @@ void Inspector::update() {
 	if (focusedGameObjectMarkedForErasure_) {
 		focusedGameObjectMarkedForErasure_ = false;
 	}
-	if (InputManager::getInstance().isSpecialKeyPressed(mapSpecialKey(GLUT_KEY_F10))) {
+	if (InputManager::getInstance().isSpecialKeyPressed(mapSpecialKey(GLUT_KEY_F5))) {
 		std::cout << "Inspector::update() : Inspector marked focusedGameObject for erasure" << std::endl;
 		focusedGameObjectMarkedForErasure_ = true;
 	}

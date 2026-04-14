@@ -15,12 +15,16 @@ class CollisionObject2D : public GameObject2D {
 		AABB getAABB() const;
 
 		bool checkCollision(const CollisionObject2D& other) const;
+		bool isCollisionEnabled() const { return collisionEnabled_; }
 
 		void rootOnStart() override final;
 		void rootOnDestruction() override final;
+		void rootEstablishFields() override final;
 
 	protected:
 		virtual void onCollision(CollisionObject2D& other) = 0;
+
+		bool collisionEnabled_;
 
 	private:
 		void registerToCollisionManager();

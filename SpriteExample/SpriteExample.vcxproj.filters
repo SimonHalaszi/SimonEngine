@@ -49,6 +49,30 @@
     <Filter Include="Source Files\Editor">
       <UniqueIdentifier>{7473e301-9930-4d6a-986b-79ec411eb813}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Editor\HierarchyPanel">
+      <UniqueIdentifier>{e9d4031f-7c9b-46d3-9bdf-67dd0fc1f901}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Editor\InspectorPanel">
+      <UniqueIdentifier>{868148ac-0e9f-47ea-a53e-e5806c2d961b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Editor\TopPanel">
+      <UniqueIdentifier>{580c1bcf-90b0-46cb-87d3-cf7439e0d8ae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Editor\AssetPanel">
+      <UniqueIdentifier>{d0895bbd-31ef-455c-bd13-21a4c6a7973f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Editor\AssetPanel">
+      <UniqueIdentifier>{bcfdb570-9c21-4e10-b606-1e87a506204b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Editor\Hierarchy Panel">
+      <UniqueIdentifier>{be84234d-a1b5-4ffb-b370-fc870144f6f5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Editor\InspectorPanel">
+      <UniqueIdentifier>{860a1625-dc51-4cb6-b817-ab5635945756}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Editor\TopPanel">
+      <UniqueIdentifier>{10fb4b08-3913-48d5-adeb-8cbb646a47cb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TextureRegistry.cpp">
@@ -135,35 +159,38 @@
     <ClCompile Include="UITextElement.cpp">
       <Filter>Source Files\GameObjectTypes</Filter>
     </ClCompile>
-    <ClCompile Include="TopPanel.cpp">
-      <Filter>Source Files\Editor</Filter>
-    </ClCompile>
-    <ClCompile Include="Inspector.cpp">
-      <Filter>Source Files\Editor</Filter>
-    </ClCompile>
-    <ClCompile Include="Hierarchy.cpp">
-      <Filter>Source Files\Editor</Filter>
-    </ClCompile>
     <ClCompile Include="Editor.cpp">
-      <Filter>Source Files\Editor</Filter>
-    </ClCompile>
-    <ClCompile Include="AssetPanel.cpp">
       <Filter>Source Files\Editor</Filter>
     </ClCompile>
     <ClCompile Include="Game.cpp">
       <Filter>Source Files\Game</Filter>
     </ClCompile>
-    <ClCompile Include="VoidButton.cpp">
-      <Filter>Source Files\Editor</Filter>
-    </ClCompile>
-    <ClCompile Include="HierarchyButton.cpp">
-      <Filter>Source Files\Editor</Filter>
+    <ClCompile Include="AssetButton.cpp">
+      <Filter>Source Files\Editor\AssetPanel</Filter>
     </ClCompile>
     <ClCompile Include="AssetFactory.cpp">
-      <Filter>Source Files\Editor</Filter>
+      <Filter>Source Files\Editor\AssetPanel</Filter>
     </ClCompile>
-    <ClCompile Include="AssetButton.cpp">
-      <Filter>Source Files\Editor</Filter>
+    <ClCompile Include="AssetPanel.cpp">
+      <Filter>Source Files\Editor\AssetPanel</Filter>
+    </ClCompile>
+    <ClCompile Include="HierarchyButton.cpp">
+      <Filter>Source Files\Editor\Hierarchy Panel</Filter>
+    </ClCompile>
+    <ClCompile Include="Hierarchy.cpp">
+      <Filter>Source Files\Editor\Hierarchy Panel</Filter>
+    </ClCompile>
+    <ClCompile Include="IFieldButton.cpp">
+      <Filter>Source Files\Editor\InspectorPanel</Filter>
+    </ClCompile>
+    <ClCompile Include="Inspector.cpp">
+      <Filter>Source Files\Editor\InspectorPanel</Filter>
+    </ClCompile>
+    <ClCompile Include="TopPanel.cpp">
+      <Filter>Source Files\Editor\TopPanel</Filter>
+    </ClCompile>
+    <ClCompile Include="VoidButton.cpp">
+      <Filter>Source Files\Editor\TopPanel</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -272,32 +299,38 @@
     <ClInclude Include="WindowConstants.hpp">
       <Filter>Header Files\Game</Filter>
     </ClInclude>
-    <ClInclude Include="TopPanel.hpp">
-      <Filter>Header Files\Editor</Filter>
-    </ClInclude>
-    <ClInclude Include="AssetPanel.hpp">
-      <Filter>Header Files\Editor</Filter>
-    </ClInclude>
-    <ClInclude Include="Inspector.hpp">
-      <Filter>Header Files\Editor</Filter>
-    </ClInclude>
-    <ClInclude Include="Hierarchy.hpp">
-      <Filter>Header Files\Editor</Filter>
-    </ClInclude>
     <ClInclude Include="Editor.hpp">
       <Filter>Header Files\Editor</Filter>
     </ClInclude>
-    <ClInclude Include="VoidButton.hpp">
-      <Filter>Header Files\Editor</Filter>
-    </ClInclude>
-    <ClInclude Include="HierarchyButton.hpp">
-      <Filter>Header Files\Editor</Filter>
+    <ClInclude Include="AssetButton.hpp">
+      <Filter>Header Files\Editor\AssetPanel</Filter>
     </ClInclude>
     <ClInclude Include="AssetFactory.hpp">
-      <Filter>Header Files\Editor</Filter>
+      <Filter>Header Files\Editor\AssetPanel</Filter>
     </ClInclude>
-    <ClInclude Include="AssetButton.hpp">
-      <Filter>Header Files\Editor</Filter>
+    <ClInclude Include="AssetPanel.hpp">
+      <Filter>Header Files\Editor\AssetPanel</Filter>
+    </ClInclude>
+    <ClInclude Include="Hierarchy.hpp">
+      <Filter>Header Files\Editor\HierarchyPanel</Filter>
+    </ClInclude>
+    <ClInclude Include="HierarchyButton.hpp">
+      <Filter>Header Files\Editor\HierarchyPanel</Filter>
+    </ClInclude>
+    <ClInclude Include="Inspector.hpp">
+      <Filter>Header Files\Editor\InspectorPanel</Filter>
+    </ClInclude>
+    <ClInclude Include="IField.hpp">
+      <Filter>Header Files\Editor\InspectorPanel</Filter>
+    </ClInclude>
+    <ClInclude Include="TopPanel.hpp">
+      <Filter>Header Files\Editor\TopPanel</Filter>
+    </ClInclude>
+    <ClInclude Include="VoidButton.hpp">
+      <Filter>Header Files\Editor\TopPanel</Filter>
+    </ClInclude>
+    <ClInclude Include="IFieldButton.hpp">
+      <Filter>Header Files\Editor\InspectorPanel</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

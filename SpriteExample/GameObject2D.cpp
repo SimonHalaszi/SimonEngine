@@ -1,7 +1,6 @@
 #include "GameObject2D.hpp"
 
 void GameObject2D::rootOnStart() {
-	isAttachedToScene_ = true;
 	onStart();
 
 	isWorldTransformOutDated_ = true;
@@ -35,14 +34,6 @@ void GameObject2D::rootUpdate() {
 	}
 }
 
-void GameObject2D::outDateWorldTransform() {
-	isWorldTransformOutDated_ = true;
-
-	for (auto& child : children_) {
-		child->outDateWorldTransform();
-	}
-}
-
 // Runs once per frame update of the Scene
 void GameObject2D::rootDraw() {
 	draw();
@@ -54,11 +45,31 @@ void GameObject2D::rootDraw() {
 
 // Runs at the end of a frame after destroy in Scene update
 void GameObject2D::rootOnDestruction() {
-	isAttachedToScene_ = false;
 	onDestruction();
 
 	for (auto& child : children_) {
 		child->rootOnDestruction();
+	}
+}
+
+void GameObject2D::rootEstablishFields() {
+	IFields_.push_back(std::make_unique<StringField>("Name", &name_));
+	IFields_.push_back(std::make_unique<StringField>("Tag", &tag_));
+	IFields_.push_back(std::make_unique<Transform2DField>("Local Transform", &localTransform_));
+	
+	establishFields();
+	
+	for (auto& child : children_) {
+		child->rootEstablishFields();
+	}
+}
+
+
+void GameObject2D::outDateWorldTransform() {
+	isWorldTransformOutDated_ = true;
+
+	for (auto& child : children_) {
+		child->outDateWorldTransform();
 	}
 }
 
@@ -83,7 +94,6 @@ void GameObject2D::attachChild(std::unique_ptr<GameObject2D> child) {
 		return;
 	}
 
-	// Simplified: caller must create the child and it must not already have a parent.
 	if (child->parent_) {
 		throw std::runtime_error("GameObject2D::attachChild : child already has a parent");
 	}
@@ -91,8 +101,5 @@ void GameObject2D::attachChild(std::unique_ptr<GameObject2D> child) {
 	child->parent_ = this;
 	children_.push_back(std::move(child));
 
-	// If this parent is already attached to a Scene, initialize the newly attached child subtree immediately.
-	if (isAttachedToScene_) {
-		children_.back()->rootOnStart();
-	}
+	children_.back()->rootOnStart();
 }

@@ -2,6 +2,7 @@
 #define GAME_OBJECT2D_HPP
 
 #include "Utilities.hpp"
+#include "IField.hpp"
 #include <vector>
 #include <memory>
 #include <stdexcept>
@@ -17,12 +18,12 @@ class GameObject2D {
 		void rootUpdate(); // Runs once per update of the Scene
 		void rootDraw(); // Runs once per frame update of the Scene
 		virtual void rootOnDestruction(); // Runs after right before being unattached from scene
+		virtual void rootEstablishFields(); // Runs when attached to scene. Used to add IFields to a GameObject
 
 		bool isAlive() const { return isAlive_; }
 		void destroy() { isAlive_ = false; } // Call this function or just change isAlive to delete GameObject
 
-		bool hasParent() const { return parent_; }
-		bool isAttachedToScene() const { return isAttachedToScene_; }
+		bool hasParent() const { return parent_ != nullptr; }
 		bool isWorldTransformOutDated() const { return isWorldTransformOutDated_; }
 
 		const Transform2D& getLocalTransform() const { return localTransform_; }
@@ -37,6 +38,9 @@ class GameObject2D {
 
 		void attachChild(std::unique_ptr<GameObject2D> child); // Attaches a child to a GameObject
 
+		std::vector<std::unique_ptr<GameObject2D>>& getChildren() { return children_; }
+		std::vector<std::unique_ptr<IField>>* getIFields() { return &IFields_; }
+
 		std::string getTag() const { return tag_; }
 		std::string getName() const { return name_; }
 	
@@ -45,6 +49,7 @@ class GameObject2D {
 		virtual void update() {} // Runs once per update of the Scene
 		virtual void draw() {} // Runs once per frame update of the Scene
 		virtual void onDestruction() {} // Runs after right before being unattached from scene
+		virtual void establishFields() {} // Runs when attached to scene. Used to add IFields to a GameObject
 
 		GameObject2D* parent_ = nullptr;
 		
@@ -52,7 +57,8 @@ class GameObject2D {
 		std::string name_;
 		Transform2D localTransform_;
 
-		bool isAttachedToScene_ = false;
+		std::vector<std::unique_ptr<GameObject2D>> children_ = {};
+		std::vector<std::unique_ptr<IField>> IFields_ = {};
 
 	private:
 		void init(); // Runs to attach to scene
@@ -61,8 +67,6 @@ class GameObject2D {
 		bool isWorldTransformOutDated_ = true;
 		Transform2D worldTransform_;
 		bool isAlive_ = true;
-
-		std::vector<std::unique_ptr<GameObject2D>> children_ = {};
 };
 
 #endif

@@ -29,7 +29,7 @@ TopPanel::TopPanel() {
 		VoidButton(
 			{ { -1.0f + globalPanelButtonWidth, 1.0f - (globalPanelButtonHeight * 3) },
 			{ globalPanelButtonWidth, globalPanelButtonHeight } },
-			{ 0.8f, 0.8f, 0.8f },
+			{ 0.8f, 0.1f, 0.1f },
 			"Quit",
 			[this]() { quitButtonAction(); }
 		)

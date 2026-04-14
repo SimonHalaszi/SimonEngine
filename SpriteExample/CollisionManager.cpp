@@ -21,7 +21,13 @@ void CollisionManager::unregisterObject(CollisionObject2D* obj) {
 
 void CollisionManager::checkAllCollisions() {
 	for (size_t i = 0; i < objects_.size(); ++i) {
+		if (!objects_[i]->isCollisionEnabled()) {
+			continue;
+		}
 		for (size_t j = i + 1; j < objects_.size(); ++j) {
+			if (!objects_[j]->isCollisionEnabled()) {
+				continue;
+			}
 			if (objects_[i]->checkCollision(*objects_[j])) {
 				objects_[i]->onCollision(*objects_[j]);
 				objects_[j]->onCollision(*objects_[i]);

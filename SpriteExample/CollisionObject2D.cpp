@@ -19,12 +19,26 @@ bool CollisionObject2D::checkCollision(const CollisionObject2D& other) const {
 
 void CollisionObject2D::rootOnStart() {
     GameObject2D::rootOnStart();
+    collisionEnabled_ = true;
     registerToCollisionManager();
 }
 
 void CollisionObject2D::rootOnDestruction() {
     unregisterFromCollisionManager();
     GameObject2D::rootOnDestruction();
+}
+
+void CollisionObject2D::rootEstablishFields() {
+    IFields_.push_back(std::make_unique<StringField>("Name", &name_));
+    IFields_.push_back(std::make_unique<StringField>("Tag", &tag_));
+    IFields_.push_back(std::make_unique<Transform2DField>("Local Transform", &localTransform_));
+    IFields_.push_back(std::make_unique<BoolField>("Collision", &collisionEnabled_));
+
+    establishFields();
+
+    for (auto& child : children_) {
+        child->rootEstablishFields();
+    }
 }
 
 void CollisionObject2D::registerToCollisionManager() {

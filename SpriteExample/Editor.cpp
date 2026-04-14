@@ -22,7 +22,13 @@ Editor::Editor(Scene* scene)
 	focusedGameObject_ = nullptr;
 }
 
+#include "UITextElement.hpp"
+
 void Editor::editorDraw() const {
+	assetPanel_.draw();
+	hierarchy_.draw();
+	inspector_.draw();
+	
 	glMatrixMode(GL_PROJECTION);
 	glPushMatrix();
 	glLoadIdentity();
@@ -50,40 +56,113 @@ void Editor::editorDraw() const {
 
 	if (focusedGameObject_) {
 		Transform2D transform = focusedGameObject_->getWorldTransform();
-		
-		// X
-		drawLine(
-			transform.position,
-			{ transform.position.x + 0.25f, transform.position.y },
-			{ 1,0,0 }, { 1,0,0 }
-		);
-		drawTriangle(
-			{ transform.position.x + 0.25f, transform.position.y },
-			0.015f, 
-			270.0f, 
-			false, 
-			false, 
-			{ 1,0,0 }, 
-			{ 1,0,0 }, 
-			{ 1,0,0 }
-		);
-		// Y
-		drawLine(
-			transform.position,
-			{ transform.position.x, transform.position.y + 0.25f },
-			{ 0,1,0 }, 
-			{ 0,1,0 }
-		);
-		drawTriangle(
-			{ transform.position.x, transform.position.y + 0.25f },
-			0.015f, 
-			0.0f, 
-			false, 
-			false, 
-			{ 0,1,0 }, 
-			{ 0,1,0 }, 
-			{ 0,1,0 }
-		);
+
+		// If I add a hierarchy to UIElements in general change this type to that but this works.
+		if (dynamic_cast<UITextElement*>(focusedGameObject_)) {
+			transform = focusedGameObject_->getLocalTransform();
+
+			GLint viewport[4];
+			glGetIntegerv(GL_VIEWPORT, viewport);
+			int vw = viewport[2];
+			int vh = viewport[3];
+
+			glMatrixMode(GL_PROJECTION);
+			glPushMatrix();
+			glLoadIdentity();
+			glOrtho(0, vw, 0, vh, -1.0, 1.0);
+
+			glMatrixMode(GL_MODELVIEW);
+			glPushMatrix();
+			glLoadIdentity();
+
+			float px = (transform.position.x + 1.0f) * 0.5f * vw;
+			float py = (transform.position.y + 1.0f) * 0.5f * vh;
+
+			float sx = transform.scale.x * 0.5f * vw;
+			float sy = transform.scale.y * 0.5f * vh;
+
+			Vector2D p = { px, py };
+
+			float lengthX = px + (vw * 0.125f);
+			float sizeX = (vw * 0.0075f);
+			float lengthY = py + (vh * 0.125f);
+			float sizeY = (vh * 0.0075f);
+
+			// X
+			drawLine(
+				p,
+				{ lengthX, py },
+				{ 1,0,0 }, { 1,0,0 }
+			);
+			drawTriangle(
+				{ lengthX, py },
+				sizeX,
+				270.0f,
+				false,
+				false,
+				{ 1,0,0 },
+				{ 1,0,0 },
+				{ 1,0,0 }
+			);
+			// Y
+			drawLine(
+				p,
+				{ px, lengthY },
+				{ 0,1,0 },
+				{ 0,1,0 }
+			);
+			drawTriangle(
+				{ px, lengthY },
+				sizeY,
+				0.0f,
+				false,
+				false,
+				{ 0,1,0 },
+				{ 0,1,0 },
+				{ 0,1,0 }
+			);
+
+			glPopMatrix();
+			glMatrixMode(GL_PROJECTION);
+			glPopMatrix();
+			glMatrixMode(GL_MODELVIEW);
+		}
+		else {
+
+			// X
+			drawLine(
+				transform.position,
+				{ transform.position.x + 0.25f, transform.position.y },
+				{ 1,0,0 }, { 1,0,0 }
+			);
+			drawTriangle(
+				{ transform.position.x + 0.25f, transform.position.y },
+				0.015f,
+				270.0f,
+				false,
+				false,
+				{ 1,0,0 },
+				{ 1,0,0 },
+				{ 1,0,0 }
+			);
+			// Y
+			drawLine(
+				transform.position,
+				{ transform.position.x, transform.position.y + 0.25f },
+				{ 0,1,0 },
+				{ 0,1,0 }
+			);
+			drawTriangle(
+				{ transform.position.x, transform.position.y + 0.25f },
+				0.015f,
+				0.0f,
+				false,
+				false,
+				{ 0,1,0 },
+				{ 0,1,0 },
+				{ 0,1,0 }
+			);
+		}
 	}
 
 	glPopMatrix();
@@ -91,10 +170,7 @@ void Editor::editorDraw() const {
 	glPopMatrix();
 	glMatrixMode(GL_MODELVIEW);
 
-	hierarchy_.draw();
-	inspector_.draw();
 	topPanel_.draw();
-	assetPanel_.draw();
 }
 
 void Editor::editorUpdate() {
@@ -156,7 +232,7 @@ void Editor::editorUpdate() {
 		if (focusedGameObject_ != hierarchy_.focusedGameObject()) {
 			focusedGameObject_ = hierarchy_.focusedGameObject();
 			std::cout << "Editor::editorUpdate() : Focused onto " << focusedGameObject_ << std::endl;
-			// set inspector_ focus to focusedGameObject_
+			inspector_.setFocusedGameObject(focusedGameObject_);
 		}
 
 		// Inspector can delete objects and such and should run last because it imperative it has updated state of pointers

@@ -51,10 +51,12 @@ struct WindowArea {
 	Vector2D pos = { 0.0f, 0.0f };
 	Vector2D scale = { 0.0f, 0.0f };
 };
+
 struct ViewportArea {
 	Vector2D pos = { 0.0f, 0.0f };
 	Vector2D scale = { 0.0f, 0.0f };
 };
+
 struct ViewportContext {
 	int viewportX = 0;
 	int viewportY = 0;

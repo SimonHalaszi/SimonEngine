@@ -137,6 +137,7 @@
     <ClCompile Include="AssetButton.cpp" />
     <ClCompile Include="Axis.cpp" />
     <ClCompile Include="AssetFactory.cpp" />
+    <ClCompile Include="IFieldButton.cpp" />
     <ClCompile Include="HierarchyButton.cpp" />
     <ClCompile Include="VoidButton.cpp" />
     <ClCompile Include="CameraAndUI.cpp" />
@@ -177,7 +178,9 @@
     <ClInclude Include="AssetButton.hpp" />
     <ClInclude Include="Axis.hpp" />
     <ClInclude Include="AssetFactory.hpp" />
+    <ClInclude Include="IFieldButton.hpp" />
     <ClInclude Include="HierarchyButton.hpp" />
+    <ClInclude Include="IField.hpp" />
     <ClInclude Include="VoidButton.hpp" />
     <ClInclude Include="CoinDisplay.hpp" />
     <ClInclude Include="Coin.hpp" />

@@ -18,6 +18,7 @@
 #include "Inspector.hpp"
 #include "AssetPanel.hpp"
 #include "TopPanel.hpp"
+#include "ScenePanel.hpp"
 
 // Sits on top of game to give editor logic
 class Editor {
@@ -48,6 +49,7 @@ class Editor {
 		Inspector inspector_;
 		AssetPanel assetPanel_;
 		TopPanel topPanel_;
+		ScenePanel scenePanel_;
 
 		ViewportContext middlePanelContext_;
 

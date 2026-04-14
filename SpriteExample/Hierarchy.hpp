@@ -23,6 +23,7 @@ class Hierarchy {
 
 		~Hierarchy();
 
+		void setFocusedGameObject(GameObject2D* focusedGameObject);
 		GameObject2D* focusedGameObject() const { return focusedGameObject_; }
 	
 	private:

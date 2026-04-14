@@ -14,8 +14,12 @@ constexpr int INSPECTOR_PANEL_W = 200; // Inspector panel width
 constexpr int INSPECTOR_PANEL_H = SCENE_WIN_H;
 
 // Object Panel
-constexpr int OBJECTS_PANEL_W = HIERARCHY_PANEL_W + SCENE_WIN_W + INSPECTOR_PANEL_W; // Height of the bottom panel
+constexpr int OBJECTS_PANEL_W = HIERARCHY_PANEL_W + SCENE_WIN_W; // Height of the bottom panel
 constexpr int OBJECTS_PANEL_H = 200; // Height of the bottom panel
+
+// Scene Panel
+constexpr int SCENE_PANEL_W = INSPECTOR_PANEL_W; // Height of the scene panel
+constexpr int SCENE_PANEL_H = OBJECTS_PANEL_H; 
 
 // Top Panel
 constexpr int TOP_PANEL_W = HIERARCHY_PANEL_W + SCENE_WIN_W + INSPECTOR_PANEL_W;

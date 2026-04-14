@@ -73,6 +73,12 @@
     <Filter Include="Source Files\Editor\TopPanel">
       <UniqueIdentifier>{10fb4b08-3913-48d5-adeb-8cbb646a47cb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Editor\ScenePanel">
+      <UniqueIdentifier>{5d03d9ca-88dd-41ab-961e-39f7ea32c9af}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Editor\ScenePanel">
+      <UniqueIdentifier>{3e1981ee-87fe-4d13-b2f6-3d9e50e1665d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TextureRegistry.cpp">
@@ -191,6 +197,12 @@
     </ClCompile>
     <ClCompile Include="VoidButton.cpp">
       <Filter>Source Files\Editor\TopPanel</Filter>
+    </ClCompile>
+    <ClCompile Include="ScenePanel.cpp">
+      <Filter>Source Files\Editor\ScenePanel</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneButton.cpp">
+      <Filter>Source Files\Editor\ScenePanel</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -331,6 +343,12 @@
     </ClInclude>
     <ClInclude Include="IFieldButton.hpp">
       <Filter>Header Files\Editor\InspectorPanel</Filter>
+    </ClInclude>
+    <ClInclude Include="ScenePanel.hpp">
+      <Filter>Header Files\Editor\ScenePanel</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneButton.hpp">
+      <Filter>Header Files\Editor\ScenePanel</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

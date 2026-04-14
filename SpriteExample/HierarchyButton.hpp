@@ -22,6 +22,8 @@ public:
 	bool isInside(int mouseX, int mouseY, const ViewportContext& context) const;
 	int handleClick(const ViewportContext& context) const;
 	void draw() const;
+	std::string getText() const { return text_; }
+	void setText(std::string text) { text_ = text; }
 
 	int returnAssocaitedIndex() const { return associatedObjectIndex_; }
 

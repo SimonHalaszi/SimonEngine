@@ -24,6 +24,7 @@ public:
 	void update() override;
 	void onDestruction() override {}
 	void onCollision(CollisionObject2D& other) override;
+	void establishFields() override;
 
 	static void addToCoinCount(int i) { coinCount_ += i; }
 	static int getCoinCount() { return coinCount_; }
@@ -37,6 +38,7 @@ private:
 	bool drawHitbox_ = false;
 	bool handleContact = true;
 	bool onGround_ = false;
+	bool hasGravity_ = true;
 	
 	float collisionTolerance_ = 0.001f;
 	float speed_ = 1.0f;

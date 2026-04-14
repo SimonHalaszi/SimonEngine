@@ -24,28 +24,17 @@ AssetPanel::AssetPanel(Scene* scene) : scene_(scene) {
 
 	ColorRGB color1 = { 1.0f, 1.0f, 1.0f };
 	ColorRGB color2 = { 0.8f, 0.8f, 0.8f };
+	ColorRGB colors[2] = { color1, color2 };
 
 	for (auto itr = factoryOptions.begin(); itr != factoryOptions.end(); ++itr) {
-		if (i % 2) {
-			assetButtons_.push_back(
-				AssetButton(
-					startArea,
-					color1,
-					factoryOptions[i],
-					AssetFactory::getInstance().getOptionPreviewSprite(factoryOptions[i])
-				)
-			);
-		}
-		else {
-			assetButtons_.push_back(
-				AssetButton(
-					startArea,
-					color2,
-					factoryOptions[i],
-					AssetFactory::getInstance().getOptionPreviewSprite(factoryOptions[i])
-				)
-			);
-		}
+		assetButtons_.push_back(
+			AssetButton(
+				startArea,
+				colors[i % 2],
+				factoryOptions[i],
+				AssetFactory::getInstance().getOptionPreviewSprite(factoryOptions[i])
+			)
+		);
 		startArea.pos.y -= areaOffset;
 		++i;
 	}

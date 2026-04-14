@@ -16,6 +16,7 @@ class CollisionObject2D : public GameObject2D {
 
 		bool checkCollision(const CollisionObject2D& other) const;
 		bool isCollisionEnabled() const { return collisionEnabled_; }
+		void setCollisionEnabled(bool enabled);
 
 		void rootOnStart() override final;
 		void rootOnDestruction() override final;

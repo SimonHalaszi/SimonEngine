@@ -18,8 +18,11 @@ class IFieldButton {
 public:
 	IFieldButton();
 
+	virtual ~IFieldButton() = default;
+
 	const ViewportArea& getViewportArea() const { return viewportArea_; }
-	virtual void handleClick(const ViewportContext& context) = 0;
+	virtual bool handleClick(const ViewportContext& context) = 0;
+	virtual void handleKeyInput(const std::string& typedChars) {}
 	virtual void draw() const = 0;
 
 protected:
@@ -39,7 +42,7 @@ public:
 	);
 
 	void draw() const override final;
-	void handleClick(const ViewportContext& context) override final;
+	bool handleClick(const ViewportContext& context) override final;
 	bool isInsideButton(int mouseX, int mouseY, const ViewportContext& context) const;
 
 	// Handle click 
@@ -56,10 +59,12 @@ public:
 	TextEntryIFieldButton();
 
 	void draw() const override = 0;
-	void handleClick(const ViewportContext& context) override = 0;
+	bool handleClick(const ViewportContext& context) override = 0;
 
 	bool clickedTextEntryArea() const { return clickedTextEntryArea_; }
 	void appendToBuffer(std::string newCharacters);
+	void handleKeyPress(unsigned char key);
+	void handleKeyInput(const std::string& typedChars) override;
 	bool isInsideTextEntry(int mouseX, int mouseY, const ViewportContext& context) const;
 	bool isInsideButton(int mouseX, int mouseY, const ViewportContext& context) const;
 
@@ -70,6 +75,8 @@ public:
 	//			verify->appendToBuffer(InputManager::getInstance().getBufferAdditions);
 
 protected:
+	TextEntryIFieldButton(ViewportArea viewportArea, ColorRGB color, std::string name);
+
 	// Automatically calculated based on viewportArea
 	ViewportArea textEntryArea_;
 	ViewportArea buttonArea_;
@@ -89,7 +96,7 @@ public:
 	);
 
 	void draw() const override final;
-	void handleClick(const ViewportContext& context) override final;
+	bool handleClick(const ViewportContext& context) override final;
 
 	// Handle click
 	// if inside buttonArea_ -> field->setValue(string_to_int(entryBuffer_))
@@ -111,7 +118,7 @@ public:
 	);
 
 	void draw() const override final;
-	void handleClick(const ViewportContext& context) override final;
+	bool handleClick(const ViewportContext& context) override final;
 
 	// Handle click
 	// if inside buttonArea_ -> field->setValue(entryBuffer_[0]) // Will probably go with that
@@ -133,7 +140,7 @@ public:
 	);
 
 	void draw() const override final;
-	void handleClick(const ViewportContext& context) override final;
+	bool handleClick(const ViewportContext& context) override final;
 
 	// Handle click
 	// if inside buttonArea_ -> field->setValue(string_to_float(entryBuffer_))
@@ -155,7 +162,7 @@ public:
 	);
 
 	void draw() const override final;
-	void handleClick(const ViewportContext& context) override final;
+	bool handleClick(const ViewportContext& context) override final;
 
 	// Handle click
 	// if inside buttonArea_ -> field->setValue(entryBuffer_)
@@ -172,10 +179,12 @@ public:
 	Vector2DIFieldButton(
 		ViewportArea viewportArea,
 		ColorRGB color,
-		std::string name
+		std::string name,
+		Vector2DField* field
 	);
 
-	void handleClick(const ViewportContext& context) override final;
+	bool handleClick(const ViewportContext& context) override final;
+	void handleKeyInput(const std::string& typedChars) override final;
 	void draw() const override final;
 
 	// Handle click
@@ -191,17 +200,19 @@ private:
 	FloatIFieldButton y_;
 };
 
-// Vector2D
+// Transform2D
 class Transform2DIFieldButton : public IFieldButton {
 public:
 	Transform2DIFieldButton();
 	Transform2DIFieldButton(
 		ViewportArea viewportArea,
 		ColorRGB color,
-		std::string name
+		std::string name,
+		Transform2DField* field
 	);
 
-	void handleClick(const ViewportContext& context) override final;
+	bool handleClick(const ViewportContext& context) override final;
+	void handleKeyInput(const std::string& typedChars) override final;
 	void draw() const override final;
 
 	// Handle click

@@ -26,6 +26,7 @@ Editor::Editor(Scene* scene)
 
 void Editor::editorDraw() const {
 	assetPanel_.draw();
+	scenePanel_.draw();
 	hierarchy_.draw();
 	inspector_.draw();
 	
@@ -197,22 +198,20 @@ void Editor::editorUpdate() {
 		if (InputManager::getInstance().isMouseButtonPressed(MOUSEBUTTON_SCROLLUP)) {
 			editorZoomFactor_ += 0.1f;
 		}
-	}
-
-	// Independent of focus inputs
-	if (focusedGameObject_) {
-		if (InputManager::getInstance().isPressed('m')) {
-			Transform2D transform = focusedGameObject_->getWorldTransform();
-			editorX_ = transform.position.x;
-			editorY_ = transform.position.y;
+		if (focusedGameObject_) {
+			if (InputManager::getInstance().isPressed('m')) {
+				Transform2D transform = focusedGameObject_->getWorldTransform();
+				editorX_ = transform.position.x;
+				editorY_ = transform.position.y;
+			}
 		}
-	}
-	if (InputManager::getInstance().isPressed('z')) {
-		editorZoomFactor_ = 1.0f;
-	}
-	if (InputManager::getInstance().isPressed('r')) {
-		editorX_ = 0.0f;
-		editorY_ = 0.0f;
+		if (InputManager::getInstance().isPressed('z')) {
+			editorZoomFactor_ = 1.0f;
+		}
+		if (InputManager::getInstance().isPressed('r')) {
+			editorX_ = 0.0f;
+			editorY_ = 0.0f;
+		}
 	}
 
 	// Only update for topPanel if either drop down is active
@@ -237,6 +236,25 @@ void Editor::editorUpdate() {
 
 		// Inspector can delete objects and such and should run last because it imperative it has updated state of pointers
 		inspector_.update();
+
+		if (inspector_.isFocusedGameObjectMarkedForErasure()) {
+			std::cout << "Editor::editorUpdate() : Editor erasing focusedGameObject" << std::endl;
+			std::vector<std::unique_ptr<GameObject2D>>& rootObjects_ = scene_->getRootObjects();
+			for (auto it = rootObjects_.begin(); it != rootObjects_.end();) {
+				GameObject2D* rO = it->get();
+
+				if (rO == focusedGameObject_) {
+					hierarchy_.setFocusedGameObject(nullptr);
+					inspector_.setFocusedGameObject(nullptr);
+					focusedGameObject_ = nullptr;
+					it = rootObjects_.erase(it);
+				}
+				else {
+					++it;
+				}
+			}
+		}
+		scenePanel_.update();
 	}
 }
 

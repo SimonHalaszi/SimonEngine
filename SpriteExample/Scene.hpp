@@ -30,6 +30,7 @@ class Scene {
 			rootObjects_.push_back(std::move(gameObject));
 
 			rootObjects_.back()->rootOnStart();
+			rootObjects_.back()->rootEstablishFields();
 			rootObjects_.back()->updateWorldTransform();
 		}
 

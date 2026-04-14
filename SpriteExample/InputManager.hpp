@@ -4,6 +4,7 @@
 #include <GL/glut.h>
 #include <GL/freeglut.h>
 #include <array>
+#include <string>
 
 enum KeyState { KEYSTATE_UP, KEYSTATE_DOWN, KEYSTATE_PRESSED, KEYSTATE_RELEASED };
 enum MouseButton { MOUSEBUTTON_LEFT = 0, MOUSEBUTTON_MIDDLE = 1, MOUSEBUTTON_RIGHT = 2, MOUSEBUTTON_SCROLLUP = 3, MOUSEBUTTON_SCROLLDOWN = 4 };
@@ -108,6 +109,9 @@ class InputManager {
         int mouseDeltaX()   const { return mouseDeltaX_; }
         int mouseDeltaY()   const { return mouseDeltaY_; }
 
+        void queueTypedChar(unsigned char key) { typedChars_ += static_cast<char>(key); }
+        const std::string& getTypedChars() const { return typedChars_; }
+
         void registerScroll(int button) {
             if (button == 3) { 
                 scrollUpThisFrame_ = true; 
@@ -118,6 +122,7 @@ class InputManager {
         }
 
         void update() {
+            typedChars_.clear();
             scrollUpThisFrame_ = false;
             scrollDownThisFrame_ = false;
 
@@ -137,6 +142,7 @@ class InputManager {
         InputManager() : mouseX_(0), mouseY_(0), mouseDeltaX_(0), mouseDeltaY_(0) {}
         ~InputManager() {}
 
+        std::string typedChars_;
         bool scrollUpThisFrame_ = false;
         bool scrollDownThisFrame_ = false;
 
@@ -146,8 +152,8 @@ class InputManager {
         std::array<bool, 8> mouseCurrent_ = {};
         std::array<bool, 8> mousePrevious_ = {};
 
-        std::array<bool, 12> specialKeyCurrent_ = {};
-        std::array<bool, 12> specialKeyPrevious_ = {};
+        std::array<bool, 16> specialKeyCurrent_ = {};
+        std::array<bool, 16> specialKeyPrevious_ = {};
 
         int mouseX_, mouseY_;
         int mouseDeltaX_, mouseDeltaY_;

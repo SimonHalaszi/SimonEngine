@@ -1,4 +1,5 @@
 #include "Inspector.hpp"
+#include "CollisionObject2D.hpp"
 
 Inspector::Inspector()
 	: focusedGameObject_(nullptr) {
@@ -19,6 +20,8 @@ Inspector::Inspector()
 
 	iFieldButtons_.clear();
 	iFields_ = nullptr;
+
+	focusedGameObjectMarkedForErasure_ = false;
 }
 
 void Inspector::draw() const {
@@ -85,58 +88,77 @@ void Inspector::setFocusedGameObject(GameObject2D* focusedGameObject) {
 		iFields_ = focusedGameObject_->getIFields();
 		establishIFieldButtons();
 	}
+	else {
+		iFields_ = nullptr;
+	}
 }
 
 void Inspector::establishIFieldButtons() {
-	ViewportArea startArea = inspectorTitle_;
-	for (auto& field : *iFields_) {
-		IField* rawField = field.get();
-		IntField* intCheck = dynamic_cast<IntField*>(rawField);
-		if (intCheck) {
-			// create respective IFieldButton with field
-			// startArea.pos.x += iFieldButtons_.back()->getViewportArea().scale.x + // layer height
-			continue;
+	float layerHeight = 1.0f / 16.0f;
+	float topCursor = inspectorTitle_.pos.y - inspectorTitle_.scale.y;
+	int i = 0;
+
+	ColorRGB color1 = { 1.0f, 1.0f, 1.0f };
+	ColorRGB color2 = { 0.8f, 0.8f, 0.8f };
+	ColorRGB colors[2] = { color1, color2 };
+
+	for (auto itr = iFields_->begin(); itr != iFields_->end(); ++itr) {
+		IField* rawField = itr->get();
+
+		if (auto* f = dynamic_cast<Transform2DField*>(rawField)) {
+			float halfHeight = 15.0f * layerHeight;
+			ViewportArea area = { { 0.0f, topCursor - halfHeight }, { 1.0f, halfHeight } };
+			iFieldButtons_.push_back(std::make_unique<Transform2DIFieldButton>(area, colors[i % 2], f->getName(), f));
+			topCursor -= halfHeight * 2.0f;
 		}
-		CharField* charCheck = dynamic_cast<CharField*>(rawField);
-		if (charCheck) {
-			// create respective IFieldButton with field
-			// startArea.pos.x += iFieldButtons_.back()->getViewportArea().scale.x + // layer height
-			continue;
+		else if (auto* f = dynamic_cast<Vector2DField*>(rawField)) {
+			float halfHeight = 5.0f * layerHeight;
+			ViewportArea area = { { 0.0f, topCursor - halfHeight }, { 1.0f, halfHeight } };
+			iFieldButtons_.push_back(std::make_unique<Vector2DIFieldButton>(area, colors[i % 2], f->getName(), f));
+			topCursor -= halfHeight * 2.0f;
 		}
-		FloatField* floatCheck = dynamic_cast<FloatField*>(rawField);
-		if (floatCheck) {
-			// create respective IFieldButton with field
-			// startArea.pos.x += iFieldButtons_.back()->getViewportArea().scale.x + // layer height
-			continue;
+		else if (auto* f = dynamic_cast<BoolField*>(rawField)) {
+			float halfHeight = 1.0f * layerHeight;
+			ViewportArea area = { { 0.0f, topCursor - halfHeight }, { 1.0f, halfHeight } };
+			iFieldButtons_.push_back(std::make_unique<BoolIFieldButton>(area, colors[i % 2], f));
+			topCursor -= halfHeight * 2.0f;
 		}
-		BoolField* boolCheck = dynamic_cast<BoolField*>(rawField);
-		if (boolCheck) {
-			// create respective IFieldButton with field
-			// startArea.pos.x += iFieldButtons_.back()->getViewportArea().scale.x + // layer height
-			continue;
+		else if (auto* f = dynamic_cast<IntField*>(rawField)) {
+			float halfHeight = 2.0f * layerHeight;
+			ViewportArea area = { { 0.0f, topCursor - halfHeight }, { 1.0f, halfHeight } };
+			iFieldButtons_.push_back(std::make_unique<IntIFieldButton>(area, colors[i % 2], f->getName(), f));
+			topCursor -= halfHeight * 2.0f;
 		}
-		StringField* stringCheck = dynamic_cast<StringField*>(rawField);
-		if (stringCheck) {
-			// create respective IFieldButton with field
-			// startArea.pos.x += iFieldButtons_.back()->getViewportArea().scale.x + // layer height
-			continue;
+		else if (auto* f = dynamic_cast<CharField*>(rawField)) {
+			float halfHeight = 2.0f * layerHeight;
+			ViewportArea area = { { 0.0f, topCursor - halfHeight }, { 1.0f, halfHeight } };
+			iFieldButtons_.push_back(std::make_unique<CharIFieldButton>(area, colors[i % 2], f->getName(), f));
+			topCursor -= halfHeight * 2.0f;
 		}
-		Vector2DField* vector2DCheck = dynamic_cast<Vector2DField*>(rawField);
-		if (vector2DCheck) {
-			// create respective IFieldButton with field
-			// startArea.pos.x += iFieldButtons_.back()->getViewportArea().scale.x + // layer height
-			continue;
+		else if (auto* f = dynamic_cast<FloatField*>(rawField)) {
+			float halfHeight = 2.0f * layerHeight;
+			ViewportArea area = { { 0.0f, topCursor - halfHeight }, { 1.0f, halfHeight } };
+			iFieldButtons_.push_back(std::make_unique<FloatIFieldButton>(area, colors[i % 2], f->getName(), f));
+			topCursor -= halfHeight * 2.0f;
 		}
-		Transform2DField* transform2DCheck = dynamic_cast<Transform2DField*>(rawField);
-		if (transform2DCheck) {
-			// create respective IFieldButton with field
-			// startArea.pos.x += iFieldButtons_.back()->getViewportArea().scale.x + // layer height
-			continue;
+		else if (auto* f = dynamic_cast<StringField*>(rawField)) {
+			float halfHeight = 2.0f * layerHeight;
+			ViewportArea area = { { 0.0f, topCursor - halfHeight }, { 1.0f, halfHeight } };
+			iFieldButtons_.push_back(std::make_unique<StringIFieldButton>(area, colors[i % 2], f->getName(), f));
+			topCursor -= halfHeight * 2.0f;
 		}
+		++i;
 	}
 }
 
 void Inspector::update() {
+	if (focusedGameObjectMarkedForErasure_) {
+		focusedGameObjectMarkedForErasure_ = false;
+	}
+	if (InputManager::getInstance().isSpecialKeyPressed(mapSpecialKey(GLUT_KEY_F10))) {
+		std::cout << "Inspector::update() : Inspector marked focusedGameObject for erasure" << std::endl;
+		focusedGameObjectMarkedForErasure_ = true;
+	}
 
 	// Dont bother doing input if we arent in hierarchy panel
 	if (isInsideViewportContext(InputManager::getInstance().mouseX(), InputManager::getInstance().mouseY(), inspectorContext_)) {
@@ -153,8 +175,31 @@ void Inspector::update() {
 			inspectorContext_.scrollOffsetY = 0.0f;
 		}
 
+		bool result, gotPositive;
+		result = false;
+		gotPositive = false;
 		for (auto& button : iFieldButtons_) {
-			button->handleClick(inspectorContext_);
+			result = button->handleClick(inspectorContext_);
+			if (result) {
+				gotPositive = true;
+			}
+		}
+		// If handleClick actually did something that changed something updateWorldTransform
+		if (gotPositive) {
+			focusedGameObject_->updateWorldTransform();
+
+			// Cascade collision enabled state down to children
+			CollisionObject2D* collider = dynamic_cast<CollisionObject2D*>(focusedGameObject_);
+			if (collider) {
+				collider->setCollisionEnabled(collider->isCollisionEnabled());
+			}
+		}
+	}
+
+	const std::string& typedChars = InputManager::getInstance().getTypedChars();
+	if (!typedChars.empty()) {
+		for (auto& button : iFieldButtons_) {
+			button->handleKeyInput(typedChars);
 		}
 	}
 }

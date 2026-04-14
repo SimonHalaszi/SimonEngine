@@ -1,5 +1,5 @@
-#ifndef GAMEOVER_SCREEN_SCENE_HPP
-#define GAMEOVER_SCREEN_SCENE_HPP
+#ifndef GAMEWON_SCREEN_SCENE_HPP
+#define GAMEWON_SCREEN_SCENE_HPP
 
 // Needed C++ Includes
 #include <string>

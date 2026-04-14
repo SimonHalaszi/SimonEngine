@@ -139,6 +139,8 @@
     <ClCompile Include="AssetFactory.cpp" />
     <ClCompile Include="IFieldButton.cpp" />
     <ClCompile Include="HierarchyButton.cpp" />
+    <ClCompile Include="SceneButton.cpp" />
+    <ClCompile Include="ScenePanel.cpp" />
     <ClCompile Include="VoidButton.cpp" />
     <ClCompile Include="CameraAndUI.cpp" />
     <ClCompile Include="CollisionManager.cpp" />
@@ -181,6 +183,8 @@
     <ClInclude Include="IFieldButton.hpp" />
     <ClInclude Include="HierarchyButton.hpp" />
     <ClInclude Include="IField.hpp" />
+    <ClInclude Include="SceneButton.hpp" />
+    <ClInclude Include="ScenePanel.hpp" />
     <ClInclude Include="VoidButton.hpp" />
     <ClInclude Include="CoinDisplay.hpp" />
     <ClInclude Include="Coin.hpp" />

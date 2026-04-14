@@ -17,6 +17,16 @@ bool CollisionObject2D::checkCollision(const CollisionObject2D& other) const {
     return checkAABBCollision(getAABB(), other.getAABB());
 }
 
+void CollisionObject2D::setCollisionEnabled(bool enabled) {
+    collisionEnabled_ = enabled;
+    for (auto& child : children_) {
+        CollisionObject2D* childCollider = dynamic_cast<CollisionObject2D*>(child.get());
+        if (childCollider) {
+            childCollider->setCollisionEnabled(enabled);
+        }
+    }
+}
+
 void CollisionObject2D::rootOnStart() {
     GameObject2D::rootOnStart();
     collisionEnabled_ = true;

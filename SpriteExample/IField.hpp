@@ -4,6 +4,8 @@
 #include <string>
 #include <typeinfo>
 
+#include "Utilities.hpp"
+
 // Supported Types: int, char, float, bool, std::string, (Compounds) Vector2D, Transform2D
 class IField {
 public:
@@ -115,8 +117,10 @@ public:
     {}
 
     // Specifics
+    FloatField& getXField() { return x_; }
+    FloatField& getYField() { return y_; }
     const FloatField& getXField() const { return x_; }
-    const FloatField& getYValue() const { return y_; }
+    const FloatField& getYField() const { return y_; }
 
 private:
     // Specifics
@@ -133,10 +137,15 @@ public:
         scale_("scale", &value->scale),
         rotation_("rotation", &value->rotation),
         mirror_("mirror", &value->mirror),
-        flip_("mirror", &value->flip)
+        flip_("flip", &value->flip)
     {}
 
     // Specifics
+    Vector2DField& getPosField() { return pos_; }
+    Vector2DField& getScaleField() { return scale_; }
+    FloatField& getRotationField() { return rotation_; }
+    BoolField& getMirrorField() { return mirror_; }
+    BoolField& getFlipField() { return flip_; }
     const Vector2DField& getPosField() const { return pos_; }
     const Vector2DField& getScaleField() const { return scale_; }
     const FloatField& getRotationField() const { return rotation_; }

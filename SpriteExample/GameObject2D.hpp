@@ -24,6 +24,7 @@ class GameObject2D {
 		void destroy() { isAlive_ = false; } // Call this function or just change isAlive to delete GameObject
 
 		bool hasParent() const { return parent_ != nullptr; }
+		GameObject2D* getParent() const { return parent_; }
 		bool isWorldTransformOutDated() const { return isWorldTransformOutDated_; }
 
 		const Transform2D& getLocalTransform() const { return localTransform_; }

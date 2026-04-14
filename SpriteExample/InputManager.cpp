@@ -20,6 +20,7 @@ void INPUTMANAGERprocKeys(unsigned char key, int x, int y) {
     int code = static_cast<int>(key);
     char ch = std::isprint(static_cast<unsigned char>(key)) ? static_cast<char>(key) : '?';
     InputManager::getInstance().keyDown(key);
+    InputManager::getInstance().queueTypedChar(key);
 }
 
 void INPUTMANAGERprocKeysUp(unsigned char key, int x, int y) {
@@ -65,6 +66,10 @@ int mapSpecialKey(int key) {
     case GLUT_KEY_F6:     return 9;
     case GLUT_KEY_F7:     return 10;
     case GLUT_KEY_F8:     return 11;
+    case GLUT_KEY_F9:     return 12;
+    case GLUT_KEY_F10:    return 13;
+    case GLUT_KEY_F11:    return 14;
+    case GLUT_KEY_F12:    return 15;
     default: return -1;
     }
 }

@@ -102,4 +102,5 @@ void GameObject2D::attachChild(std::unique_ptr<GameObject2D> child) {
 	children_.push_back(std::move(child));
 
 	children_.back()->rootOnStart();
+	children_.back()->rootEstablishFields();
 }

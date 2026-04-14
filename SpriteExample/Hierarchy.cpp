@@ -95,8 +95,19 @@ void Hierarchy::draw() const {
 
 void Hierarchy::update() {
 	if (lastKnownSizeOfRootObjects_ != rootObjects_.size()) {
+		focusedGameObject_ = nullptr;
+		focusedGameObjectIndex_ = -1;
+		hierarchyButtons_.clear();
 		establishHierarchyButtons();
 		lastKnownSizeOfRootObjects_ = rootObjects_.size();
+	}
+
+	if (focusedGameObjectIndex_ != -1) {
+		std::string rootObjectName = rootObjects_[focusedGameObjectIndex_].get()->getName();
+		std::string buttonText = hierarchyButtons_[focusedGameObjectIndex_].getText();
+		if (rootObjectName != buttonText) {
+			hierarchyButtons_[focusedGameObjectIndex_].setText(rootObjectName);
+		}
 	}
 
 	// Dont bother doing input if we arent in hierarchy panel
@@ -141,11 +152,6 @@ void Hierarchy::update() {
 }
 
 void Hierarchy::establishHierarchyButtons() {
-	focusedGameObject_ = nullptr;
-	focusedGameObjectIndex_ = -1;
-
-	hierarchyButtons_.clear();
-	
 	float areaOffset = ((1.0f / 16.0f) * 2);
 	ViewportArea startArea = hierarchyTitle_;
 	startArea.pos.y -= areaOffset;
@@ -153,31 +159,24 @@ void Hierarchy::establishHierarchyButtons() {
 
 	ColorRGB color1 = { 1.0f, 1.0f, 1.0f };
 	ColorRGB color2 = { 0.8f, 0.8f, 0.8f };
+	ColorRGB colors[2] = { color1, color2 };
 
 	for (auto itr = rootObjects_.begin(); itr != rootObjects_.end(); ++itr) {
-		if (i % 2) {
-			hierarchyButtons_.push_back(
-				HierarchyButton(
-					startArea,
-					color1,
-					itr->get()->getName(),
-					i
-				)
-			);
-		}
-		else {
-			hierarchyButtons_.push_back(
-				HierarchyButton(
-					startArea,
-					color2,
-					itr->get()->getName(),
-					i
-				)
-			);
-		}
+		hierarchyButtons_.push_back(
+			HierarchyButton(
+				startArea,
+				colors[i % 2],
+				itr->get()->getName(),
+				i
+			)
+		);
 		startArea.pos.y -= areaOffset;
 		++i;
 	}
+}
+
+void Hierarchy::setFocusedGameObject(GameObject2D* focusedGameObject) {
+	focusedGameObject_ = focusedGameObject;
 }
 
 Hierarchy::~Hierarchy() {

@@ -99,7 +99,9 @@ void PlatformerPlayer::update() {
 
 	// Gravity
 	if (!PlayerGroundChecker::getGroundStatus() && !jumping_) {
-		moveY_ -= gravitySpeed_ * physicsTime;
+		if (hasGravity_) {
+			moveY_ -= gravitySpeed_ * physicsTime;
+		}
 	}
 
 	if (InputManager::getInstance().isSpecialKeyDown(mapSpecialKey(GLUT_KEY_LEFT))) {
@@ -205,4 +207,8 @@ void PlatformerPlayer::onCollision(CollisionObject2D& other) {
 			}
 		}
 	}
+}
+
+void PlatformerPlayer::establishFields() {
+	IFields_.push_back(std::make_unique<BoolField>("Gravity", &hasGravity_));
 }

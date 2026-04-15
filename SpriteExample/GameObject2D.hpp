@@ -39,7 +39,7 @@ class GameObject2D {
 
 		void attachChild(std::unique_ptr<GameObject2D> child); // Attaches a child to a GameObject
 
-		std::vector<std::unique_ptr<GameObject2D>>& getChildren() { return children_; }
+		std::vector<std::unique_ptr<GameObject2D>>* getChildren() { return &children_; }
 		std::vector<std::unique_ptr<IField>>* getIFields() { return &IFields_; }
 
 		std::string getTag() const { return tag_; }
@@ -60,6 +60,9 @@ class GameObject2D {
 
 		std::vector<std::unique_ptr<GameObject2D>> children_ = {};
 		std::vector<std::unique_ptr<IField>> IFields_ = {};
+
+		bool hasStarted_ = false;
+		bool hasEstablishedFields_ = false;
 
 	private:
 		void init(); // Runs to attach to scene

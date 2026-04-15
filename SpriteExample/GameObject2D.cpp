@@ -1,6 +1,11 @@
 #include "GameObject2D.hpp"
 
 void GameObject2D::rootOnStart() {
+	if (hasStarted_) {
+		return;
+	}
+	hasStarted_ = true;
+
 	onStart();
 
 	isWorldTransformOutDated_ = true;
@@ -53,6 +58,11 @@ void GameObject2D::rootOnDestruction() {
 }
 
 void GameObject2D::rootEstablishFields() {
+	if (hasEstablishedFields_) {
+		return;
+	}
+	hasEstablishedFields_ = true;
+
 	IFields_.push_back(std::make_unique<StringField>("Name", &name_));
 	IFields_.push_back(std::make_unique<StringField>("Tag", &tag_));
 	IFields_.push_back(std::make_unique<Transform2DField>("Local Transform", &localTransform_));

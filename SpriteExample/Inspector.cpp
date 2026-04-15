@@ -20,8 +20,6 @@ Inspector::Inspector()
 
 	iFieldButtons_.clear();
 	iFields_ = nullptr;
-
-	focusedGameObjectMarkedForErasure_ = false;
 }
 
 void Inspector::draw() const {
@@ -152,14 +150,6 @@ void Inspector::establishIFieldButtons() {
 }
 
 void Inspector::update() {
-	if (focusedGameObjectMarkedForErasure_) {
-		focusedGameObjectMarkedForErasure_ = false;
-	}
-	if (InputManager::getInstance().isSpecialKeyPressed(mapSpecialKey(GLUT_KEY_F5))) {
-		std::cout << "Inspector::update() : Inspector marked focusedGameObject for erasure" << std::endl;
-		focusedGameObjectMarkedForErasure_ = true;
-	}
-
 	// Dont bother doing input if we arent in hierarchy panel
 	if (isInsideViewportContext(InputManager::getInstance().mouseX(), InputManager::getInstance().mouseY(), inspectorContext_)) {
 		float scrollSpeed = 0.1f;

@@ -111,7 +111,7 @@ void AssetPanel::draw() const {
 	glMatrixMode(GL_MODELVIEW);
 }
 
-void AssetPanel::update() {
+void AssetPanel::update(std::vector<std::unique_ptr<GameObject2D>>* hierarchyObjects_, GameObject2D* parentOfCurrentView) {
 	// Dont bother doing input if we arent in hierarchy panel
 	if (isInsideViewportContext(InputManager::getInstance().mouseX(), InputManager::getInstance().mouseY(), assetPanelContext_)) {
 		float scrollSpeed = 0.1f;
@@ -132,7 +132,14 @@ void AssetPanel::update() {
 			for (auto& button : assetButtons_) {
 				std::unique_ptr<GameObject2D> temp = std::move(button.handleClick(assetPanelContext_));
 				if (temp) {
-					scene_->addRootGameObject2D(std::move(temp));
+					if (parentOfCurrentView == nullptr) {
+						scene_->addRootGameObject2D(std::move(temp));
+						scene_->getRootObjects()->back()->updateWorldTransform();
+					}
+					else {
+						parentOfCurrentView->attachChild(std::move(temp));
+						parentOfCurrentView->getChildren()->back()->updateWorldTransform();
+					}
 				}
 				else {
 					continue;

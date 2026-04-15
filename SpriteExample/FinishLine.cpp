@@ -73,7 +73,7 @@ void FinishLine::onCollision(CollisionObject2D& other) {
 		if (!isPopupShowing_ && PlatformerPlayer::getCoinCount() < 5) {
 			isPopupShowing_ = true;
 		}
-		else if (PlatformerPlayer::getCoinCount() == 5) {
+		else if (PlatformerPlayer::getCoinCount() >= 5) {
 			if (!isGameCompleted_) {
 				SoundManager::getInstance().playSound2D(gameWonSoundFilepath_);
 			}

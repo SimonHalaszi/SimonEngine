@@ -22,8 +22,6 @@ class Inspector {
 		void draw() const;
 		void update();
 
-		bool isFocusedGameObjectMarkedForErasure() const { return focusedGameObjectMarkedForErasure_; }
-
 		~Inspector();
 
 	private:
@@ -40,8 +38,6 @@ class Inspector {
 
 		// Viewport Context used for Inspector
 		ViewportContext inspectorContext_;
-
-		bool focusedGameObjectMarkedForErasure_;
 };
 
 #endif

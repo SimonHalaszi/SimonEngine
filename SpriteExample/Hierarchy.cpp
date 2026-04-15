@@ -1,7 +1,7 @@
 #include "Hierarchy.hpp"
 
-Hierarchy::Hierarchy(std::vector<std::unique_ptr<GameObject2D>>& rootObjects)
-	: rootObjects_(rootObjects), focusedGameObject_(nullptr), gameObjectSpecificView_(false), hierarchyY_(0)
+Hierarchy::Hierarchy(std::vector<std::unique_ptr<GameObject2D>>* rootObjects)
+	: hierarchyObjects_(rootObjects), rootObjects_(rootObjects), focusedGameObject_(nullptr), gameObjectSpecificView_(false), hierarchyY_(0), parentOfCurrentView_(nullptr)
 {
 	hierarchyTitle_.pos = { 0.0f, 1.0f - (1.0f / 16.0f) };
 	hierarchyTitle_.scale = { 1.0f, 1.0f / 16.0f };
@@ -19,7 +19,7 @@ Hierarchy::Hierarchy(std::vector<std::unique_ptr<GameObject2D>>& rootObjects)
 
 	establishHierarchyButtons();
 
-	lastKnownSizeOfRootObjects_ = rootObjects_.size();
+	lastKnownSizeOfHierarchyObjects_ = hierarchyObjects_->size();
 	focusedGameObjectIndex_ = -1;
 }
 
@@ -94,19 +94,35 @@ void Hierarchy::draw() const {
 }
 
 void Hierarchy::update() {
-	if (lastKnownSizeOfRootObjects_ != rootObjects_.size()) {
+	if (lastKnownSizeOfHierarchyObjects_ != hierarchyObjects_->size()) {
 		focusedGameObject_ = nullptr;
 		focusedGameObjectIndex_ = -1;
 		hierarchyButtons_.clear();
 		establishHierarchyButtons();
-		lastKnownSizeOfRootObjects_ = rootObjects_.size();
+		lastKnownSizeOfHierarchyObjects_ = hierarchyObjects_->size();
 	}
 
 	if (focusedGameObjectIndex_ != -1) {
-		std::string rootObjectName = rootObjects_[focusedGameObjectIndex_].get()->getName();
+		std::string objectName = (*hierarchyObjects_)[focusedGameObjectIndex_].get()->getName();
 		std::string buttonText = hierarchyButtons_[focusedGameObjectIndex_].getText();
-		if (rootObjectName != buttonText) {
-			hierarchyButtons_[focusedGameObjectIndex_].setText(rootObjectName);
+		if (objectName != buttonText) {
+			hierarchyButtons_[focusedGameObjectIndex_].setText(objectName);
+		}
+	}
+
+	if (InputManager::getInstance().isSpecialKeyPressed(mapSpecialKey(GLUT_KEY_F5))) {
+		std::cout << " Hierarchy::update() : Inspector marked focusedGameObject for erasure" << std::endl;
+		for (auto it = hierarchyObjects_->begin(); it != hierarchyObjects_->end();) {
+			GameObject2D* rO = it->get();
+
+			if (rO == focusedGameObject_) {
+				focusedGameObject_ = nullptr;
+				it = hierarchyObjects_->erase(it);
+				break;
+			}
+			else {
+				++it;
+			}
 		}
 	}
 
@@ -122,7 +138,7 @@ void Hierarchy::update() {
 		}
 		if (InputManager::getInstance().isSpecialKeyPressed(mapSpecialKey(GLUT_KEY_UP))) {
 			if (focusedGameObjectIndex_ > 0) {
-				std::swap(rootObjects_[focusedGameObjectIndex_], rootObjects_[focusedGameObjectIndex_ - 1]);
+				std::swap((*hierarchyObjects_)[focusedGameObjectIndex_], (*hierarchyObjects_)[focusedGameObjectIndex_ - 1]);
 				focusedGameObjectIndex_ -= 1;
 				
 				hierarchyButtons_.clear();
@@ -130,8 +146,8 @@ void Hierarchy::update() {
 			}
 		}
 		if (InputManager::getInstance().isSpecialKeyPressed(mapSpecialKey(GLUT_KEY_DOWN))) {
-			if (focusedGameObjectIndex_ >= 0 && focusedGameObjectIndex_ < rootObjects_.size() - 1) {
-				std::swap(rootObjects_[focusedGameObjectIndex_], rootObjects_[focusedGameObjectIndex_ + 1]);
+			if (focusedGameObjectIndex_ >= 0 && static_cast<size_t>(focusedGameObjectIndex_) + 1 < hierarchyObjects_->size()) {
+				std::swap((*hierarchyObjects_)[focusedGameObjectIndex_], (*hierarchyObjects_)[focusedGameObjectIndex_ + 1]);
 				focusedGameObjectIndex_ += 1;
 				
 				hierarchyButtons_.clear();
@@ -161,20 +177,50 @@ void Hierarchy::update() {
 			ColorRGB colors[2] = { color1, color2 };
 
 			if (focusIndex != -1) {
-				if (focusedGameObjectIndex_ >= 0 && focusedGameObjectIndex_ < hierarchyButtons_.size()) {
-					hierarchyButtons_[focusedGameObjectIndex_].setColor(colors[focusedGameObjectIndex_ % 2]);
+				if (focusedGameObjectIndex_ == focusIndex) {
+					// Re-clicked the same GameObject: drill into its children
+					GameObject2D* selected = (*hierarchyObjects_)[focusIndex].get();
+					parentOfCurrentView_ = selected;
+					hierarchyObjects_ = selected->getChildren();
+					focusedGameObject_ = nullptr;
+					focusedGameObjectIndex_ = -1;
+					hierarchyButtons_.clear();
+					establishHierarchyButtons();
+					lastKnownSizeOfHierarchyObjects_ = hierarchyObjects_->size();
+					std::cout << "Hierarchy::update() : Drilling into children of " << selected->getName() << std::endl;
+					hierarchyContext_.scrollOffsetY = 0.0f;
+					hierarchyContext_.scrollOffsetX = 0.0f;
 				}
-				focusedGameObject_ = rootObjects_[focusIndex].get();
-				focusedGameObjectIndex_ = focusIndex;
-				std::cout << "Hierarchy::update() : Focused onto GameObject at " << focusedGameObject_ << std::endl;
+				else {
+					if (focusedGameObjectIndex_ >= 0 && focusedGameObjectIndex_ < hierarchyButtons_.size()) {
+						hierarchyButtons_[focusedGameObjectIndex_].setColor(colors[focusedGameObjectIndex_ % 2]);
+					}
+					focusedGameObject_ = (*hierarchyObjects_)[focusIndex].get();
+					focusedGameObjectIndex_ = focusIndex;
+					std::cout << "Hierarchy::update() : Focused onto GameObject at " << focusedGameObject_ << std::endl;
+				}
 			}
 			else {
+				if (hierarchyObjects_ != rootObjects_) {
+					// Travel up using tracked parent
+					if (parentOfCurrentView_ && parentOfCurrentView_->hasParent()) {
+						parentOfCurrentView_ = parentOfCurrentView_->getParent();
+						hierarchyObjects_ = parentOfCurrentView_->getChildren();
+					}
+					else {
+						parentOfCurrentView_ = nullptr;
+						hierarchyObjects_ = rootObjects_;
+					}
+					hierarchyButtons_.clear();
+					establishHierarchyButtons();
+					lastKnownSizeOfHierarchyObjects_ = hierarchyObjects_->size();
+				}
 				if (focusedGameObjectIndex_ >= 0 && focusedGameObjectIndex_ < hierarchyButtons_.size()) {
 					hierarchyButtons_[focusedGameObjectIndex_].setColor(colors[focusedGameObjectIndex_ % 2]);
 				}
 				focusedGameObject_ = nullptr;
-				focusedGameObjectIndex_ = focusIndex;
-				std::cout << "Hierarchy::update() : Focused onto " << focusedGameObject_ << std::endl;
+				focusedGameObjectIndex_ = -1;
+				std::cout << "Hierarchy::update() : Unfocused, travelling up hierarchy" << std::endl;
 			}
 		}
 		if (focusedGameObjectIndex_ >= 0 && focusedGameObjectIndex_ < hierarchyButtons_.size()) {
@@ -193,7 +239,7 @@ void Hierarchy::establishHierarchyButtons() {
 	ColorRGB color2 = { 0.8f, 0.8f, 0.8f };
 	ColorRGB colors[2] = { color1, color2 };
 
-	for (auto itr = rootObjects_.begin(); itr != rootObjects_.end(); ++itr) {
+	for (auto itr = hierarchyObjects_->begin(); itr != hierarchyObjects_->end(); ++itr) {
 		hierarchyButtons_.push_back(
 			HierarchyButton(
 				startArea,

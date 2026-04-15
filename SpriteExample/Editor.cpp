@@ -4,7 +4,7 @@ Editor::Editor(Scene* scene)
 : scene_(scene), hierarchy_(scene->getRootObjects()), assetPanel_(scene)
 {
 	std::cout << "Editor::Editor() : Editor created " << std::endl;
-	std::vector<std::unique_ptr<GameObject2D>>& rootObjects = scene->getRootObjects();
+	std::vector<std::unique_ptr<GameObject2D>>* rootObjects = scene->getRootObjects();
 
 	middlePanelContext_.viewportX = HIERARCHY_PANEL_W;
 	middlePanelContext_.viewportY = OBJECTS_PANEL_H;
@@ -220,7 +220,7 @@ void Editor::editorUpdate() {
 	} 
 	else {
 		// Run this before hierarchy_ because it adds to rootObjects.
-		assetPanel_.update();
+		assetPanel_.update(hierarchy_.getActiveHierarchyVector(), hierarchy_.getParentOfCurrentView());
 		
 		topPanel_.update();
 
@@ -236,25 +236,6 @@ void Editor::editorUpdate() {
 
 		// Inspector can delete objects and such and should run last because it imperative it has updated state of pointers
 		inspector_.update();
-
-		if (inspector_.isFocusedGameObjectMarkedForErasure()) {
-			std::cout << "Editor::editorUpdate() : Editor erasing focusedGameObject" << std::endl;
-			std::vector<std::unique_ptr<GameObject2D>>& rootObjects_ = scene_->getRootObjects();
-			for (auto it = rootObjects_.begin(); it != rootObjects_.end();) {
-				GameObject2D* rO = it->get();
-
-				if (rO == focusedGameObject_) {
-					hierarchy_.setFocusedGameObject(nullptr);
-					inspector_.setFocusedGameObject(nullptr);
-					focusedGameObject_ = nullptr;
-					it = rootObjects_.erase(it);
-					break;
-				}
-				else {
-					++it;
-				}
-			}
-		}
 		scenePanel_.update();
 	}
 }

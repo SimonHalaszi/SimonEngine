@@ -16,7 +16,7 @@
 
 class Hierarchy {
 	public:
-		Hierarchy(std::vector<std::unique_ptr<GameObject2D>>& rootObjects);
+		Hierarchy(std::vector<std::unique_ptr<GameObject2D>>* rootObjects);
 		
 		void draw() const;
 		void update();
@@ -25,12 +25,16 @@ class Hierarchy {
 
 		void setFocusedGameObject(GameObject2D* focusedGameObject);
 		GameObject2D* focusedGameObject() const { return focusedGameObject_; }
+		std::vector<std::unique_ptr<GameObject2D>>* getActiveHierarchyVector() const { return hierarchyObjects_; }
+		GameObject2D* getParentOfCurrentView() const { return parentOfCurrentView_; }
 	
 	private:
 		void establishHierarchyButtons();
 
-		// Scene root objects
-		std::vector<std::unique_ptr<GameObject2D>>& rootObjects_;
+		// Actual objects in hierarchy
+		std::vector<std::unique_ptr<GameObject2D>>* hierarchyObjects_;
+		// Always points to rootObjects_
+		std::vector<std::unique_ptr<GameObject2D>>* const rootObjects_;
 
 		// Buttons
 		std::vector<HierarchyButton> hierarchyButtons_;
@@ -38,6 +42,9 @@ class Hierarchy {
 		// GameObject currently selected
 		GameObject2D* focusedGameObject_;
 		int focusedGameObjectIndex_;
+
+		// Parent of the current hierarchy level (nullptr when viewing root)
+		GameObject2D* parentOfCurrentView_;
 
 		// Flag for if editor is speficially editing a game object and that view should be rendered over scene
 		bool gameObjectSpecificView_;
@@ -52,7 +59,7 @@ class Hierarchy {
 		ViewportContext hierarchyContext_;
 
 		// Used to check if current hierarchyButtons are out of date
-		size_t lastKnownSizeOfRootObjects_;
+		size_t lastKnownSizeOfHierarchyObjects_;
 };
 
 #endif

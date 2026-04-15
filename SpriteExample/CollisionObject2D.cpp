@@ -28,6 +28,9 @@ void CollisionObject2D::setCollisionEnabled(bool enabled) {
 }
 
 void CollisionObject2D::rootOnStart() {
+    if (hasStarted_) {
+        return;
+    }
     GameObject2D::rootOnStart();
     collisionEnabled_ = true;
     registerToCollisionManager();
@@ -39,6 +42,11 @@ void CollisionObject2D::rootOnDestruction() {
 }
 
 void CollisionObject2D::rootEstablishFields() {
+    if (hasEstablishedFields_) {
+        return;
+    }
+    hasEstablishedFields_ = true;
+
     IFields_.push_back(std::make_unique<StringField>("Name", &name_));
     IFields_.push_back(std::make_unique<StringField>("Tag", &tag_));
     IFields_.push_back(std::make_unique<Transform2DField>("Local Transform", &localTransform_));

@@ -17,7 +17,7 @@ public:
 	AssetPanel(Scene* scene);
 
 	void draw() const;
-	void update();
+	void update(std::vector<std::unique_ptr<GameObject2D>>* hierarchyObjects_, GameObject2D* parentOfCurrentView);
 
 private:
 	Scene* scene_;

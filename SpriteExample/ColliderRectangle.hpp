@@ -11,6 +11,7 @@ public:
 	ColliderRectangle(Transform2D transform2D = {}, std::string tag = "") {
 		localTransform_ = transform2D;
 		tag_ = tag;
+		name_ = tag;
 	}
 
 	void onStart() override {}

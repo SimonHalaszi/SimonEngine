@@ -14,77 +14,82 @@
 
 // Drawing a square
 void drawSquare(
-	Vector2D pos,
-	float size, 
-	float angle, 
-	bool mirror,
-	bool flip,
-	ColorRGB c1 = { 1.0f, 1.0f, 1.0f },
-	ColorRGB c2 = { 1.0f, 1.0f, 1.0f },
-	ColorRGB c3 = { 1.0f, 1.0f, 1.0f },
-	ColorRGB c4 = { 1.0f, 1.0f, 1.0f }
+	const Vector2D& pos,
+	const float& size, 
+	const float& angle,
+	const bool& mirror,
+	const bool& flip,
+	const ColorRGB& c1,
+	const ColorRGB& c2,
+	const ColorRGB& c3,
+	const ColorRGB& c4
 );
 
 // Drawing a rectangle
 void drawRectangle(
-	Vector2D pos,
-	Vector2D scale,
-	float angle,
-	bool mirror,
-	bool flip,
-	ColorRGB c1 = { 1.0f, 1.0f, 1.0f },
-	ColorRGB c2 = { 1.0f, 1.0f, 1.0f },
-	ColorRGB c3 = { 1.0f, 1.0f, 1.0f },
-	ColorRGB c4 = { 1.0f, 1.0f, 1.0f }
+	const Vector2D& pos,
+	const Vector2D& scale,
+	const float& angle,
+	const bool& mirror,
+	const bool& flip,
+	const ColorRGB& c1,
+	const ColorRGB& c2,
+	const ColorRGB& c3,
+	const ColorRGB& c4
 );
 
 // Drawing a triangle
 void drawTriangle(
-	Vector2D pos,
-	float size, 
-	float angle, 
-	bool mirror,
-	bool flip,
-	ColorRGB c1 = { 1.0f, 1.0f, 1.0f },
-	ColorRGB c2 = { 1.0f, 1.0f, 1.0f },
-	ColorRGB c3 = { 1.0f, 1.0f, 1.0f }
+	const Vector2D& pos,
+	const float& size,
+	const float& angle,
+	const bool& mirror,
+	const bool& flip,
+	const ColorRGB& c1,
+	const ColorRGB& c2,
+	const ColorRGB& c3
 );
 
 // Drawing an image
 void drawImage(
-	Vector2D pos,
-	Vector2D size,
-	float angle, 
-	bool mirror, 
-	bool flip, 
-	GLuint textureID
+	const Vector2D& pos,
+	const Vector2D& size,
+	const float& angle,
+	const bool& mirror,
+	const bool& flip,
+	const GLuint& textureID
 );
 
 // Drawing a sprite
 void drawSprite(
-	Vector2D pos,
-	Vector2D size,
-	float angle,
-	bool mirror,
-	bool flip,
-	Sprite sprite
+	const Vector2D& pos,
+	const Vector2D& size,
+	const float& angle,
+	const bool& mirror,
+	const bool& flip,
+	const Sprite& sprite
 );
 
 // Drawing a line
 void drawLine(
-	Vector2D pos1,
-	Vector2D pos2,
-	ColorRGB c1, 
-	ColorRGB c2
+	const Vector2D& pos1,
+	const Vector2D& pos2,
+	const ColorRGB& c1,
+	const ColorRGB& c2
 );
 
 void drawText(
-	Vector2D pos,
-	std::string text,
-	float lineSpace,
-	ColorRGB color
+	const Vector2D& pos,
+	const std::string& text,
+	const float& lineSpace,
+	const ColorRGB& color
 );
 
-void drawTextCentered(Vector2D centerPos, const std::string& text, float lineSpace, ColorRGB color);
+void drawTextCentered(
+	const Vector2D& pos,
+	const std::string& text,
+	const float& lineSpace,
+	const ColorRGB& color
+);
 
 #endif

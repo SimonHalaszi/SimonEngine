@@ -3,7 +3,17 @@
 // Functions for drawing shapes, sprites, images, etc
 
 // Drawing a square
-void drawSquare(Vector2D pos, float size, float angle, bool mirror, bool flip, ColorRGB c1, ColorRGB c2, ColorRGB c3, ColorRGB c4) {
+void drawSquare(
+	const Vector2D& pos,
+	const float& size,
+	const float& angle,
+	const bool& mirror,
+	const bool& flip,
+	const ColorRGB& c1,
+	const ColorRGB& c2,
+	const ColorRGB& c3,
+	const ColorRGB& c4
+) {
 	glPushMatrix();
 
 	glTranslatef(pos.x, pos.y, 0.0f);
@@ -35,7 +45,17 @@ void drawSquare(Vector2D pos, float size, float angle, bool mirror, bool flip, C
 }
 
 // Drawing a rectangle
-void drawRectangle(Vector2D pos, Vector2D scale, float angle, bool mirror, bool flip, ColorRGB c1, ColorRGB c2, ColorRGB c3, ColorRGB c4) {
+void drawRectangle(
+	const Vector2D& pos,
+	const Vector2D& scale,
+	const float& angle,
+	const bool& mirror,
+	const bool& flip,
+	const ColorRGB& c1,
+	const ColorRGB& c2,
+	const ColorRGB& c3,
+	const ColorRGB& c4
+) {
 	glPushMatrix();
 
 	glTranslatef(pos.x, pos.y, 0.0f);
@@ -67,7 +87,16 @@ void drawRectangle(Vector2D pos, Vector2D scale, float angle, bool mirror, bool 
 }
 
 // Drawing a triangle
-void drawTriangle(Vector2D pos, float size, float angle, bool mirror, bool flip, ColorRGB c1, ColorRGB c2, ColorRGB c3) {
+void drawTriangle(
+	const Vector2D& pos,
+	const float& size,
+	const float& angle,
+	const bool& mirror,
+	const bool& flip,
+	const ColorRGB& c1,
+	const ColorRGB& c2,
+	const ColorRGB& c3
+) {
 	glPushMatrix();
 
 	glTranslatef(pos.x, pos.y, 0.0f);
@@ -98,7 +127,14 @@ void drawTriangle(Vector2D pos, float size, float angle, bool mirror, bool flip,
 }
 
 // Drawing an image
-void drawImage(Vector2D pos, Vector2D size, float angle, bool mirror, bool flip, GLuint textureID) {
+void drawImage(
+	const Vector2D& pos,
+	const Vector2D& size,
+	const float& angle,
+	const bool& mirror,
+	const bool& flip,
+	const GLuint& textureID
+) {
 	glPushMatrix();
 
 	glTranslatef(pos.x, pos.y, 0.0f);
@@ -134,7 +170,14 @@ void drawImage(Vector2D pos, Vector2D size, float angle, bool mirror, bool flip,
 }
 
 // Drawing a sprite
-void drawSprite(Vector2D pos, Vector2D size, float angle, bool mirror, bool flip, Sprite sprite) {
+void drawSprite(
+	const Vector2D& pos,
+	const Vector2D& size,
+	const float& angle,
+	const bool& mirror,
+	const bool& flip,
+	const Sprite& sprite
+) {
 	glPushMatrix();
 
 	glTranslatef(pos.x, pos.y, 0.0f);
@@ -172,7 +215,12 @@ void drawSprite(Vector2D pos, Vector2D size, float angle, bool mirror, bool flip
 }
 
 // Drawing a line
-void drawLine(Vector2D pos1, Vector2D pos2, ColorRGB c1, ColorRGB c2) {
+void drawLine(
+	const Vector2D& pos1,
+	const Vector2D& pos2,
+	const ColorRGB& c1,
+	const ColorRGB& c2
+) {
 	glBegin(GL_LINES);
 	glColor3f(c1.red, c1.green, c1.blue);
 	glVertex3f(pos1.x, pos1.y, 0.0f);
@@ -183,15 +231,22 @@ void drawLine(Vector2D pos1, Vector2D pos2, ColorRGB c1, ColorRGB c2) {
 }
 
 // Function to draw text
-void drawText(Vector2D pos, std::string text, float lineSpace, ColorRGB color) {
+void drawText(
+	const Vector2D& pos,
+	const std::string& text,
+	const float& lineSpace,
+	const ColorRGB& color
+) {
 
 	glColor3f(color.red, color.green, color.blue);
 	glRasterPos3f(pos.x, pos.y, 0.0f);
 
+	float tempPosY = pos.y;
+
 	for (int i = 0; text[i] != '\0'; i++) {
 		if (text[i] == '\n') {
-			pos.y -= lineSpace;
-			glRasterPos3f(pos.x, pos.y, 0.0f);
+			tempPosY -= lineSpace;
+			glRasterPos3f(pos.x, tempPosY, 0.0f);
 		}
 		else {
 			glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, text[i]);
@@ -209,7 +264,12 @@ void drawText(Vector2D pos, std::string text, float lineSpace, ColorRGB color) {
 	}
 }
 
-void drawTextCentered(Vector2D centerPos, const std::string& text, float lineSpace, ColorRGB color) {
+void drawTextCentered(
+	const Vector2D& pos,
+	const std::string& text,
+	const float& lineSpace,
+	const ColorRGB& color
+) {
 	glColor3f(color.red, color.green, color.blue);
 
 	void* font = GLUT_BITMAP_HELVETICA_18;
@@ -223,8 +283,8 @@ void drawTextCentered(Vector2D centerPos, const std::string& text, float lineSpa
 
 	int textHeight = 18;
 
-	float startX = centerPos.x - textWidth / 2.0f;
-	float startY = centerPos.y - textHeight / 2.0f;
+	float startX = pos.x - textWidth / 2.0f;
+	float startY = pos.y - textHeight / 2.0f;
 
 	glRasterPos2f(startX, startY);
 

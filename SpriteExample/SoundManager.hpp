@@ -45,6 +45,7 @@ public:
 		}
 	}
 
+	bool isAllPauseFlagged() const { return soundPauseFlag_ && musicPauseFlag_;  }
 	bool isSoundPauseFlagged() const { return soundPauseFlag_; }
 	bool isMusicPauseFlagged() const { return musicPauseFlag_; }
 

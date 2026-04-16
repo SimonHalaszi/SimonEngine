@@ -182,12 +182,12 @@ void Inspector::update() {
 				collider->setCollisionEnabled(collider->isCollisionEnabled());
 			}
 		}
-	}
 
-	const std::string& typedChars = InputManager::getInstance().getTypedChars();
-	if (!typedChars.empty()) {
-		for (auto& button : iFieldButtons_) {
-			button->handleKeyInput(typedChars);
+		const std::string& typedChars = InputManager::getInstance().getTypedChars();
+		if (!typedChars.empty()) {
+			for (auto& button : iFieldButtons_) {
+				button->handleKeyInput(typedChars);
+			}
 		}
 	}
 }

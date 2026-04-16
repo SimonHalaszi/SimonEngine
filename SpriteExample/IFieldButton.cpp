@@ -206,24 +206,6 @@ void IntIFieldButton::draw() const {
 		0,
 		{ 0.0f, 0.0f, 0.0f }
 	);
-	// Draw to button area a black rectangle and the word "set"
-	drawRectangle(
-		buttonArea_.pos,
-		buttonArea_.scale,
-		0.0f,
-		false,
-		false,
-		{ 0.0f, 0.0f, 0.0f },
-		{ 0.0f, 0.0f, 0.0f },
-		{ 0.0f, 0.0f, 0.0f },
-		{ 0.0f, 0.0f, 0.0f }
-	);
-	drawText(
-		{ buttonArea_.pos.x, buttonArea_.pos.y },
-		"set",
-		0,
-		{ 1.0f, 1.0f, 1.0f }
-	);
 	// Draw to button area a dark grey rectangle and entryBuffer_
 	drawRectangle(
 		textEntryArea_.pos,
@@ -239,6 +221,24 @@ void IntIFieldButton::draw() const {
 	drawText(
 		{ textEntryArea_.pos.x - textEntryArea_.scale.x, textEntryArea_.pos.y },
 		entryBuffer_,
+		0,
+		{ 1.0f, 1.0f, 1.0f }
+	);
+	// Draw to button area a black rectangle and the word "set"
+	drawRectangle(
+		buttonArea_.pos,
+		buttonArea_.scale,
+		0.0f,
+		false,
+		false,
+		{ 0.0f, 0.0f, 0.0f },
+		{ 0.0f, 0.0f, 0.0f },
+		{ 0.0f, 0.0f, 0.0f },
+		{ 0.0f, 0.0f, 0.0f }
+	);
+	drawText(
+		{ buttonArea_.pos.x, buttonArea_.pos.y },
+		"set",
 		0,
 		{ 1.0f, 1.0f, 1.0f }
 	);
@@ -301,24 +301,6 @@ void CharIFieldButton::draw() const {
 		0,
 		{ 0.0f, 0.0f, 0.0f }
 	);
-	// Draw to button area a black rectangle and the word "set"
-	drawRectangle(
-		buttonArea_.pos,
-		buttonArea_.scale,
-		0.0f,
-		false,
-		false,
-		{ 0.0f, 0.0f, 0.0f },
-		{ 0.0f, 0.0f, 0.0f },
-		{ 0.0f, 0.0f, 0.0f },
-		{ 0.0f, 0.0f, 0.0f }
-	);
-	drawText(
-		{ buttonArea_.pos.x, buttonArea_.pos.y },
-		"set",
-		0,
-		{ 1.0f, 1.0f, 1.0f }
-	);
 	// Draw to button area a dark grey rectangle and entryBuffer_
 	drawRectangle(
 		textEntryArea_.pos,
@@ -334,6 +316,24 @@ void CharIFieldButton::draw() const {
 	drawText(
 		{ textEntryArea_.pos.x - textEntryArea_.scale.x, textEntryArea_.pos.y },
 		entryBuffer_,
+		0,
+		{ 1.0f, 1.0f, 1.0f }
+	);
+	// Draw to button area a black rectangle and the word "set"
+	drawRectangle(
+		buttonArea_.pos,
+		buttonArea_.scale,
+		0.0f,
+		false,
+		false,
+		{ 0.0f, 0.0f, 0.0f },
+		{ 0.0f, 0.0f, 0.0f },
+		{ 0.0f, 0.0f, 0.0f },
+		{ 0.0f, 0.0f, 0.0f }
+	);
+	drawText(
+		{ buttonArea_.pos.x, buttonArea_.pos.y },
+		"set",
 		0,
 		{ 1.0f, 1.0f, 1.0f }
 	);
@@ -396,24 +396,6 @@ void FloatIFieldButton::draw() const {
 		0,
 		{ 0.0f, 0.0f, 0.0f }
 	);
-	// Draw to button area a black rectangle and the word "set"
-	drawRectangle(
-		buttonArea_.pos,
-		buttonArea_.scale,
-		0.0f,
-		false,
-		false,
-		{ 0.0f, 0.0f, 0.0f },
-		{ 0.0f, 0.0f, 0.0f },
-		{ 0.0f, 0.0f, 0.0f },
-		{ 0.0f, 0.0f, 0.0f }
-	);
-	drawText(
-		{ buttonArea_.pos.x, buttonArea_.pos.y },
-		"set",
-		0,
-		{ 1.0f, 1.0f, 1.0f }
-	);
 	// Draw to button area a dark grey rectangle and entryBuffer_
 	drawRectangle(
 		textEntryArea_.pos,
@@ -429,6 +411,24 @@ void FloatIFieldButton::draw() const {
 	drawText(
 		{ textEntryArea_.pos.x - textEntryArea_.scale.x, textEntryArea_.pos.y },
 		entryBuffer_,
+		0,
+		{ 1.0f, 1.0f, 1.0f }
+	);
+	// Draw to button area a black rectangle and the word "set"
+	drawRectangle(
+		buttonArea_.pos,
+		buttonArea_.scale,
+		0.0f,
+		false,
+		false,
+		{ 0.0f, 0.0f, 0.0f },
+		{ 0.0f, 0.0f, 0.0f },
+		{ 0.0f, 0.0f, 0.0f },
+		{ 0.0f, 0.0f, 0.0f }
+	);
+	drawText(
+		{ buttonArea_.pos.x, buttonArea_.pos.y },
+		"set",
 		0,
 		{ 1.0f, 1.0f, 1.0f }
 	);
@@ -491,24 +491,6 @@ void StringIFieldButton::draw() const {
 		0,
 		{ 0.0f, 0.0f, 0.0f }
 	);
-	// Draw to button area a black rectangle and the word "set"
-	drawRectangle(
-		buttonArea_.pos,
-		buttonArea_.scale,
-		0.0f,
-		false,
-		false,
-		{ 0.0f, 0.0f, 0.0f },
-		{ 0.0f, 0.0f, 0.0f },
-		{ 0.0f, 0.0f, 0.0f },
-		{ 0.0f, 0.0f, 0.0f }
-	);
-	drawText(
-		{ buttonArea_.pos.x, buttonArea_.pos.y },
-		"set",
-		0,
-		{ 1.0f, 1.0f, 1.0f }
-	);
 	// Draw to button area a dark grey rectangle and entryBuffer_
 	drawRectangle(
 		textEntryArea_.pos,
@@ -524,6 +506,24 @@ void StringIFieldButton::draw() const {
 	drawText(
 		{ textEntryArea_.pos.x - textEntryArea_.scale.x, textEntryArea_.pos.y },
 		entryBuffer_,
+		0,
+		{ 1.0f, 1.0f, 1.0f }
+	);
+	// Draw to button area a black rectangle and the word "set"
+	drawRectangle(
+		buttonArea_.pos,
+		buttonArea_.scale,
+		0.0f,
+		false,
+		false,
+		{ 0.0f, 0.0f, 0.0f },
+		{ 0.0f, 0.0f, 0.0f },
+		{ 0.0f, 0.0f, 0.0f },
+		{ 0.0f, 0.0f, 0.0f }
+	);
+	drawText(
+		{ buttonArea_.pos.x, buttonArea_.pos.y },
+		"set",
 		0,
 		{ 1.0f, 1.0f, 1.0f }
 	);

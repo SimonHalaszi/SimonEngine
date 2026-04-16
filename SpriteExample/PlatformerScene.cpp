@@ -351,14 +351,6 @@ void PlatformerScene::draw() const { }
 
 // For scene/game specific updates/inputs (Updates/Inputs that are not related to GameObjects)
 void PlatformerScene::update() {
-	if (InputManager::getInstance().isPressed('m')) {
-		if (SoundManager::getInstance().isMusicPauseFlagged()) {
-			SoundManager::getInstance().unpauseMusic();
-		}
-		else {
-			SoundManager::getInstance().pauseMusic();
-		}
-	}
 	if (InputManager::getInstance().isPressed('p')) {
 		if (!pauseFlag_ && isUpdatingAnimations_) {
 			pauseFlag_ = true;

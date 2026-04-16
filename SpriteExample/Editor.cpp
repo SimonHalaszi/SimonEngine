@@ -211,6 +211,7 @@ void Editor::editorUpdate() {
 		if (InputManager::getInstance().isPressed('r')) {
 			editorX_ = 0.0f;
 			editorY_ = 0.0f;
+			editorZoomFactor_ = 1.0f;
 		}
 	}
 
@@ -248,6 +249,7 @@ Editor::~Editor() {
 void Editor::enterEditor() { 
 	inEditor_ = true;
 	std::cout << "Editor::enterEditor() : Entering editor mode " << std::endl;
+
 	SoundManager::getInstance().pauseAll(); 
 }
 

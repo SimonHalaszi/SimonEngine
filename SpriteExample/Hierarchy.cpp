@@ -178,7 +178,7 @@ void Hierarchy::update() {
 
 			if (focusIndex != -1) {
 				if (focusedGameObjectIndex_ == focusIndex) {
-					// Re-clicked the same GameObject: drill into its children
+					// Re-clicked the same GameObject, hierarchy into its children
 					GameObject2D* selected = (*hierarchyObjects_)[focusIndex].get();
 					parentOfCurrentView_ = selected;
 					hierarchyObjects_ = selected->getChildren();

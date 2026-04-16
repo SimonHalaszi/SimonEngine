@@ -38,6 +38,7 @@ public:
 	BoolIFieldButton(
 		ViewportArea viewportArea,
 		ColorRGB color,
+		const std::string& name,
 		BoolField* field
 	);
 
@@ -75,7 +76,11 @@ public:
 	//			verify->appendToBuffer(InputManager::getInstance().getBufferAdditions);
 
 protected:
-	TextEntryIFieldButton(ViewportArea viewportArea, ColorRGB color, std::string name);
+	TextEntryIFieldButton(
+		const ViewportArea& viewportArea,
+		const ColorRGB& color,
+		const std::string& name
+	);
 
 	// Automatically calculated based on viewportArea
 	ViewportArea textEntryArea_;
@@ -89,9 +94,9 @@ class IntIFieldButton : public TextEntryIFieldButton {
 public:
 	IntIFieldButton();
 	IntIFieldButton(
-		ViewportArea viewportArea,
-		ColorRGB color,
-		std::string name,
+		const ViewportArea& viewportArea,
+		const ColorRGB& color,
+		const std::string& name,
 		IntField* field
 	);
 
@@ -111,9 +116,9 @@ class CharIFieldButton : public TextEntryIFieldButton {
 public:
 	CharIFieldButton();
 	CharIFieldButton(
-		ViewportArea viewportArea,
-		ColorRGB color,
-		std::string name,
+		const ViewportArea& viewportArea,
+		const ColorRGB& color,
+		const std::string& name,
 		CharField* field
 	);
 
@@ -133,9 +138,9 @@ class FloatIFieldButton : public TextEntryIFieldButton {
 public:
 	FloatIFieldButton();
 	FloatIFieldButton(
-		ViewportArea viewportArea,
-		ColorRGB color,
-		std::string name,
+		const ViewportArea& viewportArea,
+		const ColorRGB& color,
+		const std::string name,
 		FloatField* field
 	);
 
@@ -155,9 +160,9 @@ class StringIFieldButton : public TextEntryIFieldButton {
 public:
 	StringIFieldButton();
 	StringIFieldButton(
-		ViewportArea viewportArea,
-		ColorRGB color,
-		std::string name,
+		const ViewportArea& viewportArea,
+		const ColorRGB& color,
+		const std::string& name,
 		StringField* field
 	);
 
@@ -177,9 +182,9 @@ class Vector2DIFieldButton : public IFieldButton {
 public:
 	Vector2DIFieldButton();
 	Vector2DIFieldButton(
-		ViewportArea viewportArea,
-		ColorRGB color,
-		std::string name,
+		const ViewportArea& viewportArea,
+		const ColorRGB& color,
+		const std::string name,
 		Vector2DField* field
 	);
 
@@ -205,9 +210,9 @@ class Transform2DIFieldButton : public IFieldButton {
 public:
 	Transform2DIFieldButton();
 	Transform2DIFieldButton(
-		ViewportArea viewportArea,
-		ColorRGB color,
-		std::string name,
+		const ViewportArea& viewportArea,
+		const ColorRGB& color,
+		const std::string& name,
 		Transform2DField* field
 	);
 

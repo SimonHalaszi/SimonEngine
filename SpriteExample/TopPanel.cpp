@@ -248,5 +248,10 @@ void TopPanel::aboutButtonsAction() {
 void TopPanel::supportButtonAction() {
 	std::cout << "-------------- So You Hate the Product? ---------------" << std::endl;
 	std::cout << "Email Me! shalaszi@kent.edu" << std::endl;
+	std::cout << "Or keep all your mean words to yourself" << std::endl;
+	std::cout << std::endl;
+	std::cout << "'Don't ask me questions (questions)'" << std::endl;
+	std::cout << "That you don't want (want)" << std::endl;
+	std::cout << "The answers to (to)' - Julian Casablancas" << std::endl;
 	std::cout << "-------------------------------------------------------" << std::endl;
 }

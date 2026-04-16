@@ -11,11 +11,12 @@ IFieldButton::IFieldButton() :
 BoolIFieldButton::BoolIFieldButton(
 	ViewportArea viewportArea,
 	ColorRGB color,
+	const std::string& name,
 	BoolField* field
 ) {
 	viewportArea_ = viewportArea;
 	color_ = color;
-	name_ = field->getName();
+	name_ = name;
 	field_ = field;
 
 	constexpr float LH = 1.0f / 16.0f;
@@ -102,7 +103,11 @@ TextEntryIFieldButton::TextEntryIFieldButton() {
 	clickedTextEntryArea_ = false;
 }
 
-TextEntryIFieldButton::TextEntryIFieldButton(ViewportArea viewportArea, ColorRGB color, std::string name) {
+TextEntryIFieldButton::TextEntryIFieldButton(
+	const ViewportArea& viewportArea,
+	const ColorRGB& color,
+	const std::string& name
+) {
 	viewportArea_ = viewportArea;
 	color_ = color;
 	name_ = name;
@@ -173,9 +178,9 @@ IntIFieldButton::IntIFieldButton()
 {}
 
 IntIFieldButton::IntIFieldButton(
-	ViewportArea viewportArea,
-	ColorRGB color,
-	std::string name,
+	const ViewportArea& viewportArea,
+	const ColorRGB& color,
+	const std::string& name,
 	IntField* field
 ) : TextEntryIFieldButton(viewportArea, color, name), field_(field)
 {
@@ -226,16 +231,16 @@ void IntIFieldButton::draw() const {
 		0.0f,
 		false,
 		false,
-		{ 0.90f, 0.90f, 0.90f },
-		{ 0.90f, 0.90f, 0.90f },
-		{ 0.90f, 0.90f, 0.90f },
-		{ 0.90f, 0.90f, 0.90f }
+		{ 0.20f, 0.20f, 0.20f },
+		{ 0.20f, 0.20f, 0.20f },
+		{ 0.20f, 0.20f, 0.20f },
+		{ 0.20f, 0.20f, 0.20f }
 	);
 	drawText(
 		{ textEntryArea_.pos.x - textEntryArea_.scale.x, textEntryArea_.pos.y },
 		entryBuffer_,
 		0,
-		{ 0.0f, 0.0f, 0.0f }
+		{ 1.0f, 1.0f, 1.0f }
 	);
 }
 
@@ -268,9 +273,9 @@ CharIFieldButton::CharIFieldButton()
 {}
 
 CharIFieldButton::CharIFieldButton(
-	ViewportArea viewportArea,
-	ColorRGB color,
-	std::string name,
+	const ViewportArea& viewportArea,
+	const ColorRGB& color,
+	const std::string& name,
 	CharField* field
 ) : TextEntryIFieldButton(viewportArea, color, name), field_(field)
 {
@@ -321,16 +326,16 @@ void CharIFieldButton::draw() const {
 		0.0f,
 		false,
 		false,
-		{ 0.90f, 0.90f, 0.90f },
-		{ 0.90f, 0.90f, 0.90f },
-		{ 0.90f, 0.90f, 0.90f },
-		{ 0.90f, 0.90f, 0.90f }
+		{ 0.20f, 0.20f, 0.20f },
+		{ 0.20f, 0.20f, 0.20f },
+		{ 0.20f, 0.20f, 0.20f },
+		{ 0.20f, 0.20f, 0.20f }
 	);
 	drawText(
 		{ textEntryArea_.pos.x - textEntryArea_.scale.x, textEntryArea_.pos.y },
 		entryBuffer_,
 		0,
-		{ 0.0f, 0.0f, 0.0f }
+		{ 1.0f, 1.0f, 1.0f }
 	);
 }
 
@@ -363,9 +368,9 @@ FloatIFieldButton::FloatIFieldButton()
 {}
 
 FloatIFieldButton::FloatIFieldButton(
-	ViewportArea viewportArea,
-	ColorRGB color,
-	std::string name,
+	const ViewportArea& viewportArea,
+	const ColorRGB& color,
+	const std::string name,
 	FloatField* field
 ) : TextEntryIFieldButton(viewportArea, color, name), field_(field)
 {
@@ -416,16 +421,16 @@ void FloatIFieldButton::draw() const {
 		0.0f,
 		false,
 		false,
-		{ 0.90f, 0.90f, 0.90f },
-		{ 0.90f, 0.90f, 0.90f },
-		{ 0.90f, 0.90f, 0.90f },
-		{ 0.90f, 0.90f, 0.90f }
+		{ 0.20f, 0.20f, 0.20f },
+		{ 0.20f, 0.20f, 0.20f },
+		{ 0.20f, 0.20f, 0.20f },
+		{ 0.20f, 0.20f, 0.20f }
 	);
 	drawText(
 		{ textEntryArea_.pos.x - textEntryArea_.scale.x, textEntryArea_.pos.y },
 		entryBuffer_,
 		0,
-		{ 0.0f, 0.0f, 0.0f }
+		{ 1.0f, 1.0f, 1.0f }
 	);
 }
 
@@ -458,9 +463,9 @@ StringIFieldButton::StringIFieldButton()
 {}
 
 StringIFieldButton::StringIFieldButton(
-	ViewportArea viewportArea,
-	ColorRGB color,
-	std::string name,
+	const ViewportArea& viewportArea,
+	const ColorRGB& color,
+	const std::string& name,
 	StringField* field
 ) : TextEntryIFieldButton(viewportArea, color, name), field_(field)
 {
@@ -511,16 +516,16 @@ void StringIFieldButton::draw() const {
 		0.0f,
 		false,
 		false,
-		{ 0.95f, 0.95f, 0.95f },
-		{ 0.95f, 0.95f, 0.95f },
-		{ 0.95f, 0.95f, 0.95f },
-		{ 0.95f, 0.95f, 0.95f }
+		{ 0.20f, 0.20f, 0.20f },
+		{ 0.20f, 0.20f, 0.20f },
+		{ 0.20f, 0.20f, 0.20f },
+		{ 0.20f, 0.20f, 0.20f }
 	);
 	drawText(
 		{ textEntryArea_.pos.x - textEntryArea_.scale.x, textEntryArea_.pos.y },
 		entryBuffer_,
 		0,
-		{ 0.0f, 0.0f, 0.0f }
+		{ 1.0f, 1.0f, 1.0f }
 	);
 }
 
@@ -552,9 +557,9 @@ Vector2DIFieldButton::Vector2DIFieldButton() {
 }
 
 Vector2DIFieldButton::Vector2DIFieldButton(
-	ViewportArea viewportArea,
-	ColorRGB color,
-	std::string name,
+	const ViewportArea& viewportArea,
+	const ColorRGB& color,
+	const std::string name,
 	Vector2DField* field
 ) {
 	viewportArea_ = viewportArea;
@@ -565,15 +570,20 @@ Vector2DIFieldButton::Vector2DIFieldButton(
 	float topY = viewportArea.pos.y + viewportArea.scale.y;
 	float cursor = topY - 2.0f * layerHeight;
 
+	ColorRGB subColor = color_;
+	subColor.red -= 0.2f;
+	subColor.green -= 0.2f;
+	subColor.blue -= 0.2f;
+
 	// X FloatIFieldButton: 2 layers
 	float subFieldHalfHeight = 2.0f * layerHeight;
 	ViewportArea xArea = { { 0.0f, cursor - subFieldHalfHeight }, { 1.0f, subFieldHalfHeight } };
-	x_ = FloatIFieldButton(xArea, color_, "x", &field->getXField());
+	x_ = FloatIFieldButton(xArea, subColor, "    x", &field->getXField());
 	cursor -= 2.0f * subFieldHalfHeight;
 
 	// Y FloatIFieldButton: 2 layers
 	ViewportArea yArea = { { 0.0f, cursor - subFieldHalfHeight }, { 1.0f, subFieldHalfHeight } };
-	y_ = FloatIFieldButton(yArea, color_, "y", &field->getYField());
+	y_ = FloatIFieldButton(yArea, subColor, "    y", &field->getYField());
 }
 
 bool Vector2DIFieldButton::handleClick(const ViewportContext& context) {
@@ -616,9 +626,9 @@ Transform2DIFieldButton::Transform2DIFieldButton() {
 }
 
 Transform2DIFieldButton::Transform2DIFieldButton(
-	ViewportArea viewportArea,
-	ColorRGB color,
-	std::string name,
+	const ViewportArea& viewportArea,
+	const ColorRGB& color,
+	const std::string& name,
 	Transform2DField* field
 ) {
 	viewportArea_ = viewportArea;
@@ -629,32 +639,38 @@ Transform2DIFieldButton::Transform2DIFieldButton(
 	float topY = viewportArea.pos.y + viewportArea.scale.y;
 	float cursor = topY - 2.0f * layerHeight; // skip layer 0 (name label)
 
+
+	ColorRGB subColor = color_;
+	subColor.red -= 0.2f;
+	subColor.green -= 0.2f;
+	subColor.blue -= 0.2f;
+
 	// Position Vector2D: 5 layers
 	float vec2HalfHeight = 5.0f * layerHeight;
 	ViewportArea posArea = { { 0.0f, cursor - vec2HalfHeight }, { 1.0f, vec2HalfHeight } };
-	pos_ = Vector2DIFieldButton(posArea, color_, "pos", &field->getPosField());
+	pos_ = Vector2DIFieldButton(posArea, subColor, "    pos", &field->getPosField());
 	cursor -= 2.0f * vec2HalfHeight;
 
 	// Scale Vector2D: 5 layers
 	ViewportArea scaleArea = { { 0.0f, cursor - vec2HalfHeight }, { 1.0f, vec2HalfHeight } };
-	scale_ = Vector2DIFieldButton(scaleArea, color_, "scale", &field->getScaleField());
+	scale_ = Vector2DIFieldButton(scaleArea, subColor, "    scale", &field->getScaleField());
 	cursor -= 2.0f * vec2HalfHeight;
 
 	// Rotation Float: 2 layers
 	float floatHalfHeight = 2.0f * layerHeight;
 	ViewportArea rotArea = { { 0.0f, cursor - floatHalfHeight }, { 1.0f, floatHalfHeight } };
-	rotation_ = FloatIFieldButton(rotArea, color_, "rotation", &field->getRotationField());
+	rotation_ = FloatIFieldButton(rotArea, subColor, "    rotation", &field->getRotationField());
 	cursor -= 2.0f * floatHalfHeight;
 
 	// Mirror Bool: 1 layer
 	float boolHalfHeight = layerHeight;
 	ViewportArea mirrorArea = { { 0.0f, cursor - boolHalfHeight }, { 1.0f, boolHalfHeight } };
-	mirror_ = BoolIFieldButton(mirrorArea, color_, &field->getMirrorField());
+	mirror_ = BoolIFieldButton(mirrorArea, subColor, "    mirror", &field->getMirrorField());
 	cursor -= 2.0f * boolHalfHeight;
 
 	// Flip Bool: 1 layer
 	ViewportArea flipArea = { { 0.0f, cursor - boolHalfHeight }, { 1.0f, boolHalfHeight } };
-	flip_ = BoolIFieldButton(flipArea, color_, &field->getFlipField());
+	flip_ = BoolIFieldButton(flipArea, subColor, "    flip", &field->getFlipField());
 }
 
 bool Transform2DIFieldButton::handleClick(const ViewportContext& context) {

@@ -96,9 +96,7 @@ void Inspector::establishIFieldButtons() {
 	float topCursor = inspectorTitle_.pos.y - inspectorTitle_.scale.y;
 	int i = 0;
 
-	ColorRGB color1 = { 1.0f, 1.0f, 1.0f };
-	ColorRGB color2 = { 0.8f, 0.8f, 0.8f };
-	ColorRGB colors[2] = { color1, color2 };
+	ColorRGB color = { 1.0f, 1.0f, 1.0f };
 
 	for (auto itr = iFields_->begin(); itr != iFields_->end(); ++itr) {
 		IField* rawField = itr->get();
@@ -106,43 +104,43 @@ void Inspector::establishIFieldButtons() {
 		if (auto* f = dynamic_cast<Transform2DField*>(rawField)) {
 			float halfHeight = 15.0f * layerHeight;
 			ViewportArea area = { { 0.0f, topCursor - halfHeight }, { 1.0f, halfHeight } };
-			iFieldButtons_.push_back(std::make_unique<Transform2DIFieldButton>(area, colors[i % 2], f->getName(), f));
+			iFieldButtons_.push_back(std::make_unique<Transform2DIFieldButton>(area, color, f->getName(), f));
 			topCursor -= halfHeight * 2.0f;
 		}
 		else if (auto* f = dynamic_cast<Vector2DField*>(rawField)) {
 			float halfHeight = 5.0f * layerHeight;
 			ViewportArea area = { { 0.0f, topCursor - halfHeight }, { 1.0f, halfHeight } };
-			iFieldButtons_.push_back(std::make_unique<Vector2DIFieldButton>(area, colors[i % 2], f->getName(), f));
+			iFieldButtons_.push_back(std::make_unique<Vector2DIFieldButton>(area, color, f->getName(), f));
 			topCursor -= halfHeight * 2.0f;
 		}
 		else if (auto* f = dynamic_cast<BoolField*>(rawField)) {
 			float halfHeight = 1.0f * layerHeight;
 			ViewportArea area = { { 0.0f, topCursor - halfHeight }, { 1.0f, halfHeight } };
-			iFieldButtons_.push_back(std::make_unique<BoolIFieldButton>(area, colors[i % 2], f));
+			iFieldButtons_.push_back(std::make_unique<BoolIFieldButton>(area, color, f->getName(), f));
 			topCursor -= halfHeight * 2.0f;
 		}
 		else if (auto* f = dynamic_cast<IntField*>(rawField)) {
 			float halfHeight = 2.0f * layerHeight;
 			ViewportArea area = { { 0.0f, topCursor - halfHeight }, { 1.0f, halfHeight } };
-			iFieldButtons_.push_back(std::make_unique<IntIFieldButton>(area, colors[i % 2], f->getName(), f));
+			iFieldButtons_.push_back(std::make_unique<IntIFieldButton>(area, color, f->getName(), f));
 			topCursor -= halfHeight * 2.0f;
 		}
 		else if (auto* f = dynamic_cast<CharField*>(rawField)) {
 			float halfHeight = 2.0f * layerHeight;
 			ViewportArea area = { { 0.0f, topCursor - halfHeight }, { 1.0f, halfHeight } };
-			iFieldButtons_.push_back(std::make_unique<CharIFieldButton>(area, colors[i % 2], f->getName(), f));
+			iFieldButtons_.push_back(std::make_unique<CharIFieldButton>(area, color, f->getName(), f));
 			topCursor -= halfHeight * 2.0f;
 		}
 		else if (auto* f = dynamic_cast<FloatField*>(rawField)) {
 			float halfHeight = 2.0f * layerHeight;
 			ViewportArea area = { { 0.0f, topCursor - halfHeight }, { 1.0f, halfHeight } };
-			iFieldButtons_.push_back(std::make_unique<FloatIFieldButton>(area, colors[i % 2], f->getName(), f));
+			iFieldButtons_.push_back(std::make_unique<FloatIFieldButton>(area, color, f->getName(), f));
 			topCursor -= halfHeight * 2.0f;
 		}
 		else if (auto* f = dynamic_cast<StringField*>(rawField)) {
 			float halfHeight = 2.0f * layerHeight;
 			ViewportArea area = { { 0.0f, topCursor - halfHeight }, { 1.0f, halfHeight } };
-			iFieldButtons_.push_back(std::make_unique<StringIFieldButton>(area, colors[i % 2], f->getName(), f));
+			iFieldButtons_.push_back(std::make_unique<StringIFieldButton>(area, color, f->getName(), f));
 			topCursor -= halfHeight * 2.0f;
 		}
 		++i;

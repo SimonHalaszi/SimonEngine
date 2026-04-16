@@ -200,10 +200,10 @@ void TopPanel::quitButtonAction() {
 void TopPanel::controlsButtonAction() {
 	std::cout << "---------------------- Controls! ----------------------" << std::endl;
 	std::cout << "----- From Anywhere -----" << std::endl;
-	std::cout << "F1: Enter Game mode from Editor" << std::endl;
-	std::cout << "F2: Enter Editor mode from Game, with current Game state" << std::endl;
-	std::cout << "F3: Reset Game in Editor mode" << std::endl;
-	std::cout << "F4: Reset Game in Game mode" << std::endl;
+	std::cout << "F1: Enter Scene mode from Editor" << std::endl;
+	std::cout << "F2: Enter Editor mode from Scene, with current Scene state" << std::endl;
+	std::cout << "F3: Reset Scene in Editor mode" << std::endl;
+	std::cout << "F4: Reset Scene in Scene mode" << std::endl;
 	std::cout << "F5: To delete focused GameObject" << std::endl;
 	std::cout << "-------------------------" << std::endl;
 	std::cout << "----- While Hovering Over Scene View -----" << std::endl;

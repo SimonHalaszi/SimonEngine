@@ -8,7 +8,7 @@
 #include <vector>
 #include <string>
 
-// Game Object Factory, Add more options in GameObjectFactory.cpp
+// Game Object Factory, Add more options in AssetFactory.cpp
 class AssetFactory {
 public:
 	static AssetFactory& getInstance() {

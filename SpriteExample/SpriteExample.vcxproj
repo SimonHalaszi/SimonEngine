@@ -140,6 +140,7 @@
     <ClCompile Include="IFieldButton.cpp" />
     <ClCompile Include="HierarchyButton.cpp" />
     <ClCompile Include="SceneButton.cpp" />
+    <ClCompile Include="SceneFactory.cpp" />
     <ClCompile Include="ScenePanel.cpp" />
     <ClCompile Include="VoidButton.cpp" />
     <ClCompile Include="CameraAndUI.cpp" />
@@ -225,6 +226,9 @@
     <ClInclude Include="UITextElement.hpp" />
     <ClInclude Include="Utilities.hpp" />
     <ClInclude Include="WindowConstants.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="SceneFactory.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

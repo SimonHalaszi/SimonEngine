@@ -36,7 +36,8 @@ class Editor {
 
 		~Editor();
 	private:
-		bool inEditor_ = false;
+		bool inEditor_ = true;
+		bool canSave_ = true;
 
 		Scene* scene_;
 
@@ -55,6 +56,8 @@ class Editor {
 
 		// GameObject currently selected (Pulled from Hierarchy, then pushed to Inspector)
 		GameObject2D* focusedGameObject_;
+
+		std::string saveFilePath_;
 };
 
 #endif

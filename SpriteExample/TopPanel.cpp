@@ -4,61 +4,100 @@ TopPanel::TopPanel() {
 	float topPanelButtonWidth = 1.0f / 8.0f;
 	float topPanelButtonHeight = 1.0f;
 
-	// In top panel viewport - ONLY store viewport coordinates
+	ViewportArea menuButtonArea = {
+		{ -1.0f + (topPanelButtonWidth), 0.0f },
+		{ topPanelButtonWidth, topPanelButtonHeight }
+	};
+
+	ViewportArea helpButtonArea = {
+		{ -1.0f + (topPanelButtonWidth * 3), 0.0f },
+		{ topPanelButtonWidth, topPanelButtonHeight }
+	};
+
 	menuButton_ = VoidButton(
-		{ { -1.0f + topPanelButtonWidth, 0.0f },
-		{ topPanelButtonWidth, topPanelButtonHeight } },
+		menuButtonArea,
 		{ 1.0f, 1.0f, 1.0f },
 		"Menu",
 		[this]() { menuButtonAction(); }
 	);
-
 	helpButton_ = VoidButton(
-		{ { -1.0f + (topPanelButtonWidth * 3), 0.0f },
-		{ topPanelButtonWidth, topPanelButtonHeight } },
+		helpButtonArea,
 		{ 0.8f, 0.8f, 0.8f },
 		"Help",
 		[this]() { helpButtonAction(); }
 	);
 
 	float globalPanelButtonWidth = 1.0f / 8.0f;
-	float globalPanelButtonHeight = 1.0f / (ENGINE_WIN_H / TOP_PANEL_H);
+	float globalPanelButtonHeight = 1.0f / float(ENGINE_WIN_H / TOP_PANEL_H);
+	float centerDifferenceHeight = globalPanelButtonHeight * 2.0f;
+	float centerDifferenceWidth = globalPanelButtonWidth * 2.0f;
 
-	// In global viewport - ONLY store viewport coordinates
+	ViewportArea menuDropButtonArea = {
+		{ -1.0f + globalPanelButtonWidth, 1.0f - (globalPanelButtonHeight + centerDifferenceHeight) },
+		{ globalPanelButtonWidth, globalPanelButtonHeight }
+	};
+
 	menuDropButtons_.push_back(
 		VoidButton(
-			{ { -1.0f + globalPanelButtonWidth, 1.0f - (globalPanelButtonHeight * 3) },
-			{ globalPanelButtonWidth, globalPanelButtonHeight } },
-			{ 0.9f, 0.1f, 0.1f },
+			menuDropButtonArea,
+			{ 0.6f, 0.9f, 0.6f },
+			"Save",
+			[this]() { saveButtonAction(); }
+		)
+	);
+
+	menuDropButtonArea.pos.y -= centerDifferenceHeight;
+
+	menuDropButtons_.push_back(
+		VoidButton(
+			menuDropButtonArea,
+			{ 0.6f, 0.6f, 0.9f },
+			"Load",
+			[this]() { loadButtonAction(); }
+		)
+	);
+
+	menuDropButtonArea.pos.y -= centerDifferenceHeight;
+
+	menuDropButtons_.push_back(
+		VoidButton(
+			menuDropButtonArea,
+			{ 0.9f, 0.6f, 0.6f },
 			"Quit",
 			[this]() { quitButtonAction(); }
 		)
 	);
 
+	ViewportArea helpDropButtonArea = {
+		{ -1.0f + (globalPanelButtonWidth + centerDifferenceWidth), 1.0f - (globalPanelButtonHeight + centerDifferenceHeight) },
+		{ globalPanelButtonWidth, globalPanelButtonHeight }
+	};
+
 	helpDropButtons_.push_back(
 		VoidButton(
-			{ { -1.0f + (globalPanelButtonWidth * 3), 1.0f - (globalPanelButtonHeight * 3) },
-			{ globalPanelButtonWidth, globalPanelButtonHeight } },
+			helpDropButtonArea,
 			{ 1.0f, 1.0f, 1.0f },
 			"Controls",
 			[this]() { controlsButtonAction(); }
 		)
 	);
 
+	helpDropButtonArea.pos.y -= centerDifferenceHeight;
+
 	helpDropButtons_.push_back(
 		VoidButton(
-			{ { -1.0f + (globalPanelButtonWidth * 3), 1.0f - (globalPanelButtonHeight * 5) },
-			{ globalPanelButtonWidth, globalPanelButtonHeight } },
+			helpDropButtonArea,
 			{ 0.8f, 0.8f, 0.8f },
 			"About",
 			[this]() { aboutButtonsAction(); }
 		)
 	);
 
+	helpDropButtonArea.pos.y -= centerDifferenceHeight;
+
 	helpDropButtons_.push_back(
 		VoidButton(
-			{ { -1.0f + (globalPanelButtonWidth * 3), 1.0f - (globalPanelButtonHeight * 7) },
-			{ globalPanelButtonWidth, globalPanelButtonHeight } },
+			helpDropButtonArea,
 			{ 1.0f, 1.0f, 1.0f },
 			"Support",
 			[this]() { supportButtonAction(); }
@@ -191,6 +230,14 @@ void TopPanel::update() {
 void TopPanel::menuButtonAction() { menuDropActive_ = !menuDropActive_; }
 
 void TopPanel::helpButtonAction() { helpDropActive_ = !helpDropActive_; }
+
+void TopPanel::saveButtonAction() {
+
+}
+
+void TopPanel::loadButtonAction() {
+
+}
 
 void TopPanel::quitButtonAction() {
 	std::cout << "TopPanel::quitButtonAction() : Menu quit button has flagged for quitting" << std::endl;

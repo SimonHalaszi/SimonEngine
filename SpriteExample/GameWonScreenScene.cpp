@@ -7,6 +7,8 @@
 GameWonScreenScene::GameWonScreenScene() :
 	Scene(244, 244, 10)
 {
+	saveFilePath_ = "../EditorSaves/GameWonScreenScene";
+
 	backgroundSpriteFilePath_ = "sprite/Background.jpg";
 	backgroundSprite_ = "backgroundSprite";
 	gameWonMusicFilePath_ = "audio/CBS.mp3";

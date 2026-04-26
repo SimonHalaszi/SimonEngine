@@ -150,6 +150,8 @@ void Game::animationTimer(int v) {
 	glutTimerFunc(int(1000 / animationUpdatesPerSecond), GAMEanimationTimer, v); // Creates a frame delay that is counted in miliseconds
 }
 
+#include "SceneFactory.hpp";
+
 void Game::init() {
 	glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE); // Changed to RGBA also added Double buffering
 	glutInitWindowSize(ENGINE_WIN_W, ENGINE_WIN_H); // window size
@@ -173,7 +175,7 @@ void Game::init() {
 
 	if (!currentScene_) {
 		// THIS IS THE INITIAL SCENE
-		currentScene_ = std::make_unique<TitleScreenScene>();
+		currentScene_ = SceneFactory::getInstance().defaultScene();
 	}
 
 	if (currentScene_) {

@@ -204,6 +204,9 @@
     <ClCompile Include="SceneButton.cpp">
       <Filter>Source Files\Editor\ScenePanel</Filter>
     </ClCompile>
+    <ClCompile Include="SceneFactory.cpp">
+      <Filter>Source Files\Editor\ScenePanel</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.hpp">
@@ -350,5 +353,10 @@
     <ClInclude Include="SceneButton.hpp">
       <Filter>Header Files\Editor\ScenePanel</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="SceneFactory.hpp">
+      <Filter>Header Files\Editor\ScenePanel</Filter>
+    </None>
   </ItemGroup>
 </Project>

@@ -26,6 +26,8 @@ public:
 
 	void menuButtonAction();
 	void helpButtonAction();
+	void saveButtonAction();
+	void loadButtonAction();
 	void quitButtonAction();
 	void controlsButtonAction();
 	void aboutButtonsAction();

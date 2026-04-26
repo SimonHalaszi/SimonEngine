@@ -20,6 +20,8 @@ Editor::Editor(Scene* scene)
 	middlePanelContext_.orthoTop = 1.0f;
 
 	focusedGameObject_ = nullptr;
+
+	saveFilePath_ = scene->getSaveFilePath();
 }
 
 #include "UITextElement.hpp"
@@ -175,6 +177,11 @@ void Editor::editorDraw() const {
 }
 
 void Editor::editorUpdate() {
+	// You can no longer save after leaving editor, sorry!
+	if (!inEditor_ && canSave_) {
+		canSave_ = false;
+	}
+
 	if (isInsideViewportContext(InputManager::getInstance().mouseX(), InputManager::getInstance().mouseY(), middlePanelContext_)) {
 		// Handle moving around in the editor scene view
 		float physicsTime = 1.0f / scene_->getUpdateSpeed();

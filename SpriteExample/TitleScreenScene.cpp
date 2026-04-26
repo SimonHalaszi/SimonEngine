@@ -6,6 +6,8 @@
 TitleScreenScene::TitleScreenScene() :
 	Scene(244, 244, 10)
 {
+	saveFilePath_ = "../EditorSaves/TitleScreenScene";
+
 	backgroundSpriteFilePath_ = "sprite/Background.jpg";
 	backgroundSprite_ = "backgroundSprite";
 	titleScreenMusicFilePath_ = "audio/FOX.mp3";

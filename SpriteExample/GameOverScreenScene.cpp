@@ -6,6 +6,8 @@
 GameOverScreenScene::GameOverScreenScene() :
 	Scene(244, 244, 10)
 {
+	saveFilePath_ = "../EditorSaves/GameOverScreenScene";
+
 	backgroundSpriteFilePath_ = "sprite/Background.jpg";
 	backgroundSprite_ = "backgroundSprite";
 	gameOverMusicFilePath_ = "audio/CBS.mp3";

@@ -224,7 +224,7 @@ void Hierarchy::update() {
 			}
 		}
 		if (focusedGameObjectIndex_ >= 0 && focusedGameObjectIndex_ < hierarchyButtons_.size()) {
-			hierarchyButtons_[focusedGameObjectIndex_].setColor({ 0.1f, 0.9f, 0.1f });
+			hierarchyButtons_[focusedGameObjectIndex_].setColor({ 0.6f, 0.9f, 0.6f });
 		}
 	}
 }

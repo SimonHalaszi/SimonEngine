@@ -24,7 +24,7 @@ private:
 	// For drawing assetPanelTitle
 	ViewportArea scenePanelTitle_;
 
-	std::vector<std::unique_ptr<SceneButton>> sceneButtons_;
+	std::vector<SceneButton> sceneButtons_;
 
 };
 

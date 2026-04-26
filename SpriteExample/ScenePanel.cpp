@@ -15,6 +15,8 @@ ScenePanel::ScenePanel() {
 	scenePanelContext_.orthoBottom = -1.0f;
 	scenePanelContext_.orthoTop = 1.0f;
 
+	const std::vector<std::string>& factoryOptions = SceneFactory::getInstance().getFactoryOptions();
+
 	float areaOffset = ((1.0f / 4.0f) * 2);
 	ViewportArea startArea = scenePanelTitle_;
 	startArea.pos.y -= areaOffset;
@@ -24,42 +26,17 @@ ScenePanel::ScenePanel() {
 	ColorRGB color2 = { 0.8f, 0.8f, 0.8f };
 	ColorRGB colors[2] = { color1, color2 };
 
-	// Add scenes as needed
-
-	sceneButtons_.push_back(
-		std::make_unique<GameOverScreenSceneButton>(
-			startArea,
-			colors[i % 2],
-			"GameOverScreen"
-		)
-	);
-	startArea.pos.y -= areaOffset;
-	++i;
-	sceneButtons_.push_back(
-		std::make_unique<GameWonScreenSceneButton>(
-			startArea,
-			colors[i % 2],
-			"GameWonScreen"
-		)
-	);
-	startArea.pos.y -= areaOffset;
-	++i;
-	sceneButtons_.push_back(
-		std::make_unique<PlatformerSceneButton>(
-			startArea,
-			colors[i % 2],
-			"PlatformerScene"
-		)
-	);
-	startArea.pos.y -= areaOffset;
-	++i;
-	sceneButtons_.push_back(
-		std::make_unique<TitleScreenSceneButton>(
-			startArea,
-			colors[i % 2],
-			"TitleScreen"
-		)
-	);
+	for (auto itr = factoryOptions.begin(); itr != factoryOptions.end(); ++itr) {
+		sceneButtons_.push_back(
+			SceneButton(
+				startArea,
+				colors[i % 2],
+				factoryOptions[i]
+			)
+		);
+		startArea.pos.y -= areaOffset;
+		++i;
+	}
 }
 
 void ScenePanel::draw() const {
@@ -103,7 +80,7 @@ void ScenePanel::draw() const {
 
 	// Draw Asset Panel Buttons
 	for (const auto& button : sceneButtons_) {
-		button->draw();
+		button.draw();
 	}
 
 	glPopMatrix();
@@ -133,6 +110,8 @@ void ScenePanel::draw() const {
 	glMatrixMode(GL_MODELVIEW);
 }
 
+#include "Game.hpp"
+
 void ScenePanel::update() {
 	// Dont bother doing input if we arent in hierarchy panel
 	if (isInsideViewportContext(InputManager::getInstance().mouseX(), InputManager::getInstance().mouseY(), scenePanelContext_)) {
@@ -152,7 +131,11 @@ void ScenePanel::update() {
 		// Handle Clicking
 		if (InputManager::getInstance().isMouseButtonPressed(MOUSEBUTTON_LEFT)) {
 			for (auto& button : sceneButtons_) {
-				button->handleClick(scenePanelContext_);
+				std::unique_ptr<Scene> temp;
+				temp = button.handleClick(scenePanelContext_);
+				if (temp != nullptr) {
+					Game::getInstance().changeScene(std::move(temp));
+				}
 			}
 		}
 	}

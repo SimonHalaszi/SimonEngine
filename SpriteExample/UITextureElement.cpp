@@ -1,28 +1,18 @@
-#include "UITextElement.hpp"
+#include "UITextureElement.hpp"
 
-UITextElement::UITextElement(
+UITextureElement::UITextureElement(
     const Transform2D& transform2D,
     const std::string& tag,
     const std::string& name,
-    const std::string& text,
-    const ColorRGB& textColor,
-    const ColorRGB& rectangleColorTL,
-    const ColorRGB& rectangleColorTR,
-    const ColorRGB& rectangleColorBL,
-    const ColorRGB& rectangleColorBR
+    const GLuint& texID
 ) {
-	localTransform_ = transform2D;
+    localTransform_ = transform2D;
     tag_ = tag;
     name_ = name;
-	text_ = text;
-	textColor_ = textColor;
-    rectangleColorTL_ = rectangleColorTL;
-    rectangleColorTR_ = rectangleColorTR;
-    rectangleColorBL_ = rectangleColorBL;
-    rectangleColorBR_ = rectangleColorBR;
+    textureID_ = texID;
 }
 
-void UITextElement::draw() {
+void UITextureElement::draw() {
     if (!drawElement_) {
         return;
     }
@@ -49,15 +39,10 @@ void UITextElement::draw() {
     renderTransform.scale.x = localTransform_.scale.x * 0.5f * vw;
     renderTransform.scale.y = localTransform_.scale.y * 0.5f * vh;
 
-    drawRectangleWithTransform(
+    drawImageWithTransform(
         renderTransform,
-        rectangleColorTL_,
-        rectangleColorTR_,
-        rectangleColorBL_,
-        rectangleColorBR_
+        textureID_
     );
-
-    drawTextCentered({ renderTransform.position.x, renderTransform.position.y }, text_, 20.0f, textColor_);
 
     glPopMatrix();
     glMatrixMode(GL_PROJECTION);

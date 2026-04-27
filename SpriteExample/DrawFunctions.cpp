@@ -9,10 +9,10 @@ void drawSquare(
 	const float& angle,
 	const bool& mirror,
 	const bool& flip,
-	const ColorRGB& c1,
-	const ColorRGB& c2,
-	const ColorRGB& c3,
-	const ColorRGB& c4
+	const ColorRGB& colorTL,
+	const ColorRGB& colorTR,
+	const ColorRGB& colorBL,
+	const ColorRGB& colorBR
 ) {
 	glPushMatrix();
 
@@ -28,16 +28,16 @@ void drawSquare(
 	}
 
 	glBegin(GL_QUADS);
-	glColor3f(c1.red, c1.green, c1.blue);
+	glColor3f(colorBL.red, colorBL.green, colorBL.blue);
 	glVertex3f(-size, -size, 0.0f);
 
-	glColor3f(c2.red, c2.green, c2.blue);
+	glColor3f(colorBR.red, colorBR.green, colorBR.blue);
 	glVertex3f(size, -size, 0.0f);
 
-	glColor3f(c3.red, c3.green, c3.blue);
+	glColor3f(colorTR.red, colorTR.green, colorTR.blue);
 	glVertex3f(size, size, 0.0f);
 
-	glColor3f(c4.red, c4.green, c4.blue);
+	glColor3f(colorTL.red, colorTL.green, colorTL.blue);
 	glVertex3f(-size, size, 0.0f);
 	glEnd();
 
@@ -51,10 +51,10 @@ void drawRectangle(
 	const float& angle,
 	const bool& mirror,
 	const bool& flip,
-	const ColorRGB& c1,
-	const ColorRGB& c2,
-	const ColorRGB& c3,
-	const ColorRGB& c4
+	const ColorRGB& colorTL,
+	const ColorRGB& colorTR,
+	const ColorRGB& colorBL,
+	const ColorRGB& colorBR
 ) {
 	glPushMatrix();
 
@@ -70,16 +70,16 @@ void drawRectangle(
 	}
 
 	glBegin(GL_QUADS);
-	glColor3f(c1.red, c1.green, c1.blue);
+	glColor3f(colorBL.red, colorBL.green, colorBL.blue);
 	glVertex3f(-scale.x, -scale.y, 0.0f);
 
-	glColor3f(c2.red, c2.green, c2.blue);
+	glColor3f(colorBR.red, colorBR.green, colorBR.blue);
 	glVertex3f(scale.x, -scale.y, 0.0f);
 
-	glColor3f(c3.red, c3.green, c3.blue);
+	glColor3f(colorTR.red, colorTR.green, colorTR.blue);
 	glVertex3f(scale.x, scale.y, 0.0f);
 
-	glColor3f(c4.red, c4.green, c4.blue);
+	glColor3f(colorTL.red, colorTL.green, colorTL.blue);
 	glVertex3f(-scale.x, scale.y, 0.0f);
 	glEnd();
 
@@ -93,9 +93,9 @@ void drawTriangle(
 	const float& angle,
 	const bool& mirror,
 	const bool& flip,
-	const ColorRGB& c1,
-	const ColorRGB& c2,
-	const ColorRGB& c3
+	const ColorRGB& colorT,
+	const ColorRGB& colorBL,
+	const ColorRGB& colorBR
 ) {
 	glPushMatrix();
 
@@ -112,13 +112,13 @@ void drawTriangle(
 
 	glBegin(GL_TRIANGLES);              
 
-	glColor3f(c1.red, c1.green, c1.blue);
+	glColor3f(colorBL.red, colorBL.green, colorBL.blue);
 	glVertex3f(-size, -size, 0.0f); 
 
-	glColor3f(c2.red, c2.green, c2.blue);
+	glColor3f(colorBR.red, colorBR.green, colorBR.blue);
 	glVertex3f(size, -size, 0.0f); 
 
-	glColor3f(c3.red, c3.green, c3.blue);
+	glColor3f(colorT.red, colorT.green, colorT.blue);
 	glVertex3f(0.0f, size, 0.0f); 
 
 	glEnd();                        
@@ -301,4 +301,122 @@ void drawTextCentered(
 			x += glutBitmapWidth(font, c);
 		}
 	}
+}
+
+// Drawing a rectangle given a transform
+void drawRectangleWithTransform(
+	const Transform2D& worldTransform,
+	const ColorRGB& colorTL,
+	const ColorRGB& colorTR,
+	const ColorRGB& colorBL,
+	const ColorRGB& colorBR
+) {
+	glPushMatrix();
+
+	glTranslatef(worldTransform.position.x, worldTransform.position.y, 0.0f);
+	glRotatef(worldTransform.rotation, 0.0f, 0.0f, 1.0f);
+
+	if (worldTransform.mirror) {
+		glScalef(-1.0f, 1.0f, 1.0f);
+	}
+
+	if (worldTransform.flip) {
+		glScalef(1.0f, -1.0f, 1.0f);
+	}
+
+	glBegin(GL_QUADS);
+	glColor3f(colorBL.red, colorBL.green, colorBL.blue);
+	glVertex3f(-worldTransform.scale.x, -worldTransform.scale.y, 0.0f);
+
+	glColor3f(colorBR.red, colorBR.green, colorBR.blue);
+	glVertex3f(worldTransform.scale.x, -worldTransform.scale.y, 0.0f);
+
+	glColor3f(colorTR.red, colorTR.green, colorTR.blue);
+	glVertex3f(worldTransform.scale.x, worldTransform.scale.y, 0.0f);
+
+	glColor3f(colorTL.red, colorTL.green, colorTL.blue);
+	glVertex3f(-worldTransform.scale.x, worldTransform.scale.y, 0.0f);
+	glEnd();
+
+	glPopMatrix();
+}
+
+// Drawing an image
+void drawImageWithTransform(
+	const Transform2D& worldTransform,
+	const GLuint& textureID
+) {
+	glPushMatrix();
+
+	glTranslatef(worldTransform.position.x, worldTransform.position.y, 0.0f);
+	glRotatef(worldTransform.rotation, 0.0f, 0.0f, 1.0f);
+
+	if (worldTransform.mirror) {
+		glScalef(-1.0f, 1.0f, 1.0f);
+	}
+
+	if (worldTransform.flip) {
+		glScalef(1.0f, -1.0f, 1.0f);
+	}
+
+	glEnable(GL_TEXTURE_2D);
+
+	glBindTexture(GL_TEXTURE_2D, textureID);
+
+	glBegin(GL_POLYGON);
+	glTexCoord2f(0.0f, 0.0f);
+	glVertex3f(-worldTransform.scale.x, -worldTransform.scale.y, 0.0f);
+	glTexCoord2f(1.0f, 0.0f);
+	glVertex3f(worldTransform.scale.x, -worldTransform.scale.y, 0.0f);
+	glTexCoord2f(1.0f, 1.0f);
+	glVertex3f(worldTransform.scale.x, worldTransform.scale.y, 0.0f);
+	glTexCoord2f(0.0f, 1.0f);
+	glVertex3f(-worldTransform.scale.x, worldTransform.scale.y, 0.0f);
+
+	glEnd();
+
+	glDisable(GL_TEXTURE_2D);
+
+	glPopMatrix();
+}
+
+// Drawing a sprite
+void drawSpriteWithTransform(
+	const Transform2D& worldTransform,
+	const Sprite& sprite
+) {
+	glPushMatrix();
+
+	glTranslatef(worldTransform.position.x, worldTransform.position.y, 0.0f);
+	glRotatef(worldTransform.rotation, 0.0f, 0.0f, 1.0f);
+
+	if (worldTransform.mirror) {
+		glScalef(-1.0f, 1.0f, 1.0f);
+	}
+
+	if (worldTransform.flip) {
+		glScalef(1.0f, -1.0f, 1.0f);
+	}
+
+	glEnable(GL_TEXTURE_2D);
+
+	glBindTexture(GL_TEXTURE_2D, sprite.getTextureID());
+
+	SubTexture spriteUV = sprite.getUV();
+
+	glBegin(GL_POLYGON);
+	glTexCoord2f(spriteUV.u0, spriteUV.v0);
+	glVertex3f(-worldTransform.scale.x, -worldTransform.scale.y, 0.0f);
+	glTexCoord2f(spriteUV.u1, spriteUV.v0);
+	glVertex3f(worldTransform.scale.x, -worldTransform.scale.y, 0.0f);
+	glTexCoord2f(spriteUV.u1, spriteUV.v1);
+	glVertex3f(worldTransform.scale.x, worldTransform.scale.y, 0.0f);
+	glTexCoord2f(spriteUV.u0, spriteUV.v1);
+	glVertex3f(-worldTransform.scale.x, worldTransform.scale.y, 0.0f);
+
+	glEnd();
+
+	glDisable(GL_TEXTURE_2D);
+
+	glPopMatrix();
 }

@@ -1,5 +1,5 @@
-#ifndef UI_TEXT_ELEMENT_HPP
-#define UI_TEXT_ELEMENT_HPP
+#ifndef UI_RECTANGLE_ELEMENT_HPP
+#define UI_RECTANGLE_ELEMENT_HPP
 
 #include <string>
 
@@ -9,14 +9,12 @@
 #include "Utilities.hpp"
 
 // UI GameObjects will be drawn relative to camera space. So be smart when initializing their transform2D
-class UITextElement : public UIElement {
+class UIRectangleElement : public UIElement {
 	public:
-		UITextElement(
+		UIRectangleElement(
 			const Transform2D& transform2D,
 			const std::string& tag,
 			const std::string& name,
-			const std::string& text,
-			const ColorRGB& textColor,
 			const ColorRGB& rectangleColorTL,
 			const ColorRGB& rectangleColorTR,
 			const ColorRGB& rectangleColorBL,
@@ -30,10 +28,8 @@ class UITextElement : public UIElement {
 		void establishFields() override {}
 
 		void toggleDrawing() { drawElement_ = !drawElement_; }
-	
+
 	protected:
-		std::string text_;
-		ColorRGB textColor_;
 		ColorRGB rectangleColorTL_;
 		ColorRGB rectangleColorTR_;
 		ColorRGB rectangleColorBL_;

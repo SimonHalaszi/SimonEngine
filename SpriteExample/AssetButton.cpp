@@ -56,8 +56,8 @@ void AssetButton::draw() const {
 	);
 
 	drawSprite(
-		{ viewportArea_.pos.x + 1.0f - (viewportArea_.scale.x / 9.0f), viewportArea_.pos.y},
-		{ viewportArea_.scale.x / 9.0f, viewportArea_.scale.y },
+		{ viewportArea_.pos.x + 1.0f - (viewportArea_.scale.x / 13.0f), viewportArea_.pos.y},
+		{ viewportArea_.scale.x / 13.0f, viewportArea_.scale.y },
 		0.0f,
 		false,
 		false,

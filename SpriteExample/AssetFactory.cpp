@@ -1,89 +1,71 @@
 #include "AssetFactory.hpp"
 
-#include "Coin.hpp"
-#include "SpriteObstacle.hpp"
+// Needed GameObjects
+#include "SpriteGameObject.hpp"
 
 // Expand this with more options as you go on
 AssetFactory::AssetFactory() {
-	factoryOptions_.push_back("Coin");
-	factoryOptions_.push_back("ConcreteSpriteObstacle");
-	factoryOptions_.push_back("TurfSpriteObstacle");
+	factoryOptions_.push_back("Man");
+	factoryOptions_.push_back("Bird");
 }
 
 // Expand this with more options as you go on
 std::unique_ptr<GameObject2D> AssetFactory::createGameObject(std::string option) {
-	if (option == "Coin") {
-		return std::make_unique<Coin>(
-			Transform2D({
+	if (option == "Man") {
+		GLuint texID;
+		texID = TextureRegistry::getInstance().loadTexture("image/Man.png");
+		return std::make_unique<SpriteGameObject>(
+			Transform2D({ 
 				Vector2D({ 0.0f, 0.0f }),
-				Vector2D({ 0.05f, 0.05f }),
+				Vector2D({ 0.5f, 0.5f }),
 				0.0f,
 				false,
-				false,
+				false, 
 			}),
-			"sprite/Football.png",
-			"coinSprite"
+			"Man",
+			"Man",
+			&SpriteRegistry::getInstance().makeSprite("Man", texID, 1, 1, { 0, 0 })
 		);
 	}
-	if (option == "ConcreteSpriteObstacle") {
-		return std::make_unique<SpriteObstacle>(
+	if (option == "Bird") {
+		GLuint texID;
+		texID = TextureRegistry::getInstance().loadTexture("image/Bird.png");
+		return std::make_unique<SpriteGameObject>(
 			Transform2D({
 				Vector2D({ 0.0f, 0.0f }),
-				Vector2D({ 0.1f, 0.1f }),
+				Vector2D({ 0.5f, 0.5f }),
 				0.0f,
 				false,
 				false,
-			}),
-			"sprite/Concrete.jpg",
-			"concreteSprite"
-		);
-	}
-	if (option == "TurfSpriteObstacle") {
-		return std::make_unique<SpriteObstacle>(
-			Transform2D({
-				Vector2D({ 0.0f, 0.0f }),
-				Vector2D({ 0.1f, 0.1f }),
-				0.0f,
-				false,
-				false,
-			}),
-			"sprite/TurfTexture.jpg",
-			"turfSprite"
-		);
+				}),
+				"Bird",
+				"Bird",
+				&SpriteRegistry::getInstance().makeSprite("Bird", texID, 1, 1, { 0, 0 })
+				);
 	}
 	return nullptr;
 }
 
 const Sprite* AssetFactory::getOptionPreviewSprite(std::string option) {
-	if (option == "Coin") {
-		TextureRegistry::getInstance().loadTexture("sprite/Football.png");
-		SpriteRegistry::getInstance().makeSprite(
-			"coinSprite",
-			TextureRegistry::getInstance().getTextureID("sprite/Football.png"),
+	if (option == "Man") {
+		GLuint texID;
+		texID = TextureRegistry::getInstance().loadTexture("image/Man.png");
+		return &SpriteRegistry::getInstance().makeSprite(
+			"Man",
+			texID,
 			1, 1,
 			{ 0, 0 }
 		);
-		return &(SpriteRegistry::getInstance().getSprite("coinSprite"));
 	}
-	if (option == "ConcreteSpriteObstacle") {
-		TextureRegistry::getInstance().loadTexture("sprite/Concrete.jpg");
-		SpriteRegistry::getInstance().makeSprite(
-			"concreteSprite",
-			TextureRegistry::getInstance().getTextureID("sprite/Concrete.jpg"),
+	if (option == "Bird") {
+		GLuint texID;
+		texID = TextureRegistry::getInstance().loadTexture("image/Bird.png");
+		return &SpriteRegistry::getInstance().makeSprite(
+			"Bird",
+			texID,
 			1, 1,
 			{ 0, 0 }
 		);
-		return &(SpriteRegistry::getInstance().getSprite("concreteSprite"));
-	}
-	if (option == "TurfSpriteObstacle") {
-		TextureRegistry::getInstance().loadTexture("sprite/TurfTexture.jpg");
-		SpriteRegistry::getInstance().makeSprite(
-			"turfSprite",
-			TextureRegistry::getInstance().getTextureID("sprite/TurfTexture.jpg"),
-			1, 1,
-			{ 0, 0 }
-		);
-		return &(SpriteRegistry::getInstance().getSprite("turfSprite"));
 	}
 	return nullptr;
 }

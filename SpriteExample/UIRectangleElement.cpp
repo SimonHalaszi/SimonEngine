@@ -1,28 +1,24 @@
-#include "UITextElement.hpp"
+#include "UIRectangleElement.hpp"
 
-UITextElement::UITextElement(
+UIRectangleElement::UIRectangleElement(
     const Transform2D& transform2D,
     const std::string& tag,
     const std::string& name,
-    const std::string& text,
-    const ColorRGB& textColor,
     const ColorRGB& rectangleColorTL,
     const ColorRGB& rectangleColorTR,
     const ColorRGB& rectangleColorBL,
     const ColorRGB& rectangleColorBR
 ) {
-	localTransform_ = transform2D;
+    localTransform_ = transform2D;
     tag_ = tag;
     name_ = name;
-	text_ = text;
-	textColor_ = textColor;
     rectangleColorTL_ = rectangleColorTL;
     rectangleColorTR_ = rectangleColorTR;
     rectangleColorBL_ = rectangleColorBL;
     rectangleColorBR_ = rectangleColorBR;
 }
 
-void UITextElement::draw() {
+void UIRectangleElement::draw() {
     if (!drawElement_) {
         return;
     }
@@ -56,8 +52,6 @@ void UITextElement::draw() {
         rectangleColorBL_,
         rectangleColorBR_
     );
-
-    drawTextCentered({ renderTransform.position.x, renderTransform.position.y }, text_, 20.0f, textColor_);
 
     glPopMatrix();
     glMatrixMode(GL_PROJECTION);

@@ -4,7 +4,7 @@
 
 #include "AssetFactory.hpp"
 #include "CollisionObject2D.hpp"
-#include "UITextElement.hpp"
+#include "UIElement.hpp"
 #include "EditorSaveLoad.hpp"
 
 Editor::Editor(Scene* scene)
@@ -63,7 +63,7 @@ void Editor::editorDraw() const {
 		Transform2D transform = focusedGameObject_->getWorldTransform();
 
 		// If I add a hierarchy to UIElements in general change this type to that but this works.
-		if (dynamic_cast<UITextElement*>(focusedGameObject_)) {
+		if (dynamic_cast<UIElement*>(focusedGameObject_)) {
 			transform = focusedGameObject_->getLocalTransform();
 
 			GLint viewport[4];

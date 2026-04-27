@@ -251,6 +251,9 @@ bool IntIFieldButton::handleClick(const ViewportContext& context) {
 	// else -> clickedTextEntryArea_ = false
 	if (InputManager::getInstance().isMouseButtonPressed(MOUSEBUTTON_LEFT)) {
 		if (isInsideButton(InputManager::getInstance().mouseX(), InputManager::getInstance().mouseY(), context)) {
+			if (entryBuffer_ == std::string()) {
+				entryBuffer_ = "0";
+			}
 			field_->setValue(std::stoi(entryBuffer_));
 			entryBuffer_ = std::to_string(field_->getValue());
 			clickedTextEntryArea_ = false;
@@ -441,6 +444,9 @@ bool FloatIFieldButton::handleClick(const ViewportContext& context) {
 	// else -> clickedTextEntryArea_ = false
 	if (InputManager::getInstance().isMouseButtonPressed(MOUSEBUTTON_LEFT)) {
 		if (isInsideButton(InputManager::getInstance().mouseX(), InputManager::getInstance().mouseY(), context)) {
+			if (entryBuffer_ == std::string()) {
+				entryBuffer_ = "0.0";
+			}
 			field_->setValue(std::stof(entryBuffer_));
 			entryBuffer_ = std::to_string(field_->getValue());
 			clickedTextEntryArea_ = false;

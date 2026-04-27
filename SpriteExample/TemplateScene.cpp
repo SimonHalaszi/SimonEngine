@@ -3,8 +3,9 @@
 TemplateScene::TemplateScene() :
 	Scene(244, 244, 10)
 {
-	filePath_ = "sprite/Example.jpg";
-	key_ = "Example";
+	saveName_ = "TemplateScene";
+	titleFilePath_ = "image/Title.png";
+	titleSpriteKey_ = "Title";
 }
 
 TemplateScene::~TemplateScene() {}
@@ -13,64 +14,29 @@ TemplateScene::~TemplateScene() {}
 void TemplateScene::init() {
 	std::cout << "TemplateScene::init : Currently Loaded Scene is TemplateScene" << std::endl;
 
-	// Loading sprite textures from file path
-	TextureRegistry::getInstance().loadTexture(filePath_);
-
-	// Making a sprite sheet
-	SpriteSheetRegistry::getInstance().makeSpriteSheet(
-		key_,
-		TextureRegistry::getInstance().getTextureID(filePath_),
-		10, 10,
-		{ 0, 0 }, { 9, 9 }
-	);
-
-	// Making a sprite
-	SpriteRegistry::getInstance().makeSprite(
-		key_,
-		TextureRegistry::getInstance().getTextureID(filePath_),
-		1, 1,
-		{ 0, 0 }
-	);
-
-
-	// Just showing errors
-	TextureRegistry::getInstance().loadTexture(filePath_);
-	SpriteSheetRegistry::getInstance().makeSpriteSheet(
-		key_,
-		TextureRegistry::getInstance().getTextureID(filePath_),
-		6, 1,
-		{ 0, 0 }, { 5, 0 }
-	);
-	SpriteRegistry::getInstance().makeSprite(
-		key_,
-		TextureRegistry::getInstance().getTextureID(filePath_),
-		1, 1,
-		{ 0, 0 }
-	);
-	SpriteSheetRegistry::getInstance().getSpriteSheet("NOT key_");
-
 	// Printing update information
 	std::cout << "MainScene::init : Animation updates " << animationUpdatesPerSecond_ << " times per second " << std::endl;
 	std::cout << "MainScene::init : Game updates " << updatesPerSecond_ << " times per second " << std::endl;
 	std::cout << "MainScene::init : Frame updates " << framesPerSeconds_ << " times per second " << std::endl;
 
-	// Make it so GameObjects get passed the keys to the Assets they use
-	addRootGameObject2D(std::make_unique<StaticSprite>(
-		Transform2D({ Vector2D({ -0.5f, 0.0f }),
-		Vector2D({ 0.5f, 0.5f }),
-		0.0f,
-		false,
-		false, }),
-		key_
-		)
-	);
-	addRootGameObject2D(std::make_unique<AnimatedSprite>(
-		Transform2D({ Vector2D({ 0.5f, 0.0f }),
-		Vector2D({ 0.5f, 0.5f }),
-		0.0f,
-		false,
-		false, }),
-		key_
+	// Play sounds
+	SoundManager::getInstance().setMusicTrack("audio/GoingShopping.mp3");
+
+	GLuint texID;
+
+	// Make it so GameObjects get passed the assets
+	texID = TextureRegistry::getInstance().loadTexture(titleFilePath_);
+	addRootGameObject2D(std::make_unique<SpriteGameObject>(
+			Transform2D({ 
+				Vector2D({ 0.0f, 0.0f }),
+				Vector2D({ 1.0f, 1.0f }),
+				0.0f,
+				false,
+				false, 
+			}),
+			"Title",
+			"Title",
+			&SpriteRegistry::getInstance().makeSprite(titleSpriteKey_, texID, 1, 1, {0, 0})
 		)
 	);
 }
@@ -91,9 +57,7 @@ void TemplateScene::draw() const {
 
 // If you need to do SceneChanges include the SceneSpecific.hpp and Game.hpp here (In the ThisScene.cpp)
 // Otherwise some really annoying circular dependencies are going to happen with Game and Scenes
-
-// Im going to find a better way to do this TOMORROW
-#include "ArchiveScene.hpp"
+// #include "SomeOtherScene.hpp"
 #include "Game.hpp"
 
 
@@ -107,6 +71,6 @@ void TemplateScene::update() {
 		isDrawing_ = true;
 	}
 	if (InputManager::getInstance().isPressed('n')) {
-		Game::getInstance().changeScene(std::make_unique<ArchiveScene>());
+		// Game::getInstance().changeScene(std::make_unique<SomeOtherScene>());
 	}
 }

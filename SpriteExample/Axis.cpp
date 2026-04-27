@@ -1,12 +1,29 @@
 #include "Axis.hpp"
 
-Axis::Axis(Transform2D transform2D, ColorRGB color1, ColorRGB color2, bool willDrawAxis, char axis) {
+Axis::Axis(
+	const Transform2D& transform2D,
+	const ColorRGB& color1,
+	const ColorRGB& color2,
+	const bool& willDrawAxis,
+	const char& axis
+) {
 	localTransform_ = transform2D;
 	color1_ = color1;
 	color2_ = color2;
 	willDrawAxis_ = willDrawAxis;
 	axis_ = axis;
-	name_ = "Axis";
+	if (axis == 'x') {
+		name_ = "X-Axis";
+		tag_ = "X-Axis";
+	}
+	else if (axis == 'y') {
+		name_ = "Y-Axis";
+		tag_ = "Y-Axis";
+	}
+	else {
+		name_ = "Invalid-Axis";
+		tag_ = "Invalid-Axis";
+	}
 }
 
 void Axis::draw() {

@@ -16,32 +16,14 @@
     <Filter Include="Source Files\Game">
       <UniqueIdentifier>{6d0a3838-7759-41ec-85a0-bd8e27ed00c7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Source">
-      <UniqueIdentifier>{537a76d2-8c78-411f-9f6b-acd406eef817}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Game">
       <UniqueIdentifier>{97ff508b-1536-4d89-b581-ded818efd5ef}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Source">
-      <UniqueIdentifier>{774fdd15-7955-4de3-b57e-67e5940f93b8}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\GameObjectTypes">
       <UniqueIdentifier>{7becc90a-cb34-4f37-aba9-5647d968d44c}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\GameObjectTypes">
       <UniqueIdentifier>{7b431edd-3b22-4a65-8805-ceb793027901}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\PlatformerGameObjects">
-      <UniqueIdentifier>{40603e1b-0651-4b54-9634-48cfd88133fa}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\PlatformerGameObjects">
-      <UniqueIdentifier>{34e1750b-2c59-421a-ad02-f60c1e37230c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\PlatformerScenes">
-      <UniqueIdentifier>{7238ce14-f5e6-461c-b396-493ec3295b11}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\PlatformerScenes">
-      <UniqueIdentifier>{95114456-301c-463a-9ed3-42baacb48a5e}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\Editor">
       <UniqueIdentifier>{86854c2b-e9a7-4ced-8a44-7160ec4ee962}</UniqueIdentifier>
@@ -79,28 +61,64 @@
     <Filter Include="Source Files\Editor\ScenePanel">
       <UniqueIdentifier>{3e1981ee-87fe-4d13-b2f6-3d9e50e1665d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\DrawFunctions">
+      <UniqueIdentifier>{94c974a5-4f6e-4c8a-83d5-be68c2ad5991}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\DrawFunctions">
+      <UniqueIdentifier>{0ba4cc47-df73-4077-9fdb-396d16194494}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\GameObjectTypes\UITypes">
+      <UniqueIdentifier>{cb840af1-f492-4ff8-b8e1-b52585206647}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GameObjectTypes\UITypes">
+      <UniqueIdentifier>{52de14cf-834b-4901-8f37-a99837b248aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Registries">
+      <UniqueIdentifier>{171ba333-3bb5-4206-a648-aac54a4bbad4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Registries">
+      <UniqueIdentifier>{f0c5dd05-3d00-4852-a23a-172a47b0aa35}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Managers">
+      <UniqueIdentifier>{ae4223ac-a336-48a6-abc8-aea6398e19aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Managers">
+      <UniqueIdentifier>{f09396ae-7149-446c-9d06-9d21672e8dcc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\AssetTypes">
+      <UniqueIdentifier>{9f2b9953-45d4-452d-ba30-827697c644c3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Scenes">
+      <UniqueIdentifier>{b6fb149e-0049-49be-b6af-ec9d78d96b63}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Utilities">
+      <UniqueIdentifier>{2098a700-27bb-49d3-9b1b-70c64404556f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Utilities">
+      <UniqueIdentifier>{537a76d2-8c78-411f-9f6b-acd406eef817}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Scenes">
+      <UniqueIdentifier>{cfc2f24e-110c-499e-8ce0-ee54f61aa335}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Editor\EditorFactories">
+      <UniqueIdentifier>{0530015e-f286-4a46-9ae7-eaff45dbd187}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Editor\EditorFactories">
+      <UniqueIdentifier>{367c447b-9ba7-4c99-b46a-3062f84499ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GameObjects">
+      <UniqueIdentifier>{34e1750b-2c59-421a-ad02-f60c1e37230c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\GameObjects">
+      <UniqueIdentifier>{40603e1b-0651-4b54-9634-48cfd88133fa}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="TextureRegistry.cpp">
-      <Filter>Source Files\Source</Filter>
-    </ClCompile>
-    <ClCompile Include="SpriteSheetRegistry.cpp">
-      <Filter>Source Files\Source</Filter>
-    </ClCompile>
-    <ClCompile Include="SpriteRegistry.cpp">
-      <Filter>Source Files\Source</Filter>
-    </ClCompile>
     <ClCompile Include="SimonEngine.cpp">
       <Filter>Source Files\Game</Filter>
     </ClCompile>
     <ClCompile Include="Utilities.cpp">
-      <Filter>Source Files\Source</Filter>
-    </ClCompile>
-    <ClCompile Include="InputManager.cpp">
-      <Filter>Source Files\Source</Filter>
-    </ClCompile>
-    <ClCompile Include="DrawFunctions.cpp">
-      <Filter>Source Files\Source</Filter>
+      <Filter>Source Files\Utilities</Filter>
     </ClCompile>
     <ClCompile Include="GameObject2D.cpp">
       <Filter>Source Files\GameObjectTypes</Filter>
@@ -108,62 +126,14 @@
     <ClCompile Include="CollisionObject2D.cpp">
       <Filter>Source Files\GameObjectTypes</Filter>
     </ClCompile>
-    <ClCompile Include="CollisionManager.cpp">
-      <Filter>Source Files\Source</Filter>
-    </ClCompile>
-    <ClCompile Include="PlatformerPlayer.cpp">
-      <Filter>Source Files\PlatformerGameObjects</Filter>
-    </ClCompile>
-    <ClCompile Include="PlatformerScene.cpp">
-      <Filter>Source Files\PlatformerScenes</Filter>
-    </ClCompile>
-    <ClCompile Include="StaticSprite.cpp">
-      <Filter>Source Files\PlatformerGameObjects</Filter>
-    </ClCompile>
     <ClCompile Include="SpriteGameObject.cpp">
-      <Filter>Source Files\PlatformerGameObjects</Filter>
+      <Filter>Source Files\GameObjects</Filter>
     </ClCompile>
     <ClCompile Include="Axis.cpp">
-      <Filter>Source Files\PlatformerGameObjects</Filter>
+      <Filter>Source Files\GameObjects</Filter>
     </ClCompile>
-    <ClCompile Include="SpriteObstacle.cpp">
-      <Filter>Source Files\PlatformerGameObjects</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerGroundChecker.cpp">
-      <Filter>Source Files\PlatformerGameObjects</Filter>
-    </ClCompile>
-    <ClCompile Include="TitleScreenScene.cpp">
-      <Filter>Source Files\PlatformerScenes</Filter>
-    </ClCompile>
-    <ClCompile Include="GameWonScreenScene.cpp">
-      <Filter>Source Files\PlatformerScenes</Filter>
-    </ClCompile>
-    <ClCompile Include="GameOverScreenScene.cpp">
-      <Filter>Source Files\PlatformerScenes</Filter>
-    </ClCompile>
-    <ClCompile Include="CameraAndUI.cpp">
-      <Filter>Source Files\PlatformerGameObjects</Filter>
-    </ClCompile>
-    <ClCompile Include="Coin.cpp">
-      <Filter>Source Files\PlatformerGameObjects</Filter>
-    </ClCompile>
-    <ClCompile Include="CoinDisplay.cpp">
-      <Filter>Source Files\PlatformerGameObjects</Filter>
-    </ClCompile>
-    <ClCompile Include="FinishLine.cpp">
-      <Filter>Source Files\PlatformerGameObjects</Filter>
-    </ClCompile>
-    <ClCompile Include="FinishLinePopUpDisplay.cpp">
-      <Filter>Source Files\PlatformerGameObjects</Filter>
-    </ClCompile>
-    <ClCompile Include="GameOverTimer.cpp">
-      <Filter>Source Files\PlatformerGameObjects</Filter>
-    </ClCompile>
-    <ClCompile Include="PauseDisplay.cpp">
-      <Filter>Source Files\PlatformerGameObjects</Filter>
-    </ClCompile>
-    <ClCompile Include="UITextElement.cpp">
-      <Filter>Source Files\GameObjectTypes</Filter>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Source Files\GameObjects</Filter>
     </ClCompile>
     <ClCompile Include="Editor.cpp">
       <Filter>Source Files\Editor</Filter>
@@ -172,9 +142,6 @@
       <Filter>Source Files\Game</Filter>
     </ClCompile>
     <ClCompile Include="AssetButton.cpp">
-      <Filter>Source Files\Editor\AssetPanel</Filter>
-    </ClCompile>
-    <ClCompile Include="AssetFactory.cpp">
       <Filter>Source Files\Editor\AssetPanel</Filter>
     </ClCompile>
     <ClCompile Include="AssetPanel.cpp">
@@ -204,46 +171,52 @@
     <ClCompile Include="SceneButton.cpp">
       <Filter>Source Files\Editor\ScenePanel</Filter>
     </ClCompile>
-    <ClCompile Include="SceneFactory.cpp">
-      <Filter>Source Files\Editor\ScenePanel</Filter>
-    </ClCompile>
     <ClCompile Include="EditorSaveLoad.cpp">
       <Filter>Source Files\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="DrawFunctions.cpp">
+      <Filter>Source Files\DrawFunctions</Filter>
+    </ClCompile>
+    <ClCompile Include="UITextElement.cpp">
+      <Filter>Source Files\GameObjectTypes\UITypes</Filter>
+    </ClCompile>
+    <ClCompile Include="UIRectangleElement.cpp">
+      <Filter>Source Files\GameObjectTypes\UITypes</Filter>
+    </ClCompile>
+    <ClCompile Include="UITextureElement.cpp">
+      <Filter>Source Files\GameObjectTypes\UITypes</Filter>
+    </ClCompile>
+    <ClCompile Include="UISpriteElement.cpp">
+      <Filter>Source Files\GameObjectTypes\UITypes</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteSheetRegistry.cpp">
+      <Filter>Source Files\Registries</Filter>
+    </ClCompile>
+    <ClCompile Include="TextureRegistry.cpp">
+      <Filter>Source Files\Registries</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteRegistry.cpp">
+      <Filter>Source Files\Registries</Filter>
+    </ClCompile>
+    <ClCompile Include="CollisionManager.cpp">
+      <Filter>Source Files\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="InputManager.cpp">
+      <Filter>Source Files\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="TemplateScene.cpp">
+      <Filter>Source Files\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneFactory.cpp">
+      <Filter>Source Files\Editor\EditorFactories</Filter>
+    </ClCompile>
+    <ClCompile Include="AssetFactory.cpp">
+      <Filter>Source Files\Editor\EditorFactories</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.hpp">
       <Filter>Header Files\Game</Filter>
-    </ClInclude>
-    <ClInclude Include="DrawFunctions.hpp">
-      <Filter>Header Files\Source</Filter>
-    </ClInclude>
-    <ClInclude Include="InputManager.hpp">
-      <Filter>Header Files\Source</Filter>
-    </ClInclude>
-    <ClInclude Include="shader.h">
-      <Filter>Header Files\Source</Filter>
-    </ClInclude>
-    <ClInclude Include="Sprite.hpp">
-      <Filter>Header Files\Source</Filter>
-    </ClInclude>
-    <ClInclude Include="TextureRegistry.hpp">
-      <Filter>Header Files\Source</Filter>
-    </ClInclude>
-    <ClInclude Include="Utilities.hpp">
-      <Filter>Header Files\Source</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene.hpp">
-      <Filter>Header Files\Source</Filter>
-    </ClInclude>
-    <ClInclude Include="SpriteRegistry.hpp">
-      <Filter>Header Files\Source</Filter>
-    </ClInclude>
-    <ClInclude Include="SpriteSheet.hpp">
-      <Filter>Header Files\Source</Filter>
-    </ClInclude>
-    <ClInclude Include="SpriteSheetRegistry.hpp">
-      <Filter>Header Files\Source</Filter>
     </ClInclude>
     <ClInclude Include="GameObject2D.hpp">
       <Filter>Header Files\GameObjectTypes</Filter>
@@ -251,68 +224,14 @@
     <ClInclude Include="CollisionObject2D.hpp">
       <Filter>Header Files\GameObjectTypes</Filter>
     </ClInclude>
-    <ClInclude Include="CollisionManager.hpp">
-      <Filter>Header Files\Source</Filter>
-    </ClInclude>
-    <ClInclude Include="PlatformerPlayer.hpp">
-      <Filter>Header Files\PlatformerGameObjects</Filter>
-    </ClInclude>
-    <ClInclude Include="PlatformerScene.hpp">
-      <Filter>Header Files\PlatformerScenes</Filter>
-    </ClInclude>
-    <ClInclude Include="StaticSprite.hpp">
-      <Filter>Header Files\PlatformerGameObjects</Filter>
-    </ClInclude>
     <ClInclude Include="SpriteGameObject.hpp">
-      <Filter>Header Files\PlatformerGameObjects</Filter>
+      <Filter>Header Files\GameObjects</Filter>
     </ClInclude>
     <ClInclude Include="Axis.hpp">
-      <Filter>Header Files\PlatformerGameObjects</Filter>
+      <Filter>Header Files\GameObjects</Filter>
     </ClInclude>
-    <ClInclude Include="SpriteObstacle.hpp">
-      <Filter>Header Files\PlatformerGameObjects</Filter>
-    </ClInclude>
-    <ClInclude Include="ColliderRectangle.hpp">
-      <Filter>Header Files\PlatformerGameObjects</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerGroundChecker.hpp">
-      <Filter>Header Files\PlatformerGameObjects</Filter>
-    </ClInclude>
-    <ClInclude Include="UITextElement.hpp">
-      <Filter>Header Files\GameObjectTypes</Filter>
-    </ClInclude>
-    <ClInclude Include="TitleScreenScene.hpp">
-      <Filter>Header Files\PlatformerScenes</Filter>
-    </ClInclude>
-    <ClInclude Include="GameWonScreenScene.hpp">
-      <Filter>Header Files\PlatformerScenes</Filter>
-    </ClInclude>
-    <ClInclude Include="GameOverScreenScene.hpp">
-      <Filter>Header Files\PlatformerScenes</Filter>
-    </ClInclude>
-    <ClInclude Include="SoundManager.hpp">
-      <Filter>Header Files\Source</Filter>
-    </ClInclude>
-    <ClInclude Include="PauseDisplay.hpp">
-      <Filter>Header Files\PlatformerGameObjects</Filter>
-    </ClInclude>
-    <ClInclude Include="CameraAndUI.hpp">
-      <Filter>Header Files\PlatformerGameObjects</Filter>
-    </ClInclude>
-    <ClInclude Include="Coin.hpp">
-      <Filter>Header Files\PlatformerGameObjects</Filter>
-    </ClInclude>
-    <ClInclude Include="CoinDisplay.hpp">
-      <Filter>Header Files\PlatformerGameObjects</Filter>
-    </ClInclude>
-    <ClInclude Include="FinishLine.hpp">
-      <Filter>Header Files\PlatformerGameObjects</Filter>
-    </ClInclude>
-    <ClInclude Include="FinishLinePopUpDisplay.hpp">
-      <Filter>Header Files\PlatformerGameObjects</Filter>
-    </ClInclude>
-    <ClInclude Include="GameOverTimer.hpp">
-      <Filter>Header Files\PlatformerGameObjects</Filter>
+    <ClInclude Include="Camera.hpp">
+      <Filter>Header Files\GameObjects</Filter>
     </ClInclude>
     <ClInclude Include="WindowConstants.hpp">
       <Filter>Header Files\Game</Filter>
@@ -321,9 +240,6 @@
       <Filter>Header Files\Editor</Filter>
     </ClInclude>
     <ClInclude Include="AssetButton.hpp">
-      <Filter>Header Files\Editor\AssetPanel</Filter>
-    </ClInclude>
-    <ClInclude Include="AssetFactory.hpp">
       <Filter>Header Files\Editor\AssetPanel</Filter>
     </ClInclude>
     <ClInclude Include="AssetPanel.hpp">
@@ -356,13 +272,70 @@
     <ClInclude Include="SceneButton.hpp">
       <Filter>Header Files\Editor\ScenePanel</Filter>
     </ClInclude>
+    <ClInclude Include="DrawFunctions.hpp">
+      <Filter>Header Files\DrawFunctions</Filter>
+    </ClInclude>
+    <ClInclude Include="UIElement.hpp">
+      <Filter>Header Files\GameObjectTypes\UITypes</Filter>
+    </ClInclude>
+    <ClInclude Include="UIRectangleElement.hpp">
+      <Filter>Header Files\GameObjectTypes\UITypes</Filter>
+    </ClInclude>
+    <ClInclude Include="UITextElement.hpp">
+      <Filter>Header Files\GameObjectTypes\UITypes</Filter>
+    </ClInclude>
+    <ClInclude Include="UITextureElement.hpp">
+      <Filter>Header Files\GameObjectTypes\UITypes</Filter>
+    </ClInclude>
+    <ClInclude Include="UISpriteElement.hpp">
+      <Filter>Header Files\GameObjectTypes\UITypes</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteRegistry.hpp">
+      <Filter>Header Files\Registries</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteSheetRegistry.hpp">
+      <Filter>Header Files\Registries</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureRegistry.hpp">
+      <Filter>Header Files\Registries</Filter>
+    </ClInclude>
+    <ClInclude Include="SoundManager.hpp">
+      <Filter>Header Files\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="InputManager.hpp">
+      <Filter>Header Files\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionManager.hpp">
+      <Filter>Header Files\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="Sprite.hpp">
+      <Filter>Header Files\AssetTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteSheet.hpp">
+      <Filter>Header Files\AssetTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.hpp">
+      <Filter>Header Files\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Utilities.hpp">
+      <Filter>Header Files\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="TemplateScene.hpp">
+      <Filter>Header Files\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="AssetFactory.hpp">
+      <Filter>Header Files\Editor\EditorFactories</Filter>
+    </ClInclude>
+    <ClInclude Include="shader.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="SceneFactory.hpp">
-      <Filter>Header Files\Editor\ScenePanel</Filter>
-    </None>
     <None Include="EditorSaveLoad.hpp">
       <Filter>Header Files\Editor</Filter>
+    </None>
+    <None Include="SceneFactory.hpp">
+      <Filter>Header Files\Editor\EditorFactories</Filter>
     </None>
   </ItemGroup>
 </Project>

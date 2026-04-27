@@ -1,5 +1,5 @@
-#ifndef UI_TEXT_ELEMENT_HPP
-#define UI_TEXT_ELEMENT_HPP
+#ifndef UI_TEXTURE_ELEMENT_HPP
+#define UI_TEXTURE_ELEMENT_HPP
 
 #include <string>
 
@@ -7,20 +7,16 @@
 
 #include "DrawFunctions.hpp"
 #include "Utilities.hpp"
+#include "TextureRegistry.hpp"
 
 // UI GameObjects will be drawn relative to camera space. So be smart when initializing their transform2D
-class UITextElement : public UIElement {
+class UITextureElement : public UIElement {
 	public:
-		UITextElement(
+		UITextureElement(
 			const Transform2D& transform2D,
 			const std::string& tag,
 			const std::string& name,
-			const std::string& text,
-			const ColorRGB& textColor,
-			const ColorRGB& rectangleColorTL,
-			const ColorRGB& rectangleColorTR,
-			const ColorRGB& rectangleColorBL,
-			const ColorRGB& rectangleColorBR
+			const GLuint& texID
 		);
 
 		void onStart() override {}
@@ -30,15 +26,9 @@ class UITextElement : public UIElement {
 		void establishFields() override {}
 
 		void toggleDrawing() { drawElement_ = !drawElement_; }
-	
-	protected:
-		std::string text_;
-		ColorRGB textColor_;
-		ColorRGB rectangleColorTL_;
-		ColorRGB rectangleColorTR_;
-		ColorRGB rectangleColorBL_;
-		ColorRGB rectangleColorBR_;
 
+	protected:
+		GLuint textureID_;
 		bool drawElement_ = true;
 };
 

@@ -1,9 +1,4 @@
 #include "Game.hpp"
-
-#include "ArchiveScene.hpp"
-#include "TemplateScene.hpp"
-#include "TitleScreenScene.hpp"
-
 #include "WindowConstants.hpp"
 
 // Function wrappers needed because OpenGL expects a certain function signature for these

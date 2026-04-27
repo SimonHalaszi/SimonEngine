@@ -19,10 +19,10 @@ void drawSquare(
 	const float& angle,
 	const bool& mirror,
 	const bool& flip,
-	const ColorRGB& c1,
-	const ColorRGB& c2,
-	const ColorRGB& c3,
-	const ColorRGB& c4
+	const ColorRGB& colorTL,
+	const ColorRGB& colorTR,
+	const ColorRGB& colorBL,
+	const ColorRGB& colorBR
 );
 
 // Drawing a rectangle
@@ -32,10 +32,10 @@ void drawRectangle(
 	const float& angle,
 	const bool& mirror,
 	const bool& flip,
-	const ColorRGB& c1,
-	const ColorRGB& c2,
-	const ColorRGB& c3,
-	const ColorRGB& c4
+	const ColorRGB& colorTL,
+	const ColorRGB& colorTR,
+	const ColorRGB& colorBL,
+	const ColorRGB& colorBR
 );
 
 // Drawing a triangle
@@ -45,9 +45,9 @@ void drawTriangle(
 	const float& angle,
 	const bool& mirror,
 	const bool& flip,
-	const ColorRGB& c1,
-	const ColorRGB& c2,
-	const ColorRGB& c3
+	const ColorRGB& colorT,
+	const ColorRGB& colorBL,
+	const ColorRGB& colorBR
 );
 
 // Drawing an image
@@ -90,6 +90,29 @@ void drawTextCentered(
 	const std::string& text,
 	const float& lineSpace,
 	const ColorRGB& color
+);
+
+// Functions for drawing shapes, sprites, images, etc USING transforms
+
+// Drawing a rectangle given a transform
+void drawRectangleWithTransform(
+	const Transform2D& worldTransform,
+	const ColorRGB& colorTL,
+	const ColorRGB& colorTR,
+	const ColorRGB& colorBL,
+	const ColorRGB& colorBR
+);
+
+// Drawing an image
+void drawImageWithTransform(
+	const Transform2D& worldTransform,
+	const GLuint& textureID
+);
+
+// Drawing a sprite
+void drawSpriteWithTransform(
+	const Transform2D& worldTransform,
+	const Sprite& sprite
 );
 
 #endif

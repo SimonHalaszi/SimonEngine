@@ -12,7 +12,13 @@
 
 class Axis : public GameObject2D {
 public:
-	Axis(Transform2D transform2D, ColorRGB color1, ColorRGB color2, bool willDrawAxis, char axis);
+	Axis(
+		const Transform2D& transform2D, 
+		const ColorRGB& color1,
+		const ColorRGB& color2,
+		const bool& willDrawAxis,
+		const char& axis
+	);
 
 	void onStart() override {}
 	void draw() override;

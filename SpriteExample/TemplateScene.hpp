@@ -22,9 +22,7 @@
 #include "InputManager.hpp"
 
 // Game Objects Used
-// #include "GameObject.hpp"
-#include "StaticSprite.hpp"
-#include "AnimatedSprite.hpp"
+#include "SpriteGameObject.hpp"
 //
 
 class TemplateScene : public Scene {
@@ -43,12 +41,11 @@ private:
 
 	// Scene Specific Stuff Goes Here (Stuff not related to a GameObject)
 
-	// Keys for registries
-	std::string key_;
-
 	// File paths for loading textures
-	std::string filePath_;
+	std::string titleFilePath_;
 
+	// Keys for assets
+	std::string titleSpriteKey_;
 };
 
 #endif

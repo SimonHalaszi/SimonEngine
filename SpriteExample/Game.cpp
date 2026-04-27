@@ -120,7 +120,7 @@ void GAMEdraw() {
 		glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
 		if (currentScene->isDrawing() && !editor->inEditor()) {
 			glPushMatrix();
-			glViewport(0, 0, ENGINE_WIN_W, ENGINE_WIN_H);
+			glViewport(0, 0, GAME_WIN_W, GAME_WIN_H);
 			currentScene->sceneDraw();
 			glPopMatrix();
 		}
@@ -151,6 +151,7 @@ void Game::init() {
 	glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE); // Changed to RGBA also added Double buffering
 	glutInitWindowSize(ENGINE_WIN_W, ENGINE_WIN_H); // window size
 	glutInitWindowPosition(ENGINE_WIN_X, ENGINE_WIN_Y);
+
 	glutCreateWindow("(Simon Halaszi) (811196947)");
 	
 	glClearColor(0.0, 0.0, 0.0, 1.0); // clear the window screen

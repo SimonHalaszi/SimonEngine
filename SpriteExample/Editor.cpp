@@ -269,11 +269,15 @@ void Editor::enterEditor() {
 	inEditor_ = true;
 	std::cout << "Editor::enterEditor() : Entering editor mode " << std::endl;
 
+	glutReshapeWindow(ENGINE_WIN_W, ENGINE_WIN_H);
+
 	SoundManager::getInstance().pauseAll();
 }
 
 void Editor::exitEditor() {
 	std::cout << "Editor::exitEditor() : Exiting editor mode " << std::endl;
+
+	glutReshapeWindow(GAME_WIN_W, GAME_WIN_H);
 
 	inEditor_ = false;
 	canSave_ = false;

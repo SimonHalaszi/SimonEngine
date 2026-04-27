@@ -375,7 +375,6 @@ void Editor::loadEditorState() {
 
 	scene_->sceneDeInit();
 	scene_->sceneInit();
-	resetPanelsToDefaultView();
 
 	if (!replayEditorActions(scene_, loadedActions)) {
 		std::cout << "Editor::loadEditorState() : Failed to replay actions from save file" << std::endl;
@@ -383,7 +382,6 @@ void Editor::loadEditorState() {
 		// Loaded replay may have partially mutated the scene. Rebuild before rollback.
 		scene_->sceneDeInit();
 		scene_->sceneInit();
-		resetPanelsToDefaultView();
 
 		if (!replayEditorActions(scene_, previousActions)) {
 			std::cout << "Editor::loadEditorState() : Failed to restore previous editor state after load failure" << std::endl;
@@ -391,8 +389,13 @@ void Editor::loadEditorState() {
 		else {
 			std::cout << "Editor::loadEditorState() : Restored previous editor state" << std::endl;
 		}
+
+		resetPanelsToDefaultView();
+
 		return;
 	}
+
+	resetPanelsToDefaultView();
 
 	saveActions_ = loadedActions;
 	std::cout << "Editor::loadEditorState() : Loaded " << saveActions_.size() << " editor actions from save " << saveName_ << std::endl;

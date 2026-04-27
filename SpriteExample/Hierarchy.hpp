@@ -7,6 +7,7 @@
 #include <vector>
 #include <memory>
 #include <iostream>
+#include <functional>
 
 #include "GameObject2D.hpp"
 #include "WindowConstants.hpp"
@@ -19,7 +20,11 @@ class Hierarchy {
 		Hierarchy(std::vector<std::unique_ptr<GameObject2D>>* rootObjects);
 		
 		void draw() const;
-		void update();
+		void update(
+			const std::function<void(GameObject2D*)>& onObjectDeleted,
+			const std::function<void(GameObject2D*, int, int)>& onObjectReordered
+		);
+		void resetToRoot();
 
 		~Hierarchy();
 
@@ -34,7 +39,7 @@ class Hierarchy {
 		// Actual objects in hierarchy
 		std::vector<std::unique_ptr<GameObject2D>>* hierarchyObjects_;
 		// Always points to rootObjects_
-		std::vector<std::unique_ptr<GameObject2D>>* const rootObjects_;
+		std::vector<std::unique_ptr<GameObject2D>>* rootObjects_;
 
 		// Buttons
 		std::vector<HierarchyButton> hierarchyButtons_;

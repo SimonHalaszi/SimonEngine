@@ -108,7 +108,7 @@ class Scene {
 
 		std::vector<std::unique_ptr<GameObject2D>>* getRootObjects() { return &rootObjects_; }
 
-		const std::string& getSaveFilePath() const { return saveFilePath_; }
+		const std::string& getSaveName() const { return saveName_; }
 
 	protected:
 		// Scene specific functionalities handled here. GameObjects are updated AUTOMATICALLY based on per GameObject logic
@@ -129,8 +129,8 @@ class Scene {
 		int animationFrame_ = 0;
 		int updateFrame_ = 0;
 
-		// File path this scenes editor save data will be written to
-		std::string saveFilePath_;
+		// File name this scenes editor save data will be written to
+		std::string saveName_;
 };
 
 #endif // !GAME_HPP

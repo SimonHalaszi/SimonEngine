@@ -6,7 +6,7 @@
 GameOverScreenScene::GameOverScreenScene() :
 	Scene(244, 244, 10)
 {
-	saveFilePath_ = "../EditorSaves/GameOverScreenScene";
+	saveName_ = "GameOverScreenScene";
 
 	backgroundSpriteFilePath_ = "sprite/Background.jpg";
 	backgroundSprite_ = "backgroundSprite";

@@ -7,6 +7,7 @@
 #include <vector>
 #include <memory>
 #include <iostream>
+#include <functional>
 
 #include "GameObject2D.hpp"
 #include "WindowConstants.hpp"
@@ -20,7 +21,8 @@ class Inspector {
 
 		void setFocusedGameObject(GameObject2D* focusedGameObject);
 		void draw() const;
-		void update();
+		void update(const std::function<void(GameObject2D*)>& onObjectChanged);
+		void clearFocus();
 
 		~Inspector();
 

@@ -7,7 +7,7 @@
 GameWonScreenScene::GameWonScreenScene() :
 	Scene(244, 244, 10)
 {
-	saveFilePath_ = "../EditorSaves/GameWonScreenScene";
+	saveName_ = "GameWonScreenScene";
 
 	backgroundSpriteFilePath_ = "sprite/Background.jpg";
 	backgroundSprite_ = "backgroundSprite";

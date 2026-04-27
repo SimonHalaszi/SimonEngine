@@ -207,6 +207,9 @@
     <ClCompile Include="SceneFactory.cpp">
       <Filter>Source Files\Editor\ScenePanel</Filter>
     </ClCompile>
+    <ClCompile Include="EditorSaveLoad.cpp">
+      <Filter>Source Files\Editor</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.hpp">
@@ -357,6 +360,9 @@
   <ItemGroup>
     <None Include="SceneFactory.hpp">
       <Filter>Header Files\Editor\ScenePanel</Filter>
+    </None>
+    <None Include="EditorSaveLoad.hpp">
+      <Filter>Header Files\Editor</Filter>
     </None>
   </ItemGroup>
 </Project>

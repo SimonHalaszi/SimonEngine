@@ -11,12 +11,13 @@ Transform2D composeTransforms(const Transform2D& left, const Transform2D& right)
     world.scale.x = left.scale.x * right.scale.x;
     world.scale.y = left.scale.y * right.scale.y;
 
-    // Combined rotation
-    world.rotation = left.rotation + right.rotation;
-
     // Combined reflections
     world.mirror = left.mirror ^ right.mirror;
     world.flip = left.flip ^ right.flip;
+
+    // Odd reflection parity changes handedness, so child rotation direction is inverted.
+    const bool parentInvertsRotation = left.mirror ^ left.flip;
+    world.rotation = left.rotation + (parentInvertsRotation ? -right.rotation : right.rotation);
 
     // Start from child's local position
     Vector2D local = right.position;

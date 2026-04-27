@@ -1,6 +1,9 @@
 #include "TopPanel.hpp"
 
-TopPanel::TopPanel() {
+TopPanel::TopPanel(
+	std::function<void()> saveCallback,
+	std::function<void()> loadCallback
+) : saveCallback_(std::move(saveCallback)), loadCallback_(std::move(loadCallback)) {
 	float topPanelButtonWidth = 1.0f / 8.0f;
 	float topPanelButtonHeight = 1.0f;
 
@@ -232,11 +235,17 @@ void TopPanel::menuButtonAction() { menuDropActive_ = !menuDropActive_; }
 void TopPanel::helpButtonAction() { helpDropActive_ = !helpDropActive_; }
 
 void TopPanel::saveButtonAction() {
-
+	menuDropActive_ = false;
+	if (saveCallback_) {
+		saveCallback_();
+	}
 }
 
 void TopPanel::loadButtonAction() {
-
+	menuDropActive_ = false;
+	if (loadCallback_) {
+		loadCallback_();
+	}
 }
 
 void TopPanel::quitButtonAction() {

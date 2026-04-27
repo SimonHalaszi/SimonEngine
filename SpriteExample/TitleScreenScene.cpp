@@ -6,7 +6,7 @@
 TitleScreenScene::TitleScreenScene() :
 	Scene(244, 244, 10)
 {
-	saveFilePath_ = "../EditorSaves/TitleScreenScene";
+	saveName_ = "TitleScreenScene";
 
 	backgroundSpriteFilePath_ = "sprite/Background.jpg";
 	backgroundSprite_ = "backgroundSprite";

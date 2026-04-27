@@ -93,7 +93,10 @@ void Hierarchy::draw() const {
 	glMatrixMode(GL_MODELVIEW);
 }
 
-void Hierarchy::update() {
+void Hierarchy::update(
+	const std::function<void(GameObject2D*)>& onObjectDeleted,
+	const std::function<void(GameObject2D*, int, int)>& onObjectReordered
+) {
 	if (lastKnownSizeOfHierarchyObjects_ != hierarchyObjects_->size()) {
 		focusedGameObject_ = nullptr;
 		focusedGameObjectIndex_ = -1;
@@ -116,8 +119,15 @@ void Hierarchy::update() {
 			GameObject2D* rO = it->get();
 
 			if (rO == focusedGameObject_) {
+				if (onObjectDeleted) {
+					onObjectDeleted(rO);
+				}
 				focusedGameObject_ = nullptr;
+				focusedGameObjectIndex_ = -1;
 				it = hierarchyObjects_->erase(it);
+				lastKnownSizeOfHierarchyObjects_ = hierarchyObjects_->size();
+				hierarchyButtons_.clear();
+				establishHierarchyButtons();
 				break;
 			}
 			else {
@@ -138,8 +148,13 @@ void Hierarchy::update() {
 		}
 		if (InputManager::getInstance().isSpecialKeyPressed(mapSpecialKey(GLUT_KEY_UP))) {
 			if (focusedGameObjectIndex_ > 0) {
+				const int fromIndex = focusedGameObjectIndex_;
 				std::swap((*hierarchyObjects_)[focusedGameObjectIndex_], (*hierarchyObjects_)[focusedGameObjectIndex_ - 1]);
 				focusedGameObjectIndex_ -= 1;
+				focusedGameObject_ = (*hierarchyObjects_)[focusedGameObjectIndex_].get();
+				if (onObjectReordered) {
+					onObjectReordered(parentOfCurrentView_, fromIndex, focusedGameObjectIndex_);
+				}
 				
 				hierarchyButtons_.clear();
 				establishHierarchyButtons();
@@ -147,8 +162,13 @@ void Hierarchy::update() {
 		}
 		if (InputManager::getInstance().isSpecialKeyPressed(mapSpecialKey(GLUT_KEY_DOWN))) {
 			if (focusedGameObjectIndex_ >= 0 && static_cast<size_t>(focusedGameObjectIndex_) + 1 < hierarchyObjects_->size()) {
+				const int fromIndex = focusedGameObjectIndex_;
 				std::swap((*hierarchyObjects_)[focusedGameObjectIndex_], (*hierarchyObjects_)[focusedGameObjectIndex_ + 1]);
 				focusedGameObjectIndex_ += 1;
+				focusedGameObject_ = (*hierarchyObjects_)[focusedGameObjectIndex_].get();
+				if (onObjectReordered) {
+					onObjectReordered(parentOfCurrentView_, fromIndex, focusedGameObjectIndex_);
+				}
 				
 				hierarchyButtons_.clear();
 				establishHierarchyButtons();
@@ -255,6 +275,18 @@ void Hierarchy::establishHierarchyButtons() {
 
 void Hierarchy::setFocusedGameObject(GameObject2D* focusedGameObject) {
 	focusedGameObject_ = focusedGameObject;
+}
+
+void Hierarchy::resetToRoot() {
+	hierarchyObjects_ = rootObjects_;
+	parentOfCurrentView_ = nullptr;
+	focusedGameObject_ = nullptr;
+	focusedGameObjectIndex_ = -1;
+	hierarchyContext_.scrollOffsetX = 0.0f;
+	hierarchyContext_.scrollOffsetY = 0.0f;
+	hierarchyButtons_.clear();
+	establishHierarchyButtons();
+	lastKnownSizeOfHierarchyObjects_ = hierarchyObjects_->size();
 }
 
 Hierarchy::~Hierarchy() {

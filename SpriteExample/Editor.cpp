@@ -1,10 +1,15 @@
 #include "Editor.hpp"
 
+#include <iostream>
+
+#include "AssetFactory.hpp"
+#include "CollisionObject2D.hpp"
+#include "UITextElement.hpp"
+#include "EditorSaveLoad.hpp"
+
 Editor::Editor(Scene* scene)
-: scene_(scene), hierarchy_(scene->getRootObjects()), assetPanel_(scene)
-{
+	: scene_(scene), hierarchy_(scene->getRootObjects()), assetPanel_(scene), topPanel_([this]() { saveEditorState(); }, [this]() { loadEditorState(); }) {
 	std::cout << "Editor::Editor() : Editor created " << std::endl;
-	std::vector<std::unique_ptr<GameObject2D>>* rootObjects = scene->getRootObjects();
 
 	middlePanelContext_.viewportX = HIERARCHY_PANEL_W;
 	middlePanelContext_.viewportY = OBJECTS_PANEL_H;
@@ -20,18 +25,15 @@ Editor::Editor(Scene* scene)
 	middlePanelContext_.orthoTop = 1.0f;
 
 	focusedGameObject_ = nullptr;
-
-	saveFilePath_ = scene->getSaveFilePath();
+	saveName_ = scene->getSaveName();
 }
-
-#include "UITextElement.hpp"
 
 void Editor::editorDraw() const {
 	assetPanel_.draw();
 	scenePanel_.draw();
 	hierarchy_.draw();
 	inspector_.draw();
-	
+
 	glMatrixMode(GL_PROJECTION);
 	glPushMatrix();
 	glLoadIdentity();
@@ -177,11 +179,6 @@ void Editor::editorDraw() const {
 }
 
 void Editor::editorUpdate() {
-	// You can no longer save after leaving editor, sorry!
-	if (!inEditor_ && canSave_) {
-		canSave_ = false;
-	}
-
 	if (isInsideViewportContext(InputManager::getInstance().mouseX(), InputManager::getInstance().mouseY(), middlePanelContext_)) {
 		// Handle moving around in the editor scene view
 		float physicsTime = 1.0f / scene_->getUpdateSpeed();
@@ -225,15 +222,28 @@ void Editor::editorUpdate() {
 	// Only update for topPanel if either drop down is active
 	if (topPanel_.helpDropActive() || topPanel_.menuDropActive()) {
 		topPanel_.update();
-	} 
+	}
 	else {
 		// Run this before hierarchy_ because it adds to rootObjects.
-		assetPanel_.update(hierarchy_.getActiveHierarchyVector(), hierarchy_.getParentOfCurrentView());
-		
+		assetPanel_.update(
+			hierarchy_.getActiveHierarchyVector(),
+			hierarchy_.getParentOfCurrentView(),
+			[this](int assetButtonIndex, GameObject2D* parentObject) {
+				recordCreateAction(assetButtonIndex, parentObject);
+			}
+		);
+
 		topPanel_.update();
 
 		// Part of editor responsible for keeping track of rootObjects and focusing objects
-		hierarchy_.update();
+		hierarchy_.update(
+			[this](GameObject2D* object) {
+				recordDeleteAction(object);
+			},
+			[this](GameObject2D* parentObject, int fromIndex, int toIndex) {
+				recordReorderAction(parentObject, fromIndex, toIndex);
+			}
+		);
 
 		// Run this after hierarchy_ runs. BECAUSE inspector_ will actually do stuff to this pointer. And if its stale thats bad.
 		if (focusedGameObject_ != hierarchy_.focusedGameObject()) {
@@ -243,7 +253,9 @@ void Editor::editorUpdate() {
 		}
 
 		// Inspector can delete objects and such and should run last because it imperative it has updated state of pointers
-		inspector_.update();
+		inspector_.update([this](GameObject2D* object) {
+			recordSnapshotAction(object);
+		});
 		scenePanel_.update();
 	}
 }
@@ -253,18 +265,131 @@ Editor::~Editor() {
 	scene_ = nullptr;
 }
 
-void Editor::enterEditor() { 
+void Editor::enterEditor() {
 	inEditor_ = true;
 	std::cout << "Editor::enterEditor() : Entering editor mode " << std::endl;
 
-	SoundManager::getInstance().pauseAll(); 
+	SoundManager::getInstance().pauseAll();
 }
 
 void Editor::exitEditor() {
 	std::cout << "Editor::exitEditor() : Exiting editor mode " << std::endl;
 
-	inEditor_ = false; 	
+	inEditor_ = false;
+	canSave_ = false;
 	if (!scene_->isPauseFlagged()) {
 		SoundManager::getInstance().unpauseAll();
 	}
+}
+
+// Resets panels to the default view
+void Editor::resetPanelsToDefaultView() {
+	focusedGameObject_ = nullptr;
+	hierarchy_.resetToRoot();
+	inspector_.clearFocus();
+	assetPanel_ = AssetPanel(scene_);
+	scenePanel_ = ScenePanel();
+}
+
+// Create Action - Asset Panel
+void Editor::recordCreateAction(int assetButtonIndex, GameObject2D* parentObject) {
+	if (!canSave_) {
+		return;
+	}
+
+	EditorSavedAction action;
+	action.type = EditorSavedActionType::Create;
+	action.parentPath = buildObjectPath(scene_, parentObject);
+	action.assetButtonIndex = assetButtonIndex;
+	saveActions_.push_back(action);
+}
+
+// Delete Action - Hierarchy Panel
+void Editor::recordDeleteAction(GameObject2D* object) {
+	if (!canSave_ || !object) {
+		return;
+	}
+
+	EditorSavedAction action;
+	action.type = EditorSavedActionType::Delete;
+	action.objectPath = buildObjectPath(scene_, object);
+	if (!action.objectPath.empty()) {
+		saveActions_.push_back(action);
+	}
+}
+
+// Reorder Action - Hierarchy Panel
+void Editor::recordReorderAction(GameObject2D* parentObject, int fromIndex, int toIndex) {
+	if (!canSave_) {
+		return;
+	}
+
+	EditorSavedAction action;
+	action.type = EditorSavedActionType::Reorder;
+	action.parentPath = buildObjectPath(scene_, parentObject);
+	action.fromIndex = fromIndex;
+	action.toIndex = toIndex;
+	saveActions_.push_back(action);
+}
+
+// Snapshot Action - Inspector Panel
+void Editor::recordSnapshotAction(GameObject2D* object) {
+	if (!canSave_ || !object) {
+		return;
+	}
+
+	EditorSavedAction action;
+	action.type = EditorSavedActionType::Snapshot;
+	action.objectPath = buildObjectPath(scene_, object);
+	action.fieldValues = saveIFields(object);
+	if (!action.objectPath.empty()) {
+		saveActions_.push_back(action);
+	}
+}
+
+// Save and Load Actions - Top Panel, passed in at initialization
+void Editor::saveEditorState() {
+	if (!canSave_) {
+		std::cout << "Editor::saveEditorState() : Save unavailable after leaving editor mode. Load or reset the scene to establish a new editor state." << std::endl;
+		return;
+	}
+
+	saveEditorActionsToFile(saveName_, saveActions_);
+}
+
+void Editor::loadEditorState() {
+	if (!scene_) {
+		return;
+	}
+
+	const std::vector<EditorSavedAction> previousActions = saveActions_;
+
+	std::vector<EditorSavedAction> loadedActions;
+	if (!loadEditorActionsFromFile(saveName_, loadedActions)) {
+		return;
+	}
+
+	scene_->sceneDeInit();
+	scene_->sceneInit();
+	resetPanelsToDefaultView();
+
+	if (!replayEditorActions(scene_, loadedActions)) {
+		std::cout << "Editor::loadEditorState() : Failed to replay actions from save file" << std::endl;
+
+		// Loaded replay may have partially mutated the scene. Rebuild before rollback.
+		scene_->sceneDeInit();
+		scene_->sceneInit();
+		resetPanelsToDefaultView();
+
+		if (!replayEditorActions(scene_, previousActions)) {
+			std::cout << "Editor::loadEditorState() : Failed to restore previous editor state after load failure" << std::endl;
+		}
+		else {
+			std::cout << "Editor::loadEditorState() : Restored previous editor state" << std::endl;
+		}
+		return;
+	}
+
+	saveActions_ = loadedActions;
+	std::cout << "Editor::loadEditorState() : Loaded " << saveActions_.size() << " editor actions from save " << saveName_ << std::endl;
 }

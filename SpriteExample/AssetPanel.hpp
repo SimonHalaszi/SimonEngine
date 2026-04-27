@@ -11,13 +11,19 @@
 #include "Scene.hpp"
 
 #include <vector>
+#include <functional>
 
 class AssetPanel {
 public:
 	AssetPanel(Scene* scene);
 
 	void draw() const;
-	void update(std::vector<std::unique_ptr<GameObject2D>>* hierarchyObjects_, GameObject2D* parentOfCurrentView);
+	void update(
+		std::vector<std::unique_ptr<GameObject2D>>* hierarchyObjects_,
+		GameObject2D* parentOfCurrentView,
+		const std::function<void(int, GameObject2D*)>& onAssetCreated
+	);
+	void resetView();
 
 private:
 	Scene* scene_;

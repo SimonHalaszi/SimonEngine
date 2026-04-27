@@ -12,7 +12,7 @@
 PlatformerScene::PlatformerScene() :
 	Scene(60, 244, 10)
 {
-	saveFilePath_ = "../EditorSaves/PlatformerScene";
+	saveName_ = "PlatformerScene";
 
 	// Initialize Filepaths
 	backgroundMusicFilePath_ = "audio/NBC.mp3";

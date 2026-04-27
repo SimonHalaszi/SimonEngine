@@ -140,6 +140,7 @@
     <ClCompile Include="IFieldButton.cpp" />
     <ClCompile Include="HierarchyButton.cpp" />
     <ClCompile Include="SceneButton.cpp" />
+    <ClCompile Include="EditorSaveLoad.cpp" />
     <ClCompile Include="SceneFactory.cpp" />
     <ClCompile Include="ScenePanel.cpp" />
     <ClCompile Include="VoidButton.cpp" />
@@ -228,6 +229,7 @@
     <ClInclude Include="WindowConstants.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="EditorSaveLoad.hpp" />
     <None Include="SceneFactory.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

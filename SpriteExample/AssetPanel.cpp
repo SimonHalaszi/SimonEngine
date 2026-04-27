@@ -111,7 +111,11 @@ void AssetPanel::draw() const {
 	glMatrixMode(GL_MODELVIEW);
 }
 
-void AssetPanel::update(std::vector<std::unique_ptr<GameObject2D>>* hierarchyObjects_, GameObject2D* parentOfCurrentView) {
+void AssetPanel::update(
+	std::vector<std::unique_ptr<GameObject2D>>* hierarchyObjects_,
+	GameObject2D* parentOfCurrentView,
+	const std::function<void(int, GameObject2D*)>& onAssetCreated
+) {
 	// Dont bother doing input if we arent in hierarchy panel
 	if (isInsideViewportContext(InputManager::getInstance().mouseX(), InputManager::getInstance().mouseY(), assetPanelContext_)) {
 		float scrollSpeed = 0.1f;
@@ -129,7 +133,8 @@ void AssetPanel::update(std::vector<std::unique_ptr<GameObject2D>>* hierarchyObj
 
 		// Handle Clicking
 		if (InputManager::getInstance().isMouseButtonPressed(MOUSEBUTTON_LEFT)) {
-			for (auto& button : assetButtons_) {
+			for (int i = 0; i < static_cast<int>(assetButtons_.size()); ++i) {
+				auto& button = assetButtons_[i];
 				std::unique_ptr<GameObject2D> temp = std::move(button.handleClick(assetPanelContext_));
 				if (temp) {
 					if (parentOfCurrentView == nullptr) {
@@ -140,6 +145,10 @@ void AssetPanel::update(std::vector<std::unique_ptr<GameObject2D>>* hierarchyObj
 						parentOfCurrentView->attachChild(std::move(temp));
 						parentOfCurrentView->getChildren()->back()->updateWorldTransform();
 					}
+
+					if (onAssetCreated) {
+						onAssetCreated(i, parentOfCurrentView);
+					}
 				}
 				else {
 					continue;
@@ -147,4 +156,9 @@ void AssetPanel::update(std::vector<std::unique_ptr<GameObject2D>>* hierarchyObj
 			}
 		}
 	}
+}
+
+void AssetPanel::resetView() {
+	assetPanelContext_.scrollOffsetX = 0.0f;
+	assetPanelContext_.scrollOffsetY = 0.0f;
 }

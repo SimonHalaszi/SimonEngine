@@ -19,6 +19,7 @@
 #include "AssetPanel.hpp"
 #include "TopPanel.hpp"
 #include "ScenePanel.hpp"
+#include "EditorSaveLoad.hpp"
 
 // Sits on top of game to give editor logic
 class Editor {
@@ -36,6 +37,24 @@ class Editor {
 
 		~Editor();
 	private:
+		// Functions used for the saving and loading processes
+		// Resets panels to the default view
+		void resetPanelsToDefaultView();
+		// Recorders for every action type 
+		// Get passed into their corresponding panels update functions and get called inside of them
+
+		// Create Action - Asset Panel
+		void recordCreateAction(int assetButtonIndex, GameObject2D* parentObject);
+		// Delete Action - Hierarchy Panel
+		void recordDeleteAction(GameObject2D* object);
+		// Reorder Action - Hierarchy Panel
+		void recordReorderAction(GameObject2D* parentObject, int fromIndex, int toIndex);
+		// Snapshot Action - Inspector Panel
+		void recordSnapshotAction(GameObject2D* object);
+		// Save and Load Actions - Top Panel, passed in at initialization
+		void saveEditorState();
+		void loadEditorState();
+
 		bool inEditor_ = true;
 		bool canSave_ = true;
 
@@ -57,7 +76,8 @@ class Editor {
 		// GameObject currently selected (Pulled from Hierarchy, then pushed to Inspector)
 		GameObject2D* focusedGameObject_;
 
-		std::string saveFilePath_;
+		std::string saveName_;
+		std::vector<EditorSavedAction> saveActions_;
 };
 
 #endif

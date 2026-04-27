@@ -6,6 +6,7 @@
 
 #include <vector>
 #include <iostream>
+#include <functional>
 
 #include "WindowConstants.hpp"
 #include "DrawFunctions.hpp"
@@ -14,7 +15,10 @@
 
 class TopPanel {
 public:
-	TopPanel();
+	TopPanel(
+		std::function<void()> saveCallback = {},
+		std::function<void()> loadCallback = {}
+	);
 
 	void draw() const;
 	void update();
@@ -42,6 +46,8 @@ private:
 	std::vector<VoidButton> menuDropButtons_;
 	bool helpDropActive_ = false;
 	std::vector<VoidButton> helpDropButtons_;
+	std::function<void()> saveCallback_;
+	std::function<void()> loadCallback_;
 
 	ViewportContext topPanelContext_;
 	ViewportContext globalContext_;

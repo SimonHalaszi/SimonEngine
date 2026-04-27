@@ -147,7 +147,7 @@ void Inspector::establishIFieldButtons() {
 	}
 }
 
-void Inspector::update() {
+void Inspector::update(const std::function<void(GameObject2D*)>& onObjectChanged) {
 	// Dont bother doing input if we arent in hierarchy panel
 	if (isInsideViewportContext(InputManager::getInstance().mouseX(), InputManager::getInstance().mouseY(), inspectorContext_)) {
 		float scrollSpeed = 0.1f;
@@ -181,6 +181,10 @@ void Inspector::update() {
 			if (collider) {
 				collider->setCollisionEnabled(collider->isCollisionEnabled());
 			}
+
+			if (onObjectChanged) {
+				onObjectChanged(focusedGameObject_);
+			}
 		}
 
 		const std::string& typedChars = InputManager::getInstance().getTypedChars();
@@ -190,6 +194,12 @@ void Inspector::update() {
 			}
 		}
 	}
+}
+
+void Inspector::clearFocus() {
+	setFocusedGameObject(nullptr);
+	inspectorContext_.scrollOffsetX = 0.0f;
+	inspectorContext_.scrollOffsetY = 0.0f;
 }
 
 Inspector::~Inspector() {

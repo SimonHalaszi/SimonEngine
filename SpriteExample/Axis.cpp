@@ -1,22 +1,22 @@
 #include "Axis.hpp"
 
 Axis::Axis(
-	const Transform2D& transform2D,
+	const Transform2D& localTransform,
 	const ColorRGB& color1,
 	const ColorRGB& color2,
 	const bool& willDrawAxis,
 	const char& axis
 ) {
-	localTransform_ = transform2D;
+	localTransform_ = localTransform;
 	color1_ = color1;
 	color2_ = color2;
 	willDrawAxis_ = willDrawAxis;
 	axis_ = axis;
-	if (axis == 'x') {
+	if (axis == 'x' || axis == 'X') {
 		name_ = "X-Axis";
 		tag_ = "X-Axis";
 	}
-	else if (axis == 'y') {
+	else if (axis == 'y' || axis == 'X') {
 		name_ = "Y-Axis";
 		tag_ = "Y-Axis";
 	}
@@ -30,7 +30,7 @@ void Axis::draw() {
 	Transform2D transform = getWorldTransform();
 
 	if (willDrawAxis_) {
-		if (axis_ == 'x') {
+		if (axis_ == 'x' || axis_ == 'X') {
 			drawLine(
 				transform.position, { transform.position.x + 0.25f, transform.position.y },
 				color1_, color2_
@@ -42,7 +42,7 @@ void Axis::draw() {
 				color2_, color2_, color2_
 			);
 		}
-		else if (axis_ =='y') {
+		else if (axis_ =='y' || axis_ == 'Y') {
 			drawLine(
 				transform.position, { transform.position.x, transform.position.y + 0.25f },
 				color1_, color2_
@@ -58,7 +58,7 @@ void Axis::draw() {
 }
 
 void Axis::update() {
-	if (Game::getInstance().getCurrentScene()->isPauseFlagged()) {
+	if (Game::getInstance().isPauseFlagged()) {
 		return;
 	}
 

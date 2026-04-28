@@ -13,7 +13,7 @@
 class Axis : public GameObject2D {
 public:
 	Axis(
-		const Transform2D& transform2D, 
+		const Transform2D& localTransform,
 		const ColorRGB& color1,
 		const ColorRGB& color2,
 		const bool& willDrawAxis,

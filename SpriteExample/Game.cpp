@@ -145,7 +145,7 @@ void Game::animationTimer(int v) {
 	glutTimerFunc(int(1000 / animationUpdatesPerSecond), GAMEanimationTimer, v); // Creates a frame delay that is counted in miliseconds
 }
 
-#include "SceneFactory.hpp";
+#include "SceneFactory.hpp"
 
 void Game::init() {
 	glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE); // Changed to RGBA also added Double buffering

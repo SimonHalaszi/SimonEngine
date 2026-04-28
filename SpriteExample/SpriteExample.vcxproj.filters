@@ -112,6 +112,9 @@
     <Filter Include="Header Files\GameObjects">
       <UniqueIdentifier>{40603e1b-0651-4b54-9634-48cfd88133fa}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Scenes\Interface">
+      <UniqueIdentifier>{c97a1f99-ed0c-43c6-8993-bb2cac094e24}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SimonEngine.cpp">
@@ -212,6 +215,15 @@
     </ClCompile>
     <ClCompile Include="AssetFactory.cpp">
       <Filter>Source Files\Editor\EditorFactories</Filter>
+    </ClCompile>
+    <ClCompile Include="GameScene.cpp">
+      <Filter>Source Files\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.hpp">
+      <Filter>Header Files\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Source Files\GameObjects</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -314,9 +326,6 @@
     <ClInclude Include="SpriteSheet.hpp">
       <Filter>Header Files\AssetTypes</Filter>
     </ClInclude>
-    <ClInclude Include="Scene.hpp">
-      <Filter>Header Files\Scenes</Filter>
-    </ClInclude>
     <ClInclude Include="Utilities.hpp">
       <Filter>Header Files\Utilities</Filter>
     </ClInclude>
@@ -328,6 +337,12 @@
     </ClInclude>
     <ClInclude Include="shader.h">
       <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GameScene.hpp">
+      <Filter>Header Files\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.hpp">
+      <Filter>Header Files\Scenes\Interface</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -1,7 +1,7 @@
 #include "Utilities.hpp"
 
 float degreesToRadians(float degrees) {
-    return degrees * PI / 180.0;
+    return static_cast<float>(degrees * PI) / 180.0f;
 }
 
 Transform2D composeTransforms(const Transform2D& left, const Transform2D& right) {
@@ -73,10 +73,10 @@ WindowArea viewportAreaToWindowArea(const ViewportArea& viewport, const Viewport
 bool isInsideViewportContext(int mouseX, int mouseY, const ViewportContext& context) {
     int flippedMouseY = ENGINE_WIN_H - mouseY;
 
-    float left = context.viewportX;
-    float right = context.viewportX + context.viewportWidth;
-    float bottom = context.viewportY;
-    float top = context.viewportY + context.viewportHeight;
+    float left = static_cast<float>(context.viewportX);
+    float right = static_cast<float>(context.viewportX + context.viewportWidth);
+    float bottom = static_cast<float>(context.viewportY);
+    float top = static_cast<float>(context.viewportY + context.viewportHeight);
 
     return (mouseX >= left && mouseX <= right &&
         flippedMouseY >= bottom && flippedMouseY <= top);

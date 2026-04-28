@@ -34,6 +34,17 @@ class Game {
 		void updateTimer(int v);
 		void animationTimer(int v);
 
+		// Exposes some attributes of scene to make life easier
+		int getAnimationFrame() const { if (currentScene_) { return currentScene_->getAnimationFrame(); } else return 0; }
+		int getUpdateFrame() const { if (currentScene_) { return currentScene_->getUpdateFrame(); } else return 0; }
+
+		
+		int getAnimationUpdateSpeed() const { if (currentScene_) { return currentScene_->getAnimationUpdateSpeed(); } else return 0; }
+		int getUpdateSpeed() const { if (currentScene_) { return currentScene_->getUpdateSpeed(); } else return 0; }
+		int getFrameSpeed() const { if (currentScene_) { return currentScene_->getFrameSpeed(); } else return 0; }
+
+		bool isPauseFlagged() const { if (currentScene_) { return currentScene_->isPauseFlagged(); } else return false; }
+
 		Game(const Game&) = delete;
 		Game& operator=(const Game&) = delete;
 		Game(const Game&&) = delete;

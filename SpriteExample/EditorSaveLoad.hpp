@@ -23,6 +23,7 @@ struct EditorSavedFieldValue {
 	std::string value;
 };
 
+// EditorSavedActionTypes create -> asset panel, delete, reorder -> hierarchy, snapshot -> inspector
 enum class EditorSavedActionType {
 	Create,
 	Delete,
@@ -30,6 +31,7 @@ enum class EditorSavedActionType {
 	Snapshot,
 };
 
+//
 struct EditorSavedAction {
 	EditorSavedActionType type = EditorSavedActionType::Snapshot;
 	std::vector<int> objectPath;

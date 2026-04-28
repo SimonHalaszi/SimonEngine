@@ -1,17 +1,17 @@
 #include "Camera.hpp"
 
-Camera::Camera(const Transform2D& transform2D) {
-	localTransform_ = transform2D;
+Camera::Camera(const Transform2D& localTransform) {
+	localTransform_ = localTransform;
 	name_ = "Camera";
 	tag_ = "Camera";
 }
 
 void Camera::update() {
-	if (Game::getInstance().getCurrentScene()->isPauseFlagged()) {
+	if (Game::getInstance().isPauseFlagged()) {
 		return;
 	}
 
-	Transform2D transform = getWorldTransform();
+	const Transform2D& transform = getWorldTransform();
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 	glTranslatef(-transform.position.x, -transform.position.y, 0);

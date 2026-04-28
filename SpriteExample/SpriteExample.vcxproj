@@ -137,8 +137,11 @@
     <ClCompile Include="AssetButton.cpp" />
     <ClCompile Include="Axis.cpp" />
     <ClCompile Include="AssetFactory.cpp" />
+    <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="IFieldButton.cpp" />
     <ClCompile Include="HierarchyButton.cpp" />
+    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Player.hpp" />
     <ClCompile Include="SceneButton.cpp" />
     <ClCompile Include="EditorSaveLoad.cpp" />
     <ClCompile Include="SceneFactory.cpp" />
@@ -172,6 +175,7 @@
     <ClInclude Include="AssetButton.hpp" />
     <ClInclude Include="Axis.hpp" />
     <ClInclude Include="AssetFactory.hpp" />
+    <ClInclude Include="GameScene.hpp" />
     <ClInclude Include="IFieldButton.hpp" />
     <ClInclude Include="HierarchyButton.hpp" />
     <ClInclude Include="IField.hpp" />

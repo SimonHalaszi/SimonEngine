@@ -38,6 +38,7 @@ class GameObject2D {
 		void updateWorldTransform();
 
 		void attachChild(std::unique_ptr<GameObject2D> child); // Attaches a child to a GameObject
+		void attachIField(std::unique_ptr<IField> IField) { IFields_.push_back(std::move(IField)); }
 
 		std::vector<std::unique_ptr<GameObject2D>>* getChildren() { return &children_; }
 		std::vector<std::unique_ptr<IField>>* getIFields() { return &IFields_; }
@@ -58,19 +59,16 @@ class GameObject2D {
 		std::string name_;
 		Transform2D localTransform_;
 
-		std::vector<std::unique_ptr<GameObject2D>> children_ = {};
-		std::vector<std::unique_ptr<IField>> IFields_ = {};
-
 		bool hasStarted_ = false;
 		bool hasEstablishedFields_ = false;
 
-	private:
-		void init(); // Runs to attach to scene
-		void deInit(); // Runs to unattch from scene
-		
+	private:		
 		bool isWorldTransformOutDated_ = true;
 		Transform2D worldTransform_;
 		bool isAlive_ = true;
+
+		std::vector<std::unique_ptr<GameObject2D>> children_ = {};
+		std::vector<std::unique_ptr<IField>> IFields_ = {};
 };
 
 #endif

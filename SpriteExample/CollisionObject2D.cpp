@@ -19,7 +19,8 @@ bool CollisionObject2D::checkCollision(const CollisionObject2D& other) const {
 
 void CollisionObject2D::setCollisionEnabled(bool enabled) {
     collisionEnabled_ = enabled;
-    for (auto& child : children_) {
+    std::vector<std::unique_ptr<GameObject2D>>* children = getChildren();
+    for (auto& child : *children) {
         CollisionObject2D* childCollider = dynamic_cast<CollisionObject2D*>(child.get());
         if (childCollider) {
             childCollider->setCollisionEnabled(enabled);
@@ -47,14 +48,15 @@ void CollisionObject2D::rootEstablishFields() {
     }
     hasEstablishedFields_ = true;
 
-    IFields_.push_back(std::make_unique<StringField>("Name", &name_));
-    IFields_.push_back(std::make_unique<StringField>("Tag", &tag_));
-    IFields_.push_back(std::make_unique<Transform2DField>("Local Transform", &localTransform_));
-    IFields_.push_back(std::make_unique<BoolField>("Collision", &collisionEnabled_));
+    attachIField(std::make_unique<StringField>("Name", &name_));
+    attachIField(std::make_unique<StringField>("Tag", &tag_));
+    attachIField(std::make_unique<Transform2DField>("Local Transform", &localTransform_));
+    attachIField(std::make_unique<BoolField>("Collision", &collisionEnabled_));
 
     establishFields();
 
-    for (auto& child : children_) {
+    std::vector<std::unique_ptr<GameObject2D>>* children = getChildren();
+    for (auto& child : *children) {
         child->rootEstablishFields();
     }
 }

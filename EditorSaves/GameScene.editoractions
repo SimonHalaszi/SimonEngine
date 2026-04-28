@@ -1,0 +1,21 @@
+CREATE 0 0
+SNAPSHOT 1 1 9
+FIELD STRING "Name" "Man"
+FIELD STRING "Tag" "Man"
+FIELD FLOAT "Local Transform.pos.x" "0"
+FIELD FLOAT "Local Transform.pos.y" "1"
+FIELD FLOAT "Local Transform.scale.x" "0.5"
+FIELD FLOAT "Local Transform.scale.y" "0.5"
+FIELD FLOAT "Local Transform.rotation" "0"
+FIELD BOOL "Local Transform.mirror" "0"
+FIELD BOOL "Local Transform.flip" "0"
+SNAPSHOT 1 1 9
+FIELD STRING "Name" "Man"
+FIELD STRING "Tag" "Man"
+FIELD FLOAT "Local Transform.pos.x" "0"
+FIELD FLOAT "Local Transform.pos.y" "0.5"
+FIELD FLOAT "Local Transform.scale.x" "0.5"
+FIELD FLOAT "Local Transform.scale.y" "0.5"
+FIELD FLOAT "Local Transform.rotation" "0"
+FIELD BOOL "Local Transform.mirror" "0"
+FIELD BOOL "Local Transform.flip" "0"

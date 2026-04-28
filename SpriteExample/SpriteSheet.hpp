@@ -16,7 +16,7 @@ class SpriteSheet {
 		SpriteSheet(const std::vector<Sprite> sheet) : sheet_(sheet) {}
 
 		const std::vector<Sprite>& getSheet() const { return sheet_; }
-		int spriteCount() const { return sheet_.size();  }
+		int spriteCount() const { return static_cast<int>(sheet_.size());  }
 
 		// Same thing different story
 		Sprite operator[](int i) const { return sheet_[i]; }

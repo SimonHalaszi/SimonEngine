@@ -40,41 +40,21 @@ public:
 
 	virtual void update() override final;
 
+	void loadMisc();
+	void createBaseArea();
+	void createMarshArea();
+	void createFireArea();
+	void createGrassArea();
+	void createHouseArea();
+	void createBackdrop();
+
+	void spawnMonesers();
+	void spawnPlayer();
+
 private:
 
 	// Scene Specific Stuff Goes Here (Stuff not related to a GameObject)
-
-	// File paths for loading textures
-	std::string playerFilePath_;
-	std::string baseGrassFilePath_;
-	std::string appleTreeFilePath_;
-	std::string orangeTreeFilePath_;
-	std::string foxireFilePath_;
-	std::string foxireSheetFilePath_;
-	std::string ploistFilePath_;
-	std::string ploistSheetFilePath_;
-	std::string grandaFilePath_;
-	std::string grandaSheetFilePath_;
-	std::string norupFilePath_;
-	std::string norupSheetFilePath_;
-	std::string shadowFilePath_;
-
-	// Keys for assets
-	std::string playerSidewaysKey_;
-	std::string playerUpKey_;
-	std::string playerDownKey_;
-	std::string baseGrassKey_;
-	std::string appleTreeKey_;
-	std::string orangeTreeKey_;
-	std::string foxireKey_;
-	std::string foxireSheetKey_;
-	std::string ploistKey_;
-	std::string ploistSheetKey_;
-	std::string grandaKey_;
-	std::string grandaSheetKey_;
-	std::string norupKey_;
-	std::string norupSheetKey_;
-	std::string shadowKey_;
+	Vector2D houseOrgin_;
 };
 
 #endif

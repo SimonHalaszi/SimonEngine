@@ -27,6 +27,20 @@ void Player::onStart() {
 		transform
 	)
 	);
+	Transform2D shadowTransform = {
+		Vector2D({0.0f, -1.0625f}),
+		Vector2D({0.75f, 0.0625f}),
+		0.0f,
+		false,
+		false
+	};
+	attachChild(std::make_unique<NonColliderSprite>(
+		shadowTransform,
+		"Shadow",
+		"Shadow",
+		&SpriteRegistry::getInstance().getSprite("Shadow")
+	)
+	);
 	attachChild(std::make_unique<Axis>(
 		transform,
 		ColorRGB({ 0.0f, 1.0f, 0.0f }),
@@ -41,21 +55,6 @@ void Player::onStart() {
 		ColorRGB({ 1.0f, 0.0f, 0.0f }),
 		false,
 		'x'
-	)
-	);
-
-	Transform2D shadowTransform = {
-		Vector2D({0.0f, -1.0625f}),
-		Vector2D({0.75f, 0.0625f}),
-		0.0f,
-		false,
-		false
-	};
-	attachChild(std::make_unique<NonColliderSprite>(
-		shadowTransform,
-		"Shadow",
-		"Shadow",
-		&SpriteRegistry::getInstance().getSprite("shadow")
 	)
 	);
 }
@@ -209,23 +208,6 @@ void Player::onCollision(CollisionObject2D& other) {
 		}
 		else {
 			pushY(frameMovement_.y);
-		}
-
-		updateWorldTransform();
-		playerAABB = getAABB();
-		overlapX = std::min(playerAABB.max.x, otherAABB.max.x) - std::max(playerAABB.min.x, otherAABB.min.x);
-		overlapY = std::min(playerAABB.max.y, otherAABB.max.y) - std::max(playerAABB.min.y, otherAABB.min.y);
-		if (overlapX > 0.0f && overlapY > 0.0f) {
-			if (resolveX) {
-				pushY(frameMovement_.y);
-			}
-			else {
-				pushX(frameMovement_.x);
-			}
-		}
-
-		if (frameMovement_.x == 0.0f && frameMovement_.y == 0.0f) {
-			moving_ = false;
 		}
 
 		updateWorldTransform();

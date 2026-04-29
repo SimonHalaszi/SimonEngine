@@ -23,7 +23,7 @@ void Moneser::onStart() {
 		shadowTransform,
 		"Shadow",
 		"Shadow",
-		&SpriteRegistry::getInstance().getSprite("shadow")
+		&SpriteRegistry::getInstance().getSprite("Shadow")
 	)
 	);
 }

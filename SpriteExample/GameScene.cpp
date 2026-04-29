@@ -4,8 +4,36 @@ GameScene::GameScene() :
 	Scene(244, 244, 10)
 {
 	saveName_ = "GameScene";
-	playerFilePath_ = "image/Man.png";
-	playerSpriteKey_ = "Player";
+	playerFilePath_ = "image/PlayerSheet.png";
+	baseGrassFilePath_ = "image/BaseGrass.png";
+	appleTreeFilePath_ = "image/AppleTree.png";
+	orangeTreeFilePath_ = "image/OrangeTree.png";
+	foxireFilePath_ = "image/Foxire.png";
+	foxireSheetFilePath_ = "image/FoxireSheet.png";
+	ploistFilePath_ = "image/Ploist.png";
+	ploistSheetFilePath_ = "image/PloistSheet.png";
+	grandaFilePath_ = "image/Granda.png";
+	grandaSheetFilePath_ = "image/GrandaSheet.png";
+	norupFilePath_ = "image/Norup.png";
+	norupSheetFilePath_ = "image/NorupSheet.png";
+	shadowFilePath_ = "image/Shadow.png";
+
+
+	playerDownKey_ = "playerDown";
+	playerSidewaysKey_ = "playerSideways";
+	playerUpKey_ = "playerUp";
+	baseGrassKey_ = "baseGrass";
+	appleTreeKey_ = "appleTree";
+	orangeTreeKey_ = "orangeTree";
+	foxireKey_ = "foxire";
+	foxireSheetKey_ = "foxireSheet";
+	ploistKey_ = "ploist";
+	ploistSheetKey_ = "ploistSheet";
+	grandaKey_ = "granda";
+	grandaSheetKey_ = "grandaSheet";
+	norupKey_ = "norup";
+	norupSheetKey_ = "norupSheet";
+	shadowKey_ = "shadow";
 }
 
 GameScene::~GameScene() {}
@@ -23,35 +51,203 @@ void GameScene::init() {
 	SoundManager::getInstance().setMusicTrack("audio/GoingShopping.mp3");
 
 	GLuint texID;
+	texID = TextureRegistry::getInstance().loadTexture(baseGrassFilePath_);
+	const Sprite* sprite = &SpriteRegistry::getInstance().makeSprite(
+		baseGrassKey_,
+		texID,
+		1,
+		1,
+		TileIndex({ 0, 0 })
+	);
+	addRootGameObject2D(std::make_unique<NonColliderSprite>(
+		Transform2D({
+			Vector2D({ 0.0f, 0.0f }),
+			Vector2D({ 1.0f, 1.0f }),
+			0.0f,
+			false,
+			false,
+			}),
+			"BaseGrass",
+			"BaseGrass",
+			sprite
+			)
+	);
 
-	// Make it so GameObjects get passed the assets
+	texID = TextureRegistry::getInstance().loadTexture(shadowFilePath_);
+	sprite = &SpriteRegistry::getInstance().makeSprite(
+		shadowKey_,
+		texID,
+		1,
+		1,
+		TileIndex({ 0, 0 })
+	);
+
+	texID = TextureRegistry::getInstance().loadTexture(orangeTreeFilePath_);
+	sprite = &SpriteRegistry::getInstance().makeSprite(
+		orangeTreeKey_,
+		texID,
+		1,
+		1,
+		TileIndex({ 0, 0 })
+	);
+	addRootGameObject2D(std::make_unique<ColliderSprite>(
+		Transform2D({
+			Vector2D({ 0.5f, 0.5f }),
+			Vector2D({ 0.2f, 0.3f }),
+			0.0f,
+			false,
+			false,
+			}),
+			"OrangeTree",
+			"Collider",
+			sprite
+			)
+	);
+
+	texID = TextureRegistry::getInstance().loadTexture(foxireSheetFilePath_);
+	const SpriteSheet* spriteSheet = &SpriteSheetRegistry::getInstance().makeSpriteSheet(
+		foxireSheetKey_,
+		texID,
+		7,
+		1,
+		TileIndex({ 0, 0 }),
+		TileIndex({ 6, 0 })
+	);
+	addRootGameObject2D(std::make_unique<Moneser>(
+		Transform2D({
+			Vector2D({ -0.8f, -0.5f }),
+			Vector2D({ 0.1f, 0.1f }),
+			0.0f,
+			false,
+			false,
+			}),
+			"Foxire",
+			spriteSheet
+			)
+	);
+
+	texID = TextureRegistry::getInstance().loadTexture(grandaSheetFilePath_);
+	spriteSheet = &SpriteSheetRegistry::getInstance().makeSpriteSheet(
+		grandaSheetKey_,
+		texID,
+		7,
+		1,
+		TileIndex({ 0, 0 }),
+		TileIndex({ 6, 0 })
+	);
+	addRootGameObject2D(std::make_unique<Moneser>(
+		Transform2D({
+			Vector2D({ -0.3f, -0.5f }),
+			Vector2D({ 0.1f, 0.1f }),
+			0.0f,
+			false,
+			false,
+			}),
+			"Granda",
+			spriteSheet
+			)
+	);
+
+	texID = TextureRegistry::getInstance().loadTexture(ploistSheetFilePath_);
+	spriteSheet = &SpriteSheetRegistry::getInstance().makeSpriteSheet(
+		ploistSheetKey_,
+		texID,
+		7,
+		1,
+		TileIndex({ 0, 0 }),
+		TileIndex({ 6, 0 })
+	);
+	addRootGameObject2D(std::make_unique<Moneser>(
+		Transform2D({
+			Vector2D({ 0.3f, -0.5f }),
+			Vector2D({ 0.1f, 0.1f }),
+			0.0f,
+			false,
+			false,
+			}),
+			"Ploist",
+			spriteSheet
+			)
+	);
+
+	texID = TextureRegistry::getInstance().loadTexture(norupSheetFilePath_);
+	spriteSheet = &SpriteSheetRegistry::getInstance().makeSpriteSheet(
+		norupSheetKey_,
+		texID,
+		7,
+		1,
+		TileIndex({ 0, 0 }),
+		TileIndex({ 6, 0 })
+	);
+	addRootGameObject2D(std::make_unique<Moneser>(
+		Transform2D({
+			Vector2D({ 0.8f, -0.5f }),
+			Vector2D({ 0.1f, 0.1f }),
+			0.0f,
+			false,
+			false,
+			}),
+			"Norup",
+			spriteSheet
+			)
+	);
+
+
 	texID = TextureRegistry::getInstance().loadTexture(playerFilePath_);
+	const SpriteSheet* spriteSheetDown = &SpriteSheetRegistry::getInstance().makeSpriteSheet(
+		playerDownKey_,
+		texID,
+		4,
+		3,
+		TileIndex({ 0, 0 }),
+		TileIndex({ 3, 0 })
+	);
+	const SpriteSheet* spriteSheetSideways = &SpriteSheetRegistry::getInstance().makeSpriteSheet(
+		playerSidewaysKey_,
+		texID,
+		4,
+		3,
+		TileIndex({ 0, 1 }),
+		TileIndex({ 3, 1 })
+	);
+	const SpriteSheet* spriteSheetUp = &SpriteSheetRegistry::getInstance().makeSpriteSheet(
+		playerUpKey_,
+		texID,
+		4,
+		3,
+		TileIndex({ 0, 2 }),
+		TileIndex({ 3, 2 })
+	);
+
+	// Make it so GameObjects get passed the assets, or dont
 	addRootGameObject2D(std::make_unique<Player>(
 		Transform2D({
 			Vector2D({ 0.0f, 0.0f }),
-			Vector2D({ 0.25f, 0.25f }),
+			Vector2D({ 0.1f, 0.1f }),
 			0.0f,
 			false,
 			false,
 			}),
 			"Player",
 			"Player",
-			&SpriteRegistry::getInstance().makeSprite(playerSpriteKey_, texID, 1, 1, { 0, 0 })
+			spriteSheetDown,
+			spriteSheetSideways,
+			spriteSheetUp
 			)
 	);
 }
 
 // For scene/game specific drawing (Drawing that is not related to a GameObject)
 void GameScene::draw() const {
-	// For example this draws a background for the entire scene!
-	drawSquare(
-		{ 0.0f, 0.0f },
-		1.0f,
-		0.0f, false, false,
-		{ 1.0f, 1.0f, 1.0f },
-		{ 1.0f, 0.0f, 0.0f },
-		{ 0.0f, 1.0f, 1.0f },
-		{ 0.0f, 0.0f, 1.0f }
+	drawRectangle(
+		Vector2D({ 0.0f, 0.0f }),
+		Vector2D({ 10.0f, 10.0f }),
+		0.0f,
+		false, false,
+		ColorRGB({1.0f, 1.0f, 1.0f}),
+		ColorRGB({ 1.0f, 1.0f, 1.0f }),
+		ColorRGB({ 1.0f, 1.0f, 1.0f }),
+		ColorRGB({ 1.0f, 1.0f, 1.0f })
 	);
 }
 

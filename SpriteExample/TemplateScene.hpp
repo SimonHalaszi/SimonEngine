@@ -22,7 +22,7 @@
 #include "InputManager.hpp"
 
 // Game Objects Used
-#include "SpriteGameObject.hpp"
+#include "NonColliderSprite.hpp"
 //
 
 class TemplateScene : public Scene {

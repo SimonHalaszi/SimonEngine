@@ -137,9 +137,13 @@
     <ClCompile Include="AssetButton.cpp" />
     <ClCompile Include="Axis.cpp" />
     <ClCompile Include="AssetFactory.cpp" />
+    <ClCompile Include="ColliderSprite.cpp" />
+    <ClCompile Include="ColliderSpriteAnimated.cpp" />
     <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="IFieldButton.cpp" />
     <ClCompile Include="HierarchyButton.cpp" />
+    <ClCompile Include="Moneser.cpp" />
+    <ClCompile Include="NonColliderSpriteAnimated.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Player.hpp" />
     <ClCompile Include="SceneButton.cpp" />
@@ -163,7 +167,7 @@
     <ClCompile Include="Inspector.cpp" />
     <ClCompile Include="AssetPanel.cpp" />
     <ClCompile Include="SimonEngine.cpp" />
-    <ClCompile Include="SpriteGameObject.cpp" />
+    <ClCompile Include="NonColliderSprite.cpp" />
     <ClCompile Include="SpriteRegistry.cpp" />
     <ClCompile Include="SpriteSheetRegistry.cpp" />
     <ClCompile Include="TextureRegistry.cpp" />
@@ -175,10 +179,14 @@
     <ClInclude Include="AssetButton.hpp" />
     <ClInclude Include="Axis.hpp" />
     <ClInclude Include="AssetFactory.hpp" />
+    <ClInclude Include="ColliderSprite.hpp" />
+    <ClInclude Include="ColliderSpriteAnimated.hpp" />
     <ClInclude Include="GameScene.hpp" />
     <ClInclude Include="IFieldButton.hpp" />
     <ClInclude Include="HierarchyButton.hpp" />
     <ClInclude Include="IField.hpp" />
+    <ClInclude Include="Moneser.hpp" />
+    <ClInclude Include="NonColliderSpriteAnimated.hpp" />
     <ClInclude Include="SceneButton.hpp" />
     <ClInclude Include="ScenePanel.hpp" />
     <ClInclude Include="TemplateScene.hpp" />
@@ -205,7 +213,7 @@
     <ClInclude Include="SpriteRegistry.hpp" />
     <ClInclude Include="SpriteSheet.hpp" />
     <ClInclude Include="SpriteSheetRegistry.hpp" />
-    <ClInclude Include="SpriteGameObject.hpp" />
+    <ClInclude Include="NonColliderSprite.hpp" />
     <ClInclude Include="TextureRegistry.hpp" />
     <ClInclude Include="TopPanel.hpp" />
     <ClInclude Include="UITextElement.hpp" />

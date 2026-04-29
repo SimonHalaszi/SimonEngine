@@ -1,22 +1,21 @@
-#ifndef SPRITE_GAME_OBJECT_HPP
-#define SPRITE_GAME_OBJECT_HPP
+#ifndef COLLIDER_SPRITE_ANIMATED_HPP
+#define COLLIDER_SPRITE_ANIMATED_HPP
 
 #include <string>
 
-#include "GameObject2D.hpp"
+#include "CollisionObject2D.hpp"
 
 #include "Game.hpp"
-#include "Sprite.hpp"
-#include "SpriteRegistry.hpp"
+#include "SpriteSheet.hpp"
 #include "DrawFunctions.hpp"
 
-class SpriteGameObject : public GameObject2D {
+class ColliderSpriteAnimated : public CollisionObject2D {
 public:
-	SpriteGameObject(
+	ColliderSpriteAnimated(
 		const Transform2D& localTransform,
 		const std::string& name,
 		const std::string& tag,
-		const Sprite* sprite
+		const SpriteSheet* spriteSheet
 	);
 
 	void onStart() override {}
@@ -25,8 +24,10 @@ public:
 	void onDestruction() override {}
 	void establishFields() override {}
 
+	void onCollision(CollisionObject2D& other) override {}
+
 private:
-	const Sprite* sprite_;
+	const SpriteSheet* spriteSheet_;
 };
 
 #endif

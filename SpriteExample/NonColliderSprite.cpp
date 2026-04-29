@@ -1,6 +1,6 @@
-#include "SpriteGameObject.hpp"
+#include "NonColliderSprite.hpp"
 
-SpriteGameObject::SpriteGameObject(
+NonColliderSprite::NonColliderSprite(
 	const Transform2D& localTransform,
 	const std::string& name,
 	const std::string& tag,
@@ -12,7 +12,7 @@ SpriteGameObject::SpriteGameObject(
 	sprite_ = sprite;
 }
 
-void SpriteGameObject::draw() {
+void NonColliderSprite::draw() {
 	const Transform2D& transform = getWorldTransform();
 	drawSpriteWithTransform(
 		transform,

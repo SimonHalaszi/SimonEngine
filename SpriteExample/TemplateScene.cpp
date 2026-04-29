@@ -26,7 +26,7 @@ void TemplateScene::init() {
 
 	// Make it so GameObjects get passed the assets
 	texID = TextureRegistry::getInstance().loadTexture(titleFilePath_);
-	addRootGameObject2D(std::make_unique<SpriteGameObject>(
+	addRootGameObject2D(std::make_unique<NonColliderSprite>(
 			Transform2D({ 
 				Vector2D({ 0.0f, 0.0f }),
 				Vector2D({ 1.0f, 1.0f }),

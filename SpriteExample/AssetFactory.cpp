@@ -1,7 +1,7 @@
 #include "AssetFactory.hpp"
 
 // Needed GameObjects
-#include "SpriteGameObject.hpp"
+#include "NonColliderSprite.hpp"
 
 // Expand this with more options as you go on
 AssetFactory::AssetFactory() {
@@ -14,7 +14,7 @@ std::unique_ptr<GameObject2D> AssetFactory::createGameObject(std::string option)
 	if (option == "Man") {
 		GLuint texID;
 		texID = TextureRegistry::getInstance().loadTexture("image/Man.png");
-		return std::make_unique<SpriteGameObject>(
+		return std::make_unique<NonColliderSprite>(
 			Transform2D({ 
 				Vector2D({ 0.0f, 0.0f }),
 				Vector2D({ 0.5f, 0.5f }),
@@ -30,7 +30,7 @@ std::unique_ptr<GameObject2D> AssetFactory::createGameObject(std::string option)
 	if (option == "Bird") {
 		GLuint texID;
 		texID = TextureRegistry::getInstance().loadTexture("image/Bird.png");
-		return std::make_unique<SpriteGameObject>(
+		return std::make_unique<NonColliderSprite>(
 			Transform2D({
 				Vector2D({ 0.0f, 0.0f }),
 				Vector2D({ 0.5f, 0.5f }),

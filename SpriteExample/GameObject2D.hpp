@@ -21,7 +21,7 @@ class GameObject2D {
 		virtual void rootEstablishFields(); // Runs when attached to scene. Used to add IFields to a GameObject
 
 		bool isAlive() const { return isAlive_; }
-		void destroy() { isAlive_ = false; } // Call this function or just change isAlive to delete GameObject
+		void destroy() { isAlive_ = false; } // Call this function to delete GameObject
 
 		bool hasParent() const { return parent_ != nullptr; }
 		GameObject2D* getParent() const { return parent_; }
@@ -29,10 +29,6 @@ class GameObject2D {
 
 		const Transform2D& getLocalTransform() const { return localTransform_; }
 		const Transform2D& getWorldTransform() const { return worldTransform_; }
-
-		void setPosition(Vector2D pos) { localTransform_.position = pos; outDateWorldTransform(); }
-		void setScale(Vector2D scale) { localTransform_.scale = scale; outDateWorldTransform(); }
-		void setRotation(float rotation) { localTransform_.rotation = rotation; outDateWorldTransform(); }
 
 		void outDateWorldTransform();
 		void updateWorldTransform();

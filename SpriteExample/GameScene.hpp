@@ -29,32 +29,31 @@
 //
 
 class GameScene : public Scene {
-public:
-	GameScene();
+	public:
+		GameScene();
 
-	~GameScene();
+		~GameScene();
 
-	virtual void init() override final;
+		virtual void init() override final;
 
-	virtual void draw() const override final;
+		virtual void draw() const override final;
 
-	virtual void update() override final;
+		virtual void update() override final;
 
-	void loadMisc();
-	void createBaseArea();
-	void createMarshArea();
-	void createFireArea();
-	void createGrassArea();
-	void createHouseArea();
-	void createBackdrop();
+	private:
+		void loadMisc();
+		void createBaseArea();
+		void createMarshArea();
+		void createFireArea();
+		void createGrassArea();
+		void createHouseArea();
+		void createBackdrop();
 
-	void spawnMonesers();
-	void spawnPlayer();
+		void spawnMonesers();
+		void spawnPlayer();
 
-private:
-
-	// Scene Specific Stuff Goes Here (Stuff not related to a GameObject)
-	Vector2D houseOrgin_;
+		// Scene Specific Stuff Goes Here (Stuff not related to a GameObject)
+		Vector2D houseOrgin_;
 };
 
 #endif

@@ -1,5 +1,5 @@
-#ifndef COLLIDER_HPP
-#define COLLIDER_HPP
+#ifndef COLLIDER_SPRITE_HPP
+#define COLLIDER_SPRITE_HPP
 
 #include <string>
 

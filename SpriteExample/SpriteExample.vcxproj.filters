@@ -115,6 +115,12 @@
     <Filter Include="Header Files\Scenes\Interface">
       <UniqueIdentifier>{c97a1f99-ed0c-43c6-8993-bb2cac094e24}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\GameObjects\GameUtilities">
+      <UniqueIdentifier>{272e824b-eb12-4ab3-8f53-bc4556f59a26}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GameObjects\GameUtilities">
+      <UniqueIdentifier>{df70bb30-2173-4f2f-bdd0-1ae52d88572d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SimonEngine.cpp">
@@ -236,6 +242,15 @@
     </ClCompile>
     <ClCompile Include="Moneser.cpp">
       <Filter>Source Files\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Teleporter.cpp">
+      <Filter>Source Files\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="MoneserArea.cpp">
+      <Filter>Source Files\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="MoneserType.cpp">
+      <Filter>Source Files\GameObjects\GameUtilities</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -367,6 +382,15 @@
     </ClInclude>
     <ClInclude Include="Moneser.hpp">
       <Filter>Header Files\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Teleporter.hpp">
+      <Filter>Header Files\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="MoneserArea.hpp">
+      <Filter>Header Files\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="MoneserType.hpp">
+      <Filter>Header Files\GameObjects\GameUtilities</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

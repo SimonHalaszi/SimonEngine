@@ -32,6 +32,8 @@ void GameScene::init() {
 	
 	spawnMonesers();
 	spawnPlayer();
+
+	createTeleporters();
 }
 
 // For scene/game specific drawing (Drawing that is not related to a GameObject)
@@ -136,7 +138,7 @@ void GameScene::createFireArea() {
 			sprite
 			)
 	);
-	// FIRE MARSH AREA
+	// END FIRE AREA
 }
 
 void GameScene::createGrassArea() {
@@ -311,99 +313,221 @@ void GameScene::createBaseArea() {
 }
 
 void GameScene::spawnMonesers() {
-	std::string foxireSheetFilePath = "image/FoxireSheet.png";
-	std::string foxireSheetKey = "Foxire";
-	std::string grandaSheetFilePath = "image/GrandaSheet.png";
-	std::string grandaSheetKey = "Granda";
-	std::string ploistSheetFilePath = "image/PloistSheet.png";
-	std::string ploistSheetKey = "Ploist";
-	std::string norupSheetFilePath = "image/NorupSheet.png";
-	std::string norupSheetKey = "Norup";
-	GLuint texID = TextureRegistry::getInstance().loadTexture(foxireSheetFilePath);
-	const SpriteSheet* spriteSheet = &SpriteSheetRegistry::getInstance().makeSpriteSheet(
-		foxireSheetKey,
-		texID,
-		7,
-		1,
-		TileIndex({ 0, 0 }),
-		TileIndex({ 6, 0 })
-	);
-	addRootGameObject2D(std::make_unique<Moneser>(
-		Transform2D({
-			Vector2D({ 0.0f, 2.2f }),
-			Vector2D({ 0.1f, 0.1f }),
-			0.0f,
-			false,
-			false,
-			}),
-			"Foxire",
-			spriteSheet
-			)
-	);
-	texID = TextureRegistry::getInstance().loadTexture(grandaSheetFilePath);
-	spriteSheet = &SpriteSheetRegistry::getInstance().makeSpriteSheet(
-		grandaSheetKey,
-		texID,
-		7,
-		1,
-		TileIndex({ 0, 0 }),
-		TileIndex({ 6, 0 })
-	);
-	addRootGameObject2D(std::make_unique<Moneser>(
-		Transform2D({
-			Vector2D({ 2.2f, 0.0f }),
-			Vector2D({ 0.1f, 0.1f }),
-			0.0f,
-			false,
-			false,
-			}),
-			"Granda",
-			spriteSheet
-			)
-	);
-	texID = TextureRegistry::getInstance().loadTexture(ploistSheetFilePath);
-	spriteSheet = &SpriteSheetRegistry::getInstance().makeSpriteSheet(
-		ploistSheetKey,
-		texID,
-		7,
-		1,
-		TileIndex({ 0, 0 }),
-		TileIndex({ 6, 0 })
-	);
-	addRootGameObject2D(std::make_unique<Moneser>(
-		Transform2D({
-			Vector2D({ -2.6f, 0.6f }),
-			Vector2D({ 0.1f, 0.1f }),
-			0.0f,
-			false,
-			false,
-			}),
-			"Ploist",
-			spriteSheet
-			)
-	);
+	// Foxire
+	{
+		std::string foxireSheetFilePath = "image/FoxireSheet.png";
+		std::string foxireFightFilePath = "image/FoxireFight.png";
+		std::string foxireTakeFilePath = "image/FoxireTake.png";
+		std::string foxireSheetKey = "Foxire";
+		std::string foxireFightSheetKey = "FoxireFight";
+		std::string foxireTakeSheetKey = "FoxireTake";
 
-	texID = TextureRegistry::getInstance().loadTexture(norupSheetFilePath);
-	spriteSheet = &SpriteSheetRegistry::getInstance().makeSpriteSheet(
-		norupSheetKey,
-		texID,
-		7,
-		1,
-		TileIndex({ 0, 0 }),
-		TileIndex({ 6, 0 })
-	);
-	addRootGameObject2D(std::make_unique<Moneser>(
-		Transform2D({
-			Vector2D({houseOrgin_.x - 0.4f, houseOrgin_.y + 0.4f}),
-			Vector2D({ 0.1f, 0.1f }),
-			0.0f,
-			false,
-			false,
-			}),
-			"Norup",
-			spriteSheet
-			)
-	);
+		GLuint texID = TextureRegistry::getInstance().loadTexture(foxireSheetFilePath);
+		const SpriteSheet* spriteSheet = &SpriteSheetRegistry::getInstance().makeSpriteSheet(
+			foxireSheetKey,
+			texID,
+			7,
+			1,
+			TileIndex({ 0, 0 }),
+			TileIndex({ 6, 0 })
+		);
+		texID = TextureRegistry::getInstance().loadTexture(foxireFightFilePath);
+		const Sprite* spriteFight = &SpriteRegistry::getInstance().makeSprite(
+			foxireFightSheetKey,
+			texID,
+			1,
+			1,
+			TileIndex({ 0, 0 })
+		);
+		texID = TextureRegistry::getInstance().loadTexture(foxireTakeFilePath);
+		const Sprite* spriteTake = &SpriteRegistry::getInstance().makeSprite(
+			foxireTakeSheetKey,
+			texID,
+			1,
+			1,
+			TileIndex({ 0, 0 })
+		);
+		addRootGameObject2D(std::make_unique<Moneser>(
+			Transform2D({
+				Vector2D({ 0.0f, 2.2f }),
+				Vector2D({ 0.1f, 0.1f }),
+				0.0f,
+				false,
+				false,
+				}),
+				"Foxire",
+				20.0f,
+				MoneserType::Fire,
+				spriteSheet,
+				spriteFight,
+				spriteTake
+				)
+		);
+	}
+	
+	// Granda
+	{
+		std::string grandaSheetFilePath = "image/GrandaSheet.png";
+		std::string grandaFightFilePath = "image/GrandaFight.png";
+		std::string grandaTakeFilePath = "image/GrandaTake.png";
+		std::string grandaSheetKey = "Granda";
+		std::string grandaFightSheetKey = "GrandaFight";
+		std::string grandaTakeSheetKey = "GrandaTake";
+
+		GLuint texID = TextureRegistry::getInstance().loadTexture(grandaSheetFilePath);
+		const SpriteSheet* spriteSheet = &SpriteSheetRegistry::getInstance().makeSpriteSheet(
+			grandaSheetKey,
+			texID,
+			7,
+			1,
+			TileIndex({ 0, 0 }),
+			TileIndex({ 6, 0 })
+		);
+		texID = TextureRegistry::getInstance().loadTexture(grandaFightFilePath);
+		const Sprite* spriteFight = &SpriteRegistry::getInstance().makeSprite(
+			grandaFightSheetKey,
+			texID,
+			1,
+			1,
+			TileIndex({ 0, 0 })
+		);
+		texID = TextureRegistry::getInstance().loadTexture(grandaTakeFilePath);
+		const Sprite* spriteTake = &SpriteRegistry::getInstance().makeSprite(
+			grandaTakeSheetKey,
+			texID,
+			1,
+			1,
+			TileIndex({ 0, 0 })
+		);
+		addRootGameObject2D(std::make_unique<Moneser>(
+			Transform2D({
+				Vector2D({ 2.2f, 0.0f }),
+				Vector2D({ 0.1f, 0.1f }),
+				0.0f,
+				false,
+				false,
+				}),
+				"Granda",
+				20.0f,
+				MoneserType::Grass,
+				spriteSheet,
+				spriteFight,
+				spriteTake
+				)
+		);
+	}
+	
+	// Ploist
+	{
+		std::string ploistSheetFilePath = "image/PloistSheet.png";
+		std::string ploistFightFilePath = "image/PloistFight.png";
+		std::string ploistTakeFilePath = "image/PloistTake.png";
+		std::string ploistSheetKey = "Ploist";
+		std::string ploistFightSheetKey = "PloistFight";
+		std::string ploistTakeSheetKey = "PloistTake";
+
+		GLuint texID = TextureRegistry::getInstance().loadTexture(ploistSheetFilePath);
+		const SpriteSheet* spriteSheet = &SpriteSheetRegistry::getInstance().makeSpriteSheet(
+			ploistSheetKey,
+			texID,
+			7,
+			1,
+			TileIndex({ 0, 0 }),
+			TileIndex({ 6, 0 })
+		);
+		texID = TextureRegistry::getInstance().loadTexture(ploistFightFilePath);
+		const Sprite* spriteFight = &SpriteRegistry::getInstance().makeSprite(
+			ploistFightSheetKey,
+			texID,
+			1,
+			1,
+			TileIndex({ 0, 0 })
+		);
+		texID = TextureRegistry::getInstance().loadTexture(ploistTakeFilePath);
+		const Sprite* spriteTake = &SpriteRegistry::getInstance().makeSprite(
+			ploistTakeSheetKey,
+			texID,
+			1,
+			1,
+			TileIndex({ 0, 0 })
+		);
+		addRootGameObject2D(std::make_unique<Moneser>(
+			Transform2D({
+				Vector2D({ -2.6f, 0.6f }),
+				Vector2D({ 0.1f, 0.1f }),
+				0.0f,
+				false,
+				false,
+				}),
+				"Ploist",
+				20.0f,
+				MoneserType::Water,
+				spriteSheet,
+				spriteFight,
+				spriteTake
+				)
+		);
+	}
+	
+	// Norup
+	{
+		std::string norupSheetFilePath = "image/NorupSheet.png";
+		std::string norupFightFilePath = "image/NorupFight.png";
+		std::string norupTakeFilePath = "image/NorupTake.png";
+		std::string norupSheetKey = "Norup";
+		std::string norupFightSheetKey = "NorupFight";
+		std::string norupTakeSheetKey = "NorupTake";
+
+		GLuint texID = TextureRegistry::getInstance().loadTexture(norupSheetFilePath);
+		const SpriteSheet* spriteSheet = &SpriteSheetRegistry::getInstance().makeSpriteSheet(
+			norupSheetKey,
+			texID,
+			7,
+			1,
+			TileIndex({ 0, 0 }),
+			TileIndex({ 6, 0 })
+		);
+		texID = TextureRegistry::getInstance().loadTexture(norupFightFilePath);
+		const Sprite* spriteFight = &SpriteRegistry::getInstance().makeSprite(
+			norupFightSheetKey,
+			texID,
+			1,
+			1,
+			TileIndex({ 0, 0 })
+		);
+		texID = TextureRegistry::getInstance().loadTexture(norupTakeFilePath);
+		const Sprite* spriteTake = &SpriteRegistry::getInstance().makeSprite(
+			norupTakeSheetKey,
+			texID,
+			1,
+			1,
+			TileIndex({ 0, 0 })
+		);
+		addRootGameObject2D(std::make_unique<Moneser>(
+			Transform2D({
+				Vector2D({houseOrgin_.x - 0.4f, houseOrgin_.y + 0.4f}),
+				Vector2D({ 0.1f, 0.1f }),
+				0.0f,
+				false,
+				false,
+				}),
+				"Norup",
+				20.0f,
+				MoneserType::Norm,
+				spriteSheet,
+				spriteFight,
+				spriteTake
+				)
+		);
+
+		// Ts lowkey dont need to be so serious but whatever, we are professionals
+		Moneser* norup = dynamic_cast<Moneser*>(getRootObjects()->back().get());
+		if (norup) {
+			if (norup->getName() == "Norup") {
+				norup->setHealth(0.0f);
+			}
+		}
+	}
 }
 
 void GameScene::spawnPlayer() {
@@ -446,7 +570,7 @@ void GameScene::spawnPlayer() {
 			false,
 			}),
 			"Player",
-			"Player",
+			20.0f,
 			spriteSheetDown,
 			spriteSheetSideways,
 			spriteSheetUp
@@ -545,7 +669,7 @@ void GameScene::createHouseArea() {
 			false,
 			}),
 			"Rug",
-			"Teleporter",
+			"Rug",
 			sprite
 			)
 	);
@@ -818,6 +942,55 @@ void GameScene::createBackdrop() {
 			}),
 			"CliffTop",
 			"CliffTop",
+			sprite
+			)
+	);
+}
+
+void GameScene::createTeleporters() {
+	std::string goOutFilePath = "image/GoOut.png";
+	std::string goOutKey = "GoOut";
+	std::string goInFilePath = "image/GoIn.png";
+	std::string goInKey = "GoIn";
+	GLuint texID = TextureRegistry::getInstance().loadTexture(goOutFilePath);
+	const Sprite* sprite = &SpriteRegistry::getInstance().makeSprite(
+		goOutKey,
+		texID,
+		1,
+		1,
+		TileIndex({ 0, 0 })
+	);
+	addRootGameObject2D(std::make_unique<Teleporter>(
+		Transform2D({
+			Vector2D({houseOrgin_.x, houseOrgin_.y - 0.4f}),
+			Vector2D({ 0.3f, 0.1f }),
+			0.0f,
+			false,
+			false,
+			}),
+			"Go Outside",
+			Vector2D({ 0.0f, -0.4f }),
+			sprite
+			)
+	);
+	texID = TextureRegistry::getInstance().loadTexture(goInFilePath);
+	sprite = &SpriteRegistry::getInstance().makeSprite(
+		goInKey,
+		texID,
+		1,
+		1,
+		TileIndex({ 0, 0 })
+	);
+	addRootGameObject2D(std::make_unique<Teleporter>(
+		Transform2D({
+			Vector2D({ 0.0f, -0.4f }),
+			Vector2D({ 0.1f, 0.1f }),
+			0.0f,
+			false,
+			false,
+			}),
+			"Go Inside",
+			Vector2D({ houseOrgin_.x, houseOrgin_.y - 0.4f }),
 			sprite
 			)
 	);

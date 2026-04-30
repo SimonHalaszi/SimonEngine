@@ -272,6 +272,8 @@ void Editor::enterEditor() {
 	glutReshapeWindow(ENGINE_WIN_W, ENGINE_WIN_H);
 
 	SoundManager::getInstance().pauseAll();
+
+	resetPanelsToDefaultView();
 }
 
 void Editor::exitEditor() {

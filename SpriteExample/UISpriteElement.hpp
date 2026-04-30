@@ -26,11 +26,10 @@ class UISpriteElement : public UIElement {
 		void onDestruction() override {}
 		void establishFields() override {}
 
-		void toggleDrawing() { drawElement_ = !drawElement_; }
+		void changeSprite(const Sprite* sprite) { sprite_ = sprite; }
 
 	protected:
 		const Sprite* sprite_;
-		bool drawElement_ = true;
 };
 
 #endif

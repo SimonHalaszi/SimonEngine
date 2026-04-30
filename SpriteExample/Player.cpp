@@ -4,21 +4,26 @@
 Player::Player(
 	const Transform2D& localTransform,
 	const std::string& name,
-	const std::string& tag,
+	const float& power,
 	const SpriteSheet* sheetDown,
 	const SpriteSheet* sheetSideways,
 	const SpriteSheet* sheetUp
 ) {
 	localTransform_ = localTransform;
 	name_ = name;
-	tag_ = tag;
+	tag_ = "Player";
+	power_ = power;
 	sheetDown_ = sheetDown;
 	sheetSideways_ = sheetSideways;
 	sheetUp_ = sheetUp;
 	speed_ = 1.0f;
 	frameMovement_ = Vector2D({ 0.0f, 0.0f });
 	moving_ = false;
+	teleportedAlready_ = false;
 	direction_ = 'd';
+	health_ = 100.0f;
+	moves_ = {};
+	partyIndex_ = -1;
 }
 
 void Player::onStart() {
@@ -104,6 +109,7 @@ void Player::update() {
 		return;
 	}
 
+	teleportedAlready_ = false;
 	frameMovement_ = Vector2D({ 0.0f, 0.0f });
 	moving_ = false;
 
@@ -157,6 +163,27 @@ void Player::onCollision(CollisionObject2D& other) {
 		return;
 	}
 
+	// Teleporter Collision Handling
+	if (other.getTag() == "Teleporter") {
+		if (InputManager::getInstance().isPressed(13)) {
+			Teleporter* teleporter = dynamic_cast<Teleporter*>(&other);
+			if (teleporter && !teleportedAlready_) {
+				teleportedAlready_ = true;
+				localTransform_.position = teleporter->getToLocation();
+				updateWorldTransform();
+				// Camera doesnt get this update. So manually push it, or else desync
+				if (Camera* camera = getAttachedCamera()) {
+					camera->rootUpdate();
+				}
+				return;
+			}
+			else {
+				return;
+			}
+		}
+	}
+
+	// Standard Collision Handling
 	if (other.getTag() == "Collider" || other.getTag() == "Moneser") {
 		AABB playerAABB = getAABB();
 		AABB otherAABB = other.getAABB();
@@ -215,6 +242,7 @@ void Player::onCollision(CollisionObject2D& other) {
 		if (Camera* camera = getAttachedCamera()) {
 			camera->rootUpdate();
 		}
+		return;
 	}
 }
 

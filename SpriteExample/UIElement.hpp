@@ -14,6 +14,8 @@ class UIElement : public GameObject2D {
 		void onDestruction() override {}
 		void establishFields() override {}
 
+		void setDrawing(const bool& setTo) { drawElement_ = setTo; }
+
 	protected:
 		bool drawElement_ = true;
 };

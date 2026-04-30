@@ -3,12 +3,21 @@
 Moneser::Moneser(
 	const Transform2D& localTransform,
 	const std::string& name,
-	const SpriteSheet* spriteSheet
+	const float& power,
+	const MoneserType& type,
+	const SpriteSheet* spriteSheet,
+	const Sprite* uiSpriteFight,
+	const Sprite* uiSpriteTake
 ) {
 	localTransform_ = localTransform;
 	name_ = name;
 	tag_ = "Moneser";
+	power_ = power;
+	type_ = type;
 	spriteSheet_ = spriteSheet;
+	uiSpriteFight_ = uiSpriteFight;
+	uiSpriteTake_ = uiSpriteTake;
+	health_ = 100.0f;
 }
 
 void Moneser::onStart() {
@@ -26,6 +35,19 @@ void Moneser::onStart() {
 		&SpriteRegistry::getInstance().getSprite("Shadow")
 	)
 	);
+	attachChild(std::make_unique<MoneserArea>(
+		Transform2D({
+			Vector2D({0.0f, 0.8f}),
+			Vector2D({2.0f, 2.0f}),
+			0.0f,
+			false, false
+			}),
+		(name_ + "Area"),
+		"MoneserArea",
+		uiSpriteFight_,
+		uiSpriteTake_
+	)
+	);
 }
 
 void Moneser::draw() {
@@ -36,4 +58,22 @@ void Moneser::draw() {
 		transform,
 		(*spriteSheet_)[animationFrame % spriteSheet_->spriteCount()]
 	);
+}
+
+void Moneser::establishFields() {
+	attachIField(std::make_unique<FloatField>("Health", &health_));
+}
+
+// Player
+#include "Player.hpp"
+void Moneser::handleMove(Player* player) {
+	// Player Moves First
+	float playerDamageMult = getDamageMult(player->getCurrentType(), type_);
+	health_ -= (player->getPower() * playerDamageMult);
+	
+	// If still alive Moneser responds
+	if (health_ > 0.0f) {
+		float moneserDamageMult = getDamageMult(type_, player->getCurrentType());
+		player->setHealth((player->getHealth() - (power_ * moneserDamageMult)));
+	}
 }

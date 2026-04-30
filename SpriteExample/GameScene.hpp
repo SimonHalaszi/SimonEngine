@@ -26,6 +26,7 @@
 #include "Moneser.hpp"
 #include "ColliderSprite.hpp"
 #include "Player.hpp"
+#include "Teleporter.hpp"
 //
 
 class GameScene : public Scene {
@@ -51,6 +52,8 @@ class GameScene : public Scene {
 
 		void spawnMonesers();
 		void spawnPlayer();
+
+		void createTeleporters();
 
 		// Scene Specific Stuff Goes Here (Stuff not related to a GameObject)
 		Vector2D houseOrgin_;

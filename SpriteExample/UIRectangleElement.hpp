@@ -27,15 +27,11 @@ class UIRectangleElement : public UIElement {
 		void onDestruction() override {}
 		void establishFields() override {}
 
-		void toggleDrawing() { drawElement_ = !drawElement_; }
-
 	protected:
 		ColorRGB rectangleColorTL_;
 		ColorRGB rectangleColorTR_;
 		ColorRGB rectangleColorBL_;
 		ColorRGB rectangleColorBR_;
-
-		bool drawElement_ = true;
 };
 
 #endif

@@ -143,6 +143,8 @@
     <ClCompile Include="IFieldButton.cpp" />
     <ClCompile Include="HierarchyButton.cpp" />
     <ClCompile Include="Moneser.cpp" />
+    <ClCompile Include="MoneserArea.cpp" />
+    <ClCompile Include="MoneserType.cpp" />
     <ClCompile Include="NonColliderSpriteAnimated.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Player.hpp" />
@@ -150,6 +152,7 @@
     <ClCompile Include="EditorSaveLoad.cpp" />
     <ClCompile Include="SceneFactory.cpp" />
     <ClCompile Include="ScenePanel.cpp" />
+    <ClCompile Include="Teleporter.cpp" />
     <ClCompile Include="TemplateScene.cpp" />
     <ClCompile Include="UISpriteElement.cpp" />
     <ClCompile Include="UITextureElement.cpp" />
@@ -186,9 +189,12 @@
     <ClInclude Include="HierarchyButton.hpp" />
     <ClInclude Include="IField.hpp" />
     <ClInclude Include="Moneser.hpp" />
+    <ClInclude Include="MoneserArea.hpp" />
+    <ClInclude Include="MoneserType.hpp" />
     <ClInclude Include="NonColliderSpriteAnimated.hpp" />
     <ClInclude Include="SceneButton.hpp" />
     <ClInclude Include="ScenePanel.hpp" />
+    <ClInclude Include="Teleporter.hpp" />
     <ClInclude Include="TemplateScene.hpp" />
     <ClInclude Include="UIElement.hpp" />
     <ClInclude Include="UISpriteElement.hpp" />

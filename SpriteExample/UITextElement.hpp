@@ -28,8 +28,6 @@ class UITextElement : public UIElement {
 		void update() override {}
 		void onDestruction() override {}
 		void establishFields() override {}
-
-		void toggleDrawing() { drawElement_ = !drawElement_; }
 	
 	protected:
 		std::string text_;
@@ -38,8 +36,6 @@ class UITextElement : public UIElement {
 		ColorRGB rectangleColorTR_;
 		ColorRGB rectangleColorBL_;
 		ColorRGB rectangleColorBR_;
-
-		bool drawElement_ = true;
 };
 
 #endif

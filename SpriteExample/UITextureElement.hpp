@@ -25,11 +25,10 @@ class UITextureElement : public UIElement {
 		void onDestruction() override {}
 		void establishFields() override {}
 
-		void toggleDrawing() { drawElement_ = !drawElement_; }
+		void changeTextureID(const GLuint& textureID) { textureID_ = textureID; }
 
 	protected:
 		GLuint textureID_;
-		bool drawElement_ = true;
 };
 
 #endif

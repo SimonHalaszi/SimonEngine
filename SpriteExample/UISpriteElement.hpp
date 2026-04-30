@@ -13,6 +13,7 @@
 // UI GameObjects will be drawn relative to camera space. So be smart when initializing their transform2D
 class UISpriteElement : public UIElement {
 	public:
+		UISpriteElement() {}
 		UISpriteElement(
 			const Transform2D& transform2D,
 			const std::string& tag,
@@ -27,9 +28,10 @@ class UISpriteElement : public UIElement {
 		void establishFields() override {}
 
 		void changeSprite(const Sprite* sprite) { sprite_ = sprite; }
+		const Sprite* getSprite() const { return sprite_; }
 
 	protected:
-		const Sprite* sprite_;
+		const Sprite* sprite_ = nullptr;
 };
 
 #endif

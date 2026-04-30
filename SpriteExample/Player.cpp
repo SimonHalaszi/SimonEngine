@@ -7,7 +7,15 @@ Player::Player(
 	const float& power,
 	const SpriteSheet* sheetDown,
 	const SpriteSheet* sheetSideways,
-	const SpriteSheet* sheetUp
+	const SpriteSheet* sheetUp,
+	const Sprite* normIcon,
+	const Sprite* grassIcon,
+	const Sprite* fireIcon,
+	const Sprite* waterIcon,
+	const Sprite* healDisplay,
+	const Sprite* goToMenuDisplay,
+	const Sprite* healthDisplay,
+	const Sprite* healthBar
 ) {
 	localTransform_ = localTransform;
 	name_ = name;
@@ -16,6 +24,18 @@ Player::Player(
 	sheetDown_ = sheetDown;
 	sheetSideways_ = sheetSideways;
 	sheetUp_ = sheetUp;
+
+	normIcon_ = normIcon;
+	grassIcon_ = grassIcon;
+	fireIcon_ = fireIcon;
+	waterIcon_ = waterIcon;
+
+	healDisplay_ = healDisplay;
+	goToMenuDisplay_ = goToMenuDisplay;
+
+	healthDisplay_ = healthDisplay;
+	healthBar_ = healthBar;
+
 	speed_ = 1.0f;
 	frameMovement_ = Vector2D({ 0.0f, 0.0f });
 	moving_ = false;
@@ -23,7 +43,7 @@ Player::Player(
 	direction_ = 'd';
 	health_ = 100.0f;
 	moves_ = {};
-	partyIndex_ = -1;
+	moveIndex_ = -1;
 }
 
 void Player::onStart() {
@@ -60,6 +80,62 @@ void Player::onStart() {
 		ColorRGB({ 1.0f, 0.0f, 0.0f }),
 		false,
 		'x'
+	)
+	);
+	attachChild(std::make_unique<UISpriteElement>(
+		Transform2D({
+			Vector2D({0.0f, 0.8f}),
+			Vector2D({0.3f, 0.1f}),
+			0.0f,
+			false, false
+			}),
+		"HealDisplay",
+		"HealDisplay",
+		healDisplay_
+	)
+	);
+	UISpriteElement* healDisplay = getAttachedUIElement("HealDisplay");
+	if (healDisplay) {
+		healDisplay->setDrawing(false);
+	}
+	attachChild(std::make_unique<UISpriteElement>(
+		Transform2D({
+			Vector2D({0.0f, -0.8f}),
+			Vector2D({0.3f, 0.1f}),
+			0.0f,
+			false, false
+			}),
+		"GoToMenuDisplay",
+		"GoToMenuDisplay",
+		goToMenuDisplay_
+	)
+	);
+	UISpriteElement* goToMenuDisplay = getAttachedUIElement("GoToMenuDisplay");
+	if (goToMenuDisplay) {
+		goToMenuDisplay->setDrawing(false);
+	}
+	attachChild(std::make_unique<UISpriteElement>(
+		Transform2D({
+			Vector2D({-0.8f, -0.8f}),
+			Vector2D({0.1f, 0.1f}),
+			0.0f,
+			false, false
+			}),
+		"HealthUI",
+		"HealthUI",
+		healthDisplay_
+	)
+	);
+	attachChild(std::make_unique<HealthBar>(
+		Transform2D({
+			Vector2D({-0.8f, -0.8f}),
+			Vector2D({0.1f, 0.1f}),
+			0.0f,
+			false, false
+			}),
+		"HealthBar",
+		healthBar_,
+		health_
 	)
 	);
 }
@@ -109,6 +185,20 @@ void Player::update() {
 		return;
 	}
 
+	if (health_ <= 0.0f) {
+		destroy();
+		return;
+	}
+
+	UISpriteElement* healDisplay = getAttachedUIElement("HealDisplay");
+	if (healDisplay) {
+		healDisplay->setDrawing(false);
+	}
+	UISpriteElement* goToMenuDisplay = getAttachedUIElement("GoToMenuDisplay");
+	if (goToMenuDisplay) {
+		goToMenuDisplay->setDrawing(false);
+	}
+
 	teleportedAlready_ = false;
 	frameMovement_ = Vector2D({ 0.0f, 0.0f });
 	moving_ = false;
@@ -127,6 +217,13 @@ void Player::update() {
 	}
 	if (InputManager::getInstance().isSpecialKeyDown(mapSpecialKey(GLUT_KEY_LEFT))) {
 		frameMovement_.x -= stepSpeed;
+	}
+	if (InputManager::getInstance().isPressed('r')) {
+		if (moveIndex_ != -1) {
+			++moveIndex_;
+			moveIndex_ = moveIndex_ % moves_.size();
+			updateIconDisplay();
+		}
 	}
 
 	localTransform_.position.y += frameMovement_.y;
@@ -158,21 +255,86 @@ void Player::update() {
 	}
 }
 
+#include "Moneser.hpp"
+#include "MainMenuScene.hpp"
+
 void Player::onCollision(CollisionObject2D& other) {
 	if (Game::getInstance().isPauseFlagged()) {
 		return;
 	}
 
+	if (health_ <= 0.0f) {
+		return;
+	}
+
+	if (other.getTag() == "RestArea") {
+		if (InputManager::getInstance().isPressed('e')) {
+			health_ = 100.0f;
+		}
+		if(InputManager::getInstance().isPressed('q')) {
+			if (moves_.size() == 4) {
+				Game::getInstance().changeScene(std::make_unique<MainMenuScene>());
+			}
+		}
+
+		UISpriteElement* healDisplay = getAttachedUIElement("HealDisplay");
+		if (healDisplay) {
+			healDisplay->setDrawing(true);
+		}
+		if (moves_.size() == 4) {
+			UISpriteElement* goToMenuDisplay = getAttachedUIElement("GoToMenuDisplay");
+			if (goToMenuDisplay) {
+				goToMenuDisplay->setDrawing(true);
+			}
+		}
+	}
+
+	// Handle battles and taking
+	if (other.getTag() == "MoneserArea") {
+		if (InputManager::getInstance().isPressed('e')) {
+			MoneserArea* moneserArea = dynamic_cast<MoneserArea*>(&other);
+			if (moneserArea) {
+				Moneser* moneser = moneserArea->getMoneser();
+				if (moneser->getHealth() > 0.0f) {
+					moneser->handleMove(this);
+				}
+				else {
+					if (!hasType(moneser->getType())) {
+						moves_.push_back(moneser->getType());
+					}
+					if (moveIndex_ == -1) {
+						moveIndex_ = 0;
+						attachChild(std::make_unique<UISpriteElement>(
+							Transform2D({
+								Vector2D({-0.8f, 0.8f}),
+								Vector2D({0.1f, 0.1f}),
+								0.0f,
+								false, false
+								}),
+							"IconDisplay",
+							"IconDisplay",
+							normIcon_
+						)
+						);
+						updateIconDisplay();
+					}
+					moneser->destroy();
+				}
+			}
+		}
+	}
+
 	// Teleporter Collision Handling
-	if (other.getTag() == "Teleporter") {
-		if (InputManager::getInstance().isPressed(13)) {
+	if (other.getTag() == "Teleporter" && getCurrentType() != MoneserType::Null) {
+		if (InputManager::getInstance().isPressed('e')) {
 			Teleporter* teleporter = dynamic_cast<Teleporter*>(&other);
 			if (teleporter && !teleportedAlready_) {
 				teleportedAlready_ = true;
 				localTransform_.position = teleporter->getToLocation();
 				updateWorldTransform();
 				// Camera doesnt get this update. So manually push it, or else desync
-				if (Camera* camera = getAttachedCamera()) {
+				Camera* camera = getAttachedCamera();
+				if (camera) {
 					camera->rootUpdate();
 				}
 				return;
@@ -210,36 +372,29 @@ void Player::onCollision(CollisionObject2D& other) {
 			resolveX = (overlapX < overlapY);
 		}
 
-		auto pushX = [&](float moveX) {
-			if (moveX == 0.0f) {
+		if (resolveX) {
+			if (frameMovement_.x == 0.0f) {
 				float playerCenterX = (playerAABB.min.x + playerAABB.max.x) * 0.5f;
 				float otherCenterX = (otherAABB.min.x + otherAABB.max.x) * 0.5f;
-				moveX = (playerCenterX > otherCenterX) ? -1.0f : 1.0f;
+				frameMovement_.x = (playerCenterX > otherCenterX) ? -1.0f : 1.0f;
 			}
-			localTransform_.position.x += (moveX > 0.0f) ? -(overlapX) : (overlapX);
+			localTransform_.position.x += (frameMovement_.x > 0.0f) ? -(overlapX) : (overlapX);
 			frameMovement_.x = 0.0f;
-		};
-
-		auto pushY = [&](float moveY) {
-			if (moveY == 0.0f) {
-				float playerCenterY = (playerAABB.min.y + playerAABB.max.y) * 0.5f;
-				float otherCenterY = (otherAABB.min.y + otherAABB.max.y) * 0.5f;
-				moveY = (playerCenterY > otherCenterY) ? -1.0f : 1.0f;
-			}
-			localTransform_.position.y += (moveY > 0.0f) ? -(overlapY) : (overlapY);
-			frameMovement_.y = 0.0f;
-		};
-
-		if (resolveX) {
-			pushX(frameMovement_.x);
 		}
 		else {
-			pushY(frameMovement_.y);
+			if (frameMovement_.y == 0.0f) {
+				float playerCenterY = (playerAABB.min.y + playerAABB.max.y) * 0.5f;
+				float otherCenterY = (otherAABB.min.y + otherAABB.max.y) * 0.5f;
+				frameMovement_.y = (playerCenterY > otherCenterY) ? -1.0f : 1.0f;
+			}
+			localTransform_.position.y += (frameMovement_.y > 0.0f) ? -(overlapY) : (overlapY);
+			frameMovement_.y = 0.0f;
 		}
 
 		updateWorldTransform();
 		// Camera doesnt get this update. So manually push it, or else desync
-		if (Camera* camera = getAttachedCamera()) {
+		Camera* camera = getAttachedCamera();
+		if (camera) {
 			camera->rootUpdate();
 		}
 		return;
@@ -247,7 +402,33 @@ void Player::onCollision(CollisionObject2D& other) {
 }
 
 void Player::onDestruction() {
-
+	std::string youDiedFilePath = "image/YouDied.png";
+	std::string youDiedKey = "YouDied";
+	GLuint texID = TextureRegistry::getInstance().loadTexture(youDiedFilePath);
+	const Sprite* sprite = &SpriteRegistry::getInstance().makeSprite(
+		youDiedKey,
+		texID,
+		1,
+		1,
+		TileIndex({ 0, 0 })
+	);
+	Scene* currentScene = Game::getInstance().modifyCurrentScene();
+	currentScene->addRootGameObject2D(
+		std::make_unique<UISpriteElement>(
+		Transform2D({
+			Vector2D({0.0f, -0.8f}),
+			Vector2D({0.3f, 0.1f}),
+			0.0f,
+			false, false
+			}),
+		"DeadUI",
+		"DeadUI",
+		sprite
+	)
+	);
+	currentScene->addRootGameObject2D(
+		std::make_unique<DeadHandler>()
+	);
 }
 
 void Player::establishFields() {
@@ -262,4 +443,43 @@ Camera* Player::getAttachedCamera() {
 		}
 	}
 	return nullptr;
+}
+
+UISpriteElement* Player::getAttachedUIElement(const std::string& name) {
+	for (const auto& child : *getChildren()) {
+		UISpriteElement* uiElement = dynamic_cast<UISpriteElement*>(child.get());
+		if (uiElement) {
+			if (uiElement->getName() == name) {
+				return uiElement;
+			}
+		}
+	}
+	return nullptr;
+}
+
+void Player::updateIconDisplay() {
+	UISpriteElement* iconDisplay = getAttachedUIElement("IconDisplay");
+	if (iconDisplay) {
+		if (moves_[moveIndex_] == MoneserType::Norm) {
+			iconDisplay->changeSprite(normIcon_);
+		}
+		else if (moves_[moveIndex_] == MoneserType::Grass) {
+			iconDisplay->changeSprite(grassIcon_);
+		}
+		else if (moves_[moveIndex_] == MoneserType::Fire) {
+			iconDisplay->changeSprite(fireIcon_);
+		}
+		else if (moves_[moveIndex_] == MoneserType::Water) {
+			iconDisplay->changeSprite(waterIcon_);
+		}
+	}
+}
+
+bool Player::hasType(const MoneserType& type) {
+	for (const auto& typeIn : moves_) {
+		if (typeIn == type) {
+			return true;
+		}
+	}
+	return false;
 }

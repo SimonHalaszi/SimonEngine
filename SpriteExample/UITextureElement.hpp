@@ -12,6 +12,7 @@
 // UI GameObjects will be drawn relative to camera space. So be smart when initializing their transform2D
 class UITextureElement : public UIElement {
 	public:
+		UITextureElement() {}
 		UITextureElement(
 			const Transform2D& transform2D,
 			const std::string& tag,
@@ -28,7 +29,7 @@ class UITextureElement : public UIElement {
 		void changeTextureID(const GLuint& textureID) { textureID_ = textureID; }
 
 	protected:
-		GLuint textureID_;
+		GLuint textureID_ = -1;
 };
 
 #endif

@@ -34,6 +34,7 @@ void GameScene::init() {
 	spawnPlayer();
 
 	createTeleporters();
+	createPauseDisplay();
 }
 
 // For scene/game specific drawing (Drawing that is not related to a GameObject)
@@ -50,15 +51,14 @@ void GameScene::draw() const {
 	);
 }
 
-// If you need to do SceneChanges include the SceneSpecific.hpp and Game.hpp here (In the ThisScene.cpp)
-// Otherwise some really annoying circular dependencies are going to happen with Game and Scenes
-// #include "SomeOtherScene.hpp"
 #include "Game.hpp"
 #include "TemplateScene.hpp"
 
-
 // For scene/game specific updates/inputs (Updates/Inputs that are not related to GameObjects)
 void GameScene::update() {
+	if (InputManager::getInstance().isPressed('p')) {
+		pauseFlag_ = !pauseFlag_;
+	}
 	// Example of how a scene input may change the Game class behavior
 	if (InputManager::getInstance().isPressed('n')) {
 		isDrawing_ = false;
@@ -313,6 +313,27 @@ void GameScene::createBaseArea() {
 }
 
 void GameScene::spawnMonesers() {
+	std::string healthDisplayFilePath = "image/MoneserHealth.png";
+	std::string healthBarFilepath = "image/Health.png";
+	std::string healthDisplayKey = "MoneserHealth";
+	std::string healthBarKey = "Health";
+	GLuint outsideTexID = TextureRegistry::getInstance().loadTexture(healthDisplayFilePath);
+	const Sprite* healthDisplay = &SpriteRegistry::getInstance().makeSprite(
+		healthDisplayKey,
+		outsideTexID,
+		1,
+		1,
+		TileIndex({ 0, 0 })
+	);
+	outsideTexID = TextureRegistry::getInstance().loadTexture(healthBarFilepath);
+	const Sprite* healthBar = &SpriteRegistry::getInstance().makeSprite(
+		healthBarKey,
+		outsideTexID,
+		1,
+		1,
+		TileIndex({ 0, 0 })
+	);
+	
 	// Foxire
 	{
 		std::string foxireSheetFilePath = "image/FoxireSheet.png";
@@ -360,7 +381,9 @@ void GameScene::spawnMonesers() {
 				MoneserType::Fire,
 				spriteSheet,
 				spriteFight,
-				spriteTake
+				spriteTake,
+				healthDisplay,
+				healthBar
 				)
 		);
 	}
@@ -412,7 +435,9 @@ void GameScene::spawnMonesers() {
 				MoneserType::Grass,
 				spriteSheet,
 				spriteFight,
-				spriteTake
+				spriteTake,
+				healthDisplay,
+				healthBar
 				)
 		);
 	}
@@ -464,7 +489,9 @@ void GameScene::spawnMonesers() {
 				MoneserType::Water,
 				spriteSheet,
 				spriteFight,
-				spriteTake
+				spriteTake,
+				healthDisplay,
+				healthBar
 				)
 		);
 	}
@@ -516,7 +543,9 @@ void GameScene::spawnMonesers() {
 				MoneserType::Norm,
 				spriteSheet,
 				spriteFight,
-				spriteTake
+				spriteTake,
+				healthDisplay,
+				healthBar
 				)
 		);
 
@@ -535,6 +564,28 @@ void GameScene::spawnPlayer() {
 	std::string playerDownKey = "PlayerDown";
 	std::string playerSidewaysKey = "PlayerSideways";
 	std::string playerUpKey = "PlayerUp";
+
+	// Icons
+	std::string normIconFilePath = "image/NormIcon.png";
+	std::string grassIconFilePath = "image/GrassIcon.png";
+	std::string fireIconFilePath = "image/FireIcon.png";
+	std::string waterIconFilePath = "image/WaterIcon.png";
+	std::string normIconKey = "NormIcon";
+	std::string grassIconKey = "GrassIcon";
+	std::string fireIconKey = "FireIcon";
+	std::string waterIconKey = "WaterIcon";
+
+	// Displays
+	std::string healDisplayFilePath = "image/Heal.png";
+	std::string goToMenuDisplayFilepath = "image/GoToMenu.png";
+	std::string healDisplayKey = "HealDisplay";
+	std::string goToMenuDisplayKey = "GoToMenu";
+
+	std::string healthDisplayFilePath = "image/PlayerHealth.png";
+	std::string healthBarFilepath = "image/Health.png";
+	std::string healthDisplayKey = "PlayerHealth";
+	std::string healthBarKey = "Health";
+
 	GLuint texID = TextureRegistry::getInstance().loadTexture(playerFilePath);
 	const SpriteSheet* spriteSheetDown = &SpriteSheetRegistry::getInstance().makeSpriteSheet(
 		playerDownKey,
@@ -560,6 +611,70 @@ void GameScene::spawnPlayer() {
 		TileIndex({ 0, 2 }),
 		TileIndex({ 3, 2 })
 	);
+	texID = TextureRegistry::getInstance().loadTexture(normIconFilePath);
+	const Sprite* normIcon = &SpriteRegistry::getInstance().makeSprite(
+		normIconKey,
+		texID,
+		1,
+		1,
+		TileIndex({ 0, 0 })
+	);
+	texID = TextureRegistry::getInstance().loadTexture(grassIconFilePath);
+	const Sprite* grassIcon = &SpriteRegistry::getInstance().makeSprite(
+		grassIconKey,
+		texID,
+		1,
+		1,
+		TileIndex({ 0, 0 })
+	);
+	texID = TextureRegistry::getInstance().loadTexture(fireIconFilePath);
+	const Sprite* fireIcon = &SpriteRegistry::getInstance().makeSprite(
+		fireIconKey,
+		texID,
+		1,
+		1,
+		TileIndex({ 0, 0 })
+	);
+	texID = TextureRegistry::getInstance().loadTexture(waterIconFilePath);
+	const Sprite* waterIcon = &SpriteRegistry::getInstance().makeSprite(
+		waterIconKey,
+		texID,
+		1,
+		1,
+		TileIndex({ 0, 0 })
+	);
+	texID = TextureRegistry::getInstance().loadTexture(healDisplayFilePath);
+	const Sprite* healDisplay = &SpriteRegistry::getInstance().makeSprite(
+		healDisplayKey,
+		texID,
+		1,
+		1,
+		TileIndex({ 0, 0 })
+	);
+	texID = TextureRegistry::getInstance().loadTexture(goToMenuDisplayFilepath);
+	const Sprite* goToMenuDisplay = &SpriteRegistry::getInstance().makeSprite(
+		goToMenuDisplayKey,
+		texID,
+		1,
+		1,
+		TileIndex({ 0, 0 })
+	);
+	texID = TextureRegistry::getInstance().loadTexture(healthDisplayFilePath);
+	const Sprite* healthDisplay = &SpriteRegistry::getInstance().makeSprite(
+		healthDisplayKey,
+		texID,
+		1,
+		1,
+		TileIndex({ 0, 0 })
+	);
+	texID = TextureRegistry::getInstance().loadTexture(healthBarFilepath);
+	const Sprite* healthBar = &SpriteRegistry::getInstance().makeSprite(
+		healthBarKey,
+		texID,
+		1,
+		1,
+		TileIndex({ 0, 0 })
+	);
 	// Make it so GameObjects get passed the assets, or dont
 	addRootGameObject2D(std::make_unique<Player>(
 		Transform2D({
@@ -573,7 +688,15 @@ void GameScene::spawnPlayer() {
 			20.0f,
 			spriteSheetDown,
 			spriteSheetSideways,
-			spriteSheetUp
+			spriteSheetUp,
+			normIcon,
+			grassIcon,
+			fireIcon,
+			waterIcon,
+			healDisplay,
+			goToMenuDisplay,
+			healthDisplay,
+			healthBar
 			)
 	);
 }
@@ -641,7 +764,7 @@ void GameScene::createHouseArea() {
 	);
 	addRootGameObject2D(std::make_unique<ColliderSprite>(
 		Transform2D({
-			Vector2D({houseOrgin_.x + 0.4f, houseOrgin_.y + 0.4f}),
+			Vector2D({houseOrgin_.x + 0.4f, houseOrgin_.y + 0.5f}),
 			Vector2D({ 0.1f, 0.1f }),
 			0.0f,
 			false,
@@ -717,6 +840,19 @@ void GameScene::createHouseArea() {
 			}),
 			"House Binder",
 			"Collider",
+			sprite
+			)
+	);
+	addRootGameObject2D(std::make_unique<ColliderSprite>(
+		Transform2D({
+			Vector2D({houseOrgin_.x + 0.4f, houseOrgin_.y + 0.5f}),
+			Vector2D({ 0.2f, 0.2f }),
+			0.0f,
+			false,
+			false,
+			}),
+			"RestArea",
+			"RestArea",
 			sprite
 			)
 	);
@@ -859,7 +995,7 @@ void GameScene::createBackdrop() {
 		1,
 		TileIndex({ 0, 0 })
 	);
-	addRootGameObject2D(std::make_unique<NonColliderSprite>(
+	addRootGameObject2D(std::make_unique<ColliderSprite>(
 		Transform2D({
 			Vector2D({ -4.0f, -2.0f }),
 			Vector2D({ 1.0f, 1.0f }),
@@ -872,7 +1008,7 @@ void GameScene::createBackdrop() {
 			sprite
 			)
 	);
-	addRootGameObject2D(std::make_unique<NonColliderSprite>(
+	addRootGameObject2D(std::make_unique<ColliderSprite>(
 		Transform2D({
 			Vector2D({ 4.0f, -2.0f }),
 			Vector2D({ 1.0f, 1.0f }),
@@ -893,7 +1029,7 @@ void GameScene::createBackdrop() {
 		1,
 		TileIndex({ 0, 0 })
 	);
-	addRootGameObject2D(std::make_unique<NonColliderSprite>(
+	addRootGameObject2D(std::make_unique<ColliderSprite>(
 		Transform2D({
 			Vector2D({ -2.0f, 4.0f }),
 			Vector2D({ 1.0f, 1.0f }),
@@ -906,7 +1042,7 @@ void GameScene::createBackdrop() {
 			sprite
 			)
 	);
-	addRootGameObject2D(std::make_unique<NonColliderSprite>(
+	addRootGameObject2D(std::make_unique<ColliderSprite>(
 		Transform2D({
 			Vector2D({ 2.0f, 4.0f }),
 			Vector2D({ 1.0f, 1.0f }),
@@ -919,7 +1055,7 @@ void GameScene::createBackdrop() {
 			sprite
 			)
 	);
-	addRootGameObject2D(std::make_unique<NonColliderSprite>(
+	addRootGameObject2D(std::make_unique<ColliderSprite>(
 		Transform2D({
 			Vector2D({ -4.0f, 2.0f }),
 			Vector2D({ 1.0f, 1.0f }),
@@ -932,7 +1068,7 @@ void GameScene::createBackdrop() {
 			sprite
 			)
 	);
-	addRootGameObject2D(std::make_unique<NonColliderSprite>(
+	addRootGameObject2D(std::make_unique<ColliderSprite>(
 		Transform2D({
 			Vector2D({ 4.0f, 2.0f }),
 			Vector2D({ 1.0f, 1.0f }),
@@ -993,5 +1129,29 @@ void GameScene::createTeleporters() {
 			Vector2D({ houseOrgin_.x, houseOrgin_.y - 0.4f }),
 			sprite
 			)
+	);
+}
+
+void GameScene::createPauseDisplay() {
+	std::string filePath = "image/Paused.png";
+	std::string key = "Paused";
+	GLuint texID = TextureRegistry::getInstance().loadTexture(filePath);
+	const Sprite* sprite = &SpriteRegistry::getInstance().makeSprite(
+		key,
+		texID,
+		1,
+		1,
+		TileIndex({ 0, 0 })
+	);
+	addRootGameObject2D(std::make_unique<PauseDisplay>(
+		Transform2D({
+			Vector2D({0.0f, 0.0f}),
+			Vector2D({1.0f, 1.0f}),
+			0.0f,
+			false, false
+			}),
+		"PauseDisplay",
+		sprite
+	)
 	);
 }

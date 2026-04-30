@@ -1,1 +1,16 @@
 CREATE 0 0
+REORDER 0 38 37
+REORDER 0 37 38
+DELETE 1 38
+SNAPSHOT 1 35 11
+FIELD STRING "Name" "Player"
+FIELD STRING "Tag" "Player"
+FIELD FLOAT "Local Transform.pos.x" "5"
+FIELD FLOAT "Local Transform.pos.y" "5"
+FIELD FLOAT "Local Transform.scale.x" "0.100000001"
+FIELD FLOAT "Local Transform.scale.y" "0.100000001"
+FIELD FLOAT "Local Transform.rotation" "0"
+FIELD BOOL "Local Transform.mirror" "0"
+FIELD BOOL "Local Transform.flip" "0"
+FIELD BOOL "Collision" "1"
+FIELD FLOAT "Speed" "2"

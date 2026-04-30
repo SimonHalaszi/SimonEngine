@@ -24,6 +24,7 @@ class Game {
 		void init();
 		
 		const Scene* getCurrentScene() { return currentScene_.get(); }
+		Scene* modifyCurrentScene() { return currentScene_.get(); }
 		const Editor* getEditor() { return editor_.get(); }
 		void changeScene(std::unique_ptr<Scene> newScene);
 
@@ -37,7 +38,6 @@ class Game {
 		// Exposes some attributes of scene to make life easier
 		int getAnimationFrame() const { if (currentScene_) { return currentScene_->getAnimationFrame(); } else return 0; }
 		int getUpdateFrame() const { if (currentScene_) { return currentScene_->getUpdateFrame(); } else return 0; }
-
 		
 		int getAnimationUpdateSpeed() const { if (currentScene_) { return currentScene_->getAnimationUpdateSpeed(); } else return 0; }
 		int getUpdateSpeed() const { if (currentScene_) { return currentScene_->getUpdateSpeed(); } else return 0; }

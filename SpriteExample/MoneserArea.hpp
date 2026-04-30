@@ -18,7 +18,9 @@ class MoneserArea : public CollisionObject2D {
 			const std::string& name,
 			const std::string& tag,
 			const Sprite* uiSpriteFight,
-			const Sprite* uiSpriteTake
+			const Sprite* uiSpriteTake,
+			const Sprite* healthDisplay,
+			const Sprite* healthBar
 		);
 
 		void onStart() override;
@@ -29,10 +31,14 @@ class MoneserArea : public CollisionObject2D {
 
 		void onCollision(CollisionObject2D& other) override;
 
+		class Moneser* getMoneser();
+
 	private:
-		UISpriteElement* getAttachedUIElement();
+		UISpriteElement* getAttachedUIElement(const std::string& name);
 		const Sprite* uiSpriteFight_;
 		const Sprite* uiSpriteTake_;
+		const Sprite* healthDisplay_;
+		const Sprite* healthBar_;
 };
 
 #endif

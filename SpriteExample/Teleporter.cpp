@@ -35,6 +35,10 @@ void Teleporter::onStart() {
 }
 
 void Teleporter::update() {
+	if (Game::getInstance().isPauseFlagged()) {
+		return;
+	}
+
 	UISpriteElement* uiElement = getAttachedUIElement();
 	if (uiElement) {
 		uiElement->setDrawing(false);
@@ -46,11 +50,23 @@ void Teleporter::establishFields() {
 	attachIField(std::make_unique<Vector2DField>("To Location", &toLocation_));
 }
 
+#include "Player.hpp"
+
 void Teleporter::onCollision(CollisionObject2D& other) {
+	if (Game::getInstance().isPauseFlagged()) {
+		return;
+	}
+
 	if (other.getTag() == "Player") {
 		UISpriteElement* uiElement = getAttachedUIElement();
+		Player* player = dynamic_cast<Player*>(&other);
 		if (uiElement) {
 			uiElement->setDrawing(true);
+		}
+		if (player) {
+			if (player->getCurrentType() == MoneserType::Null) {
+				uiElement->setDrawing(false);
+			}
 		}
 	}
 }

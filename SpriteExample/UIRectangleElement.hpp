@@ -11,6 +11,7 @@
 // UI GameObjects will be drawn relative to camera space. So be smart when initializing their transform2D
 class UIRectangleElement : public UIElement {
 	public:
+		UIRectangleElement() {}
 		UIRectangleElement(
 			const Transform2D& transform2D,
 			const std::string& tag,
@@ -28,10 +29,10 @@ class UIRectangleElement : public UIElement {
 		void establishFields() override {}
 
 	protected:
-		ColorRGB rectangleColorTL_;
-		ColorRGB rectangleColorTR_;
-		ColorRGB rectangleColorBL_;
-		ColorRGB rectangleColorBR_;
+		ColorRGB rectangleColorTL_ = { 0.0f, 0.0f, 0.0f };
+		ColorRGB rectangleColorTR_ = { 0.0f, 0.0f, 0.0f };
+		ColorRGB rectangleColorBL_ = { 0.0f, 0.0f, 0.0f };
+		ColorRGB rectangleColorBR_ = { 0.0f, 0.0f, 0.0f };
 };
 
 #endif

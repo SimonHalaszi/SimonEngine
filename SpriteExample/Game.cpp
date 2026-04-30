@@ -138,7 +138,7 @@ void Game::animationTimer(int v) {
 	// Wont run in editor mode. Animations arent relevant for that
 	if (currentScene_) {
 		animationUpdatesPerSecond = currentScene_->getAnimationUpdateSpeed();
-		if (currentScene_->isUpdatingAnimations() && !editor_->inEditor()) {
+		if (currentScene_->isUpdatingAnimations() && !editor_->inEditor() && !currentScene_->isPauseFlagged()) {
 			currentScene_->incrementAnimationFrame();
 		}
 	}

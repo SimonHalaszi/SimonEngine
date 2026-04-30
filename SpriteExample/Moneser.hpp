@@ -14,6 +14,7 @@
 // Children Game Object Types
 #include "NonColliderSprite.hpp"
 #include "MoneserArea.hpp"
+#include "HealthBar.hpp"
 
 class Moneser : public CollisionObject2D {
 public:
@@ -24,7 +25,9 @@ public:
 		const MoneserType& type,
 		const SpriteSheet* spriteSheet,
 		const Sprite* uiSpriteFight,
-		const Sprite* uiSpriteTake
+		const Sprite* uiSpriteTake,
+		const Sprite* healthDisplay,
+		const Sprite* healthBar
 	);
 
 	void onStart() override;
@@ -34,6 +37,8 @@ public:
 	void establishFields() override;
 
 	void onCollision(CollisionObject2D& other) override {}
+
+	float& getHealthReference() { return health_; }
 
 	float getHealth() const { return health_; }
 	void setHealth(const float& health) { health_ = health; }
@@ -50,6 +55,8 @@ private:
 	const SpriteSheet* spriteSheet_;
 	const Sprite* uiSpriteFight_;
 	const Sprite* uiSpriteTake_;
+	const Sprite* healthDisplay_;
+	const Sprite* healthBar_;
 	
 	float health_;
 	float power_;

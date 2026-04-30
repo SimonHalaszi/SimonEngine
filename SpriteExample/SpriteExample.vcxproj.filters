@@ -252,6 +252,18 @@
     <ClCompile Include="MoneserType.cpp">
       <Filter>Source Files\GameObjects\GameUtilities</Filter>
     </ClCompile>
+    <ClCompile Include="DeadHandler.cpp">
+      <Filter>Source Files\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="HealthBar.cpp">
+      <Filter>Source Files\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="PauseDisplay.cpp">
+      <Filter>Source Files\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="MainMenuScene.cpp">
+      <Filter>Source Files\Scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.hpp">
@@ -391,6 +403,18 @@
     </ClInclude>
     <ClInclude Include="MoneserType.hpp">
       <Filter>Header Files\GameObjects\GameUtilities</Filter>
+    </ClInclude>
+    <ClInclude Include="DeadHandler.hpp">
+      <Filter>Header Files\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="HealthBar.hpp">
+      <Filter>Header Files\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="PauseDisplay.hpp">
+      <Filter>Header Files\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="MainMenuScene.hpp">
+      <Filter>Header Files\Scenes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

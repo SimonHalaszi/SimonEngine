@@ -7,7 +7,9 @@ Moneser::Moneser(
 	const MoneserType& type,
 	const SpriteSheet* spriteSheet,
 	const Sprite* uiSpriteFight,
-	const Sprite* uiSpriteTake
+	const Sprite* uiSpriteTake,
+	const Sprite* healthDisplay,
+	const Sprite* healthBar
 ) {
 	localTransform_ = localTransform;
 	name_ = name;
@@ -17,6 +19,8 @@ Moneser::Moneser(
 	spriteSheet_ = spriteSheet;
 	uiSpriteFight_ = uiSpriteFight;
 	uiSpriteTake_ = uiSpriteTake;
+	healthDisplay_ = healthDisplay;
+	healthBar_ = healthBar;
 	health_ = 100.0f;
 }
 
@@ -37,7 +41,7 @@ void Moneser::onStart() {
 	);
 	attachChild(std::make_unique<MoneserArea>(
 		Transform2D({
-			Vector2D({0.0f, 0.8f}),
+			Vector2D({0.0f, 0.0f}),
 			Vector2D({2.0f, 2.0f}),
 			0.0f,
 			false, false
@@ -45,7 +49,9 @@ void Moneser::onStart() {
 		(name_ + "Area"),
 		"MoneserArea",
 		uiSpriteFight_,
-		uiSpriteTake_
+		uiSpriteTake_,
+		healthDisplay_,
+		healthBar_
 	)
 	);
 }

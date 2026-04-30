@@ -27,6 +27,7 @@
 #include "ColliderSprite.hpp"
 #include "Player.hpp"
 #include "Teleporter.hpp"
+#include "PauseDisplay.hpp"
 //
 
 class GameScene : public Scene {
@@ -54,6 +55,7 @@ class GameScene : public Scene {
 		void spawnPlayer();
 
 		void createTeleporters();
+		void createPauseDisplay();
 
 		// Scene Specific Stuff Goes Here (Stuff not related to a GameObject)
 		Vector2D houseOrgin_;

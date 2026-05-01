@@ -26,6 +26,7 @@ class Game {
 		const Scene* getCurrentScene() { return currentScene_.get(); }
 		Scene* modifyCurrentScene() { return currentScene_.get(); }
 		const Editor* getEditor() { return editor_.get(); }
+		Editor* modifyEditor() { return editor_.get(); }
 		void changeScene(std::unique_ptr<Scene> newScene);
 
 		void safeGameExit();

@@ -32,6 +32,7 @@ class Editor {
 		bool inEditor() const { return inEditor_; }
 		void exitEditor();
 		void enterEditor();
+		void loadEditorState();
 
 		bool topPanelMarkedForQuiting() const { return topPanel_.markedForQuiting(); }
 
@@ -53,7 +54,6 @@ class Editor {
 		void recordSnapshotAction(GameObject2D* object);
 		// Save and Load Actions - Top Panel, passed in at initialization
 		void saveEditorState();
-		void loadEditorState();
 
 		bool inEditor_ = true;
 		bool canSave_ = true;

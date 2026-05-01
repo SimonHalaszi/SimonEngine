@@ -5,7 +5,6 @@
 GLuint TextureRegistry::loadTexture(std::string filepath) {
 	auto it = textureMap_.find(filepath);
 	if (it != textureMap_.end()) {
-		std::cout << "TextureRegistry::loadTexture : Will not create two textures with the same file path try a different file path instead of " << filepath << std::endl;
 		return it->second;
 	}
 

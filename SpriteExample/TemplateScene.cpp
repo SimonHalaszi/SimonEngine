@@ -4,8 +4,7 @@ TemplateScene::TemplateScene() :
 	Scene(244, 244, 10)
 {
 	saveName_ = "TemplateScene";
-	titleFilePath_ = "image/Title.png";
-	titleSpriteKey_ = "Title";
+	autoLoad_ = false;
 }
 
 TemplateScene::~TemplateScene() {}
@@ -15,29 +14,36 @@ void TemplateScene::init() {
 	std::cout << "TemplateScene::init : Currently Loaded Scene is TemplateScene" << std::endl;
 
 	// Printing update information
-	std::cout << "MainScene::init : Animation updates " << animationUpdatesPerSecond_ << " times per second " << std::endl;
-	std::cout << "MainScene::init : Game updates " << updatesPerSecond_ << " times per second " << std::endl;
-	std::cout << "MainScene::init : Frame updates " << framesPerSeconds_ << " times per second " << std::endl;
+	std::cout << "TemplateScene::init : Animation updates " << animationUpdatesPerSecond_ << " times per second " << std::endl;
+	std::cout << "TemplateScene::init : Game updates " << updatesPerSecond_ << " times per second " << std::endl;
+	std::cout << "TemplateScene::init : Frame updates " << framesPerSeconds_ << " times per second " << std::endl;
 
 	// Play sounds
-	SoundManager::getInstance().setMusicTrack("audio/GoingShopping.mp3");
+	SoundManager::getInstance().setMusicTrack("audio/WhyAreSundaysSoDepressing.mp3");
 
 	GLuint texID;
 
 	// Make it so GameObjects get passed the assets
-	texID = TextureRegistry::getInstance().loadTexture(titleFilePath_);
+	texID = TextureRegistry::getInstance().loadTexture("image/Title.png");
+	const Sprite* sprite = &SpriteRegistry::getInstance().makeSprite(
+		"Title", 
+		texID, 
+		1, 
+		1, 
+		{ 0, 0 }
+	);
 	addRootGameObject2D(std::make_unique<NonColliderSprite>(
-			Transform2D({ 
-				Vector2D({ 0.0f, 0.0f }),
-				Vector2D({ 1.0f, 1.0f }),
-				0.0f,
-				false,
-				false, 
+		Transform2D({
+			Vector2D({ 0.0f, 0.0f }),
+			Vector2D({ 1.0f, 1.0f }),
+			0.0f,
+			false,
+			false,
 			}),
 			"Title",
 			"Title",
-			&SpriteRegistry::getInstance().makeSprite(titleSpriteKey_, texID, 1, 1, {0, 0})
-		)
+			sprite
+			)
 	);
 }
 
@@ -55,11 +61,8 @@ void TemplateScene::draw() const {
 	);
 }
 
-// If you need to do SceneChanges include the SceneSpecific.hpp and Game.hpp here (In the ThisScene.cpp)
-// Otherwise some really annoying circular dependencies are going to happen with Game and Scenes
-// #include "SomeOtherScene.hpp"
 #include "Game.hpp"
-
+// #include "SomeOtherScene.hpp"
 
 // For scene/game specific updates/inputs (Updates/Inputs that are not related to GameObjects)
 void TemplateScene::update() {

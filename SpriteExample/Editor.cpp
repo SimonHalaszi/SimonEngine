@@ -26,6 +26,12 @@ Editor::Editor(Scene* scene)
 
 	focusedGameObject_ = nullptr;
 	saveName_ = scene->getSaveName();
+
+	if (scene_) {
+		if (scene_->isAutoLoadingOn()) {
+			loadEditorState();
+		}
+	}
 }
 
 void Editor::editorDraw() const {

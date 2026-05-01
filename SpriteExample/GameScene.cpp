@@ -5,28 +5,29 @@ GameScene::GameScene() :
 {
 	saveName_ = "GameScene";
 	houseOrgin_ = { 5.0f, 5.0f };
+	autoLoad_ = false;
 }
 
 GameScene::~GameScene() {}
 
 // Load Textures, Make Sprite Sheets, Make Sprites, etc (Load and Make Assets)... Add root game objects that will be at there at scene start
 void GameScene::init() {
-	std::cout << "TemplateScene::init : Currently Loaded Scene is TemplateScene" << std::endl;
+	std::cout << "GameScene::init : Currently Loaded Scene is GameScene" << std::endl;
 
 	// Printing update information
-	std::cout << "MainScene::init : Animation updates " << animationUpdatesPerSecond_ << " times per second " << std::endl;
-	std::cout << "MainScene::init : Game updates " << updatesPerSecond_ << " times per second " << std::endl;
-	std::cout << "MainScene::init : Frame updates " << framesPerSeconds_ << " times per second " << std::endl;
+	std::cout << "GameScene::init : Animation updates " << animationUpdatesPerSecond_ << " times per second " << std::endl;
+	std::cout << "GameScene::init : Game updates " << updatesPerSecond_ << " times per second " << std::endl;
+	std::cout << "GameScene::init : Frame updates " << framesPerSeconds_ << " times per second " << std::endl;
 
 	// Play sounds
-	SoundManager::getInstance().setMusicTrack("audio/GoingShopping.mp3");
+	SoundManager::getInstance().setMusicTrack("audio/WhyAreSundaysSoDepressing.mp3");
 	
 	loadMisc();
 	
 	createBaseArea();
+	createGrassArea();
 	createMarshArea();
 	createFireArea();
-	createGrassArea();
 	createHouseArea();
 	createBackdrop();
 	
@@ -58,6 +59,12 @@ void GameScene::draw() const {
 void GameScene::update() {
 	if (InputManager::getInstance().isPressed('p')) {
 		pauseFlag_ = !pauseFlag_;
+		if (pauseFlag_) {
+			SoundManager::getInstance().pauseAll();
+		}
+		else {
+			SoundManager::getInstance().unpauseAll();
+		}
 	}
 	// Example of how a scene input may change the Game class behavior
 	if (InputManager::getInstance().isPressed('n')) {
@@ -65,9 +72,6 @@ void GameScene::update() {
 	}
 	if (InputManager::getInstance().isPressed('m')) {
 		isDrawing_ = true;
-	}
-	if (InputManager::getInstance().isPressed('c')) {
-		Game::getInstance().changeScene(std::make_unique<TemplateScene>());
 	}
 }
 
@@ -783,7 +787,7 @@ void GameScene::createHouseArea() {
 		1,
 		TileIndex({ 0, 0 })
 	);
-	addRootGameObject2D(std::make_unique<ColliderSprite>(
+	addRootGameObject2D(std::make_unique<NonColliderSprite>(
 		Transform2D({
 			Vector2D({houseOrgin_.x, houseOrgin_.y - 0.4f}),
 			Vector2D({ 0.3f, 0.1f }),
@@ -812,7 +816,7 @@ void GameScene::createHouseArea() {
 			false,
 			false,
 			}),
-			"House Binder",
+			"Collider",
 			"Collider",
 			sprite
 			)
@@ -825,7 +829,7 @@ void GameScene::createHouseArea() {
 			false,
 			false,
 			}),
-			"House Binder",
+			"Collider",
 			"Collider",
 			sprite
 			)
@@ -838,7 +842,7 @@ void GameScene::createHouseArea() {
 			false,
 			false,
 			}),
-			"House Binder",
+			"Collider",
 			"Collider",
 			sprite
 			)
@@ -1004,7 +1008,7 @@ void GameScene::createBackdrop() {
 			false,
 			}),
 			"StoneShore",
-			"StoneShore",
+			"Collider",
 			sprite
 			)
 	);
@@ -1017,7 +1021,7 @@ void GameScene::createBackdrop() {
 			false,
 			}),
 			"StoneShore",
-			"StoneShore",
+			"Collider",
 			sprite
 			)
 	);
@@ -1038,7 +1042,7 @@ void GameScene::createBackdrop() {
 			false,
 			}),
 			"CliffTop",
-			"CliffTop",
+			"Collider",
 			sprite
 			)
 	);
@@ -1051,7 +1055,7 @@ void GameScene::createBackdrop() {
 			false,
 			}),
 			"CliffTop",
-			"CliffTop",
+			"Collider",
 			sprite
 			)
 	);
@@ -1064,7 +1068,7 @@ void GameScene::createBackdrop() {
 			false,
 			}),
 			"CliffTop",
-			"CliffTop",
+			"Collider",
 			sprite
 			)
 	);
@@ -1077,7 +1081,7 @@ void GameScene::createBackdrop() {
 			false,
 			}),
 			"CliffTop",
-			"CliffTop",
+			"Collider",
 			sprite
 			)
 	);
@@ -1104,7 +1108,7 @@ void GameScene::createTeleporters() {
 			false,
 			false,
 			}),
-			"Go Outside",
+			"GoOut",
 			Vector2D({ 0.0f, -0.4f }),
 			sprite
 			)
@@ -1125,7 +1129,7 @@ void GameScene::createTeleporters() {
 			false,
 			false,
 			}),
-			"Go Inside",
+			"GoIn",
 			Vector2D({ houseOrgin_.x, houseOrgin_.y - 0.4f }),
 			sprite
 			)

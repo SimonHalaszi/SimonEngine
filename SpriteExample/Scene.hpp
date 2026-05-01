@@ -110,6 +110,8 @@ class Scene {
 
 		const std::string& getSaveName() const { return saveName_; }
 
+		bool isAutoLoadingOn() const { return autoLoad_; }
+
 	protected:
 		// Scene specific functionalities handled here. GameObjects are updated AUTOMATICALLY based on per GameObject logic
 		virtual void init() {} // Scene specific init (Stuff not attached to GameObjects)
@@ -131,6 +133,8 @@ class Scene {
 
 		// File name this scenes editor save data will be written to
 		std::string saveName_;
+
+		bool autoLoad_ = false;
 };
 
 #endif // !GAME_HPP

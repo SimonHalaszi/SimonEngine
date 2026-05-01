@@ -187,6 +187,7 @@ void Player::update() {
 
 	if (health_ <= 0.0f) {
 		destroy();
+		SoundManager::getInstance().playSound2D("audio/Ouch.mp3");
 		return;
 	}
 
@@ -256,7 +257,7 @@ void Player::update() {
 }
 
 #include "Moneser.hpp"
-#include "MainMenuScene.hpp"
+#include "LoadingMainMenuScene.hpp"
 
 void Player::onCollision(CollisionObject2D& other) {
 	if (Game::getInstance().isPauseFlagged()) {
@@ -270,10 +271,11 @@ void Player::onCollision(CollisionObject2D& other) {
 	if (other.getTag() == "RestArea") {
 		if (InputManager::getInstance().isPressed('e')) {
 			health_ = 100.0f;
+			SoundManager::getInstance().playSound2D("audio/Yawn.mp3");
 		}
 		if(InputManager::getInstance().isPressed('q')) {
 			if (moves_.size() == 4) {
-				Game::getInstance().changeScene(std::make_unique<MainMenuScene>());
+				Game::getInstance().changeScene(std::make_unique<LoadingMainMenuScene>());
 			}
 		}
 
@@ -319,6 +321,7 @@ void Player::onCollision(CollisionObject2D& other) {
 						updateIconDisplay();
 					}
 					moneser->destroy();
+					SoundManager::getInstance().playSound2D("audio/LetsGo.mp3");
 				}
 			}
 		}
@@ -331,6 +334,7 @@ void Player::onCollision(CollisionObject2D& other) {
 			if (teleporter && !teleportedAlready_) {
 				teleportedAlready_ = true;
 				localTransform_.position = teleporter->getToLocation();
+				SoundManager::getInstance().playSound2D("audio/Door.mp3");
 				updateWorldTransform();
 				// Camera doesnt get this update. So manually push it, or else desync
 				Camera* camera = getAttachedCamera();

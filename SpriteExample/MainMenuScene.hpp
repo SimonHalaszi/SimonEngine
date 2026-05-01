@@ -22,27 +22,23 @@
 #include "InputManager.hpp"
 
 // Game Objects Used
-#include "UISpriteElement.hpp"
+#include "MainMenu.hpp"
 //
 
 class MainMenuScene : public Scene {
 	public:
 		MainMenuScene();
 
-		~MainMenuScene();
+		~MainMenuScene() {}
 
 		virtual void init() override final;
 
-		virtual void draw() const override final;
+		virtual void draw() const override final {}
 
-		virtual void update() override final;
+		virtual void update() override final {}
+
 	private:
-		void createMenus();
-		UISpriteElement* getMenuElement();
-
-		const Sprite* mainMenu_;
-		const Sprite* controlsMenu_;
-		const Sprite* howToMenu_;
+		void createMenu();
 };
 
 #endif

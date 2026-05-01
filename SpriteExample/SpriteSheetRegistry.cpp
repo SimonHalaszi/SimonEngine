@@ -2,7 +2,6 @@
 
 const SpriteSheet& SpriteSheetRegistry::makeSpriteSheet(std::string nameOfSpriteSheet, GLuint texID, int tilesWide, int tilesTall, TileIndex startTile, TileIndex endTile) {
 	if (spriteSheetMap_.find(nameOfSpriteSheet) != spriteSheetMap_.end()) {
-		std::cout << "SpriteSheetRegistry::makeSpriteSheet : Will not create two sprite sheets with the same name try a different name instead of " << nameOfSpriteSheet << std::endl;
 		return spriteSheetMap_.at(nameOfSpriteSheet);
 	}
 	

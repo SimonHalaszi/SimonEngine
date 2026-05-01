@@ -262,6 +262,14 @@ void TopPanel::controlsButtonAction() {
 	std::cout << "F4: Reset Scene in Scene mode" << std::endl;
 	std::cout << "F5: To delete focused GameObject" << std::endl;
 	std::cout << "-------------------------" << std::endl;
+	std::cout << "----- In Top Panel -----" << std::endl;
+	std::cout << "Menu -> Save: Save changes made in editor mode (Can not be done after entering play mode)" << std::endl;
+	std::cout << "Menu -> Load: Loads in the saved editor changes for this scene" << std::endl;
+	std::cout << "Menu -> Quit: Safely quits the program" << std::endl;
+	std::cout << "Help -> Controls: I wonder..." << std::endl;
+	std::cout << "Help -> About: What im all about" << std::endl;
+	std::cout << "Help -> Support: Support hotline" << std::endl;
+	std::cout << "------------------------" << std::endl;
 	std::cout << "----- While Hovering Over Scene View -----" << std::endl;
 	std::cout << "Scroll to zoom" << std::endl;
 	std::cout << "Arrow keys to move" << std::endl;

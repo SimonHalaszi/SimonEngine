@@ -15,7 +15,7 @@ MainMenu::MainMenu(
 	sprite_ = main_;
 }
 
-#include "LoadingGameScene.hpp"
+#include "GameScene.hpp"
 
 void MainMenu::update() {
 	// Example of how a scene input may change the Game class behavior
@@ -41,7 +41,7 @@ void MainMenu::update() {
 				changeSprite(main_);
 		}
 		else {
-			Game::getInstance().changeScene(std::make_unique<LoadingGameScene>());
+			Game::getInstance().changeScene(std::make_unique<GameScene>());
 		}
 	}
 }

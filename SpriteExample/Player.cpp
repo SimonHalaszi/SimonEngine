@@ -257,7 +257,7 @@ void Player::update() {
 }
 
 #include "Moneser.hpp"
-#include "LoadingMainMenuScene.hpp"
+#include "MainMenuScene.hpp"
 
 void Player::onCollision(CollisionObject2D& other) {
 	if (Game::getInstance().isPauseFlagged()) {
@@ -275,7 +275,7 @@ void Player::onCollision(CollisionObject2D& other) {
 		}
 		if(InputManager::getInstance().isPressed('q')) {
 			if (moves_.size() == 4) {
-				Game::getInstance().changeScene(std::make_unique<LoadingMainMenuScene>());
+				Game::getInstance().changeScene(std::make_unique<MainMenuScene>());
 			}
 		}
 

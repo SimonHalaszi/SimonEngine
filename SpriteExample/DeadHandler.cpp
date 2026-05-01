@@ -1,7 +1,7 @@
 #include "DeadHandler.hpp"
 
-#include "LoadingGameScene.hpp"
-#include "LoadingMainMenuScene.hpp"
+#include "GameScene.hpp"
+#include "MainMenuScene.hpp"
 
 void DeadHandler::update() {
 	if (Game::getInstance().isPauseFlagged()) {
@@ -9,9 +9,9 @@ void DeadHandler::update() {
 	}
 
 	if (InputManager::getInstance().isPressed('q')) {
-		Game::getInstance().changeScene(std::make_unique<LoadingMainMenuScene>());
+		Game::getInstance().changeScene(std::make_unique<MainMenuScene>());
 	}
 	if (InputManager::getInstance().isPressed('r')) {
-		Game::getInstance().changeScene(std::make_unique<LoadingGameScene>());
+		Game::getInstance().changeScene(std::make_unique<GameScene>());
 	}
 }

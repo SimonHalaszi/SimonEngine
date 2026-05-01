@@ -26,10 +26,10 @@ void TemplateScene::init() {
 	// Make it so GameObjects get passed the assets
 	texID = TextureRegistry::getInstance().loadTexture("image/Title.png");
 	const Sprite* sprite = &SpriteRegistry::getInstance().makeSprite(
-		"Title", 
-		texID, 
-		1, 
-		1, 
+		"Title",
+		texID,
+		1,
+		1,
 		{ 0, 0 }
 	);
 	addRootGameObject2D(std::make_unique<NonColliderSprite>(

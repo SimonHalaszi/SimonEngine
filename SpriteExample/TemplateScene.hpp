@@ -26,16 +26,16 @@
 //
 
 class TemplateScene : public Scene {
-	public:
-		TemplateScene();
+public:
+	TemplateScene();
 
-		~TemplateScene();
+	~TemplateScene();
 
-		virtual void init() override final;
+	virtual void init() override final;
 
-		virtual void draw() const override final;
+	virtual void draw() const override final;
 
-		virtual void update() override final;
+	virtual void update() override final;
 };
 
 #endif

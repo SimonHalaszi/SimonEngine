@@ -12,11 +12,13 @@ A lightweight 2D game engine and editor built with C++, OpenGL, freeglut, irrKla
 - Complete game object hierarchy architecture similar to Unity
   - Sub hierarchies for AABB collision objects and UI objects
 - Scalable editor factories for adding your assets and scenes into the editor for editing
+
+## How Do I Make A Game?
  
-- The engine is also shipped with a fully complete game "Moneser"
+- SimonEngine is also shipped with a fully complete mini-game called "Moneser"
   - "Moneser" and its associated GameObjects and Scenes are perfect examples for how to use SimonEngine! Give the source code a look.
 
-## Used Technology
+## Used Technologies
 
 - C++
 - OpenGL + freeglut

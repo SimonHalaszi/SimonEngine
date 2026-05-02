@@ -13,13 +13,13 @@
 
 // Returns the save file path, they use the .editoractions format
 std::string saveFilePath(const std::string& fileName) {
-	return std::string("./EditorSaves") + "/" + fileName + ".editoractions";
+	return std::string("./editorSaves") + "/" + fileName + ".editoractions";
 }
 
 // Makes sure a save directory exist, or creates it
 bool ensureSaveDirectory() {
 	errno = 0;
-	const char* editorSavesDirectory = "./EditorSaves";
+	const char* editorSavesDirectory = "./editorSaves";
 	const int result = _mkdir(editorSavesDirectory);
 	return result == 0 || errno == EEXIST;
 }

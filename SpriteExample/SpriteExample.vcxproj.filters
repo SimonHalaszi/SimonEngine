@@ -100,12 +100,6 @@
     <Filter Include="Source Files\Scenes">
       <UniqueIdentifier>{cfc2f24e-110c-499e-8ce0-ee54f61aa335}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Editor\EditorFactories">
-      <UniqueIdentifier>{0530015e-f286-4a46-9ae7-eaff45dbd187}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Editor\EditorFactories">
-      <UniqueIdentifier>{367c447b-9ba7-4c99-b46a-3062f84499ee}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\GameObjects">
       <UniqueIdentifier>{34e1750b-2c59-421a-ad02-f60c1e37230c}</UniqueIdentifier>
     </Filter>
@@ -120,6 +114,12 @@
     </Filter>
     <Filter Include="Source Files\GameObjects\GameUtilities">
       <UniqueIdentifier>{df70bb30-2173-4f2f-bdd0-1ae52d88572d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\EditorFactories">
+      <UniqueIdentifier>{0530015e-f286-4a46-9ae7-eaff45dbd187}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\EditorFactories">
+      <UniqueIdentifier>{367c447b-9ba7-4c99-b46a-3062f84499ee}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -217,10 +217,10 @@
       <Filter>Source Files\Scenes</Filter>
     </ClCompile>
     <ClCompile Include="SceneFactory.cpp">
-      <Filter>Source Files\Editor\EditorFactories</Filter>
+      <Filter>Source Files\EditorFactories</Filter>
     </ClCompile>
     <ClCompile Include="AssetFactory.cpp">
-      <Filter>Source Files\Editor\EditorFactories</Filter>
+      <Filter>Source Files\EditorFactories</Filter>
     </ClCompile>
     <ClCompile Include="GameScene.cpp">
       <Filter>Source Files\Scenes</Filter>
@@ -372,7 +372,7 @@
       <Filter>Header Files\Scenes</Filter>
     </ClInclude>
     <ClInclude Include="AssetFactory.hpp">
-      <Filter>Header Files\Editor\EditorFactories</Filter>
+      <Filter>Header Files\EditorFactories</Filter>
     </ClInclude>
     <ClInclude Include="shader.h">
       <Filter>Resource Files</Filter>
@@ -420,7 +420,7 @@
       <Filter>Header Files\GameObjects</Filter>
     </ClInclude>
     <ClInclude Include="Player.hpp">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\GameObjects</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -428,7 +428,7 @@
       <Filter>Header Files\Editor</Filter>
     </None>
     <None Include="SceneFactory.hpp">
-      <Filter>Header Files\Editor\EditorFactories</Filter>
+      <Filter>Header Files\EditorFactories</Filter>
     </None>
   </ItemGroup>
 </Project>

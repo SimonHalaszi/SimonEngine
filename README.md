@@ -4,13 +4,33 @@ A lightweight 2D game engine and editor built with C++, OpenGL, freeglut, irrKla
 
 ## Features
 
+- Game architecture
+  - Handles scene and editor
+  - Used for querying/modifying scene and editor
 - Scene architecture
+  - Initialization and Deintialization
+  - Game object updates
+  - Game object drawing
+  - Update, drawing, and animation timers
+  - And more utilities
 - Runtime editor for constructring scenes
+  - Save/Load
+  - Help
+  - Hierarchy
+  - Inspector
+  - Asset Panel
+  - Scene Panel
+  - Scene View
 - Asset registries
-- Managers for input, collision, and sound
+  - Textures
+  - Sprites
+  - Sprite sheets
+- Managers for input, and sound
+  - Input support via OpenGL and freeglut
   - Audio support via irrKlang
 - Complete game object hierarchy architecture similar to Unity
   - Sub hierarchies for AABB collision objects and UI objects
+  - onStart, update, draw, onDestruction, and establishFields functionality
 - Scalable editor factories for adding your assets and scenes into the editor for editing, and for calling in your game objects
 
 ## How Do I Make A Game?

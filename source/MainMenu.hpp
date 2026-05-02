@@ -10,6 +10,7 @@
 #include "SpriteRegistry.hpp"
 #include "DrawFunctions.hpp"
 #include "Game.hpp"
+#include "SceneFactory.hpp"
 
 class MainMenu : public UISpriteElement {
 	public:

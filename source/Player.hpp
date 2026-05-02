@@ -7,7 +7,7 @@
 #include "CollisionObject2D.hpp"
 
 #include "Game.hpp"
-#include "Scene.hpp"
+#include "SceneFactory.hpp"
 #include "Sprite.hpp"
 #include "SpriteRegistry.hpp"
 #include "DrawFunctions.hpp"

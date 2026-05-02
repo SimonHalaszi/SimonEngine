@@ -5,6 +5,7 @@
 
 #include "Game.hpp"
 #include "InputManager.hpp"
+#include "SceneFactory.hpp"
 
 class DeadHandler : public GameObject2D {
 public:

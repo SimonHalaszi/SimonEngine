@@ -15,8 +15,6 @@ MainMenu::MainMenu(
 	sprite_ = main_;
 }
 
-#include "GameScene.hpp"
-
 void MainMenu::update() {
 	// Example of how a scene input may change the Game class behavior
 	if (InputManager::getInstance().isPressed('c')) {
@@ -41,7 +39,7 @@ void MainMenu::update() {
 				changeSprite(main_);
 		}
 		else {
-			Game::getInstance().changeScene(std::make_unique<GameScene>());
+			Game::getInstance().changeScene(SceneFactory::getInstance().createScene("GameScene"));
 		}
 	}
 }

@@ -1,17 +1,14 @@
 #include "DeadHandler.hpp"
 
-#include "GameScene.hpp"
-#include "MainMenuScene.hpp"
-
 void DeadHandler::update() {
 	if (Game::getInstance().isPauseFlagged()) {
 		return;
 	}
 
 	if (InputManager::getInstance().isPressed('q')) {
-		Game::getInstance().changeScene(std::make_unique<MainMenuScene>());
+		Game::getInstance().changeScene(SceneFactory::getInstance().createScene("MainMenuScene"));
 	}
 	if (InputManager::getInstance().isPressed('r')) {
-		Game::getInstance().changeScene(std::make_unique<GameScene>());
+		Game::getInstance().changeScene(SceneFactory::getInstance().createScene("GameScene"));
 	}
 }

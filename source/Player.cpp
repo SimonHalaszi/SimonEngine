@@ -1,5 +1,4 @@
 #include "Player.hpp"
-#include <cmath>
 
 Player::Player(
 	const Transform2D& localTransform,
@@ -257,7 +256,7 @@ void Player::update() {
 }
 
 #include "Moneser.hpp"
-#include "MainMenuScene.hpp"
+#include <cmath>
 
 void Player::onCollision(CollisionObject2D& other) {
 	if (Game::getInstance().isPauseFlagged()) {
@@ -275,7 +274,7 @@ void Player::onCollision(CollisionObject2D& other) {
 		}
 		if(InputManager::getInstance().isPressed('q')) {
 			if (moves_.size() == 4) {
-				Game::getInstance().changeScene(std::make_unique<MainMenuScene>());
+				Game::getInstance().changeScene(SceneFactory::getInstance().createScene("MainMenuScene"));
 			}
 		}
 

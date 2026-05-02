@@ -152,7 +152,7 @@ void Game::init() {
 	glutInitWindowSize(ENGINE_WIN_W, ENGINE_WIN_H); // window size
 	glutInitWindowPosition(ENGINE_WIN_X, ENGINE_WIN_Y);
 
-	glutCreateWindow("(Simon Halaszi) (811196947)");
+	glutCreateWindow("SimonEngine     |     Alpha: 1.0");
 	
 	glClearColor(0.0, 0.0, 0.0, 1.0); // clear the window screen
 	glMatrixMode(GL_PROJECTION);
@@ -169,10 +169,7 @@ void Game::init() {
 	glutMotionFunc(INPUTMANAGERmouseMove);
 	glutPassiveMotionFunc(INPUTMANAGERpassiveMouseMove);
 
-	if (!currentScene_) {
-		// THIS IS THE INITIAL SCENE
-		currentScene_ = SceneFactory::getInstance().defaultScene();
-	}
+	currentScene_ = SceneFactory::getInstance().defaultScene();
 
 	if (currentScene_) {
 		currentScene_->sceneInit();

@@ -11,7 +11,7 @@ A lightweight 2D game engine and editor built with C++, OpenGL, freeglut, irrKla
   - Audio support via irrKlang
 - Complete game object hierarchy architecture similar to Unity
   - Sub hierarchies for AABB collision objects and UI objects
-- Scalable editor factories for adding your assets and scenes into the editor for editing
+- Scalable editor factories for adding your assets and scenes into the editor for editing, and for calling in your game objects
 
 ## How Do I Make A Game?
  

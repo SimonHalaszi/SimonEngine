@@ -65,3 +65,7 @@ A lightweight 2D game engine and editor built with C++, OpenGL, freeglut, irrKla
 - `source/editorSaves/`: editor save data
 - `source/include/`, `source/lib/`: local third-party headers/libs
 
+## Screenshot
+
+<img width="1518" height="884" alt="image" src="https://github.com/user-attachments/assets/4554bfa1-b937-4dfd-9ebb-d7ca45bc5b11" />
+

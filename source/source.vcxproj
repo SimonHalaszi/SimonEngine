@@ -50,7 +50,7 @@
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
-    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <WholeProgramOptimization>false</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
@@ -72,7 +72,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <LinkIncremental>true</LinkIncremental>
+    <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -156,10 +156,7 @@
     <ClCompile Include="PauseDisplay.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="SceneButton.cpp" />
-    <ClCompile Include="EditorSaveLoad.cpp">
-      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|x64'">./include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <SupportJustMyCode Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</SupportJustMyCode>
-    </ClCompile>
+    <ClCompile Include="EditorSaveLoad.cpp" />
     <ClCompile Include="SceneFactory.cpp" />
     <ClCompile Include="ScenePanel.cpp" />
     <ClCompile Include="Teleporter.cpp" />

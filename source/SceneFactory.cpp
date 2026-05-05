@@ -27,5 +27,6 @@ std::unique_ptr<Scene> SceneFactory::createScene(std::string option) {
 	if (option == "MainMenuScene") {
 		return std::make_unique<MainMenuScene>();
 	}
+	std::cout << "SceneFactory::createScene : That scene name is not supported" << std::endl;
 	return nullptr;
 }
